@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://idisfkj.github.io/2018/08/19/ViewDragHelper之手势操作神器/view_drag_helper.gif">
 <meta property="og:image" content="https://idisfkj.github.io/2018/08/19/ViewDragHelper之手势操作神器/view_drag_helper_real.gif">
 <meta property="og:image" content="https://idisfkj.github.io/2018/08/19/ViewDragHelper之手势操作神器/wx.jpg">
-<meta property="og:updated_time" content="2018-08-22T15:11:14.681Z">
+<meta property="og:updated_time" content="2018-08-23T13:59:49.605Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ViewDragHelper之手势操作神器">
 <meta name="twitter:description" content="&amp;#x5728;Android&amp;#x4E2D;&amp;#x907F;&amp;#x514D;&amp;#x4E0D;&amp;#x4E86;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;ViewGroup&amp;#xFF0C;&amp;#x6765;&amp;#x5B9E;&amp;#x73B0;&amp;#x6211;&amp;#x4EEC;&amp;#x539F;&amp;#x751F;&amp;#x63A7;&amp;#x4EF6;&amp;#x6240;&amp;#x4E0D;&amp;#x80FD;&amp;#x6EE1">
@@ -189,7 +189,7 @@
 
 
   <div id="toc" class="toc-article">
-    <strong class="toc-title">Posts List</strong>
+    <strong class="toc-title">文章目录</strong>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Purpose"><span class="toc-text">Purpose</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#use"><span class="toc-text">use</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Demo"><span class="toc-text">Demo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tryCaptureView"><span class="toc-text">tryCaptureView</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#clampViewPositionHorizontal"><span class="toc-text">clampViewPositionHorizontal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#clampViewPositionVertical"><span class="toc-text">clampViewPositionVertical</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onViewReleased"><span class="toc-text">onViewReleased</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#finally"><span class="toc-text">finally</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关注"><span class="toc-text">关注</span></a></li></ol>
   </div>
 
@@ -293,7 +293,7 @@
 </blockquote>
 <p>&#x4ECE;&#x5934;&#x5230;&#x5C3E;&#x53EA;&#x4F7F;&#x7528;&#x4E86;ViewDragHelper.Callback&#x4E2D;&#x7684;&#x56DB;&#x4E2A;&#x56DE;&#x8C03;&#x65B9;&#x6CD5;&#xFF0C;&#x5C31;&#x5B9E;&#x73B0;&#x4E86;demo&#x4E2D;&#x7684;&#x62D6;&#x62FD;&#x6548;&#x679C;&#x3002;&#x76F8;&#x5BF9;&#x4E8E;&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#xFF0C;&#x7B80;&#x5355;&#x7A0B;&#x5EA6;&#x4E0D;&#x8A00;&#x800C;&#x55BB;&#x3002;&#x6240;&#x4EE5;&#x719F;&#x7EC3;&#x4F7F;&#x7528;ViewDragHelper&#x4E0D;&#x4EC5;&#x80FD;&#x63D0;&#x9AD8;&#x6211;&#x4EEC;&#x7684;&#x5B9E;&#x73B0;&#x6548;&#x7387;&#x4E0E;&#x4EE3;&#x7801;&#x8D28;&#x91CF;&#x8FD8;&#x80FD;&#x51CF;&#x5C11;&#x51FA;&#x9519;&#x7387;&#x3002;</p>
 <p>&#x5BF9;&#x4E8E;&#x5176;&#x5B83;&#x7684;Api&#x90FD;&#x662F;&#x4E9B;&#x72B6;&#x6001;&#x6539;&#x53D8;&#x7684;&#x56DE;&#x8C03;&#xFF0C;&#x5728;&#x5B9E;&#x9645;&#x4E2D;&#x4E5F;&#x7528;&#x7684;&#x5C11;&#xFF0C;&#x624B;&#x52BF;&#x7684;&#x64CD;&#x4F5C;&#x903B;&#x8F91;&#x90FD;&#x4E0D;&#x4F1A;&#x5728;&#x8FD9;&#x4E9B;Api&#x4E2D;&#x5B9E;&#x73B0;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x5C31;&#x4E0D;&#x591A;&#x4ECB;&#x7ECD;&#x3002;&#x4E0A;&#x9762;&#x7684;demo view&#x62D6;&#x62FD;&#x8D85;&#x51FA;&#x8FB9;&#x754C;&#xFF0C;&#x5982;&#x679C;&#x8981;&#x56FA;&#x5B9A;&#x8FB9;&#x754C;&#xFF0C;&#x53EA;&#x9700;&#x5728;clampViewPositionHorizontal&#x4E0E;clampViewPositionVertical&#x4E2D;&#x8FB9;&#x754C;&#x5224;&#x65AD;&#x5373;&#x53EF;&#xFF0C;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x7559;&#x7ED9;&#x8BFB;&#x8005;&#x601D;&#x8003;&#x3002;</p>
-<p>&#x4E0B;&#x9762;&#x6709;&#x4E00;&#x4E2A;&#x6CE8;&#x610F;&#x7684;&#x70B9;&#xFF1A;&#x5982;&#x679C;&#x4F7F;&#x7528;Button&#x6216;&#x8005;TextView&#x8BBE;&#x7F6E;&#x4E86;clickable=true&#xFF0C;&#x4F60;&#x4F1A;&#x53D1;&#x73B0;&#x4E0A;&#x9762;&#x7684;Demo&#x4E2D;&#x7684;view&#x4E0D;&#x80FD;&#x64CD;&#x4F5C;&#x4E86;&#x3002;&#x4E3B;&#x8981;&#x539F;&#x56E0;&#x662F;&#xFF0C;&#x5982;&#x679C;view&#x4E0D;&#x6D88;&#x8D39;&#x89E6;&#x6478;&#x4E8B;&#x4EF6;&#xFF0C;&#x5219;&#x89E6;&#x6478;&#x4E8B;&#x4EF6;&#x5C06;&#x76F4;&#x63A5;&#x8FDB;&#x5165;<code>onTouchEvent</code>&#xFF0C;&#x5728;Down&#x4E8B;&#x4EF6;&#x4E2D;&#x5C31;&#x5DF2;&#x7ECF;&#x786E;&#x5B9A;&#x4E86;&#x6355;&#x83B7;&#x7684;view&#xFF1B;&#x5982;&#x679C;&#x6D88;&#x8D39;&#x4E8B;&#x4EF6;&#xFF0C;&#x4F1A;&#x8FDB;&#x5165;<code>onInterceptTouchEvent</code>&#x5224;&#x65AD;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x6355;&#x83B7;&#xFF0C;&#x800C;&#x5224;&#x65AD;&#x7684;&#x8FC7;&#x7A0B;&#x56DE;&#x53BB;&#x8C03;&#x7528;<code>getViewHorizontalDragRange</code>&#x4E0E;<code>getViewVerticalDragRange</code>&#xFF0C;&#x53EA;&#x6709;&#x8FD9;&#x4E24;&#x4E2A;&#x56DE;&#x8C03;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x5927;&#x4E8E;0&#x7684;&#x503C;&#x624D;&#x80FD;&#x88AB;&#x6355;&#x83B7;&#x3002;&#x6240;&#x4EE5;&#x8981;&#x89E3;&#x51B3;&#x62D6;&#x62FD;&#x4E0D;&#x52A8;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x53EA;&#x9700;&#x91CD;&#x5199;&#x8FD9;&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x6709;&#x4E00;&#x4E2A;&#x6CE8;&#x610F;&#x7684;&#x70B9;&#xFF1A;&#x5982;&#x679C;&#x4F7F;&#x7528;Button&#x6216;&#x8005;TextView&#x8BBE;&#x7F6E;&#x4E86;clickable=true&#xFF0C;&#x4F60;&#x4F1A;&#x53D1;&#x73B0;&#x4E0A;&#x9762;&#x7684;Demo&#x4E2D;&#x7684;view&#x4E0D;&#x80FD;&#x64CD;&#x4F5C;&#x4E86;&#x3002;&#x4E3B;&#x8981;&#x539F;&#x56E0;&#x662F;&#xFF0C;&#x5982;&#x679C;view&#x4E0D;&#x6D88;&#x8D39;&#x89E6;&#x6478;&#x4E8B;&#x4EF6;&#xFF0C;&#x5219;&#x89E6;&#x6478;&#x4E8B;&#x4EF6;&#x5C06;&#x76F4;&#x63A5;&#x8FDB;&#x5165;<code>onTouchEvent</code>&#xFF0C;&#x5728;Down&#x4E8B;&#x4EF6;&#x4E2D;&#x5C31;&#x5DF2;&#x7ECF;&#x786E;&#x5B9A;&#x4E86;&#x6355;&#x83B7;&#x7684;view&#xFF1B;&#x5982;&#x679C;&#x6D88;&#x8D39;&#x4E8B;&#x4EF6;&#xFF0C;&#x4F1A;&#x8FDB;&#x5165;<code>onInterceptTouchEvent</code>&#x5224;&#x65AD;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x6355;&#x83B7;&#xFF0C;&#x800C;&#x5224;&#x65AD;&#x7684;&#x8FC7;&#x7A0B;&#x4F1A;&#x53BB;&#x8C03;&#x7528;<code>getViewHorizontalDragRange</code>&#x4E0E;<code>getViewVerticalDragRange</code>&#xFF0C;&#x53EA;&#x6709;&#x8FD9;&#x4E24;&#x4E2A;&#x56DE;&#x8C03;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x5927;&#x4E8E;0&#x7684;&#x503C;&#x624D;&#x80FD;&#x88AB;&#x6355;&#x83B7;&#x3002;&#x6240;&#x4EE5;&#x8981;&#x89E3;&#x51B3;&#x62D6;&#x62FD;&#x4E0D;&#x52A8;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x53EA;&#x9700;&#x91CD;&#x5199;&#x8FD9;&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#x3002;</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">override fun getViewHorizontalDragRange(child: View?): Int {</div><div class="line">    return measuredWidth - (child?.measuredWidth?:0)</div><div class="line">}</div><div class="line"> </div><div class="line">override fun getViewVerticalDragRange(child: View?): Int {</div><div class="line">    return measuredHeight - (child?.measuredHeight?:0)</div><div class="line">}</div></pre></td></tr></table></figure>
 <h2 id="finally"><a href="#finally" class="headerlink" title="finally"></a>finally</h2><p>ok&#xFF0C;&#x5230;&#x8FD9;&#x91CC;ViewDragHelper&#x5DF2;&#x7ECF;&#x5B8C;&#x5168;&#x5165;&#x95E8;&#x4E86;&#xFF0C;&#x5E76;&#x4E14;&#x5173;&#x952E;&#x7684;Api&#x4E5F;&#x5DF2;&#x7ECF;&#x4E86;&#x7136;&#x4E8E;&#x80F8;&#x3002;&#x4E0B;&#x9762;&#x662F;&#x5B9E;&#x9645;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;ViewDragHelper&#x7684;&#x6548;&#x679C;&#x56FE;&#xFF0C;&#x4E0E;&#x997F;&#x4E86;&#x4E48;&#x7684;&#x5546;&#x54C1;&#x8BE6;&#x60C5;&#x754C;&#x9762;&#x6548;&#x679C;&#x7C7B;&#x4F3C;&#x3002;</p>
 <p><img src="/2018/08/19/ViewDragHelper&#x4E4B;&#x624B;&#x52BF;&#x64CD;&#x4F5C;&#x795E;&#x5668;/view_drag_helper_real.gif" alt=""></p>
@@ -334,7 +334,7 @@
     <a class="show pull-left" href="/2018/07/11/自定义Android注解Part3-绑定/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="hide pull-right" href="/">
+    <a class="show pull-right" href="/2018/08/23/5分钟吃透React-Native-Flexbox/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
@@ -356,7 +356,7 @@
   <span id="cover" class="cover hide"></span>
   <div id="modal-dialog" class="modal-dialog hide-dialog">
     <div class="modal-header">
-      <span id="close" class="btn-close">Close</span>
+      <span id="close" class="btn-close">关闭</span>
     </div>
     <hr>
     <div class="modal-body">
