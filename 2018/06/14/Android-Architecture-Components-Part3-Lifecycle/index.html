@@ -18,17 +18,17 @@
   <meta name="description" content="&amp;#x4E0A;&amp;#x671F;&amp;#x6587;&amp;#x7AE0;&amp;#x6211;&amp;#x4EEC;&amp;#x8BB2;&amp;#x89E3;&amp;#x4E86;LiveData&amp;#xFF0C;&amp;#x77E5;&amp;#x9053;&amp;#x5B83;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x53EF;&amp;#x89C2;&amp;#x5BDF;&amp;#x5BB9;&amp;#x5668;&amp;#x540C;&amp;#x65F6;&amp;#x5177">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android Architecture Components Part3:Lifecycle">
-<meta property="og:url" content="www.rousetime.com/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/index.html">
+<meta property="og:url" content="http://www.rousetime.com/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/index.html">
 <meta property="og:site_name" content="Idisfkj">
 <meta property="og:description" content="&amp;#x4E0A;&amp;#x671F;&amp;#x6587;&amp;#x7AE0;&amp;#x6211;&amp;#x4EEC;&amp;#x8BB2;&amp;#x89E3;&amp;#x4E86;LiveData&amp;#xFF0C;&amp;#x77E5;&amp;#x9053;&amp;#x5B83;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x53EF;&amp;#x89C2;&amp;#x5BDF;&amp;#x5BB9;&amp;#x5668;&amp;#x540C;&amp;#x65F6;&amp;#x5177">
-<meta property="og:image" content="www.rousetime.com/14/Android-Architecture-Components-Part3-Lifecycle/cover.png">
-<meta property="og:image" content="www.rousetime.com/14/Android-Architecture-Components-Part3-Lifecycle/lifecycle.png">
-<meta property="og:image" content="www.rousetime.com/14/Android-Architecture-Components-Part3-Lifecycle/wx.jpg">
+<meta property="og:image" content="http://www.rousetime.com/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/cover.png">
+<meta property="og:image" content="http://www.rousetime.com/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/lifecycle.png">
+<meta property="og:image" content="http://www.rousetime.com/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/wx.jpg">
 <meta property="og:updated_time" content="2018-06-23T14:31:08.921Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Architecture Components Part3:Lifecycle">
 <meta name="twitter:description" content="&amp;#x4E0A;&amp;#x671F;&amp;#x6587;&amp;#x7AE0;&amp;#x6211;&amp;#x4EEC;&amp;#x8BB2;&amp;#x89E3;&amp;#x4E86;LiveData&amp;#xFF0C;&amp;#x77E5;&amp;#x9053;&amp;#x5B83;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x53EF;&amp;#x89C2;&amp;#x5BDF;&amp;#x5BB9;&amp;#x5668;&amp;#x540C;&amp;#x65F6;&amp;#x5177">
-<meta name="twitter:image" content="www.rousetime.com/14/Android-Architecture-Components-Part3-Lifecycle/cover.png">
+<meta name="twitter:image" content="http://www.rousetime.com/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/cover.png">
 
   
 
@@ -237,7 +237,7 @@
 
   <div class="article-content">
     
-      <p><img src="/14/Android-Architecture-Components-Part3-Lifecycle/cover.png" alt=""></p>
+      <p><img src="/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/cover.png" alt=""></p>
 <p>&#x4E0A;&#x671F;&#x6587;&#x7AE0;&#x6211;&#x4EEC;&#x8BB2;&#x89E3;&#x4E86;LiveData&#xFF0C;&#x77E5;&#x9053;&#x5B83;&#x662F;&#x4E00;&#x4E2A;&#x53EF;&#x89C2;&#x5BDF;&#x5BB9;&#x5668;&#x540C;&#x65F6;&#x5177;&#x5907;&#x751F;&#x547D;&#x611F;&#x77E5;&#x80FD;&#x529B;&#x3002;&#x90A3;&#x4E48;&#x5B83;&#x7684;&#x751F;&#x547D;&#x611F;&#x77E5;&#x80FD;&#x529B;&#x53C8;&#x662F;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x5462;&#xFF1F;&#x5728;&#x4F7F;&#x7528;LiveData&#x8FDB;&#x884C;&#x6CE8;&#x518C;observer&#x65F6;&#xFF0C;&#x662F;&#x5426;&#x8BB0;&#x5F97;&#x5176;&#x4E2D;&#x7684;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#x3002;&#x5176;&#x4E00;&#x662F;Observer&#x7684;&#x56DE;&#x8C03;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x5C31;&#x662F;LifecycleOwner&#x3002;&#x5B83;&#x5C31;&#x5C5E;&#x4E8E;Lifecycle&#x4E2D;&#x7684;&#x4E00;&#x90E8;&#x5206;&#x3002;</p>
 <p>Activity/Fragment&#x5C31;&#x662F;&#x5177;&#x6709;&#x751F;&#x547D;&#x72B6;&#x6001;&#x7684;&#x7EC4;&#x4EF6;&#xFF0C;&#x800C;&#x4E14;&#x4ED6;&#x4EEC;&#x7684;&#x751F;&#x547D;&#x72B6;&#x6001;&#x90FD;&#x662F;&#x7531;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x6216;&#x8005;framework&#x6765;&#x63A7;&#x5236;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5728;App&#x4E2D;&#x662F;&#x5F88;&#x96BE;&#x6765;&#x901A;&#x8FC7;&#x4EE3;&#x7801;&#x6765;&#x7BA1;&#x7406;&#x4ED6;&#x4EEC;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x3002;&#x5982;&#x679C;&#x4E0D;&#x9075;&#x5FAA;&#x4ED6;&#x4EEC;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x5C06;&#x4F1A;&#x5F88;&#x5BB9;&#x6613;&#x5BFC;&#x81F4;&#x5185;&#x5B58;&#x6CC4;&#x9732;&#x95EE;&#x9898;&#x3002;&#x6240;&#x4EE5;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x80FD;&#x591F;&#x5B9E;&#x73B0;&#x751F;&#x547D;&#x611F;&#x77E5;&#x80FD;&#x529B;&#x7684;&#x8BDD;&#xFF0C;&#x5C06;&#x4F1A;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x66F4;&#x597D;&#x7684;&#x7BA1;&#x7406;&#x4E0E;&#x751F;&#x547D;&#x5468;&#x671F;&#x6709;&#x5173;&#x7684;&#x903B;&#x8F91;&#xFF0C;&#x800C;Lifecycle&#x5C31;&#x662F;&#x8FD9;&#x6837;&#x4E00;&#x4E2A;&#x7EC4;&#x4EF6;&#x3002;</p>
 <h2 id="Lifecycle"><a href="#Lifecycle" class="headerlink" title="Lifecycle"></a>Lifecycle</h2><p>Lifecycle&#x53EF;&#x4EE5;&#x4E3A;&#x754C;&#x9762;/&#x975E;&#x754C;&#x9762;&#x7EC4;&#x4EF6;&#x6DFB;&#x52A0;&#x751F;&#x547D;&#x5468;&#x671F;&#x72B6;&#x6001;&#x611F;&#x77E5;&#xFF0C;&#x5141;&#x8BB8;&#x89C2;&#x5BDF;&#x8005;&#x53BB;&#x76D1;&#x542C;&#x8FD9;&#x4E9B;&#x751F;&#x547D;&#x72B6;&#x6001;&#x3002;Lifecycle&#x4E3B;&#x8981;&#x901A;&#x8FC7;&#x4E24;&#x4E2A;&#x679A;&#x4E3E;&#x6765;&#x8FFD;&#x8E2A;&#x751F;&#x547D;&#x72B6;&#x6001;&#x3002;</p>
@@ -246,7 +246,7 @@
 <li>State&#xFF1A;&#x4EE3;&#x8868;&#x5F53;&#x524D;&#x8FFD;&#x8E2A;&#x7684;&#x7EC4;&#x4EF6;&#x6240;&#x5904;&#x7684;&#x751F;&#x547D;&#x72B6;&#x6001;&#x3002;</li>
 </ol>
 <p>Event&#x4E0E;State&#x7684;&#x8054;&#x7CFB;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4E0B;&#x9762;&#x7684;&#x56FE;&#x6765;&#x8FDB;&#x4E00;&#x6B65;&#x4E86;&#x89E3;&#x3002;</p>
-<p><img src="/14/Android-Architecture-Components-Part3-Lifecycle/lifecycle.png" alt=""></p>
+<p><img src="/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/lifecycle.png" alt=""></p>
 <h2 id="&#x4F9D;&#x8D56;"><a href="#&#x4F9D;&#x8D56;" class="headerlink" title="&#x4F9D;&#x8D56;"></a>&#x4F9D;&#x8D56;</h2><p>&#x5728;&#x4F7F;&#x7528;Lifecycle&#x4E4B;&#x524D;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5728;App&#x6216;&#x8005;Module&#x7684;build.gradle&#x4E2D;&#x6DFB;&#x52A0;&#x5982;&#x4E0B;&#x4EE3;&#x7801;</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">dependencies {</div><div class="line">    def lifecycle_version = &quot;1.1.1&quot;</div><div class="line"> </div><div class="line">    // ViewModel and LiveData</div><div class="line">    implementation &quot;android.arch.lifecycle:extensions:$lifecycle_version&quot;   </div><div class="line">    annotationProcessor &quot;android.arch.lifecycle:compiler:$lifecycle_version&quot;</div><div class="line">}</div></pre></td></tr></table></figure>
 <h2 id="LifecycleObserver"><a href="#LifecycleObserver" class="headerlink" title="LifecycleObserver"></a>LifecycleObserver</h2><p>LifecycleObserver&#x662F;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#xFF0C;&#x5B83;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x65B9;&#x6CD5;&#xFF0C;&#x4F5C;&#x4E3A;&#x6807;&#x5FD7;&#x4F5C;&#x7528;&#xFF0C;&#x540C;&#x65F6;&#x901A;&#x8FC7;&#x6CE8;&#x91CA;&#x6765;&#x751F;&#x6210;&#x65B9;&#x6CD5;&#x3002;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x4E0B;&#x5B83;&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;&#xFF0C;&#x9996;&#x5148;&#x6765;&#x81EA;&#x5B9A;&#x4E49;MyLifeCycleObserver</p>
@@ -285,7 +285,7 @@
 </blockquote>
 <p>&#x6700;&#x540E;&#x505A;&#x4E2A;&#x9884;&#x544A;&#xFF0C;&#x63A5;&#x4E0B;&#x6765;&#x6211;&#x4EEC;&#x8981;&#x4E86;&#x89E3;&#x7684;&#x662F;AAC&#x4E2D;&#x7684;ViewModel&#xFF0C;&#x76F8;&#x4FE1;&#x4F60;&#x4E5F;&#x4F1A;&#x9A6C;&#x4E0A;&#x559C;&#x6B22;&#x4E0A;&#x5B83;&#x3002;</p>
 <h2 id="&#x76F8;&#x5173;&#x6587;&#x7AE0;"><a href="#&#x76F8;&#x5173;&#x6587;&#x7AE0;" class="headerlink" title="&#x76F8;&#x5173;&#x6587;&#x7AE0;"></a>&#x76F8;&#x5173;&#x6587;&#x7AE0;</h2><p><a href="https://idisfkj.github.io/2018/06/07/Android-Architecture-Components-Part1-Room/" target="_blank" rel="external">Android Architecture Components Part1:Room</a><br><a href="https://idisfkj.github.io/2018/06/10/Android-Architecture-Components-Part2-LiveData/" target="_blank" rel="external">Android Architecture Components Part2:LiveData</a><br><a href="https://idisfkj.github.io/2018/06/22/Android-Architecture-Components-Part4-ViewModel/" target="_blank" rel="external">Android Architecture Components Part4:ViewModel</a></p>
-<h2 id="&#x5173;&#x6CE8;"><a href="#&#x5173;&#x6CE8;" class="headerlink" title="&#x5173;&#x6CE8;"></a>&#x5173;&#x6CE8;</h2><p><img src="/14/Android-Architecture-Components-Part3-Lifecycle/wx.jpg" alt=""></p>
+<h2 id="&#x5173;&#x6CE8;"><a href="#&#x5173;&#x6CE8;" class="headerlink" title="&#x5173;&#x6CE8;"></a>&#x5173;&#x6CE8;</h2><p><img src="/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/wx.jpg" alt=""></p>
 
     
   </div>
