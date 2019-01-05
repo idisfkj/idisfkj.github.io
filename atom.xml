@@ -4,9 +4,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://idisfkj.github.io/"/>
+  <link href="https://rousetime.com/"/>
   <updated>2019-01-03T15:24:34.348Z</updated>
-  <id>https://idisfkj.github.io/</id>
+  <id>https://rousetime.com/</id>
   
   <author>
     <name>idisfkj</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>你不该忽略的LaunchMode</title>
-    <link href="https://idisfkj.github.io/2019/01/03/%E4%BD%A0%E4%B8%8D%E8%AF%A5%E5%BF%BD%E7%95%A5%E7%9A%84LaunchMode/"/>
-    <id>https://idisfkj.github.io/2019/01/03/你不该忽略的LaunchMode/</id>
+    <link href="https://rousetime.com/2019/01/03/%E4%BD%A0%E4%B8%8D%E8%AF%A5%E5%BF%BD%E7%95%A5%E7%9A%84LaunchMode/"/>
+    <id>https://rousetime.com/2019/01/03/你不该忽略的LaunchMode/</id>
     <published>2019-01-03T13:41:50.000Z</published>
     <updated>2019-01-03T15:24:34.348Z</updated>
     
@@ -192,17 +192,17 @@
     
     </summary>
     
-      <category term="android" scheme="https://idisfkj.github.io/categories/android/"/>
+      <category term="android" scheme="https://rousetime.com/categories/android/"/>
     
     
-      <category term="interview" scheme="https://idisfkj.github.io/tags/interview/"/>
+      <category term="interview" scheme="https://rousetime.com/tags/interview/"/>
     
   </entry>
   
   <entry>
     <title>React Native Fetch封装那点事...</title>
-    <link href="https://idisfkj.github.io/2018/08/28/React-Native-Fetch%E5%B0%81%E8%A3%85%E9%82%A3%E7%82%B9%E4%BA%8B/"/>
-    <id>https://idisfkj.github.io/2018/08/28/React-Native-Fetch封装那点事/</id>
+    <link href="https://rousetime.com/2018/08/28/React-Native-Fetch%E5%B0%81%E8%A3%85%E9%82%A3%E7%82%B9%E4%BA%8B/"/>
+    <id>https://rousetime.com/2018/08/28/React-Native-Fetch封装那点事/</id>
     <published>2018-08-28T13:42:18.000Z</published>
     <updated>2018-08-29T00:09:40.437Z</updated>
     
@@ -290,17 +290,17 @@
     
     </summary>
     
-      <category term="react native" scheme="https://idisfkj.github.io/categories/react-native/"/>
+      <category term="react native" scheme="https://rousetime.com/categories/react-native/"/>
     
     
-      <category term="fetch" scheme="https://idisfkj.github.io/tags/fetch/"/>
+      <category term="fetch" scheme="https://rousetime.com/tags/fetch/"/>
     
   </entry>
   
   <entry>
     <title>5分钟吃透React Native Flexbox</title>
-    <link href="https://idisfkj.github.io/2018/08/23/5%E5%88%86%E9%92%9F%E5%90%83%E9%80%8FReact-Native-Flexbox/"/>
-    <id>https://idisfkj.github.io/2018/08/23/5分钟吃透React-Native-Flexbox/</id>
+    <link href="https://rousetime.com/2018/08/23/5%E5%88%86%E9%92%9F%E5%90%83%E9%80%8FReact-Native-Flexbox/"/>
+    <id>https://rousetime.com/2018/08/23/5分钟吃透React-Native-Flexbox/</id>
     <published>2018-08-23T15:43:13.000Z</published>
     <updated>2018-08-25T15:35:48.544Z</updated>
     
@@ -394,14 +394,14 @@
     </summary>
     
     
-      <category term="flexbox" scheme="https://idisfkj.github.io/tags/flexbox/"/>
+      <category term="flexbox" scheme="https://rousetime.com/tags/flexbox/"/>
     
   </entry>
   
   <entry>
     <title>ViewDragHelper之手势操作神器</title>
-    <link href="https://idisfkj.github.io/2018/08/19/ViewDragHelper%E4%B9%8B%E6%89%8B%E5%8A%BF%E6%93%8D%E4%BD%9C%E7%A5%9E%E5%99%A8/"/>
-    <id>https://idisfkj.github.io/2018/08/19/ViewDragHelper之手势操作神器/</id>
+    <link href="https://rousetime.com/2018/08/19/ViewDragHelper%E4%B9%8B%E6%89%8B%E5%8A%BF%E6%93%8D%E4%BD%9C%E7%A5%9E%E5%99%A8/"/>
+    <id>https://rousetime.com/2018/08/19/ViewDragHelper之手势操作神器/</id>
     <published>2018-08-19T08:06:46.000Z</published>
     <updated>2018-08-23T13:59:49.605Z</updated>
     
@@ -477,17 +477,17 @@
     
     </summary>
     
-      <category term="android" scheme="https://idisfkj.github.io/categories/android/"/>
+      <category term="android" scheme="https://rousetime.com/categories/android/"/>
     
     
-      <category term="ViewDragHelper" scheme="https://idisfkj.github.io/tags/ViewDragHelper/"/>
+      <category term="ViewDragHelper" scheme="https://rousetime.com/tags/ViewDragHelper/"/>
     
   </entry>
   
   <entry>
     <title>自定义Android注解Part3:绑定</title>
-    <link href="https://idisfkj.github.io/2018/07/11/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part3-%E7%BB%91%E5%AE%9A/"/>
-    <id>https://idisfkj.github.io/2018/07/11/自定义Android注解Part3-绑定/</id>
+    <link href="https://rousetime.com/2018/07/11/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part3-%E7%BB%91%E5%AE%9A/"/>
+    <id>https://rousetime.com/2018/07/11/自定义Android注解Part3-绑定/</id>
     <published>2018-07-11T13:15:13.000Z</published>
     <updated>2018-07-12T00:09:26.151Z</updated>
     
@@ -517,8 +517,8 @@
 &lt;p&gt;&amp;#x5B8C;&amp;#x6210;&amp;#x8FD9;&amp;#x4E24;&amp;#x6B65;&amp;#x540E;&amp;#x6211;&amp;#x4EEC;&amp;#x5728;&amp;#x91CD;&amp;#x65B0;&amp;#x6784;&amp;#x5EFA;release&amp;#x7248;&amp;#x672C;&amp;#xFF0C;&amp;#x8FD9;&amp;#x65F6;&amp;#x7A0B;&amp;#x5E8F;&amp;#x5B8C;&amp;#x7F8E;&amp;#x8FD0;&amp;#x884C;&amp;#x3002;&amp;#x7EC8;&amp;#x4E8E;&amp;#x53EF;&amp;#x4EE5;&amp;#x8F7B;&amp;#x677E;&amp;#x7684;&amp;#x4F11;&amp;#x606F;&amp;#x4F1A;&amp;#x4E86;&amp;#xFF01;&lt;/p&gt;
 &lt;h2 id=&quot;End&quot;&gt;&lt;a href=&quot;#End&quot; class=&quot;headerlink&quot; title=&quot;End&quot;&gt;&lt;/a&gt;End&lt;/h2&gt;&lt;p&gt;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;Android&amp;#x6CE8;&amp;#x89E3;&amp;#x7CFB;&amp;#x5217;&amp;#x5B8C;&amp;#x7F8E;&amp;#x6536;&amp;#x5DE5;&amp;#xFF0C;&amp;#x5E0C;&amp;#x671B;&amp;#x901A;&amp;#x8FC7;&amp;#x8FD9;&amp;#x4E09;&amp;#x90E8;&amp;#x66F2;&amp;#x80FD;&amp;#x591F;&amp;#x5E2E;&amp;#x52A9;&amp;#x5927;&amp;#x5BB6;&amp;#x5B66;&amp;#x4F1A;&amp;#x5982;&amp;#x4F55;&amp;#x5B9E;&amp;#x73B0;&amp;#x6CE8;&amp;#x89E3;&amp;#x5E93;&amp;#x3002;&amp;#x6700;&amp;#x540E;&amp;#x5E0C;&amp;#x671B;&amp;#x5927;&amp;#x5BB6;&amp;#x70B9;&amp;#x8D5E;&amp;#x652F;&amp;#x6301;&amp;#x4E00;&amp;#x4E0B;&amp;#xFF0C;&amp;#x8C22;&amp;#x8C22;&amp;#xFF01;&lt;/p&gt;
 &lt;p&gt;&amp;#x6587;&amp;#x7AE0;&amp;#x4E2D;&amp;#x7684;&amp;#x4EE3;&amp;#x7801;&amp;#x90FD;&amp;#x53EF;&amp;#x4EE5;&amp;#x5728;&lt;a href=&quot;https://github.com/idisfkj/android-api-analysis&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Github&lt;/a&gt;&amp;#x4E2D;&amp;#x83B7;&amp;#x53D6;&amp;#x5230;&amp;#x3002;&amp;#x4F7F;&amp;#x7528;&amp;#x65F6;&amp;#x8BF7;&amp;#x5C06;&amp;#x5206;&amp;#x652F;&amp;#x5207;&amp;#x6362;&amp;#x5230;&lt;strong&gt;feat_annotation_processing&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;a href=&quot;#&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;/a&gt;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/07/01/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part1-%E6%B3%A8%E8%A7%A3%E5%8F%98%E9%87%8F/&quot;&gt;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;Android&amp;#x6CE8;&amp;#x89E3;Part1:&amp;#x6CE8;&amp;#x89E3;&amp;#x53D8;&amp;#x91CF;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/07/04/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part2-%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90/&quot;&gt;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;Android&amp;#x6CE8;&amp;#x89E3;Part2:&amp;#x4EE3;&amp;#x7801;&amp;#x81EA;&amp;#x52A8;&amp;#x751F;&amp;#x6210;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;a href=&quot;#&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;/a&gt;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/07/01/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part1-%E6%B3%A8%E8%A7%A3%E5%8F%98%E9%87%8F/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;Android&amp;#x6CE8;&amp;#x89E3;Part1:&amp;#x6CE8;&amp;#x89E3;&amp;#x53D8;&amp;#x91CF;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/07/04/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part2-%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;Android&amp;#x6CE8;&amp;#x89E3;Part2:&amp;#x4EE3;&amp;#x7801;&amp;#x81EA;&amp;#x52A8;&amp;#x751F;&amp;#x6210;&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;&amp;#x5173;&amp;#x6CE8;&quot;&gt;&lt;a href=&quot;#&amp;#x5173;&amp;#x6CE8;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x5173;&amp;#x6CE8;&quot;&gt;&lt;/a&gt;&amp;#x5173;&amp;#x6CE8;&lt;/h2&gt;&lt;p&gt;&amp;#x516C;&amp;#x4F17;&amp;#x53F7;&amp;#xFF1A;&amp;#x602A;&amp;#x8C08;&amp;#x65F6;&amp;#x95F4;&amp;#x5230;&amp;#x4E86;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/2018/07/11/&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;Android&amp;#x6CE8;&amp;#x89E3;Part3-&amp;#x7ED1;&amp;#x5B9A;/wx.jpg&quot; alt=&quot;&amp;#x602A;&amp;#x8C08;&amp;#x65F6;&amp;#x95F4;&amp;#x5230;&amp;#x4E86;&quot;&gt;&lt;/p&gt;
 </content>
@@ -530,17 +530,17 @@
     
     </summary>
     
-      <category term="android" scheme="https://idisfkj.github.io/categories/android/"/>
+      <category term="android" scheme="https://rousetime.com/categories/android/"/>
     
     
-      <category term="Android Annotation Processing" scheme="https://idisfkj.github.io/tags/Android-Annotation-Processing/"/>
+      <category term="Android Annotation Processing" scheme="https://rousetime.com/tags/Android-Annotation-Processing/"/>
     
   </entry>
   
   <entry>
     <title>自定义Android注解Part2:代码自动生成</title>
-    <link href="https://idisfkj.github.io/2018/07/04/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part2-%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90/"/>
-    <id>https://idisfkj.github.io/2018/07/04/自定义Android注解Part2-代码自动生成/</id>
+    <link href="https://rousetime.com/2018/07/04/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part2-%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90/"/>
+    <id>https://rousetime.com/2018/07/04/自定义Android注解Part2-代码自动生成/</id>
     <published>2018-07-04T13:49:52.000Z</published>
     <updated>2018-07-11T15:32:44.622Z</updated>
     
@@ -625,8 +625,8 @@
 &lt;p&gt;&amp;#x8FD9;&amp;#x6837;&amp;#x6CE8;&amp;#x89E3;&amp;#x5668;&amp;#x5C31;&amp;#x4F1A;&amp;#x8C03;&amp;#x7528;&amp;#x8BE5;&amp;#x6307;&amp;#x5B9A;&amp;#x7684;Processor&amp;#x3002;&amp;#x5230;&amp;#x8FD9;&amp;#x91CC;&amp;#x6574;&amp;#x4E2A;butterknife-compiler&amp;#x5C31;&amp;#x5B8C;&amp;#x6210;&amp;#x4E86;&amp;#xFF0C;&amp;#x73B0;&amp;#x5728;&amp;#x6211;&amp;#x4EEC;&amp;#x53EF;&amp;#x4EE5;&lt;code&gt;Make Project&lt;/code&gt;&amp;#x4E00;&amp;#x4E0B;&amp;#x5DE5;&amp;#x7A0B;&amp;#xFF0C;&amp;#x5B8C;&amp;#x6210;&amp;#x4E4B;&amp;#x540E;&amp;#x5C31;&amp;#x53EF;&amp;#x4EE5;&amp;#x5168;&amp;#x5C40;&amp;#x641C;&amp;#x7D22;&amp;#x5230;MainActivity$Binding&amp;#x6587;&amp;#x4EF6;&amp;#x4E86;&amp;#x3002;&amp;#x6216;&amp;#x8005;&amp;#x5728;&amp;#x5982;&amp;#x4E0B;&amp;#x8DEF;&amp;#x5F84;&amp;#x4E2D;&amp;#x67E5;&amp;#x770B;&amp;#xFF1A;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;/app/build/generated/source/kapt/debug/com/idisfkj/androidapianalysis/MainActivity$Binding.java&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&amp;#x6587;&amp;#x7AE0;&amp;#x4E2D;&amp;#x7684;&amp;#x4EE3;&amp;#x7801;&amp;#x90FD;&amp;#x53EF;&amp;#x4EE5;&amp;#x5728;&lt;a href=&quot;https://github.com/idisfkj/android-api-analysis&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Github&lt;/a&gt;&amp;#x4E2D;&amp;#x83B7;&amp;#x53D6;&amp;#x5230;&amp;#x3002;&amp;#x4F7F;&amp;#x7528;&amp;#x65F6;&amp;#x8BF7;&amp;#x5C06;&amp;#x5206;&amp;#x652F;&amp;#x5207;&amp;#x6362;&amp;#x5230;&lt;strong&gt;feat_annotation_processing&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;a href=&quot;#&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;/a&gt;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/07/01/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part1-%E6%B3%A8%E8%A7%A3%E5%8F%98%E9%87%8F/&quot;&gt;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;Android&amp;#x6CE8;&amp;#x89E3;Part1:&amp;#x6CE8;&amp;#x89E3;&amp;#x53D8;&amp;#x91CF;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/07/11/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part3-%E7%BB%91%E5%AE%9A/&quot;&gt;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;Android&amp;#x6CE8;&amp;#x89E3;Part3:&amp;#x7ED1;&amp;#x5B9A;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;a href=&quot;#&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;/a&gt;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/07/01/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part1-%E6%B3%A8%E8%A7%A3%E5%8F%98%E9%87%8F/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;Android&amp;#x6CE8;&amp;#x89E3;Part1:&amp;#x6CE8;&amp;#x89E3;&amp;#x53D8;&amp;#x91CF;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/07/11/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part3-%E7%BB%91%E5%AE%9A/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;Android&amp;#x6CE8;&amp;#x89E3;Part3:&amp;#x7ED1;&amp;#x5B9A;&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;&amp;#x5173;&amp;#x6CE8;&quot;&gt;&lt;a href=&quot;#&amp;#x5173;&amp;#x6CE8;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x5173;&amp;#x6CE8;&quot;&gt;&lt;/a&gt;&amp;#x5173;&amp;#x6CE8;&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/2018/07/04/&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;Android&amp;#x6CE8;&amp;#x89E3;Part2-&amp;#x4EE3;&amp;#x7801;&amp;#x81EA;&amp;#x52A8;&amp;#x751F;&amp;#x6210;/wx.jpg&quot; alt=&quot;&amp;#x602A;&amp;#x8C08;&amp;#x65F6;&amp;#x95F4;&amp;#x5230;&amp;#x4E86;&quot;&gt;&lt;/p&gt;
 </content>
     
@@ -636,17 +636,17 @@
     
     </summary>
     
-      <category term="android" scheme="https://idisfkj.github.io/categories/android/"/>
+      <category term="android" scheme="https://rousetime.com/categories/android/"/>
     
     
-      <category term="Android Annotation Processing" scheme="https://idisfkj.github.io/tags/Android-Annotation-Processing/"/>
+      <category term="Android Annotation Processing" scheme="https://rousetime.com/tags/Android-Annotation-Processing/"/>
     
   </entry>
   
   <entry>
     <title>自定义Android注解Part1:注解变量</title>
-    <link href="https://idisfkj.github.io/2018/07/01/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part1-%E6%B3%A8%E8%A7%A3%E5%8F%98%E9%87%8F/"/>
-    <id>https://idisfkj.github.io/2018/07/01/自定义Android注解Part1-注解变量/</id>
+    <link href="https://rousetime.com/2018/07/01/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part1-%E6%B3%A8%E8%A7%A3%E5%8F%98%E9%87%8F/"/>
+    <id>https://rousetime.com/2018/07/01/自定义Android注解Part1-注解变量/</id>
     <published>2018-07-01T08:31:15.000Z</published>
     <updated>2018-07-11T15:31:59.007Z</updated>
     
@@ -724,8 +724,8 @@
 &lt;/ol&gt;
 &lt;p&gt;&amp;#x6CE8;&amp;#x89E3;&amp;#x53D8;&amp;#x91CF;&amp;#x7684;&amp;#x5B9A;&amp;#x4E49;&amp;#x5C31;&amp;#x5230;&amp;#x8FD9;&amp;#x7ED3;&amp;#x675F;&amp;#x4E86;&amp;#xFF0C;&amp;#x540C;&amp;#x65F6;&amp;#x6587;&amp;#x7AE0;&amp;#x4E2D;&amp;#x7684;&amp;#x4EE3;&amp;#x7801;&amp;#x90FD;&amp;#x53EF;&amp;#x4EE5;&amp;#x5728;&lt;a href=&quot;https://github.com/idisfkj/android-api-analysis&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Github&lt;/a&gt;&amp;#x4E2D;&amp;#x83B7;&amp;#x53D6;&amp;#x5230;&amp;#x3002;&amp;#x4F7F;&amp;#x7528;&amp;#x65F6;&amp;#x8BF7;&amp;#x5C06;&amp;#x5206;&amp;#x652F;&amp;#x5207;&amp;#x6362;&amp;#x5230;feat_annotation_processing&lt;/p&gt;
 &lt;p&gt;&amp;#x6700;&amp;#x540E;&amp;#x656C;&amp;#x8BF7;&amp;#x5173;&amp;#x6CE8;&amp;#x4E0B;&amp;#x4E00;&amp;#x90E8;&amp;#x5206;&lt;strong&gt;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;Android&amp;#x6CE8;&amp;#x89E3;Part2:&amp;#x4EE3;&amp;#x7801;&amp;#x81EA;&amp;#x52A8;&amp;#x751F;&amp;#x6210;&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;a href=&quot;#&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;/a&gt;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/07/04/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part2-%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90/&quot;&gt;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;Android&amp;#x6CE8;&amp;#x89E3;Part2:&amp;#x4EE3;&amp;#x7801;&amp;#x81EA;&amp;#x52A8;&amp;#x751F;&amp;#x6210;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/07/11/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part3-%E7%BB%91%E5%AE%9A/&quot;&gt;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;Android&amp;#x6CE8;&amp;#x89E3;Part3:&amp;#x7ED1;&amp;#x5B9A;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;a href=&quot;#&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;/a&gt;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/07/04/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part2-%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;Android&amp;#x6CE8;&amp;#x89E3;Part2:&amp;#x4EE3;&amp;#x7801;&amp;#x81EA;&amp;#x52A8;&amp;#x751F;&amp;#x6210;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/07/11/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part3-%E7%BB%91%E5%AE%9A/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;Android&amp;#x6CE8;&amp;#x89E3;Part3:&amp;#x7ED1;&amp;#x5B9A;&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;&amp;#x5173;&amp;#x6CE8;&quot;&gt;&lt;a href=&quot;#&amp;#x5173;&amp;#x6CE8;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x5173;&amp;#x6CE8;&quot;&gt;&lt;/a&gt;&amp;#x5173;&amp;#x6CE8;&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/2018/07/01/&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;Android&amp;#x6CE8;&amp;#x89E3;Part1-&amp;#x6CE8;&amp;#x89E3;&amp;#x53D8;&amp;#x91CF;/wx.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 </content>
     
@@ -736,17 +736,17 @@
     
     </summary>
     
-      <category term="android" scheme="https://idisfkj.github.io/categories/android/"/>
+      <category term="android" scheme="https://rousetime.com/categories/android/"/>
     
     
-      <category term="Android Annotation Processing" scheme="https://idisfkj.github.io/tags/Android-Annotation-Processing/"/>
+      <category term="Android Annotation Processing" scheme="https://rousetime.com/tags/Android-Annotation-Processing/"/>
     
   </entry>
   
   <entry>
     <title>Android Architecture Components Part4:ViewModel</title>
-    <link href="https://idisfkj.github.io/2018/06/22/Android-Architecture-Components-Part4-ViewModel/"/>
-    <id>https://idisfkj.github.io/2018/06/22/Android-Architecture-Components-Part4-ViewModel/</id>
+    <link href="https://rousetime.com/2018/06/22/Android-Architecture-Components-Part4-ViewModel/"/>
+    <id>https://rousetime.com/2018/06/22/Android-Architecture-Components-Part4-ViewModel/</id>
     <published>2018-06-22T00:20:04.000Z</published>
     <updated>2018-06-23T15:51:30.729Z</updated>
     
@@ -764,7 +764,7 @@
 &lt;blockquote&gt;
 &lt;p&gt;&amp;#x662F;&amp;#x4E0D;&amp;#x662F;&amp;#x6709;&amp;#x70B9;&amp;#x597D;&amp;#x5947;&amp;#x4E86;&amp;#x5462;&amp;#xFF0C;&amp;#x4E0B;&amp;#x9762;&amp;#x6211;&amp;#x4EEC;&amp;#x6765;&amp;#x7B80;&amp;#x5355;&amp;#x4ECB;&amp;#x7ECD;&amp;#x5B83;&amp;#x7684;&amp;#x4F7F;&amp;#x7528;&amp;#xFF0C;&amp;#x4E3A;&amp;#x4EC0;&amp;#x4E48;&amp;#x8BF4;&amp;#x7B80;&amp;#x5355;&amp;#x5462;&amp;#xFF1F;&amp;#x56E0;&amp;#x4E3A;&amp;#x771F;&amp;#x7684;&amp;#x5F88;&amp;#x7B80;&amp;#x5355;&amp;#x2026;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&quot;&amp;#x4F9D;&amp;#x8D56;&quot;&gt;&lt;a href=&quot;#&amp;#x4F9D;&amp;#x8D56;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x4F9D;&amp;#x8D56;&quot;&gt;&lt;/a&gt;&amp;#x4F9D;&amp;#x8D56;&lt;/h2&gt;&lt;p&gt;&amp;#x5982;&amp;#x679C;&amp;#x4F60;&amp;#x5DF2;&amp;#x7ECF;&amp;#x6709;&amp;#x4E86;&amp;#x89E3;&amp;#x8FC7;&amp;#x4E0A;&amp;#x7BC7;&amp;#x5173;&amp;#x4E8E;Lifecycle&amp;#x7684;&amp;#x6587;&amp;#x7AE0;&lt;a href=&quot;https://idisfkj.github.io/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/&quot;&gt;(Android Architecture Components Part3:Lifecycle)&lt;/a&gt;&amp;#xFF0C;&amp;#x90A3;&amp;#x4E48;&amp;#x53EF;&amp;#x4EE5;&amp;#x76F4;&amp;#x63A5;&amp;#x8DF3;&amp;#x8FC7;&amp;#x4F9D;&amp;#x8D56;&amp;#x90E8;&amp;#x5206;&amp;#xFF0C;&amp;#x6CA1;&amp;#x6709;&amp;#x7684;&amp;#x6211;&amp;#x4EEC;&amp;#x7EE7;&amp;#x7EED;&amp;#x3002;&lt;/p&gt;
+&lt;h2 id=&quot;&amp;#x4F9D;&amp;#x8D56;&quot;&gt;&lt;a href=&quot;#&amp;#x4F9D;&amp;#x8D56;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x4F9D;&amp;#x8D56;&quot;&gt;&lt;/a&gt;&amp;#x4F9D;&amp;#x8D56;&lt;/h2&gt;&lt;p&gt;&amp;#x5982;&amp;#x679C;&amp;#x4F60;&amp;#x5DF2;&amp;#x7ECF;&amp;#x6709;&amp;#x4E86;&amp;#x89E3;&amp;#x8FC7;&amp;#x4E0A;&amp;#x7BC7;&amp;#x5173;&amp;#x4E8E;Lifecycle&amp;#x7684;&amp;#x6587;&amp;#x7AE0;&lt;a href=&quot;https://idisfkj.github.io/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;(Android Architecture Components Part3:Lifecycle)&lt;/a&gt;&amp;#xFF0C;&amp;#x90A3;&amp;#x4E48;&amp;#x53EF;&amp;#x4EE5;&amp;#x76F4;&amp;#x63A5;&amp;#x8DF3;&amp;#x8FC7;&amp;#x4F9D;&amp;#x8D56;&amp;#x90E8;&amp;#x5206;&amp;#xFF0C;&amp;#x6CA1;&amp;#x6709;&amp;#x7684;&amp;#x6211;&amp;#x4EEC;&amp;#x7EE7;&amp;#x7EED;&amp;#x3002;&lt;/p&gt;
 &lt;p&gt;&amp;#x5728;&amp;#x4F7F;&amp;#x7528;ViewModel&amp;#x4E4B;&amp;#x524D;&amp;#xFF0C;&amp;#x6211;&amp;#x4EEC;&amp;#x9700;&amp;#x8981;&amp;#x5728;App&amp;#x6216;&amp;#x8005;Module&amp;#x7684;build.gradle&amp;#x4E2D;&amp;#x6DFB;&amp;#x52A0;&amp;#x5982;&amp;#x4E0B;&amp;#x4EE3;&amp;#x7801;&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;dependencies {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    def lifecycle_version = &amp;quot;1.1.1&amp;quot;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    // ViewModel and LiveData&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    implementation &amp;quot;android.arch.lifecycle:extensions:$lifecycle_version&amp;quot;   &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    annotationProcessor &amp;quot;android.arch.lifecycle:compiler:$lifecycle_version&amp;quot;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;}&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;h2 id=&quot;&amp;#x4F7F;&amp;#x7528;&quot;&gt;&lt;a href=&quot;#&amp;#x4F7F;&amp;#x7528;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x4F7F;&amp;#x7528;&quot;&gt;&lt;/a&gt;&amp;#x4F7F;&amp;#x7528;&lt;/h2&gt;&lt;p&gt;&amp;#x4F9D;&amp;#x8D56;&amp;#x5DF2;&amp;#x7ECF;&amp;#x51C6;&amp;#x5907;&amp;#x5B8C;&amp;#x6BD5;&amp;#xFF0C;&amp;#x6211;&amp;#x4EEC;&amp;#x53EF;&amp;#x4EE5;&amp;#x76F4;&amp;#x63A5;&amp;#x901A;&amp;#x8FC7;&amp;#x5982;&amp;#x4E0B;&amp;#x4EE3;&amp;#x7801;&amp;#x4F7F;&amp;#x7528;&lt;/p&gt;
@@ -800,7 +800,7 @@
 &lt;p&gt;&amp;#x4E0B;&amp;#x9762;&amp;#x7684;&amp;#x80FD;&amp;#x591F;&amp;#x521D;&amp;#x6B65;&amp;#x4F53;&amp;#x73B0;&amp;#x4F7F;&amp;#x7528;AAC&amp;#x540E;&amp;#x7684;App&amp;#x9879;&amp;#x76EE;&amp;#x67B6;&amp;#x6784;&amp;#x5F62;&amp;#x6001;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/2018/06/22/Android-Architecture-Components-Part4-ViewModel/architectureComponents.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&amp;#x6700;&amp;#x540E;&amp;#x611F;&amp;#x8C22;&amp;#x5927;&amp;#x5BB6;&amp;#x5BF9;AAC&amp;#x67B6;&amp;#x6784;&amp;#x7CFB;&amp;#x5217;&amp;#x7684;&amp;#x652F;&amp;#x6301;&amp;#xFF01;&amp;#x540C;&amp;#x65F6;&amp;#x6587;&amp;#x7AE0;&amp;#x4E2D;&amp;#x7684;&amp;#x4EE3;&amp;#x7801;&amp;#x90FD;&amp;#x53EF;&amp;#x4EE5;&amp;#x5728;&lt;a href=&quot;https://github.com/idisfkj/android-api-analysis&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Github&lt;/a&gt;&amp;#x4E2D;&amp;#x83B7;&amp;#x53D6;&amp;#x5230;&amp;#x3002;&amp;#x4F7F;&amp;#x7528;&amp;#x65F6;&amp;#x8BF7;&amp;#x5C06;&amp;#x5206;&amp;#x652F;&amp;#x5207;&amp;#x6362;&amp;#x5230;feat_architecture_components&lt;/p&gt;
-&lt;h2 id=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;a href=&quot;#&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;/a&gt;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/07/Android-Architecture-Components-Part1-Room/&quot;&gt;Android Architecture Components Part1:Room&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/10/Android-Architecture-Components-Part2-LiveData/&quot;&gt;Android Architecture Components Part2:LiveData&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/&quot;&gt;Android Architecture Components Part3:Lifecycle&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;a href=&quot;#&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;/a&gt;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/07/Android-Architecture-Components-Part1-Room/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android Architecture Components Part1:Room&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/10/Android-Architecture-Components-Part2-LiveData/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android Architecture Components Part2:LiveData&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android Architecture Components Part3:Lifecycle&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;&amp;#x5173;&amp;#x6CE8;&quot;&gt;&lt;a href=&quot;#&amp;#x5173;&amp;#x6CE8;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x5173;&amp;#x6CE8;&quot;&gt;&lt;/a&gt;&amp;#x5173;&amp;#x6CE8;&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/2018/06/22/Android-Architecture-Components-Part4-ViewModel/wx.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 </content>
     
@@ -811,17 +811,17 @@
     
     </summary>
     
-      <category term="android" scheme="https://idisfkj.github.io/categories/android/"/>
+      <category term="android" scheme="https://rousetime.com/categories/android/"/>
     
     
-      <category term="Android Architecture Components" scheme="https://idisfkj.github.io/tags/Android-Architecture-Components/"/>
+      <category term="Android Architecture Components" scheme="https://rousetime.com/tags/Android-Architecture-Components/"/>
     
   </entry>
   
   <entry>
     <title>Android Architecture Components Part3:Lifecycle</title>
-    <link href="https://idisfkj.github.io/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/"/>
-    <id>https://idisfkj.github.io/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/</id>
+    <link href="https://rousetime.com/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/"/>
+    <id>https://rousetime.com/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/</id>
     <published>2018-06-14T14:16:28.000Z</published>
     <updated>2018-06-23T14:31:08.921Z</updated>
     
@@ -853,7 +853,7 @@
 &lt;p&gt;&amp;#x6240;&amp;#x4EE5;&amp;#x7ED3;&amp;#x5408;LifecycleObserver&amp;#x3001;LifecycleOwner&amp;#x4E0E;LifecycleRegistry&amp;#xFF0C;&amp;#x6211;&amp;#x4EEC;&amp;#x53EF;&amp;#x4EE5;&amp;#x4E3A;&amp;#x4EFB;&amp;#x610F;&amp;#x975E;&amp;#x751F;&amp;#x547D;&amp;#x611F;&amp;#x77E5;&amp;#x7684;&amp;#x7EC4;&amp;#x4EF6;&amp;#x5B9E;&amp;#x73B0;&amp;#x751F;&amp;#x547D;&amp;#x611F;&amp;#x77E5;&amp;#x80FD;&amp;#x529B;&amp;#xFF0C;&amp;#x8FD9;&amp;#x6837;&amp;#x4E00;&amp;#x6765;&amp;#x5C31;&amp;#x80FD;&amp;#x66F4;&amp;#x597D;&amp;#x7684;&amp;#x5E2E;&amp;#x52A9;&amp;#x6211;&amp;#x4EEC;&amp;#x5BF9;&amp;#x7EC4;&amp;#x4EF6;&amp;#x7684;&amp;#x751F;&amp;#x547D;&amp;#x5468;&amp;#x671F;&amp;#x8FDB;&amp;#x884C;&amp;#x7BA1;&amp;#x7406;&amp;#x3002;&amp;#x51CF;&amp;#x5C11;&amp;#x903B;&amp;#x8F91;&amp;#x5904;&amp;#x7406;&amp;#x4E0E;&amp;#x4E0D;&amp;#x5FC5;&amp;#x8981;&amp;#x7684;&amp;#x5F02;&amp;#x5E38;&amp;#x53D1;&amp;#x751F;&amp;#x3002;&lt;/p&gt;
 &lt;h2 id=&quot;Lifecycle-amp-LiveData&quot;&gt;&lt;a href=&quot;#Lifecycle-amp-LiveData&quot; class=&quot;headerlink&quot; title=&quot;Lifecycle &amp;amp; LiveData&quot;&gt;&lt;/a&gt;Lifecycle &amp;amp; LiveData&lt;/h2&gt;&lt;p&gt;&amp;#x90A3;&amp;#x4E48;&amp;#x518D;&amp;#x56DE;&amp;#x5230;&amp;#x6587;&amp;#x7AE0;&amp;#x6700;&amp;#x521D;&amp;#x6240;&amp;#x8BF4;&amp;#x7684;LiveData&amp;#xFF0C;&amp;#x6211;&amp;#x4EEC;&amp;#x6765;&amp;#x5206;&amp;#x6790;LiveData&amp;#x662F;&amp;#x5982;&amp;#x4F55;&amp;#x501F;&amp;#x52A9;Lifecycle&amp;#x6765;&amp;#x5B9E;&amp;#x73B0;&amp;#x751F;&amp;#x547D;&amp;#x611F;&amp;#x77E5;&amp;#x80FD;&amp;#x529B;&amp;#x3002;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&amp;#x5728;&amp;#x8FD9;&amp;#x4E4B;&amp;#x524D;&amp;#xFF0C;&amp;#x5047;&amp;#x8BBE;&amp;#x4F60;&amp;#x5DF2;&amp;#x7ECF;&amp;#x5BF9;LiveData&amp;#x6709;&amp;#x4E00;&amp;#x5B9A;&amp;#x7684;&amp;#x4E86;&amp;#x89E3;&amp;#xFF0C;&amp;#x6216;&amp;#x8005;&amp;#x4F60;&amp;#x53EF;&amp;#x4EE5;&amp;#x67E5;&amp;#x770B;&lt;a href=&quot;https://idisfkj.github.io/2018/06/10/Android-Architecture-Components-Part2-LiveData/&quot;&gt;Android Architecture Components Part2:LiveData&lt;/a&gt;&amp;#x8FDB;&amp;#x4E00;&amp;#x6B65;&amp;#x4E86;&amp;#x89E3;LiveData&lt;/p&gt;
+&lt;p&gt;&amp;#x5728;&amp;#x8FD9;&amp;#x4E4B;&amp;#x524D;&amp;#xFF0C;&amp;#x5047;&amp;#x8BBE;&amp;#x4F60;&amp;#x5DF2;&amp;#x7ECF;&amp;#x5BF9;LiveData&amp;#x6709;&amp;#x4E00;&amp;#x5B9A;&amp;#x7684;&amp;#x4E86;&amp;#x89E3;&amp;#xFF0C;&amp;#x6216;&amp;#x8005;&amp;#x4F60;&amp;#x53EF;&amp;#x4EE5;&amp;#x67E5;&amp;#x770B;&lt;a href=&quot;https://idisfkj.github.io/2018/06/10/Android-Architecture-Components-Part2-LiveData/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android Architecture Components Part2:LiveData&lt;/a&gt;&amp;#x8FDB;&amp;#x4E00;&amp;#x6B65;&amp;#x4E86;&amp;#x89E3;LiveData&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&amp;#x9996;&amp;#x5148;&amp;#x6211;&amp;#x4EEC;&amp;#x6765;&amp;#x770B;&amp;#x4E0B;LiveData&amp;#x7684;observer&amp;#x65B9;&amp;#x6CD5;&amp;#x6E90;&amp;#x7801;&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;17&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;@MainThread&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;public void observe(@NonNull LifecycleOwner owner, @NonNull Observer&amp;lt;T&amp;gt; observer) {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    if (owner.getLifecycle().getCurrentState() == DESTROYED) {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        // ignore&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        return;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    }&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    LifecycleBoundObserver wrapper = new LifecycleBoundObserver(owner, observer);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    ObserverWrapper existing = mObservers.putIfAbsent(observer, wrapper);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    if (existing != null &amp;amp;&amp;amp; !existing.isAttachedTo(owner)) {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        throw new IllegalArgumentException(&amp;quot;Cannot add the same observer&amp;quot;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;                + &amp;quot; with different lifecycles&amp;quot;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    }&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    if (existing != null) {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        return;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    }&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    owner.getLifecycle().addObserver(wrapper);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;}&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -872,7 +872,7 @@
 &lt;p&gt;&amp;#x6587;&amp;#x7AE0;&amp;#x4E2D;&amp;#x7684;&amp;#x4EE3;&amp;#x7801;&amp;#x90FD;&amp;#x53EF;&amp;#x4EE5;&amp;#x5728;&lt;a href=&quot;https://github.com/idisfkj/android-api-analysis&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Github&lt;/a&gt;&amp;#x4E2D;&amp;#x83B7;&amp;#x53D6;&amp;#x5230;&amp;#x3002;&amp;#x4F7F;&amp;#x7528;&amp;#x65F6;&amp;#x8BF7;&amp;#x5C06;&amp;#x5206;&amp;#x652F;&amp;#x5207;&amp;#x6362;&amp;#x5230;feat_architecture_components&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&amp;#x6700;&amp;#x540E;&amp;#x505A;&amp;#x4E2A;&amp;#x9884;&amp;#x544A;&amp;#xFF0C;&amp;#x63A5;&amp;#x4E0B;&amp;#x6765;&amp;#x6211;&amp;#x4EEC;&amp;#x8981;&amp;#x4E86;&amp;#x89E3;&amp;#x7684;&amp;#x662F;AAC&amp;#x4E2D;&amp;#x7684;ViewModel&amp;#xFF0C;&amp;#x76F8;&amp;#x4FE1;&amp;#x4F60;&amp;#x4E5F;&amp;#x4F1A;&amp;#x9A6C;&amp;#x4E0A;&amp;#x559C;&amp;#x6B22;&amp;#x4E0A;&amp;#x5B83;&amp;#x3002;&lt;/p&gt;
-&lt;h2 id=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;a href=&quot;#&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;/a&gt;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/07/Android-Architecture-Components-Part1-Room/&quot;&gt;Android Architecture Components Part1:Room&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/10/Android-Architecture-Components-Part2-LiveData/&quot;&gt;Android Architecture Components Part2:LiveData&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/22/Android-Architecture-Components-Part4-ViewModel/&quot;&gt;Android Architecture Components Part4:ViewModel&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;a href=&quot;#&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;/a&gt;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/07/Android-Architecture-Components-Part1-Room/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android Architecture Components Part1:Room&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/10/Android-Architecture-Components-Part2-LiveData/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android Architecture Components Part2:LiveData&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/22/Android-Architecture-Components-Part4-ViewModel/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android Architecture Components Part4:ViewModel&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;&amp;#x5173;&amp;#x6CE8;&quot;&gt;&lt;a href=&quot;#&amp;#x5173;&amp;#x6CE8;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x5173;&amp;#x6CE8;&quot;&gt;&lt;/a&gt;&amp;#x5173;&amp;#x6CE8;&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/wx.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 </content>
     
@@ -883,17 +883,17 @@
     
     </summary>
     
-      <category term="android" scheme="https://idisfkj.github.io/categories/android/"/>
+      <category term="android" scheme="https://rousetime.com/categories/android/"/>
     
     
-      <category term="Android Architecture Components" scheme="https://idisfkj.github.io/tags/Android-Architecture-Components/"/>
+      <category term="Android Architecture Components" scheme="https://rousetime.com/tags/Android-Architecture-Components/"/>
     
   </entry>
   
   <entry>
     <title>Android Architecture Components Part2:LiveData</title>
-    <link href="https://idisfkj.github.io/2018/06/10/Android-Architecture-Components-Part2-LiveData/"/>
-    <id>https://idisfkj.github.io/2018/06/10/Android-Architecture-Components-Part2-LiveData/</id>
+    <link href="https://rousetime.com/2018/06/10/Android-Architecture-Components-Part2-LiveData/"/>
+    <id>https://rousetime.com/2018/06/10/Android-Architecture-Components-Part2-LiveData/</id>
     <published>2018-06-10T00:29:22.000Z</published>
     <updated>2018-06-23T14:31:23.407Z</updated>
     
@@ -942,7 +942,7 @@
 &lt;p&gt;&amp;#x4E00;&amp;#x65E6;&amp;#x5176;&amp;#x4E2D;&amp;#x4E00;&amp;#x4E2A;&amp;#x53D1;&amp;#x9001;&amp;#x53D8;&amp;#x5316;&amp;#xFF0C;MediatorLiveData&amp;#x90FD;&amp;#x4F1A;&amp;#x53D1;&amp;#x9001;&amp;#x901A;&amp;#x77E5;&amp;#x7ED9;observer&amp;#x3002;&lt;/p&gt;
 &lt;p&gt;&amp;#x662F;&amp;#x5426;&amp;#x611F;&amp;#x89C9;LiveData&amp;#x5F88;&amp;#x5F3A;&amp;#x5927;&amp;#x5462;&amp;#xFF1F;&amp;#x90A3;&amp;#x4E48;&amp;#x8D76;&amp;#x7D27;&amp;#x884C;&amp;#x52A8;&amp;#x8D77;&amp;#x6765;&amp;#x5427;&amp;#xFF0C;&amp;#x8BA9;&amp;#x4F60;&amp;#x7684;App&amp;#x4E2D;&amp;#x6570;&amp;#x636E;&amp;#x4E5F;&amp;#x5177;&amp;#x6709;&amp;#x53EF;&amp;#x89C2;&amp;#x5BDF;&amp;#x4E0E;&amp;#x751F;&amp;#x547D;&amp;#x611F;&amp;#x77E5;&amp;#x80FD;&amp;#x529B;&amp;#x3002;&lt;/p&gt;
 &lt;p&gt;&amp;#x6700;&amp;#x540E;&amp;#x6587;&amp;#x7AE0;&amp;#x4E2D;&amp;#x7684;&amp;#x4EE3;&amp;#x7801;&amp;#x90FD;&amp;#x53EF;&amp;#x4EE5;&amp;#x5728;&lt;a href=&quot;https://github.com/idisfkj/android-api-analysis&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Github&lt;/a&gt;&amp;#x4E2D;&amp;#x83B7;&amp;#x53D6;&amp;#x5230;&amp;#x3002;&amp;#x4F7F;&amp;#x7528;&amp;#x65F6;&amp;#x8BF7;&amp;#x5C06;&amp;#x5206;&amp;#x652F;&amp;#x5207;&amp;#x6362;&amp;#x5230;&lt;strong&gt;feat_architecture_components&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;a href=&quot;#&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;/a&gt;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/07/Android-Architecture-Components-Part1-Room/&quot;&gt;Android Architecture Components Part1:Room&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/&quot;&gt;Android Architecture Components Part3:Lifecycle&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/22/Android-Architecture-Components-Part4-ViewModel/&quot;&gt;Android Architecture Components Part4:ViewModel&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;a href=&quot;#&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;/a&gt;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/07/Android-Architecture-Components-Part1-Room/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android Architecture Components Part1:Room&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android Architecture Components Part3:Lifecycle&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/22/Android-Architecture-Components-Part4-ViewModel/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android Architecture Components Part4:ViewModel&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;&amp;#x5173;&amp;#x6CE8;&quot;&gt;&lt;a href=&quot;#&amp;#x5173;&amp;#x6CE8;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x5173;&amp;#x6CE8;&quot;&gt;&lt;/a&gt;&amp;#x5173;&amp;#x6CE8;&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/2018/06/10/Android-Architecture-Components-Part2-LiveData/wx.jpg&quot; alt=&quot;&amp;#x602A;&amp;#x8C08;&amp;#x65F6;&amp;#x95F4;&amp;#x5230;&amp;#x4E86;&quot;&gt;&lt;/p&gt;
 </content>
     
@@ -953,17 +953,17 @@
     
     </summary>
     
-      <category term="android" scheme="https://idisfkj.github.io/categories/android/"/>
+      <category term="android" scheme="https://rousetime.com/categories/android/"/>
     
     
-      <category term="Android Architecture Components" scheme="https://idisfkj.github.io/tags/Android-Architecture-Components/"/>
+      <category term="Android Architecture Components" scheme="https://rousetime.com/tags/Android-Architecture-Components/"/>
     
   </entry>
   
   <entry>
     <title>Android Architecture Components Part1:Room</title>
-    <link href="https://idisfkj.github.io/2018/06/07/Android-Architecture-Components-Part1-Room/"/>
-    <id>https://idisfkj.github.io/2018/06/07/Android-Architecture-Components-Part1-Room/</id>
+    <link href="https://rousetime.com/2018/06/07/Android-Architecture-Components-Part1-Room/"/>
+    <id>https://rousetime.com/2018/06/07/Android-Architecture-Components-Part1-Room/</id>
     <published>2018-06-07T13:48:05.000Z</published>
     <updated>2018-06-23T14:31:35.448Z</updated>
     
@@ -1014,7 +1014,7 @@
 &lt;h2 id=&quot;&amp;#x603B;&amp;#x7ED3;&quot;&gt;&lt;a href=&quot;#&amp;#x603B;&amp;#x7ED3;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x603B;&amp;#x7ED3;&quot;&gt;&lt;/a&gt;&amp;#x603B;&amp;#x7ED3;&lt;/h2&gt;&lt;p&gt;&amp;#x5982;&amp;#x679C;&amp;#x4F60;&amp;#x7684;App&amp;#x4F7F;&amp;#x7528;&amp;#x4E86;Room&amp;#xFF0C;&amp;#x90A3;&amp;#x4E48;&amp;#x4F60;&amp;#x7684;App&amp;#x672C;&amp;#x5730;&amp;#x6570;&amp;#x636E;&amp;#x83B7;&amp;#x53D6;&amp;#x67B6;&amp;#x6784;&amp;#x5C06;&amp;#x4F1A;&amp;#x662F;&amp;#x8FD9;&amp;#x6837;&amp;#x7684;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/2018/06/07/Android-Architecture-Components-Part1-Room/room.png&quot; alt=&quot;Room&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&amp;#x6700;&amp;#x540E;&amp;#x6587;&amp;#x7AE0;&amp;#x4E2D;&amp;#x7684;&amp;#x4EE3;&amp;#x7801;&amp;#x90FD;&amp;#x53EF;&amp;#x4EE5;&amp;#x5728;&lt;a href=&quot;https://github.com/idisfkj/android-api-analysis&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Github&lt;/a&gt;&amp;#x4E2D;&amp;#x83B7;&amp;#x53D6;&amp;#x5230;&amp;#x3002;&amp;#x4F7F;&amp;#x7528;&amp;#x65F6;&amp;#x8BF7;&amp;#x5C06;&amp;#x5206;&amp;#x652F;&amp;#x5207;&amp;#x6362;&amp;#x5230;&lt;strong&gt;feat_architecture_components&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;a href=&quot;#&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;/a&gt;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/10/Android-Architecture-Components-Part2-LiveData/&quot;&gt;Android Architecture Components Part2:LiveData&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/&quot;&gt;Android Architecture Components Part3:Lifecycle&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/22/Android-Architecture-Components-Part4-ViewModel/&quot;&gt;Android Architecture Components Part4:ViewModel&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;a href=&quot;#&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&quot;&gt;&lt;/a&gt;&amp;#x76F8;&amp;#x5173;&amp;#x6587;&amp;#x7AE0;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/10/Android-Architecture-Components-Part2-LiveData/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android Architecture Components Part2:LiveData&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android Architecture Components Part3:Lifecycle&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://idisfkj.github.io/2018/06/22/Android-Architecture-Components-Part4-ViewModel/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android Architecture Components Part4:ViewModel&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;&amp;#x5173;&amp;#x6CE8;&quot;&gt;&lt;a href=&quot;#&amp;#x5173;&amp;#x6CE8;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x5173;&amp;#x6CE8;&quot;&gt;&lt;/a&gt;&amp;#x5173;&amp;#x6CE8;&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/2018/06/07/Android-Architecture-Components-Part1-Room/wx.jpg&quot; alt=&quot;&amp;#x602A;&amp;#x8C08;&amp;#x65F6;&amp;#x95F4;&amp;#x5230;&amp;#x4E86;&quot;&gt;&lt;/p&gt;
 </content>
     
@@ -1025,17 +1025,17 @@
     
     </summary>
     
-      <category term="android" scheme="https://idisfkj.github.io/categories/android/"/>
+      <category term="android" scheme="https://rousetime.com/categories/android/"/>
     
     
-      <category term="Android Architecture Components" scheme="https://idisfkj.github.io/tags/Android-Architecture-Components/"/>
+      <category term="Android Architecture Components" scheme="https://rousetime.com/tags/Android-Architecture-Components/"/>
     
   </entry>
   
   <entry>
     <title>ConstraintLayout使用汇总</title>
-    <link href="https://idisfkj.github.io/2018/05/03/ConstraintLayout%E4%BD%BF%E7%94%A8%E6%B1%87%E6%80%BB/"/>
-    <id>https://idisfkj.github.io/2018/05/03/ConstraintLayout使用汇总/</id>
+    <link href="https://rousetime.com/2018/05/03/ConstraintLayout%E4%BD%BF%E7%94%A8%E6%B1%87%E6%80%BB/"/>
+    <id>https://rousetime.com/2018/05/03/ConstraintLayout使用汇总/</id>
     <published>2018-05-03T00:37:31.000Z</published>
     <updated>2018-05-16T15:16:25.418Z</updated>
     
@@ -1161,17 +1161,17 @@
     
     </summary>
     
-      <category term="android" scheme="https://idisfkj.github.io/categories/android/"/>
+      <category term="android" scheme="https://rousetime.com/categories/android/"/>
     
     
-      <category term="ConstraintLayout" scheme="https://idisfkj.github.io/tags/ConstraintLayout/"/>
+      <category term="ConstraintLayout" scheme="https://rousetime.com/tags/ConstraintLayout/"/>
     
   </entry>
   
   <entry>
     <title>Bitmap的图片压缩汇总</title>
-    <link href="https://idisfkj.github.io/2018/03/21/Bitmap%E7%9A%84%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E6%B1%87%E6%80%BB/"/>
-    <id>https://idisfkj.github.io/2018/03/21/Bitmap的图片压缩汇总/</id>
+    <link href="https://rousetime.com/2018/03/21/Bitmap%E7%9A%84%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E6%B1%87%E6%80%BB/"/>
+    <id>https://rousetime.com/2018/03/21/Bitmap的图片压缩汇总/</id>
     <published>2018-03-20T23:26:50.000Z</published>
     <updated>2018-05-16T15:15:58.185Z</updated>
     
@@ -1419,17 +1419,17 @@
     
     </summary>
     
-      <category term="android" scheme="https://idisfkj.github.io/categories/android/"/>
+      <category term="android" scheme="https://rousetime.com/categories/android/"/>
     
     
-      <category term="bitmap" scheme="https://idisfkj.github.io/tags/bitmap/"/>
+      <category term="bitmap" scheme="https://rousetime.com/tags/bitmap/"/>
     
   </entry>
   
   <entry>
     <title>EventBus的工作原理总结</title>
-    <link href="https://idisfkj.github.io/2018/02/27/EventBus%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93/"/>
-    <id>https://idisfkj.github.io/2018/02/27/EventBus的工作原理总结/</id>
+    <link href="https://rousetime.com/2018/02/27/EventBus%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93/"/>
+    <id>https://rousetime.com/2018/02/27/EventBus的工作原理总结/</id>
     <published>2018-02-27T14:36:43.000Z</published>
     <updated>2018-05-16T15:15:10.499Z</updated>
     
@@ -1510,17 +1510,17 @@
     
     </summary>
     
-      <category term="android" scheme="https://idisfkj.github.io/categories/android/"/>
+      <category term="android" scheme="https://rousetime.com/categories/android/"/>
     
     
-      <category term="源码分析" scheme="https://idisfkj.github.io/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="源码分析" scheme="https://rousetime.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
   <entry>
     <title>Fresco源码分析之Producer</title>
-    <link href="https://idisfkj.github.io/2017/12/28/Fresco%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BProducer/"/>
-    <id>https://idisfkj.github.io/2017/12/28/Fresco源码分析之Producer/</id>
+    <link href="https://rousetime.com/2017/12/28/Fresco%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BProducer/"/>
+    <id>https://rousetime.com/2017/12/28/Fresco源码分析之Producer/</id>
     <published>2017-12-28T15:45:36.000Z</published>
     <updated>2018-03-29T00:45:34.354Z</updated>
     
@@ -1546,7 +1546,7 @@
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;17&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;18&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;19&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;20&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;21&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;22&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;23&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;24&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;25&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;26&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;27&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;28&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;private void notifyDataSubscribers() {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  final boolean isFailure = hasFailed();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  final boolean isCancellation = wasCancelled();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  //&amp;#x901A;&amp;#x77E5;&amp;#x6240;&amp;#x6709;&amp;#x7684;&amp;#x8BA2;&amp;#x9605;&amp;#x8005;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  for (Pair&amp;lt;DataSubscriber&amp;lt;T&amp;gt;, Executor&amp;gt; pair : mSubscribers) {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    notifyDataSubscriber(pair.first, pair.second, isFailure, isCancellation);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  }&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;}&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;private void notifyDataSubscriber(&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    final DataSubscriber&amp;lt;T&amp;gt; dataSubscriber,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    final Executor executor,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    final boolean isFailure,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    final boolean isCancellation) {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  executor.execute(&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      new Runnable() {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        @Override&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        public void run() {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;          if (isFailure) {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            dataSubscriber.onFailure(AbstractDataSource.this);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;          } else if (isCancellation) {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            dataSubscriber.onCancellation(AbstractDataSource.this);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;          } else {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            dataSubscriber.onNewResult(AbstractDataSource.this);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;          }&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        }&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      });&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;}&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;executor.execute()&amp;#x65B9;&amp;#x6CD5;&amp;#x89E3;&amp;#x91CA;&amp;#x4E86;&amp;#x4E00;&amp;#x5207;&amp;#x3002;&amp;#x8C03;&amp;#x7528;&amp;#x4E86;Controller&amp;#x4E2D;&amp;#x4F20;&amp;#x9012;&amp;#x8FC7;&amp;#x6765;&amp;#x7684;dataSubscriber&amp;#x7684;&amp;#x5404;&amp;#x4E2A;&amp;#x56DE;&amp;#x8C03;&amp;#x3002;&amp;#x90A3;&amp;#x4E48;Result&amp;#x7684;&amp;#x5904;&amp;#x7406;&amp;#x8FC7;&amp;#x7A0B;&amp;#x5C31;&amp;#x8D70;&amp;#x901A;&amp;#x4E86;&amp;#x3002;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&amp;#x5982;&amp;#x9700;&amp;#x4E86;&amp;#x89E3;Controller&amp;#xFF0C;&amp;#x63A8;&amp;#x8350;&amp;#x9605;&amp;#x8BFB;&lt;a href=&quot;https://idisfkj.github.io/2017/12/14/Fresco%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BController/&quot;&gt;Fresco&amp;#x6E90;&amp;#x7801;&amp;#x5206;&amp;#x6790;&amp;#x4E4B;Controller
+&lt;p&gt;&amp;#x5982;&amp;#x9700;&amp;#x4E86;&amp;#x89E3;Controller&amp;#xFF0C;&amp;#x63A8;&amp;#x8350;&amp;#x9605;&amp;#x8BFB;&lt;a href=&quot;https://idisfkj.github.io/2017/12/14/Fresco%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BController/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Fresco&amp;#x6E90;&amp;#x7801;&amp;#x5206;&amp;#x6790;&amp;#x4E4B;Controller
 &lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&quot;Producer&amp;#x7684;&amp;#x5144;&amp;#x5F1F;&amp;#x59D0;&amp;#x59B9;&quot;&gt;&lt;a href=&quot;#Producer&amp;#x7684;&amp;#x5144;&amp;#x5F1F;&amp;#x59D0;&amp;#x59B9;&quot; class=&quot;headerlink&quot; title=&quot;Producer&amp;#x7684;&amp;#x5144;&amp;#x5F1F;&amp;#x59D0;&amp;#x59B9;&quot;&gt;&lt;/a&gt;Producer&amp;#x7684;&amp;#x5144;&amp;#x5F1F;&amp;#x59D0;&amp;#x59B9;&lt;/h2&gt;&lt;p&gt;&amp;#x63A5;&amp;#x4E0B;&amp;#x6765;&amp;#x6211;&amp;#x4EEC;&amp;#x6765;&amp;#x8BA4;&amp;#x8BC6;&amp;#x4E0B;Producer&amp;#x7684;&amp;#x5BB6;&amp;#x5EAD;&amp;#x6210;&amp;#x5458;&amp;#x3002;&amp;#x56DE;&amp;#x5230;&amp;#x6700;&amp;#x521D;&amp;#x7684;fetchDecodedImage()&amp;#x65B9;&amp;#x6CD5;&amp;#xFF0C;&amp;#x6211;&amp;#x4EEC;&amp;#x627E;&amp;#x5230;&amp;#x5982;&amp;#x4E0B;&amp;#x4EE3;&amp;#x7801;&amp;#x3002;&lt;/p&gt;
@@ -1591,21 +1591,21 @@
     
     </summary>
     
-      <category term="android" scheme="https://idisfkj.github.io/categories/android/"/>
+      <category term="android" scheme="https://rousetime.com/categories/android/"/>
     
     
-      <category term="源码分析" scheme="https://idisfkj.github.io/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="源码分析" scheme="https://rousetime.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
   <entry>
     <title>Fresco源码分析之Controller</title>
-    <link href="https://idisfkj.github.io/2017/12/14/Fresco%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BController/"/>
-    <id>https://idisfkj.github.io/2017/12/14/Fresco源码分析之Controller/</id>
+    <link href="https://rousetime.com/2017/12/14/Fresco%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BController/"/>
+    <id>https://rousetime.com/2017/12/14/Fresco源码分析之Controller/</id>
     <published>2017-12-14T00:32:26.000Z</published>
     <updated>2017-12-28T14:58:19.000Z</updated>
     
-    <content type="html">&lt;p&gt;&amp;#x5982;&amp;#x679C;&amp;#x4F60;&amp;#x662F;&amp;#x7B2C;&amp;#x4E00;&amp;#x6B21;&amp;#x770B;&amp;#x6211;&amp;#x7684;&lt;strong&gt;Fresco&lt;/strong&gt;&amp;#x7684;&amp;#x6E90;&amp;#x7801;&amp;#x5206;&amp;#x6790;&amp;#x7CFB;&amp;#x5217;&amp;#x6587;&amp;#x7AE0;&amp;#xFF0C;&amp;#x8FD9;&amp;#x91CC;&amp;#x5F3A;&amp;#x70C8;&amp;#x63A8;&amp;#x8350;&amp;#x4F60;&amp;#x5148;&amp;#x9605;&amp;#x8BFB;&amp;#x6211;&amp;#x7684;&amp;#x524D;&amp;#x9762;&amp;#x4E24;&amp;#x7BC7;&amp;#x6587;&amp;#x7AE0;&lt;a href=&quot;https://idisfkj.github.io/2017/11/28/Fresco%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BDraweeView/&quot;&gt;Fresco&amp;#x6E90;&amp;#x7801;&amp;#x5206;&amp;#x6790;&amp;#x4E4B;DraweeView&lt;/a&gt;&amp;#x4E0E;&lt;a href=&quot;https://idisfkj.github.io/2017/12/07/Fresco%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BHierarchy/&quot;&gt;Fresco&amp;#x6E90;&amp;#x7801;&amp;#x5206;&amp;#x6790;&amp;#x4E4B;Hierarchy&lt;/a&gt;&amp;#x3002;&amp;#x597D;&amp;#x4E86;&amp;#xFF0C;&amp;#x4E0B;&amp;#x9762;&amp;#x8FDB;&amp;#x5165;&amp;#x6B63;&amp;#x9898;&amp;#x3002;&amp;#x5728;&amp;#x4E0A;&amp;#x7BC7;&amp;#x6587;&amp;#x7AE0;&amp;#x4E2D;&amp;#x6211;&amp;#x4EEC;&amp;#x63D0;&amp;#x5230;&amp;#xFF0C;&amp;#x5728;&lt;strong&gt;Fresco&lt;/strong&gt;&amp;#x4E2D;&amp;#x5173;&amp;#x4E8E;&amp;#x56FE;&amp;#x7247;&amp;#x7684;&amp;#x7F13;&amp;#x5B58;&amp;#x3001;&amp;#x8BF7;&amp;#x6C42;&amp;#x4E0E;&amp;#x663E;&amp;#x793A;&amp;#x903B;&amp;#x8F91;&amp;#x5904;&amp;#x7406;&amp;#x90FD;&amp;#x5728;&lt;strong&gt;Controller&lt;/strong&gt;&amp;#x4E2D;&amp;#x3002;&amp;#x90A3;&amp;#x4E48;&lt;strong&gt;Controller&lt;/strong&gt;&amp;#x5230;&amp;#x5E95;&amp;#x662F;&amp;#x5982;&amp;#x4F55;&amp;#x8D2F;&amp;#x7A7F;&amp;#x8FD9;&amp;#x4E9B;&amp;#x529F;&amp;#x80FD;&amp;#x7684;&amp;#x5462;&amp;#xFF1F;&amp;#x6211;&amp;#x4EEC;&amp;#x5148;&amp;#x4ECE;&amp;#x5B83;&amp;#x7684;&amp;#x51FA;&amp;#x751F;&amp;#x5F00;&amp;#x59CB;&amp;#x3002;&lt;/p&gt;
+    <content type="html">&lt;p&gt;&amp;#x5982;&amp;#x679C;&amp;#x4F60;&amp;#x662F;&amp;#x7B2C;&amp;#x4E00;&amp;#x6B21;&amp;#x770B;&amp;#x6211;&amp;#x7684;&lt;strong&gt;Fresco&lt;/strong&gt;&amp;#x7684;&amp;#x6E90;&amp;#x7801;&amp;#x5206;&amp;#x6790;&amp;#x7CFB;&amp;#x5217;&amp;#x6587;&amp;#x7AE0;&amp;#xFF0C;&amp;#x8FD9;&amp;#x91CC;&amp;#x5F3A;&amp;#x70C8;&amp;#x63A8;&amp;#x8350;&amp;#x4F60;&amp;#x5148;&amp;#x9605;&amp;#x8BFB;&amp;#x6211;&amp;#x7684;&amp;#x524D;&amp;#x9762;&amp;#x4E24;&amp;#x7BC7;&amp;#x6587;&amp;#x7AE0;&lt;a href=&quot;https://idisfkj.github.io/2017/11/28/Fresco%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BDraweeView/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Fresco&amp;#x6E90;&amp;#x7801;&amp;#x5206;&amp;#x6790;&amp;#x4E4B;DraweeView&lt;/a&gt;&amp;#x4E0E;&lt;a href=&quot;https://idisfkj.github.io/2017/12/07/Fresco%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BHierarchy/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Fresco&amp;#x6E90;&amp;#x7801;&amp;#x5206;&amp;#x6790;&amp;#x4E4B;Hierarchy&lt;/a&gt;&amp;#x3002;&amp;#x597D;&amp;#x4E86;&amp;#xFF0C;&amp;#x4E0B;&amp;#x9762;&amp;#x8FDB;&amp;#x5165;&amp;#x6B63;&amp;#x9898;&amp;#x3002;&amp;#x5728;&amp;#x4E0A;&amp;#x7BC7;&amp;#x6587;&amp;#x7AE0;&amp;#x4E2D;&amp;#x6211;&amp;#x4EEC;&amp;#x63D0;&amp;#x5230;&amp;#xFF0C;&amp;#x5728;&lt;strong&gt;Fresco&lt;/strong&gt;&amp;#x4E2D;&amp;#x5173;&amp;#x4E8E;&amp;#x56FE;&amp;#x7247;&amp;#x7684;&amp;#x7F13;&amp;#x5B58;&amp;#x3001;&amp;#x8BF7;&amp;#x6C42;&amp;#x4E0E;&amp;#x663E;&amp;#x793A;&amp;#x903B;&amp;#x8F91;&amp;#x5904;&amp;#x7406;&amp;#x90FD;&amp;#x5728;&lt;strong&gt;Controller&lt;/strong&gt;&amp;#x4E2D;&amp;#x3002;&amp;#x90A3;&amp;#x4E48;&lt;strong&gt;Controller&lt;/strong&gt;&amp;#x5230;&amp;#x5E95;&amp;#x662F;&amp;#x5982;&amp;#x4F55;&amp;#x8D2F;&amp;#x7A7F;&amp;#x8FD9;&amp;#x4E9B;&amp;#x529F;&amp;#x80FD;&amp;#x7684;&amp;#x5462;&amp;#xFF1F;&amp;#x6211;&amp;#x4EEC;&amp;#x5148;&amp;#x4ECE;&amp;#x5B83;&amp;#x7684;&amp;#x51FA;&amp;#x751F;&amp;#x5F00;&amp;#x59CB;&amp;#x3002;&lt;/p&gt;
 &lt;h1 id=&quot;Suppiler&quot;&gt;&lt;a href=&quot;#Suppiler&quot; class=&quot;headerlink&quot; title=&quot;Suppiler&quot;&gt;&lt;/a&gt;Suppiler&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;PipelineDraweeControllerBuilderSupplier&lt;/strong&gt;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x4F9B;&amp;#x5E94;&amp;#x5546;&amp;#xFF0C;&amp;#x4E3B;&amp;#x8981;&amp;#x5B9E;&amp;#x73B0;&amp;#x4E86;&lt;code&gt;Supplier&amp;lt;T&amp;gt;&lt;/code&gt;&amp;#x63A5;&amp;#x53E3;&amp;#xFF0C;&amp;#x5B83;&amp;#x53EA;&amp;#x6709;&amp;#x4E00;&amp;#x4E2A;&amp;#x65B9;&amp;#x6CD5;&lt;em&gt;T get()&lt;/em&gt;&amp;#xFF0C;&amp;#x7528;&amp;#x6765;&amp;#x83B7;&amp;#x53D6;&amp;#x76F8;&amp;#x5173;&amp;#x7684;&amp;#x63D0;&amp;#x4F9B;&amp;#x5B9E;&amp;#x73B0;&amp;#x3002;&amp;#x56E0;&amp;#x6B64;&amp;#x8BE5;&amp;#x4F9B;&amp;#x5E94;&amp;#x7C7B;&amp;#x63D0;&amp;#x4F9B;&amp;#x7684;&amp;#x5C31;&amp;#x662F;&lt;strong&gt;PipelineDraweeControllerBuilder&lt;/strong&gt;&amp;#x5B9E;&amp;#x4F8B;&amp;#x3002;&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;@Override&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;public PipelineDraweeControllerBuilder get() {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  return new PipelineDraweeControllerBuilder(&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      mContext,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      mPipelineDraweeControllerFactory,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      mImagePipeline,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      mBoundControllerListeners);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;}&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;&amp;#x5728;&amp;#x751F;&amp;#x6210;&amp;#x7684;&lt;strong&gt;builder&lt;/strong&gt;&amp;#x4E2D;&amp;#x6709;4&amp;#x4E2A;&amp;#x53C2;&amp;#x6570;&amp;#xFF0C;&amp;#x7B2C;&amp;#x4E00;&amp;#x4E2A;&amp;#x662F;&lt;strong&gt;Context&lt;/strong&gt;&amp;#x518D;&amp;#x719F;&amp;#x6089;&amp;#x4E0D;&amp;#x8FC7;&amp;#x4E86;&amp;#xFF1B;&amp;#x7B2C;&amp;#x4E8C;&amp;#x4E2A;&amp;#x662F;&lt;strong&gt;Controller&lt;/strong&gt;&amp;#x7684;&amp;#x5DE5;&amp;#x5382;&amp;#xFF1B;&amp;#x7B2C;&amp;#x4E09;&amp;#x4E2A;&amp;#x662F;&amp;#x6570;&amp;#x636E;&amp;#x7BA1;&amp;#x9053;&lt;strong&gt;ImagePipeline&lt;/strong&gt;&amp;#xFF1B;&amp;#x7B2C;&amp;#x56DB;&amp;#x4E2A;&amp;#x662F;&lt;strong&gt;listener&lt;/strong&gt;&amp;#x7684;&lt;strong&gt;set&lt;/strong&gt;&amp;#x96C6;&amp;#x5408;&amp;#xFF0C;&amp;#x4E3B;&amp;#x8981;&amp;#x7528;&amp;#x5728;&amp;#x56FE;&amp;#x7247;&amp;#x8BF7;&amp;#x6C42;&amp;#x4E4B;&amp;#x540E;&amp;#x7684;&amp;#x76D1;&amp;#x542C;&amp;#x56DE;&amp;#x8C03;&amp;#x3002;&amp;#x4E0B;&amp;#x9762;&amp;#x8BE6;&amp;#x7EC6;&amp;#x8BF4;&amp;#x660E;&amp;#x540E;&amp;#x9762;&amp;#x4E09;&amp;#x4E2A;&amp;#x53C2;&amp;#x6570;&amp;#x5185;&amp;#x5BB9;&amp;#x4E0E;&amp;#x4F5C;&amp;#x7528;&amp;#x3002;&lt;/p&gt;
@@ -1658,7 +1658,7 @@
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;17&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;18&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;19&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;20&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;21&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;22&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;23&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;24&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;25&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;26&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;27&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;28&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;29&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;30&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;31&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;32&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;33&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;34&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;35&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;36&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;37&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;38&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;39&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;40&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;41&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;42&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;43&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;44&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;45&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;46&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;47&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;48&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;49&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;50&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;51&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;52&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;53&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;54&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;55&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;private void onNewResultInternal(&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    String id,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    DataSource&amp;lt;T&amp;gt; dataSource,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    @Nullable T image,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    float progress,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    boolean isFinished,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    boolean wasImmediate) {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  // ignore late callbacks (data source that returned the new result is not the one we expected)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  if (!isExpectedDataSource(id, dataSource)) {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    logMessageAndImage(&amp;quot;ignore_old_datasource @ onNewResult&amp;quot;, image);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    releaseImage(image);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    dataSource.close();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    return;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  }&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  mEventTracker.recordEvent(&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      isFinished ? Event.ON_DATASOURCE_RESULT : Event.ON_DATASOURCE_RESULT_INT);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  // create drawable&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  Drawable drawable;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  try {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    drawable = createDrawable(image);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  } catch (Exception exception) {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    logMessageAndImage(&amp;quot;drawable_failed @ onNewResult&amp;quot;, image);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    releaseImage(image);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    onFailureInternal(id, dataSource, exception, isFinished);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    return;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  }&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  T previousImage = mFetchedImage;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  Drawable previousDrawable = mDrawable;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  mFetchedImage = image;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  mDrawable = drawable;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  try {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    // set the new image&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    if (isFinished) {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      logMessageAndImage(&amp;quot;set_final_result @ onNewResult&amp;quot;, image);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      mDataSource = null;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      //&amp;#x901A;&amp;#x8FC7;hierarchy&amp;#xFF08;GenericDraweeHierarchy&amp;#xFF09;&amp;#x6765;&amp;#x8BBE;&amp;#x7F6E;image&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      mSettableDraweeHierarchy.setImage(drawable, 1f, wasImmediate);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      getControllerListener().onFinalImageSet(id, getImageInfo(image), getAnimatable());&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      // IMPORTANT: do not execute any instance-specific code after this point&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    } else {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      logMessageAndImage(&amp;quot;set_intermediate_result @ onNewResult&amp;quot;, image);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      mSettableDraweeHierarchy.setImage(drawable, progress, wasImmediate);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;       getControllerListener().onIntermediateImageSet(id, getImageInfo(image));&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      // IMPORTANT: do not execute any instance-specific code after this point&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    }&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  } finally {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    if (previousDrawable != null &amp;amp;&amp;amp; previousDrawable != drawable) {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      releaseDrawable(previousDrawable);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    }&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    if (previousImage != null &amp;amp;&amp;amp; previousImage != image) {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      logMessageAndImage(&amp;quot;release_previous_result @ onNewResult&amp;quot;, previousImage);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;      releaseImage(previousImage);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    }&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  }&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;}&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;&amp;#x8FD9;&amp;#x91CC;&amp;#x6211;&amp;#x4EEC;&amp;#x4E3B;&amp;#x8981;&amp;#x5C31;&amp;#x770B;&amp;#x91CC;&amp;#x9762;&amp;#x7684;&amp;#x4E24;&amp;#x4E2A;&lt;strong&gt;try&lt;/strong&gt;&amp;#x3002;&lt;br&gt;&amp;#x7B2C;&amp;#x4E00;&amp;#x4E2A;&amp;#x4F7F;&amp;#x7528;&lt;em&gt;createDrawable(image)&lt;/em&gt;&amp;#x5C06;&amp;#x62FF;&amp;#x5230;&amp;#x7684;&amp;#x6570;&amp;#x636E;&amp;#x6E90;&amp;#x8F6C;&amp;#x53D8;&amp;#x6210;&lt;strong&gt;Drawable&lt;/strong&gt;&amp;#xFF0C;&amp;#x8FD9;&amp;#x4E2A;&amp;#x65B9;&amp;#x6CD5;&amp;#x7684;&amp;#x5177;&amp;#x4F53;&amp;#x5B9E;&amp;#x73B0;&amp;#x662F;&amp;#x5728;&amp;#x5B50;&amp;#x7C7B;&amp;#x4E2D;&amp;#x5B9E;&amp;#x73B0;(&amp;#x4E0A;&amp;#x9762;&amp;#x4E5F;&amp;#x6709;&amp;#x63D0;&amp;#x53CA;)&amp;#x3002;&lt;br&gt;&amp;#x7B2C;&amp;#x4E8C;&amp;#x4E2A;&amp;#x5206;&amp;#x4E3A;&amp;#x4E24;&amp;#x79CD;&amp;#x60C5;&amp;#x51B5;&amp;#xFF0C;&amp;#x4E00;&amp;#x65B9;&amp;#x9762;&amp;#x5982;&amp;#x679C;&amp;#x6570;&amp;#x636E;&amp;#x6E90;&amp;#x5DF2;&amp;#x7ECF;&amp;#x5168;&amp;#x90E8;&amp;#x83B7;&amp;#x53D6;&amp;#x5B8C;&amp;#xFF0C;&amp;#x5219;&amp;#x76F4;&amp;#x63A5;&amp;#x8C03;&amp;#x7528;&lt;strong&gt;SettableDraweeHierarchy&lt;/strong&gt;&amp;#x63A5;&amp;#x53E3;&amp;#x7684;&lt;em&gt;setImage()&lt;/em&gt;&amp;#x65B9;&amp;#x6CD5;&amp;#x5C06;&amp;#x56FE;&amp;#x7247;&amp;#x8BBE;&amp;#x7F6E;&amp;#x5230;&lt;strong&gt;Hierarchy&lt;/strong&gt;&amp;#x56FE;&amp;#x5C42;&amp;#x4E0A;&amp;#xFF0C;&amp;#x540C;&amp;#x65F6;&amp;#x8C03;&amp;#x7528;&lt;strong&gt;Listener&lt;/strong&gt;&amp;#x7684;&amp;#x56DE;&amp;#x8C03;&amp;#x65B9;&amp;#x6CD5;&lt;em&gt;onFinalImageSet()&lt;/em&gt;;&amp;#x53E6;&amp;#x4E00;&amp;#x65B9;&amp;#x9762;&amp;#x5982;&amp;#x679C;&amp;#x6570;&amp;#x636E;&amp;#x6E90;&amp;#x8FD8;&amp;#x5728;&amp;#x83B7;&amp;#x53D6;&amp;#x4E2D;&amp;#xFF0C;&amp;#x4E5F;&amp;#x662F;&amp;#x8C03;&amp;#x7528;&lt;strong&gt;SettableDraweeHierarchy&lt;/strong&gt;&amp;#x63A5;&amp;#x53E3;&amp;#x7684;&lt;em&gt;setImage()&lt;/em&gt;&amp;#x65B9;&amp;#x6CD5;&amp;#xFF0C;&amp;#x53EA;&amp;#x662F;&amp;#x5176;&amp;#x4E2D;&amp;#x7684;&amp;#x53C2;&amp;#x6570;&lt;strong&gt;progress&lt;/strong&gt;&amp;#x6839;&amp;#x636E;&amp;#x8FDB;&amp;#x5EA6;&amp;#x6765;&amp;#x8BBE;&amp;#x7F6E;&amp;#x800C;&amp;#x5DF2;&amp;#xFF0C;&amp;#x7531;&amp;#x4E8E;&amp;#x8FD8;&amp;#x5904;&amp;#x4E8E;&amp;#x8D44;&amp;#x6E90;&amp;#x83B7;&amp;#x53D6;&amp;#x4E2D;&amp;#x6240;&amp;#x4EE5;&amp;#x8C03;&amp;#x7528;&lt;em&gt;onIntermediateImageSet()&lt;/em&gt;&amp;#x56DE;&amp;#x8C03;&amp;#x3002;&lt;br&gt;&amp;#x8FD9;&amp;#x6837;&lt;strong&gt;Controller&lt;/strong&gt;&amp;#x5C31;&amp;#x4E0E;&lt;strong&gt;Hierarchy&lt;/strong&gt;&amp;#x8054;&amp;#x7CFB;&amp;#x8D77;&amp;#x6765;&amp;#x4E86;&amp;#xFF0C;&amp;#x5C06;&amp;#x9700;&amp;#x8981;&amp;#x7684;&amp;#x56FE;&amp;#x7247;&amp;#x8BBE;&amp;#x7F6E;&amp;#x5230;&amp;#x663E;&amp;#x793A;&amp;#x7684;&amp;#x56FE;&amp;#x7247;&amp;#x4E2D;&amp;#x3002;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&amp;#x5BF9;&amp;#x4E8E;&lt;strong&gt;SettableDraweeHierarchy&lt;/strong&gt;&amp;#x4E2D;&amp;#x7684;&amp;#x8FD9;&amp;#x4E9B;&amp;#x65B9;&amp;#x6CD5;&amp;#x5982;&amp;#x679C;&amp;#x4E0D;&amp;#x7406;&amp;#x89E3;&amp;#x7684;&amp;#x53EF;&amp;#x4EE5;&amp;#x56DE;&amp;#x8FC7;&amp;#x5934;&amp;#x53BB;&amp;#x770B;&amp;#x6211;&amp;#x4E4B;&amp;#x524D;&amp;#x7684;&amp;#x8FD9;&amp;#x7BC7;&amp;#x6587;&amp;#x7AE0;&lt;a href=&quot;https://idisfkj.github.io/2017/12/07/Fresco%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BHierarchy/&quot;&gt;Fresco&amp;#x6E90;&amp;#x7801;&amp;#x5206;&amp;#x6790;&amp;#x4E4B;Hierarchy&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&amp;#x5BF9;&amp;#x4E8E;&lt;strong&gt;SettableDraweeHierarchy&lt;/strong&gt;&amp;#x4E2D;&amp;#x7684;&amp;#x8FD9;&amp;#x4E9B;&amp;#x65B9;&amp;#x6CD5;&amp;#x5982;&amp;#x679C;&amp;#x4E0D;&amp;#x7406;&amp;#x89E3;&amp;#x7684;&amp;#x53EF;&amp;#x4EE5;&amp;#x56DE;&amp;#x8FC7;&amp;#x5934;&amp;#x53BB;&amp;#x770B;&amp;#x6211;&amp;#x4E4B;&amp;#x524D;&amp;#x7684;&amp;#x8FD9;&amp;#x7BC7;&amp;#x6587;&amp;#x7AE0;&lt;a href=&quot;https://idisfkj.github.io/2017/12/07/Fresco%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BHierarchy/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Fresco&amp;#x6E90;&amp;#x7801;&amp;#x5206;&amp;#x6790;&amp;#x4E4B;Hierarchy&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&amp;#x7531;&amp;#x4E8E;&amp;#x6E90;&amp;#x7801;&amp;#x592A;&amp;#x591A;&amp;#xFF0C;&amp;#x5BF9;&amp;#x4E8E;&lt;em&gt;onFailureInternal()&lt;/em&gt;&amp;#x4E0E;&lt;em&gt;onProgressUpdateInternal()&lt;/em&gt;&amp;#x8FD9;&amp;#x91CC;&amp;#x5C31;&amp;#x4E0D;&amp;#x8D34;&amp;#x51FA;&amp;#x6E90;&amp;#x7801;&amp;#x6765;&amp;#x8FDB;&amp;#x884C;&amp;#x5206;&amp;#x6790;&amp;#x4E86;&amp;#x3002;&amp;#x539F;&amp;#x7406;&amp;#x4E0E;&amp;#x8C03;&amp;#x7528;&amp;#x7684;&amp;#x65B9;&amp;#x6CD5;&amp;#x57FA;&amp;#x672C;&amp;#x7C7B;&amp;#x4F3C;&amp;#xFF0C;&amp;#x5982;&amp;#x679C;&amp;#x60F3;&amp;#x770B;&amp;#x6E90;&amp;#x7801;&amp;#x7684;&amp;#x53EF;&amp;#x4EE5;&amp;#x70B9;&lt;a href=&quot;https://github.com/facebook/fresco/blob/master/drawee/src/main/java/com/facebook/drawee/controller/AbstractDraweeController.java&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&amp;#x8FD9;&amp;#x91CC;&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;onDetach&quot;&gt;&lt;a href=&quot;#onDetach&quot; class=&quot;headerlink&quot; title=&quot;onDetach&quot;&gt;&lt;/a&gt;onDetach&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;@Override&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;public void onDetach() {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  if (FLog.isLoggable(FLog.VERBOSE)) {&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    FLog.v(TAG, &amp;quot;controller %x %s: onDetach&amp;quot;, System.identityHashCode(this), mId);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  }&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  mEventTracker.recordEvent(Event.ON_DETACH_CONTROLLER);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  mIsAttached = false;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  mDeferredReleaser.scheduleDeferredRelease(this);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;}&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -1673,21 +1673,21 @@
     
     </summary>
     
-      <category term="android" scheme="https://idisfkj.github.io/categories/android/"/>
+      <category term="android" scheme="https://rousetime.com/categories/android/"/>
     
     
-      <category term="源码分析" scheme="https://idisfkj.github.io/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="源码分析" scheme="https://rousetime.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
   <entry>
     <title>Fresco源码分析之Hierarchy</title>
-    <link href="https://idisfkj.github.io/2017/12/07/Fresco%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BHierarchy/"/>
-    <id>https://idisfkj.github.io/2017/12/07/Fresco源码分析之Hierarchy/</id>
+    <link href="https://rousetime.com/2017/12/07/Fresco%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BHierarchy/"/>
+    <id>https://rousetime.com/2017/12/07/Fresco源码分析之Hierarchy/</id>
     <published>2017-12-07T14:28:31.000Z</published>
     <updated>2017-12-28T14:36:38.000Z</updated>
     
-    <content type="html">&lt;p&gt;&amp;#x4E0A;&amp;#x7BC7;&amp;#x6587;&amp;#x7AE0;&amp;#x6211;&amp;#x4EEC;&amp;#x5206;&amp;#x6790;&amp;#x4E86;&lt;strong&gt;Fresco&lt;/strong&gt;&amp;#x4E2D;&amp;#x7684;&lt;strong&gt;DraweeView&lt;/strong&gt;&amp;#xFF0C;&amp;#x5BF9;&amp;#x5176;&amp;#x4E2D;&amp;#x7684;&amp;#x4E00;&amp;#x4E9B;&amp;#x539F;&amp;#x7406;&amp;#x4EE5;&amp;#x53CA;&amp;#x65B9;&amp;#x6CD5;&amp;#x8FDB;&amp;#x884C;&amp;#x4E86;&amp;#x89E3;&amp;#x6790;&amp;#x3002;&amp;#x5728;&amp;#x8FD9;&amp;#x8FC7;&amp;#x7A0B;&amp;#x4E2D;&amp;#x6211;&amp;#x4EEC;&amp;#x4E86;&amp;#x89E3;&amp;#x5230;&amp;#xFF0C;&lt;strong&gt;DraweeView&lt;/strong&gt;&amp;#x4E2D;&amp;#x662F;&amp;#x901A;&amp;#x8FC7;&lt;strong&gt;DraweeHolder&lt;/strong&gt;&amp;#x6765;&amp;#x7EDF;&amp;#x4E00;&amp;#x7BA1;&amp;#x7406;&amp;#x7684;&amp;#x3002;&amp;#x800C;&lt;strong&gt;DraweeHolder&lt;/strong&gt;&amp;#x53C8;&amp;#x662F;&amp;#x7528;&amp;#x6765;&amp;#x7EDF;&amp;#x4E00;&amp;#x7BA1;&amp;#x7406;&amp;#x76F8;&amp;#x5173;&amp;#x7684;&lt;strong&gt;Hierarchy&lt;/strong&gt;&amp;#x4E0E;&lt;strong&gt;Controller&lt;/strong&gt;&amp;#xFF0C;&amp;#x5982;&amp;#x679C;&amp;#x60F3;&amp;#x4E86;&amp;#x89E3;&lt;strong&gt;DraweeView&lt;/strong&gt;&amp;#x76F8;&amp;#x5173;&amp;#x7684;&amp;#x77E5;&amp;#x8BC6;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x5148;&amp;#x770B;&amp;#x4E0B;&amp;#x6211;&amp;#x7684;&amp;#x524D;&amp;#x4E00;&amp;#x7BC7;&amp;#x6587;&amp;#x7AE0;&lt;a href=&quot;https://idisfkj.github.io/2017/11/28/Fresco%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BDraweeView/&quot;&gt;Fresco&amp;#x6E90;&amp;#x7801;&amp;#x5206;&amp;#x6790;&amp;#x4E4B;DraweeView&lt;/a&gt;&amp;#x3002;&amp;#x4ECA;&amp;#x5929;&amp;#x8FD9;&amp;#x91CC;&amp;#x8FDB;&amp;#x4E00;&amp;#x6B65;&amp;#x6765;&amp;#x5206;&amp;#x6790;&lt;strong&gt;Fresco&lt;/strong&gt;&amp;#x4E2D;&amp;#x7684;&lt;strong&gt;Hierarchy&lt;/strong&gt;&amp;#x3002;&lt;/p&gt;
+    <content type="html">&lt;p&gt;&amp;#x4E0A;&amp;#x7BC7;&amp;#x6587;&amp;#x7AE0;&amp;#x6211;&amp;#x4EEC;&amp;#x5206;&amp;#x6790;&amp;#x4E86;&lt;strong&gt;Fresco&lt;/strong&gt;&amp;#x4E2D;&amp;#x7684;&lt;strong&gt;DraweeView&lt;/strong&gt;&amp;#xFF0C;&amp;#x5BF9;&amp;#x5176;&amp;#x4E2D;&amp;#x7684;&amp;#x4E00;&amp;#x4E9B;&amp;#x539F;&amp;#x7406;&amp;#x4EE5;&amp;#x53CA;&amp;#x65B9;&amp;#x6CD5;&amp;#x8FDB;&amp;#x884C;&amp;#x4E86;&amp;#x89E3;&amp;#x6790;&amp;#x3002;&amp;#x5728;&amp;#x8FD9;&amp;#x8FC7;&amp;#x7A0B;&amp;#x4E2D;&amp;#x6211;&amp;#x4EEC;&amp;#x4E86;&amp;#x89E3;&amp;#x5230;&amp;#xFF0C;&lt;strong&gt;DraweeView&lt;/strong&gt;&amp;#x4E2D;&amp;#x662F;&amp;#x901A;&amp;#x8FC7;&lt;strong&gt;DraweeHolder&lt;/strong&gt;&amp;#x6765;&amp;#x7EDF;&amp;#x4E00;&amp;#x7BA1;&amp;#x7406;&amp;#x7684;&amp;#x3002;&amp;#x800C;&lt;strong&gt;DraweeHolder&lt;/strong&gt;&amp;#x53C8;&amp;#x662F;&amp;#x7528;&amp;#x6765;&amp;#x7EDF;&amp;#x4E00;&amp;#x7BA1;&amp;#x7406;&amp;#x76F8;&amp;#x5173;&amp;#x7684;&lt;strong&gt;Hierarchy&lt;/strong&gt;&amp;#x4E0E;&lt;strong&gt;Controller&lt;/strong&gt;&amp;#xFF0C;&amp;#x5982;&amp;#x679C;&amp;#x60F3;&amp;#x4E86;&amp;#x89E3;&lt;strong&gt;DraweeView&lt;/strong&gt;&amp;#x76F8;&amp;#x5173;&amp;#x7684;&amp;#x77E5;&amp;#x8BC6;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x5148;&amp;#x770B;&amp;#x4E0B;&amp;#x6211;&amp;#x7684;&amp;#x524D;&amp;#x4E00;&amp;#x7BC7;&amp;#x6587;&amp;#x7AE0;&lt;a href=&quot;https://idisfkj.github.io/2017/11/28/Fresco%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BDraweeView/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Fresco&amp;#x6E90;&amp;#x7801;&amp;#x5206;&amp;#x6790;&amp;#x4E4B;DraweeView&lt;/a&gt;&amp;#x3002;&amp;#x4ECA;&amp;#x5929;&amp;#x8FD9;&amp;#x91CC;&amp;#x8FDB;&amp;#x4E00;&amp;#x6B65;&amp;#x6765;&amp;#x5206;&amp;#x6790;&lt;strong&gt;Fresco&lt;/strong&gt;&amp;#x4E2D;&amp;#x7684;&lt;strong&gt;Hierarchy&lt;/strong&gt;&amp;#x3002;&lt;/p&gt;
 &lt;h1 id=&quot;GenericDraweeHierarchyBuilder&quot;&gt;&lt;a href=&quot;#GenericDraweeHierarchyBuilder&quot; class=&quot;headerlink&quot; title=&quot;GenericDraweeHierarchyBuilder&quot;&gt;&lt;/a&gt;GenericDraweeHierarchyBuilder&lt;/h1&gt;&lt;p&gt;&amp;#x5728;&lt;strong&gt;GenericDraweeView&lt;/strong&gt;&amp;#x7684;&amp;#x6784;&amp;#x9020;&amp;#x65B9;&amp;#x6CD5;&amp;#x4E2D;&amp;#x4F1A;&amp;#x8C03;&amp;#x7528;&lt;em&gt;inflateHierarchy(context, atts)&lt;/em&gt;&amp;#x65B9;&amp;#x6CD5;&amp;#x6765;&amp;#x521B;&amp;#x5EFA;&amp;#x4E00;&amp;#x4E2A;&lt;strong&gt;GenericDraweeHierarchyBuilder&lt;/strong&gt;&amp;#x5BF9;&amp;#x8C61;&amp;#xFF0C;&amp;#x901A;&amp;#x8FC7;&amp;#x8C03;&amp;#x7528;&amp;#x8BE5;&amp;#x5BF9;&amp;#x8C61;&amp;#x7684;&lt;strong&gt;build&lt;/strong&gt;&amp;#x65B9;&amp;#x6CD5;&amp;#x6765;&amp;#x751F;&amp;#x6210;&amp;#x4E00;&amp;#x4E2A;&lt;strong&gt;Hierarchy&lt;/strong&gt;&amp;#x3002;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&amp;#x5982;&amp;#x679C;&amp;#x4F60;&amp;#x770B;&amp;#x4E86;&amp;#x6211;&amp;#x4E0A;&amp;#x4E00;&amp;#x7BC7;&amp;#x6587;&amp;#x7AE0;&amp;#xFF0C;&amp;#x76F8;&amp;#x4FE1;&amp;#x5BF9;&amp;#x8FD9;&amp;#x4E2A;&amp;#x65B9;&amp;#x6CD5;&amp;#x4F60;&amp;#x4F1A;&amp;#x611F;&amp;#x5230;&amp;#x5F88;&amp;#x4EB2;&amp;#x5207;&amp;#x3002;&lt;/p&gt;
@@ -1769,17 +1769,17 @@
     
     </summary>
     
-      <category term="android" scheme="https://idisfkj.github.io/categories/android/"/>
+      <category term="android" scheme="https://rousetime.com/categories/android/"/>
     
     
-      <category term="源码分析" scheme="https://idisfkj.github.io/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="源码分析" scheme="https://rousetime.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
   <entry>
     <title>Fresco源码分析之DraweeView</title>
-    <link href="https://idisfkj.github.io/2017/11/28/Fresco%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BDraweeView/"/>
-    <id>https://idisfkj.github.io/2017/11/28/Fresco源码分析之DraweeView/</id>
+    <link href="https://rousetime.com/2017/11/28/Fresco%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BDraweeView/"/>
+    <id>https://rousetime.com/2017/11/28/Fresco源码分析之DraweeView/</id>
     <published>2017-11-28T13:28:05.000Z</published>
     <updated>2017-12-28T14:36:28.000Z</updated>
     
@@ -1842,17 +1842,17 @@
     
     </summary>
     
-      <category term="android" scheme="https://idisfkj.github.io/categories/android/"/>
+      <category term="android" scheme="https://rousetime.com/categories/android/"/>
     
     
-      <category term="源码分析" scheme="https://idisfkj.github.io/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="源码分析" scheme="https://rousetime.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
   <entry>
     <title>tensorflow-梯度下降,有这一篇就足够了</title>
-    <link href="https://idisfkj.github.io/2017/11/06/tensorflow-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D-%E6%9C%89%E8%BF%99%E4%B8%80%E7%AF%87%E5%B0%B1%E8%B6%B3%E5%A4%9F%E4%BA%86/"/>
-    <id>https://idisfkj.github.io/2017/11/06/tensorflow-梯度下降-有这一篇就足够了/</id>
+    <link href="https://rousetime.com/2017/11/06/tensorflow-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D-%E6%9C%89%E8%BF%99%E4%B8%80%E7%AF%87%E5%B0%B1%E8%B6%B3%E5%A4%9F%E4%BA%86/"/>
+    <id>https://rousetime.com/2017/11/06/tensorflow-梯度下降-有这一篇就足够了/</id>
     <published>2017-11-06T13:48:00.000Z</published>
     <updated>2017-11-13T01:02:32.000Z</updated>
     
@@ -1920,17 +1920,17 @@
     
     </summary>
     
-      <category term="tensorflow" scheme="https://idisfkj.github.io/categories/tensorflow/"/>
+      <category term="tensorflow" scheme="https://rousetime.com/categories/tensorflow/"/>
     
     
-      <category term="gradientDescent" scheme="https://idisfkj.github.io/tags/gradientDescent/"/>
+      <category term="gradientDescent" scheme="https://rousetime.com/tags/gradientDescent/"/>
     
   </entry>
   
   <entry>
     <title>Kotlin最佳实践</title>
-    <link href="https://idisfkj.github.io/2017/08/21/Kotlin%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
-    <id>https://idisfkj.github.io/2017/08/21/Kotlin最佳实践/</id>
+    <link href="https://rousetime.com/2017/08/21/Kotlin%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
+    <id>https://rousetime.com/2017/08/21/Kotlin最佳实践/</id>
     <published>2017-08-21T12:55:12.000Z</published>
     <updated>2017-08-21T16:43:18.000Z</updated>
     
@@ -1989,10 +1989,10 @@
     
     </summary>
     
-      <category term="android" scheme="https://idisfkj.github.io/categories/android/"/>
+      <category term="android" scheme="https://rousetime.com/categories/android/"/>
     
     
-      <category term="Kotlin" scheme="https://idisfkj.github.io/tags/Kotlin/"/>
+      <category term="Kotlin" scheme="https://rousetime.com/tags/Kotlin/"/>
     
   </entry>
   
