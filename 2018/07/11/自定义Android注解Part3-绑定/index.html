@@ -18,17 +18,17 @@
   <meta name="description" content="&amp;#x4E0A;&amp;#x4E00;&amp;#x8282;&amp;#x6211;&amp;#x4EEC;&amp;#x5DF2;&amp;#x7ECF;&amp;#x5C06;&amp;#x81EA;&amp;#x52A8;&amp;#x751F;&amp;#x6210;&amp;#x6CE8;&amp;#x89E3;&amp;#x4EE3;&amp;#x7801;&amp;#x90E8;&amp;#x5206;&amp;#x4ECB;&amp;#x7ECD;&amp;#x5B8C;&amp;#x6BD5;&amp;#xFF0C;&amp;#x4ECA;&amp;#x5929">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自定义Android注解Part3:绑定">
-<meta property="og:url" content="https://rousetime.com/2018/07/11/自定义Android注解Part3-绑定/index.html">
+<meta property="og:url" content="www.rousetime.com/2018/07/11/自定义Android注解Part3-绑定/index.html">
 <meta property="og:site_name" content="Idisfkj">
 <meta property="og:description" content="&amp;#x4E0A;&amp;#x4E00;&amp;#x8282;&amp;#x6211;&amp;#x4EEC;&amp;#x5DF2;&amp;#x7ECF;&amp;#x5C06;&amp;#x81EA;&amp;#x52A8;&amp;#x751F;&amp;#x6210;&amp;#x6CE8;&amp;#x89E3;&amp;#x4EE3;&amp;#x7801;&amp;#x90E8;&amp;#x5206;&amp;#x4ECB;&amp;#x7ECD;&amp;#x5B8C;&amp;#x6BD5;&amp;#xFF0C;&amp;#x4ECA;&amp;#x5929">
-<meta property="og:image" content="https://rousetime.com/2018/07/11/自定义Android注解Part3-绑定/2018-07-11-2.jpeg">
-<meta property="og:image" content="https://rousetime.com/2018/07/11/自定义Android注解Part3-绑定/2018-07-11-1.png">
-<meta property="og:image" content="https://rousetime.com/2018/07/11/自定义Android注解Part3-绑定/wx.jpg">
+<meta property="og:image" content="www.rousetime.com/11/自定义Android注解Part3-绑定/2018-07-11-2.jpeg">
+<meta property="og:image" content="www.rousetime.com/11/自定义Android注解Part3-绑定/2018-07-11-1.png">
+<meta property="og:image" content="www.rousetime.com/11/自定义Android注解Part3-绑定/wx.jpg">
 <meta property="og:updated_time" content="2018-07-12T00:09:26.151Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自定义Android注解Part3:绑定">
 <meta name="twitter:description" content="&amp;#x4E0A;&amp;#x4E00;&amp;#x8282;&amp;#x6211;&amp;#x4EEC;&amp;#x5DF2;&amp;#x7ECF;&amp;#x5C06;&amp;#x81EA;&amp;#x52A8;&amp;#x751F;&amp;#x6210;&amp;#x6CE8;&amp;#x89E3;&amp;#x4EE3;&amp;#x7801;&amp;#x90E8;&amp;#x5206;&amp;#x4ECB;&amp;#x7ECD;&amp;#x5B8C;&amp;#x6BD5;&amp;#xFF0C;&amp;#x4ECA;&amp;#x5929">
-<meta name="twitter:image" content="https://rousetime.com/2018/07/11/自定义Android注解Part3-绑定/2018-07-11-2.jpeg">
+<meta name="twitter:image" content="www.rousetime.com/11/自定义Android注解Part3-绑定/2018-07-11-2.jpeg">
 
   
 
@@ -237,11 +237,11 @@
 
   <div class="article-content">
     
-      <p><img src="/2018/07/11/&#x81EA;&#x5B9A;&#x4E49;Android&#x6CE8;&#x89E3;Part3-&#x7ED1;&#x5B9A;/2018-07-11-2.jpeg" alt=""></p>
+      <p><img src="/11/&#x81EA;&#x5B9A;&#x4E49;Android&#x6CE8;&#x89E3;Part3-&#x7ED1;&#x5B9A;/2018-07-11-2.jpeg" alt=""></p>
 <p>&#x4E0A;&#x4E00;&#x8282;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x5C06;&#x81EA;&#x52A8;&#x751F;&#x6210;&#x6CE8;&#x89E3;&#x4EE3;&#x7801;&#x90E8;&#x5206;&#x4ECB;&#x7ECD;&#x5B8C;&#x6BD5;&#xFF0C;&#x4ECA;&#x5929;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x662F;&#x81EA;&#x5B9A;&#x4E49;Android&#x6CE8;&#x89E3;&#x7CFB;&#x5217;&#x7684;&#x6700;&#x540E;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#x3002;&#x5E0C;&#x671B;&#x5927;&#x5BB6;&#x8FD9;&#x4E00;&#x8DEF;&#x8D70;&#x6765;&#x6709;&#x6240;&#x6536;&#x83B7;&#x3002;</p>
 <p>&#x7ECF;&#x8FC7;&#x524D;&#x9762;&#x7684;&#x4E86;&#x89E3;&#xFF0C;&#x6211;&#x4EEC;&#x4E09;&#x5927;&#x90E8;&#x5206;&#xFF1A;butterknife-annotations&#x3001;butterknife-compiler&#x4E0E;butterknife-bind&#x3002;&#x73B0;&#x5728;&#x5C31;&#x5269;&#x4E0B;&#x6700;&#x540E;&#x4E00;&#x90E8;&#x5206;butterknife-bind&#x3002;&#x8BE5;&#x90E8;&#x5206;&#x662F;&#x5BF9;&#x6211;&#x4EEC;&#x524D;&#x9762;&#x5B9A;&#x4E49;&#x7684;&#x6CE8;&#x89E3;&#x53D8;&#x91CF;&#x4E0E;&#x81EA;&#x52A8;&#x751F;&#x6210;&#x7684;&#x4EE3;&#x7801;&#x8FDB;&#x884C;&#x7ED1;&#x5B9A;&#xFF0C;&#x5373;&#x8C03;&#x7528;&#x6211;&#x4EEC;&#x81EA;&#x52A8;&#x751F;&#x6210;&#x7684;&#x4EE3;&#x7801;&#x3002;</p>
 <p>&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x8FD8;&#x662F;&#x6765;&#x770B;&#x4E0B;butterknife-bind&#x6A21;&#x677F;&#x5E93;&#x7684;&#x7ED3;&#x6784;&#xFF1A;</p>
-<p><img src="/2018/07/11/&#x81EA;&#x5B9A;&#x4E49;Android&#x6CE8;&#x89E3;Part3-&#x7ED1;&#x5B9A;/2018-07-11-1.png" alt=""></p>
+<p><img src="/11/&#x81EA;&#x5B9A;&#x4E49;Android&#x6CE8;&#x89E3;Part3-&#x7ED1;&#x5B9A;/2018-07-11-1.png" alt=""></p>
 <p>&#x53EA;&#x6709;Butterknife&#x4E00;&#x4E2A;&#x7C7B;&#xFF0C;&#x5728;&#x8FD9;&#x4E4B;&#x524D;&#x6211;&#x4EEC;&#x8FD8;&#x9700;&#x5C06;&#x524D;&#x9762;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x5B9A;&#x4E49;&#x597D;&#x7684;module&#x5F15;&#x5165;</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dependencies {</div><div class="line">    ...</div><div class="line">    compile project(path: &apos;:butterknife-annotations&apos;)</div><div class="line">}</div></pre></td></tr></table></figure>
 <p>&#x6709;&#x4E86;&#x4E4B;&#x524D;&#x7684;&#x57FA;&#x7840;&#xFF0C;&#x6211;&#x4EEC;<strong>Make Project</strong>&#x9879;&#x76EE;&#x5DE5;&#x7A0B;&#xFF0C;&#x4E4B;&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x627E;&#x5230;MainActivity$Binding&#x7C7B;&#xFF0C;&#x6216;&#x8005;&#x76F4;&#x63A5;&#x5728;<strong>/app/build/generated/source/kapt/debug/</strong>&#x76EE;&#x5F55;&#x4E0B;&#x67E5;&#x627E;&#x3002;</p>
@@ -266,7 +266,7 @@
 <h2 id="&#x76F8;&#x5173;&#x6587;&#x7AE0;"><a href="#&#x76F8;&#x5173;&#x6587;&#x7AE0;" class="headerlink" title="&#x76F8;&#x5173;&#x6587;&#x7AE0;"></a>&#x76F8;&#x5173;&#x6587;&#x7AE0;</h2><p><a href="https://idisfkj.github.io/2018/07/01/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part1-%E6%B3%A8%E8%A7%A3%E5%8F%98%E9%87%8F/" target="_blank" rel="external">&#x81EA;&#x5B9A;&#x4E49;Android&#x6CE8;&#x89E3;Part1:&#x6CE8;&#x89E3;&#x53D8;&#x91CF;</a></p>
 <p><a href="https://idisfkj.github.io/2018/07/04/%E8%87%AA%E5%AE%9A%E4%B9%89Android%E6%B3%A8%E8%A7%A3Part2-%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90/" target="_blank" rel="external">&#x81EA;&#x5B9A;&#x4E49;Android&#x6CE8;&#x89E3;Part2:&#x4EE3;&#x7801;&#x81EA;&#x52A8;&#x751F;&#x6210;</a></p>
 <h2 id="&#x5173;&#x6CE8;"><a href="#&#x5173;&#x6CE8;" class="headerlink" title="&#x5173;&#x6CE8;"></a>&#x5173;&#x6CE8;</h2><p>&#x516C;&#x4F17;&#x53F7;&#xFF1A;&#x602A;&#x8C08;&#x65F6;&#x95F4;&#x5230;&#x4E86;</p>
-<p><img src="/2018/07/11/&#x81EA;&#x5B9A;&#x4E49;Android&#x6CE8;&#x89E3;Part3-&#x7ED1;&#x5B9A;/wx.jpg" alt="&#x602A;&#x8C08;&#x65F6;&#x95F4;&#x5230;&#x4E86;"></p>
+<p><img src="/11/&#x81EA;&#x5B9A;&#x4E49;Android&#x6CE8;&#x89E3;Part3-&#x7ED1;&#x5B9A;/wx.jpg" alt="&#x602A;&#x8C08;&#x65F6;&#x95F4;&#x5230;&#x4E86;"></p>
 
     
   </div>

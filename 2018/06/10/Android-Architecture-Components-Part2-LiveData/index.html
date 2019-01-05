@@ -18,16 +18,16 @@
   <meta name="description" content="&amp;#x611F;&amp;#x8C22;&amp;#x4F60;&amp;#x7684;&amp;#x518D;&amp;#x6B21;&amp;#x5149;&amp;#x4E34;&amp;#xFF0C;&amp;#x6B22;&amp;#x8FCE;&amp;#x6765;&amp;#x5230;Android Architecture Components&amp;#xFF08;ACC&amp;#xFF09;&amp;#x7CFB;&amp;#x5217;&amp;#x6587;&amp;#x7AE0;&amp;#x3002;&amp;#x4E">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android Architecture Components Part2:LiveData">
-<meta property="og:url" content="https://rousetime.com/2018/06/10/Android-Architecture-Components-Part2-LiveData/index.html">
+<meta property="og:url" content="www.rousetime.com/2018/06/10/Android-Architecture-Components-Part2-LiveData/index.html">
 <meta property="og:site_name" content="Idisfkj">
 <meta property="og:description" content="&amp;#x611F;&amp;#x8C22;&amp;#x4F60;&amp;#x7684;&amp;#x518D;&amp;#x6B21;&amp;#x5149;&amp;#x4E34;&amp;#xFF0C;&amp;#x6B22;&amp;#x8FCE;&amp;#x6765;&amp;#x5230;Android Architecture Components&amp;#xFF08;ACC&amp;#xFF09;&amp;#x7CFB;&amp;#x5217;&amp;#x6587;&amp;#x7AE0;&amp;#x3002;&amp;#x4E">
-<meta property="og:image" content="https://rousetime.com/2018/06/10/Android-Architecture-Components-Part2-LiveData/cover.png">
-<meta property="og:image" content="https://rousetime.com/2018/06/10/Android-Architecture-Components-Part2-LiveData/wx.jpg">
+<meta property="og:image" content="www.rousetime.com/10/Android-Architecture-Components-Part2-LiveData/cover.png">
+<meta property="og:image" content="www.rousetime.com/10/Android-Architecture-Components-Part2-LiveData/wx.jpg">
 <meta property="og:updated_time" content="2018-06-23T14:31:23.407Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Architecture Components Part2:LiveData">
 <meta name="twitter:description" content="&amp;#x611F;&amp;#x8C22;&amp;#x4F60;&amp;#x7684;&amp;#x518D;&amp;#x6B21;&amp;#x5149;&amp;#x4E34;&amp;#xFF0C;&amp;#x6B22;&amp;#x8FCE;&amp;#x6765;&amp;#x5230;Android Architecture Components&amp;#xFF08;ACC&amp;#xFF09;&amp;#x7CFB;&amp;#x5217;&amp;#x6587;&amp;#x7AE0;&amp;#x3002;&amp;#x4E">
-<meta name="twitter:image" content="https://rousetime.com/2018/06/10/Android-Architecture-Components-Part2-LiveData/cover.png">
+<meta name="twitter:image" content="www.rousetime.com/10/Android-Architecture-Components-Part2-LiveData/cover.png">
 
   
 
@@ -236,7 +236,7 @@
 
   <div class="article-content">
     
-      <p><img src="/2018/06/10/Android-Architecture-Components-Part2-LiveData/cover.png" alt=""></p>
+      <p><img src="/10/Android-Architecture-Components-Part2-LiveData/cover.png" alt=""></p>
 <p>&#x611F;&#x8C22;&#x4F60;&#x7684;&#x518D;&#x6B21;&#x5149;&#x4E34;&#xFF0C;&#x6B22;&#x8FCE;&#x6765;&#x5230;Android Architecture Components&#xFF08;ACC&#xFF09;&#x7CFB;&#x5217;&#x6587;&#x7AE0;&#x3002;&#x4E0A;&#x7BC7;&#x6587;&#x7AE0;&#x6211;&#x4EEC;&#x4E00;&#x8D77;&#x8BA8;&#x8BBA;&#x4E86;Room&#xFF0C;&#x901A;&#x8FC7;Room&#x6211;&#x4EEC;&#x80FD;&#x591F;&#x65B9;&#x4FBF;&#x7684;&#x64CD;&#x4F5C;App&#x7684;&#x6570;&#x636E;&#x5E93;&#x3002;&#x5982;&#x679C;&#x4F60;&#x7684;App&#x5BF9;&#x672C;&#x5730;&#x6570;&#x636E;&#x5E93;&#x6709;&#x6240;&#x4F9D;&#x8D56;&#x7684;&#x8BDD;&#xFF0C;Room&#x4F60;&#x503C;&#x5F97;&#x62E5;&#x6709;&#x3002;</p>
 <p>&#x4ECA;&#x5929;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x7EE7;&#x7EED;&#x4E0A;&#x7BC7;&#x6587;&#x7AE0;&#x7684;&#x6B65;&#x4F10;&#xFF0C;&#x8BA9;&#x6211;&#x4EEC;&#x4E00;&#x8D77;&#x6765;&#x5168;&#x9762;&#x4E86;&#x89E3;ACC&#x53E6;&#x4E00;&#x5F3A;&#x5927;&#x7684;&#x7EC4;&#x4EF6;LiveData&#x3002;&#x76F8;&#x4FE1;&#x4F60;&#x9A6C;&#x4E0A;&#x4F1A;&#x559C;&#x6B22;&#x4E0A;&#x5979;&#xFF01;&#x1F60D;&#x1F60D;&#x1F60D;</p>
 <h2 id="&#x7B80;&#x8FF0;"><a href="#&#x7B80;&#x8FF0;" class="headerlink" title="&#x7B80;&#x8FF0;"></a>&#x7B80;&#x8FF0;</h2><p>LiveData&#x662F;&#x4E00;&#x79CD;&#x53EF;&#x89C2;&#x6D4B;&#x6570;&#x636E;&#x5BB9;&#x5668;&#xFF0C;&#x5B83;&#x4F1A;&#x5728;&#x6570;&#x636E;&#x53D8;&#x5316;&#x65F6;&#x901A;&#x77E5;&#x89C2;&#x6D4B;&#x5668;&#xFF0C;&#x4EE5;&#x4FBF;&#x66F4;&#x65B0;&#x9875;&#x9762;&#xFF1B;&#x540C;&#x65F6;&#x5B83;&#x5177;&#x5907;&#x751F;&#x547D;&#x611F;&#x77E5;&#x80FD;&#x529B;&#xFF0C;&#x53EF;&#x4EE5;&#x5B9E;&#x65F6;&#x89C2;&#x5BDF;Activity/Fragment&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x72B6;&#x6001;&#x3002;</p>
@@ -282,7 +282,7 @@
 <p>&#x662F;&#x5426;&#x611F;&#x89C9;LiveData&#x5F88;&#x5F3A;&#x5927;&#x5462;&#xFF1F;&#x90A3;&#x4E48;&#x8D76;&#x7D27;&#x884C;&#x52A8;&#x8D77;&#x6765;&#x5427;&#xFF0C;&#x8BA9;&#x4F60;&#x7684;App&#x4E2D;&#x6570;&#x636E;&#x4E5F;&#x5177;&#x6709;&#x53EF;&#x89C2;&#x5BDF;&#x4E0E;&#x751F;&#x547D;&#x611F;&#x77E5;&#x80FD;&#x529B;&#x3002;</p>
 <p>&#x6700;&#x540E;&#x6587;&#x7AE0;&#x4E2D;&#x7684;&#x4EE3;&#x7801;&#x90FD;&#x53EF;&#x4EE5;&#x5728;<a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="external">Github</a>&#x4E2D;&#x83B7;&#x53D6;&#x5230;&#x3002;&#x4F7F;&#x7528;&#x65F6;&#x8BF7;&#x5C06;&#x5206;&#x652F;&#x5207;&#x6362;&#x5230;<strong>feat_architecture_components</strong></p>
 <h2 id="&#x76F8;&#x5173;&#x6587;&#x7AE0;"><a href="#&#x76F8;&#x5173;&#x6587;&#x7AE0;" class="headerlink" title="&#x76F8;&#x5173;&#x6587;&#x7AE0;"></a>&#x76F8;&#x5173;&#x6587;&#x7AE0;</h2><p><a href="https://idisfkj.github.io/2018/06/07/Android-Architecture-Components-Part1-Room/" target="_blank" rel="external">Android Architecture Components Part1:Room</a><br><a href="https://idisfkj.github.io/2018/06/14/Android-Architecture-Components-Part3-Lifecycle/" target="_blank" rel="external">Android Architecture Components Part3:Lifecycle</a><br><a href="https://idisfkj.github.io/2018/06/22/Android-Architecture-Components-Part4-ViewModel/" target="_blank" rel="external">Android Architecture Components Part4:ViewModel</a></p>
-<h2 id="&#x5173;&#x6CE8;"><a href="#&#x5173;&#x6CE8;" class="headerlink" title="&#x5173;&#x6CE8;"></a>&#x5173;&#x6CE8;</h2><p><img src="/2018/06/10/Android-Architecture-Components-Part2-LiveData/wx.jpg" alt="&#x602A;&#x8C08;&#x65F6;&#x95F4;&#x5230;&#x4E86;"></p>
+<h2 id="&#x5173;&#x6CE8;"><a href="#&#x5173;&#x6CE8;" class="headerlink" title="&#x5173;&#x6CE8;"></a>&#x5173;&#x6CE8;</h2><p><img src="/10/Android-Architecture-Components-Part2-LiveData/wx.jpg" alt="&#x602A;&#x8C08;&#x65F6;&#x95F4;&#x5230;&#x4E86;"></p>
 
     
   </div>
