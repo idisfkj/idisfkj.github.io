@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://www.rousetime.com/2020/01/03/AwesomeGithub组件化探索之旅/awesome_github_search.jpeg">
 <meta property="og:image" content="https://www.rousetime.com/2020/01/03/AwesomeGithub组件化探索之旅/awesome_github_error.png">
 <meta property="og:image" content="https://www.rousetime.com/2020/01/03/AwesomeGithub组件化探索之旅/awesome_github_resource.png">
-<meta property="og:updated_time" content="2020-01-30T09:16:04.803Z">
+<meta property="og:updated_time" content="2020-01-31T12:02:28.562Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AwesomeGithub组件化探索之旅">
 <meta name="twitter:description" content="&amp;#x4E4B;&amp;#x524D;&amp;#x4E00;&amp;#x76F4;&amp;#x542C;&amp;#x8BF4;&amp;#x8FC7;&amp;#x7EC4;&amp;#x4EF6;&amp;#x5316;&amp;#x5F00;&amp;#x53D1;&amp;#xFF0C;&amp;#x800C;&amp;#x4E14;&amp;#x9762;&amp;#x8BD5;&amp;#x4E5F;&amp;#x6709;&amp;#x8FD9;&amp;#x65B9;&amp;#x9762;&amp;#x7684;&amp;#x63D0;&amp;#x95EE;">
@@ -193,7 +193,7 @@
 
 
   <div id="toc" class="toc-article">
-    <strong class="toc-title">文章目录</strong>
+    <strong class="toc-title">Posts List</strong>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为何要使用组件化"><span class="toc-text">为何要使用组件化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组件化能够解决的问题"><span class="toc-text">组件化能够解决的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组件化需要解决的问题"><span class="toc-text">组件化需要解决的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#组件单独运行"><span class="toc-text">组件单独运行</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#运行方式动态配置"><span class="toc-text">运行方式动态配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ApplicationId与AndroidManifest"><span class="toc-text">ApplicationId与AndroidManifest</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组件间的数据传递"><span class="toc-text">组件间的数据传递</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#BridgeInterface"><span class="toc-text">BridgeInterface</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BridgeStore"><span class="toc-text">BridgeStore</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Factory"><span class="toc-text">Factory</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Provider"><span class="toc-text">Provider</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单个组件中调用"><span class="toc-text">单个组件中调用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主项目使用组件中的Fragment"><span class="toc-text">主项目使用组件中的Fragment</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SearchBridgeInterface"><span class="toc-text">SearchBridgeInterface</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组件间界面的跳转"><span class="toc-text">组件间界面的跳转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组件解耦"><span class="toc-text">组件解耦</span></a></li></ol></li></ol>
   </div>
 
@@ -382,10 +382,10 @@
 <p><img src="/2020/01/03/AwesomeGithub&#x7EC4;&#x4EF6;&#x5316;&#x63A2;&#x7D22;&#x4E4B;&#x65C5;/awesome_github_error.png" alt="AwesomeGithub"></p>
 <p>&#x8FD9;&#x662F;&#x7531;&#x4E8E;DataBinding&#x9700;&#x8981;&#x5728;&#x7F16;&#x8BD1;&#x65F6;&#x751F;&#x6210;&#x5BF9;&#x5E94;&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#x3002;&#x4F7F;&#x7528;runtimeOnly&#x4F1A;&#x5BFC;&#x81F4;&#x5176;&#x7F3A;&#x5931;&#xFF0C;&#x6700;&#x7EC8;&#x5728;&#x7A0B;&#x5E8F;&#x8FDB;&#x884C;&#x8FD0;&#x884C;&#x65F6;&#x627E;&#x4E0D;&#x5230;&#x5BF9;&#x5E94;&#x8D44;&#x6E90;&#xFF0C;&#x5BFC;&#x81F4;&#x7A0B;&#x5E8F;&#x5F02;&#x5E38;&#x3002;</p>
 <p>&#x5F53;&#x7136;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x4F7F;&#x7528;DataBinding&#x5C31;&#x4E0D;&#x4F1A;&#x6709;&#x8FD9;&#x79CD;&#x95EE;&#x9898;&#x3002;&#x8FD9;&#x662F;&#x7EC4;&#x4EF6;&#x4F9D;&#x8D56;&#x65B9;&#x9762;&#xFF0C;&#x4E0B;&#x9762;&#x518D;&#x6765;&#x8BF4;&#x8BF4;&#x8D44;&#x6E90;&#x76F8;&#x5173;&#x7684;&#x3002;</p>
-<p>&#x7531;&#x4E8E;&#x4E0D;&#x901A;&#x7EC4;&#x4EF6;&#x6A21;&#x5757;&#x4E0B;&#x53EF;&#x4EE5;&#x5F15;&#x5165;&#x76F8;&#x540C;&#x547D;&#x540D;&#x7684;&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#xFF0C;&#x4E3A;&#x4E86;&#x9632;&#x6B62;&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;&#x4E0D;&#x901A;&#x7EC4;&#x4EF6;&#x4E0B;&#x76F8;&#x540C;&#x540D;&#x79F0;&#x7684;&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#x5F15;&#x7528;&#x9519;&#x4E71;&#xFF0C;&#x8FD9;&#x91CC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5728;&#x4E0D;&#x540C;&#x7EC4;&#x4EF6;&#x6A21;&#x5757;&#x4E2D;&#x7684;build.gradle&#x4E2D;&#x6DFB;&#x52A0;&#x8D44;&#x6E90;&#x524D;&#x7F00;&#x3002;&#x4F8B;&#x5982;login&#x7EC4;&#x4EF6;&#x4E2D;</p>
+<p>&#x7531;&#x4E8E;&#x4E0D;&#x540C;&#x7EC4;&#x4EF6;&#x6A21;&#x5757;&#x4E0B;&#x53EF;&#x4EE5;&#x5F15;&#x5165;&#x76F8;&#x540C;&#x547D;&#x540D;&#x7684;&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#xFF0C;&#x4E3A;&#x4E86;&#x9632;&#x6B62;&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;&#x4E0D;&#x540C;&#x7EC4;&#x4EF6;&#x4E0B;&#x76F8;&#x540C;&#x540D;&#x79F0;&#x7684;&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#x5F15;&#x7528;&#x9519;&#x4E71;&#xFF0C;&#x8FD9;&#x91CC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5728;&#x4E0D;&#x540C;&#x7EC4;&#x4EF6;&#x6A21;&#x5757;&#x4E2D;&#x7684;build.gradle&#x4E2D;&#x6DFB;&#x52A0;&#x8D44;&#x6E90;&#x524D;&#x7F00;&#x3002;&#x4F8B;&#x5982;login&#x7EC4;&#x4EF6;&#x4E2D;</p>
 <p><img src="/2020/01/03/AwesomeGithub&#x7EC4;&#x4EF6;&#x5316;&#x63A2;&#x7D22;&#x4E4B;&#x65C5;/awesome_github_resource.png" alt="AwesomeGithub"></p>
 <p>resourcePrefix&#x4EE3;&#x8868;login&#x7EC4;&#x4EF6;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#x547D;&#x540D;&#x90FD;&#x5FC5;&#x987B;&#x4EE5;login_&#x4E3A;&#x524D;&#x7F00;&#x547D;&#x540D;&#x3002;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x7F16;&#x8BD1;&#x5668;&#x5C06;&#x4F1A;&#x6807;&#x7EA2;&#xFF0C;&#x5E76;&#x63D0;&#x793A;&#x4F60;&#x6B63;&#x786E;&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;&#x3002;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x53EF;&#x4EE5;&#x4E00;&#x5B9A;&#x7A0B;&#x5EA6;&#x4E0A;&#x907F;&#x514D;&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#x7684;&#x4E71;&#x7528;&#x4E0E;&#x9519;&#x4E71;&#x3002;</p>
-<p>&#x4EE5;&#x4E0A;&#x662F;<a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="external">AwesomeGithub</a>&#x7EC4;&#x4EF6;&#x5316;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x6574;&#x4E2A;&#x63A2;&#x7D22;&#x7ECF;&#x5386;&#x3002;&#x5982;&#x679C;&#x4F60;&#x60F3;&#x66F4;&#x6DF1;&#x5165;&#x7684;&#x4E86;&#x89E3;&#x5176;&#x5B9E;&#x73B0;&#x8FC7;&#xFF0C;&#x5F3A;&#x70C8;&#x5EFA;&#x8BAE;&#x4F60;&#x76F4;&#x63A5;&#x67E5;&#x770B;&#x9879;&#x76EE;&#x7684;&#x6E90;&#x7801;&#xFF0C;&#x6BD5;&#x7ADF;&#x8BED;&#x8A00;&#x4E0A;&#x7684;&#x63CF;&#x8FF0;&#x662F;&#x6709;&#x9650;&#x7684;&#xFF0C;&#x7A0B;&#x5E8F;&#x5458;&#x5C31;&#x5E94;&#x8BE5;&#x76F4;&#x63A5;&#x770B;&#x4EE3;&#x7801;&#x624D;&#x80FD;&#x66F4;&#x5FEB;&#x66F4;&#x51C6;&#x7684;&#x7406;&#x89E3;&#x3002;</p>
+<p>&#x4EE5;&#x4E0A;&#x662F;<a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="external">AwesomeGithub</a>&#x7EC4;&#x4EF6;&#x5316;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x6574;&#x4E2A;&#x63A2;&#x7D22;&#x7ECF;&#x5386;&#x3002;&#x5982;&#x679C;&#x4F60;&#x60F3;&#x66F4;&#x6DF1;&#x5165;&#x7684;&#x4E86;&#x89E3;&#x5176;&#x5B9E;&#x73B0;&#x8FC7;&#x7A0B;&#xFF0C;&#x5F3A;&#x70C8;&#x5EFA;&#x8BAE;&#x4F60;&#x76F4;&#x63A5;&#x67E5;&#x770B;&#x9879;&#x76EE;&#x7684;&#x6E90;&#x7801;&#xFF0C;&#x6BD5;&#x7ADF;&#x8BED;&#x8A00;&#x4E0A;&#x7684;&#x63CF;&#x8FF0;&#x662F;&#x6709;&#x9650;&#x7684;&#xFF0C;&#x7A0B;&#x5E8F;&#x5458;&#x5C31;&#x5E94;&#x8BE5;&#x76F4;&#x63A5;&#x770B;&#x4EE3;&#x7801;&#x624D;&#x80FD;&#x66F4;&#x5FEB;&#x66F4;&#x51C6;&#x7684;&#x7406;&#x89E3;&#x3002;</p>
 
     
   </div>
@@ -419,7 +419,7 @@
     <a class="show pull-left" href="/2019/10/22/Android-Navigation的四大要点你都知道吗？/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="hide pull-right" href="/">
+    <a class="show pull-right" href="/2020/03/06/从零开始的Flutter之旅-StatelessWidget/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
@@ -441,7 +441,7 @@
   <span id="cover" class="cover hide"></span>
   <div id="modal-dialog" class="modal-dialog hide-dialog">
     <div class="modal-header">
-      <span id="close" class="btn-close">关闭</span>
+      <span id="close" class="btn-close">Close</span>
     </div>
     <hr>
     <div class="modal-body">
