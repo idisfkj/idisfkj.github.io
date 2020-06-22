@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.rousetime.com/"/>
-  <updated>2020-06-19T01:45:20.376Z</updated>
+  <updated>2020-06-22T11:22:15.650Z</updated>
   <id>https://www.rousetime.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>从零开始的异世界之旅: Provider</title>
+    <title>从零开始的Flutter之旅: Provider</title>
     <link href="https://www.rousetime.com/2020/06/14/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%BC%82%E4%B8%96%E7%95%8C%E4%B9%8B%E6%97%85-Provider/"/>
     <id>https://www.rousetime.com/2020/06/14/从零开始的异世界之旅-Provider/</id>
     <published>2020-06-13T23:13:06.000Z</published>
-    <updated>2020-06-19T01:45:20.376Z</updated>
+    <updated>2020-06-22T11:22:15.650Z</updated>
     
     <content type="html">&lt;h2 id=&quot;&amp;#x5F80;&amp;#x671F;&amp;#x56DE;&amp;#x987E;&quot;&gt;&lt;a href=&quot;#&amp;#x5F80;&amp;#x671F;&amp;#x56DE;&amp;#x987E;&quot; class=&quot;headerlink&quot; title=&quot;&amp;#x5F80;&amp;#x671F;&amp;#x56DE;&amp;#x987E;&quot;&gt;&lt;/a&gt;&amp;#x5F80;&amp;#x671F;&amp;#x56DE;&amp;#x987E;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://juejin.im/post/5e62f280e51d4534ec0066b8&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&amp;#x4ECE;&amp;#x96F6;&amp;#x5F00;&amp;#x59CB;&amp;#x7684;Flutter&amp;#x4E4B;&amp;#x65C5;: StatelessWidget&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://juejin.im/post/5e6f871bf265da572a0d160c&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&amp;#x4ECE;&amp;#x96F6;&amp;#x5F00;&amp;#x59CB;&amp;#x7684;Flutter&amp;#x4E4B;&amp;#x65C5;: StatefulWidget&lt;/a&gt;&lt;/p&gt;
