@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>从零开始的Flutter之旅: MethodChannel | Rouse</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="methodChannel," />
+  
+
+  <meta name="description" content="&amp;#x5F80;&amp;#x671F;&amp;#x56DE;&amp;#x987E;&amp;#x4ECE;&amp;#x96F6;&amp;#x5F00;&amp;#x59CB;&amp;#x7684;Flutter&amp;#x4E4B;&amp;#x65C5;: StatelessWidget
+&amp;#x4ECE;&amp;#x96F6;&amp;#x5F00;&amp;#x59CB;&amp;#x7684;Flutter&amp;#x4E4B;&amp;#x65C5;: StatefulWidget
+&amp;#x4ECE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始的Flutter之旅: MethodChannel">
+<meta property="og:url" content="https://www.rousetime.com/2020/07/09/从零开始的Flutter之旅-MethodChannel/index.html">
+<meta property="og:site_name" content="Rouse">
+<meta property="og:description" content="&amp;#x5F80;&amp;#x671F;&amp;#x56DE;&amp;#x987E;&amp;#x4ECE;&amp;#x96F6;&amp;#x5F00;&amp;#x59CB;&amp;#x7684;Flutter&amp;#x4E4B;&amp;#x65C5;: StatelessWidget
+&amp;#x4ECE;&amp;#x96F6;&amp;#x5F00;&amp;#x59CB;&amp;#x7684;Flutter&amp;#x4E4B;&amp;#x65C5;: StatefulWidget
+&amp;#x4ECE">
+<meta property="og:image" content="https://www.rousetime.com/2020/07/09/从零开始的Flutter之旅-MethodChannel/method_channel.gif">
+<meta property="og:image" content="https://www.rousetime.com/2020/07/09/从零开始的Flutter之旅-MethodChannel/method_channel_1.png">
+<meta property="og:image" content="https://www.rousetime.com/2020/07/09/从零开始的Flutter之旅-MethodChannel/method_channel_2.png">
+<meta property="og:image" content="https://www.rousetime.com/2020/07/09/从零开始的Flutter之旅-MethodChannel/flutter_github_preview.png">
+<meta property="og:image" content="https://www.rousetime.com/2020/07/09/从零开始的Flutter之旅-MethodChannel/android补给站.jpg">
+<meta property="og:updated_time" content="2020-07-09T01:30:38.361Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从零开始的Flutter之旅: MethodChannel">
+<meta name="twitter:description" content="&amp;#x5F80;&amp;#x671F;&amp;#x56DE;&amp;#x987E;&amp;#x4ECE;&amp;#x96F6;&amp;#x5F00;&amp;#x59CB;&amp;#x7684;Flutter&amp;#x4E4B;&amp;#x65C5;: StatelessWidget
+&amp;#x4ECE;&amp;#x96F6;&amp;#x5F00;&amp;#x59CB;&amp;#x7684;Flutter&amp;#x4E4B;&amp;#x65C5;: StatefulWidget
+&amp;#x4ECE">
+<meta name="twitter:image" content="https://www.rousetime.com/2020/07/09/从零开始的Flutter之旅-MethodChannel/method_channel.gif">
+
+  
+
+  
+  <!-- <link href="/favicon.ico" rel="icon" type="image/x-icon"> -->
+    <link rel="icon" href="/favicon.ico">
+    <!-- <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?bd7ea96a22c9c7b90353962460fa0b8e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#往期回顾"><span class="toc-text">往期回顾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OAuth-App"><span class="toc-text">OAuth App</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#url-launcher"><span class="toc-text">url_launcher</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scheme"><span class="toc-text">Scheme</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Android"><span class="toc-text">Android</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IOS"><span class="toc-text">IOS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MethodChannel"><span class="toc-text">MethodChannel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Android-1"><span class="toc-text">Android</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IOS-1"><span class="toc-text">IOS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flutter-github"><span class="toc-text">flutter_github</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-从零开始的Flutter之旅-MethodChannel" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">从零开始的Flutter之旅: MethodChannel</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2020.07.09</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Rouse</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/flutter/">flutter</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="&#x5F80;&#x671F;&#x56DE;&#x987E;"><a href="#&#x5F80;&#x671F;&#x56DE;&#x987E;" class="headerlink" title="&#x5F80;&#x671F;&#x56DE;&#x987E;"></a>&#x5F80;&#x671F;&#x56DE;&#x987E;</h2><p><a href="https://juejin.im/post/5e62f280e51d4534ec0066b8" target="_blank" rel="external">&#x4ECE;&#x96F6;&#x5F00;&#x59CB;&#x7684;Flutter&#x4E4B;&#x65C5;: StatelessWidget</a></p>
+<p><a href="https://juejin.im/post/5e6f871bf265da572a0d160c" target="_blank" rel="external">&#x4ECE;&#x96F6;&#x5F00;&#x59CB;&#x7684;Flutter&#x4E4B;&#x65C5;: StatefulWidget</a></p>
+<p><a href="https://juejin.im/post/5edf695fe51d457b3f4a1854" target="_blank" rel="external">&#x4ECE;&#x96F6;&#x5F00;&#x59CB;&#x7684;Flutter&#x4E4B;&#x65C5;: InheritedWidget</a></p>
+<p><a href="https://juejin.im/post/5ef09403f265da02c6343319" target="_blank" rel="external">&#x4ECE;&#x96F6;&#x5F00;&#x59CB;&#x7684;Flutter&#x4E4B;&#x65C5;: Provider</a></p>
+<p><a href="https://juejin.im/post/5ef7d6995188252e5d3076b0" target="_blank" rel="external">&#x4ECE;&#x96F6;&#x5F00;&#x59CB;&#x7684;Flutter&#x4E4B;&#x65C5;: Navigator</a></p>
+<p>&#x5728;<a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="external">flutter_github</a>&#x6709;&#x8FD9;&#x4E48;&#x4E00;&#x4E2A;&#x573A;&#x666F;&#xFF1A;&#x901A;&#x8FC7;authorization&#x8BA4;&#x8BC1;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x767B;&#x5F55;&#x3002;&#x800C;authorization&#x7684;&#x5177;&#x4F53;&#x767B;&#x5F55;&#x5F62;&#x5F0F;&#x662F;&#xFF0C;&#x901A;&#x8FC7;&#x8DF3;&#x8F6C;&#x4E00;&#x4E2A;&#x7F51;&#x9875;&#x94FE;&#x63A5;&#x8FDB;&#x884C;github&#x6388;&#x6743;&#x767B;&#x5F55;&#xFF0C;&#x6210;&#x529F;&#x4E4B;&#x540E;&#x4F1A;&#x643A;&#x5E26;&#x5BF9;&#x5E94;&#x7684;code&#x5230;&#x6307;&#x5B9A;&#x5BA2;&#x6237;&#x7AEF;&#x4E2D;&#xFF0C;&#x7136;&#x540E;&#x5BA2;&#x6237;&#x7AEF;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8FD9;&#x4E2A;code&#x6765;&#x8FDB;&#x884C;oauth&#x6388;&#x6743;&#x767B;&#x5F55;&#xFF0C;&#x6210;&#x529F;&#x4E4B;&#x540E;&#x5BA2;&#x6237;&#x7AEF;&#x53EF;&#x4EE5;&#x62FF;&#x5230;&#x8BE5;&#x8D26;&#x6237;&#x7684;token&#xFF0C;&#x6240;&#x4EE5;&#x4E4B;&#x540E;&#x7684;github&#x64CD;&#x4F5C;&#x90FD;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8BE5;token&#x6765;&#x8FDB;&#x884C;&#x8BF7;&#x6C42;&#x3002;&#x7531;&#x4E8E;token&#x662F;&#x6709;&#x65F6;&#x6548;&#x6027;&#xFF0C;&#x540C;&#x65F6;&#x4E5F;&#x53EF;&#x4EE5;&#x624B;&#x52A8;&#x89E3;&#x9664;&#x6388;&#x6743;&#xFF0C;&#x6240;&#x4EE5;&#x76F8;&#x5BF9;&#x4E8E;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x8FDB;&#x884C;&#x8D26;&#x6237;&#x5BC6;&#x7801;&#x767B;&#x5F55;&#x6765;&#x8BF4;&#x66F4;&#x52A0;&#x5B89;&#x5168;&#x3002;</p>
+<p><img src="/2020/07/09/&#x4ECE;&#x96F6;&#x5F00;&#x59CB;&#x7684;Flutter&#x4E4B;&#x65C5;-MethodChannel/method_channel.gif" alt=""></p>
+<p>&#x90A3;&#x4E48;&#x8981;&#x5B9E;&#x73B0;&#x4E0A;&#x9762;&#x8FD9;&#x4E2A;&#x573A;&#x666F;&#xFF0C;Flutter&#x5C31;&#x9700;&#x8981;&#x4E0E;&#x539F;&#x751F;&#x5BA2;&#x6237;&#x7AEF;&#x8FDB;&#x884C;&#x901A;&#x4FE1;&#xFF0C;&#x62FF;&#x5230;&#x8FD4;&#x56DE;&#x7684;code&#xFF0C;&#x7136;&#x540E;&#x518D;&#x5230;Flutter&#x4E2D;&#x8FDB;&#x884C;oauth&#x6388;&#x6743;&#x767B;&#x5F55;&#x8BF7;&#x6C42;&#x3002;</p>
+<p>&#x901A;&#x4FE1;&#x65B9;&#x5F0F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;MethodChannel&#xFF0C;&#x8FD9;&#x4E2A;&#x5C31;&#x662F;&#x4ECA;&#x5929;&#x7684;&#x4E3B;&#x9898;&#x3002;</p>
+<h2 id="OAuth-App"><a href="#OAuth-App" class="headerlink" title="OAuth App"></a>OAuth App</h2><p>authorization&#x8BA4;&#x8BC1;&#x7684;&#x539F;&#x7406;&#x5DF2;&#x7ECF;&#x77E5;&#x9053;&#x4E86;&#xFF0C;&#x4E0B;&#x9762;&#x76F4;&#x63A5;&#x6765;&#x770B;&#x5B9E;&#x73B0;&#x65B9;&#x6848;&#x3002;</p>
+<p>&#x9996;&#x5148;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4E00;&#x4E2A;<a href="https://github.com/settings/applications/1114138" target="_blank" rel="external">OAuth App</a>&#x7528;&#x6765;&#x63D0;&#x4F9B;&#x7528;&#x6237;&#x901A;&#x8FC7;github&#x6388;&#x6743;&#x7684;&#x5E94;&#x7528;&#x3002;</p>
+<blockquote>
+<p>&#x8FD9;&#x4E2A;&#x5728;github&#x4E0A;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x6CE8;&#x518C;&#x7684;</p>
+</blockquote>
+<p><img src="/2020/07/09/&#x4ECE;&#x96F6;&#x5F00;&#x59CB;&#x7684;Flutter&#x4E4B;&#x65C5;-MethodChannel/method_channel_1.png" alt=""></p>
+<p>&#x5728;&#x6CE8;&#x518C;&#x7684;OAuth App&#x65F6;&#x4F1A;&#x6709;&#x4E00;&#x4E2A;<code>Authorization callback URL</code>&#x5FC5;&#x586B;&#x9879;&#x3002;&#x8FD9;&#x4E2A;callback url&#x7684;&#x4F5C;&#x7528;&#x5C31;&#x662F;&#x5F53;&#x4F60;&#x901A;&#x8FC7;&#x8BE5;&#x94FE;&#x63A5;&#x8BA4;&#x8BC1;&#x901A;&#x8FC7;&#x540E;&#x4F1A;&#x4EE5;App Link&#x7684;&#x65B9;&#x5F0F;&#x4F7F;&#x7528;&#x8BE5;url&#x8DF3;&#x8F6C;&#x5230;&#x5BF9;&#x5E94;&#x7684;App&#x5E94;&#x7528;&#xFF0C;&#x540C;&#x65F6;&#x8FD4;&#x56DE;&#x8BA4;&#x8BC1;&#x6210;&#x529F;&#x7684;code&#x3002;&#x8FD9;&#x91CC;&#x5C06;&#x5176;&#x5B9A;&#x4E49;&#x4E3A;<code>REDIRECT_URI</code></p>
+<p>&#x6CE8;&#x518C;&#x6210;&#x529F;&#x4E4B;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x62FF;&#x5230;&#x5B83;&#x7684;<code>Client ID</code>&#x3001;<code>Client Secret</code>&#x4E0E;<code>Authorization callback URL</code>&#xFF0C;&#x62FC;&#x63A5;&#x6210;&#x4E0B;&#x9762;&#x7684;&#x8FDE;&#x63A5;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">const String URL_AUTHORIZATION =</div><div class="line">    &apos;https://github.com/login/oauth/authorize?client_id=$CLIENT_ID&amp;redirect_uri=$REDIRECT_URI&amp;scope=user%20repo%20notifications%20&apos;;</div></pre></td></tr></table></figure>
+<p>&#x6709;&#x4E86;&#x8DF3;&#x8F6C;&#x5230;&#x5916;&#x90E8;&#x7684;&#x8BA4;&#x8BC1;&#x94FE;&#x63A5;&#x4E4B;&#x540E;&#xFF0C;&#x4E0B;&#x9762;&#x5C31;&#x662F;&#x5728;&#x5E94;&#x7528;&#x4E2D;&#x5B9E;&#x73B0;&#x8FD9;&#x4E2A;&#x8DF3;&#x8F6C;&#x8BA4;&#x8BC1;&#x6D41;&#x7A0B;&#x3002;</p>
+<h2 id="url-launcher"><a href="#url-launcher" class="headerlink" title="url_launcher"></a>url_launcher</h2><p>&#x9996;&#x5148;&#x9700;&#x8981;&#x8DF3;&#x8F6C;&#x5916;&#x90E8;&#x6D4F;&#x89C8;&#x5668;&#x8BBF;&#x95EE;&#x4E0A;&#x9762;&#x7684;authorization&#x94FE;&#x63A5;&#x3002;&#x8FD9;&#x4E00;&#x6B65;&#x7684;&#x5B9E;&#x73B0;&#x9700;&#x8981;&#x501F;&#x52A9;<code>url_launcher</code>&#xFF0C;&#x5B83;&#x80FD;&#x591F;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x68C0;&#x67E5;&#x94FE;&#x63A5;&#x662F;&#x5426;&#x6709;&#x6548;&#xFF0C;&#x540C;&#x65F6;&#x542F;&#x52A8;&#x5916;&#x90E8;&#x6D4F;&#x89C8;&#x5668;&#x8FDB;&#x884C;&#x8DF3;&#x8F6C;&#x3002;</p>
+<p>&#x5728;&#x4F7F;&#x7528;&#x4E4B;&#x524D;&#x9700;&#x8981;&#x5728;<code>pubspec.yaml</code>&#x4E2D;&#x6DFB;&#x52A0;&#x4F9D;&#x8D56;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">dependencies:</div><div class="line">  flutter:</div><div class="line">    sdk: flutter</div><div class="line">  http: 0.12.0+4</div><div class="line">  dio: 3.0.7</div><div class="line">  shared_preferences: 0.5.6+1</div><div class="line">  url_launcher: 5.4.1</div><div class="line">  ...</div></pre></td></tr></table></figure>
+<p>&#x4F9D;&#x8D56;&#x6210;&#x529F;&#x4E4B;&#x540E;&#xFF0C;&#x4F7F;&#x7528;<code>canLaunch()</code>&#x6765;&#x68C0;&#x67E5;&#x94FE;&#x63A5;&#x7684;&#x6709;&#x6548;&#x6027;&#xFF1B;<code>launch()</code>&#x6765;&#x542F;&#x52A8;&#x8DF3;&#x8F6C;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">authorization() {</div><div class="line">  return () async {</div><div class="line">    FocusScope.of(context).requestFocus(FocusNode());</div><div class="line">    if (await canLaunch(URL_AUTHORIZATION)) {</div><div class="line">      // &#x4E3A;&#x8BBE;&#x7F6E;forceSafariVC&#xFF0C;IOS &#x9ED8;&#x8BA4;&#x4F1A;&#x6253;&#x5F00;APP&#x5185;&#x90E8;WebView</div><div class="line">      // &#x800C;APP&#x5185;&#x90E8;WebView&#x4E0D;&#x652F;&#x6301;&#x91CD;&#x5B9A;&#x5411;&#x8DF3;&#x8F6C;&#x5230;APP</div><div class="line">      await launch(URL_AUTHORIZATION, forceSafariVC: false);</div><div class="line">    } else {</div><div class="line">      throw &apos;Can not launch $URL_AUTHORIZATION)&apos;;</div><div class="line">    }</div><div class="line">  };</div><div class="line">}</div></pre></td></tr></table></figure>
+<h2 id="Scheme"><a href="#Scheme" class="headerlink" title="Scheme"></a>Scheme</h2><p>&#x901A;&#x8FC7;<code>authorization()</code>&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x6210;&#x529F;&#x8DF3;&#x8F6C;&#x5230;&#x5916;&#x90E8;&#x6D4F;&#x89C8;&#x5668;&#x8FDB;&#x884C;&#x767B;&#x5F55;&#x6388;&#x8BA4;&#x8BC1;&#x3002;&#x6388;&#x6743;&#x6210;&#x529F;&#x4E4B;&#x540E;&#x4F1A;&#x8FD4;&#x56DE;&#x5230;&#x4E4B;&#x524D;&#x7684;app&#xFF0C;&#x5177;&#x4F53;&#x9875;&#x9762;&#x8DEF;&#x5F84;&#x4E0E;&#x94FE;&#x63A5;&#x4E2D;&#x914D;&#x7F6E;&#x7684;<code>REDIRECT_URI</code>&#x6709;&#x5173;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">const String REDIRECT_URI = &apos;github://login&apos;;</div></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x91CC;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E2A;<code>Scheme</code>&#xFF0C;&#x4E3A;&#x4E86;&#x80FD;&#x591F;&#x6210;&#x529F;&#x8FD4;&#x56DE;&#x5230;&#x5BA2;&#x6237;&#x7AEF;&#x6307;&#x5B9A;&#x7684;&#x9875;&#x9762;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4E3A;Android&#x4E0E;IOS&#x914D;&#x7F6E;&#x5BF9;&#x5E94;&#x7684;Scheme&#x3002;</p>
+<h3 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h3><p>&#x627E;&#x5230;<code>AndroidManifest</code>&#x6587;&#x4EF6;&#xFF0C;&#x5728;<code>activity</code>&#x4FBF;&#x7B7E;&#x4E0B;&#x6DFB;&#x52A0;<code>intent-filter</code>&#x5C5E;&#x6027;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;intent-filter&gt;</div><div class="line">    &lt;action android:name=&quot;android.intent.action.VIEW&quot; /&gt;</div><div class="line"> </div><div class="line">    &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;</div><div class="line">    &lt;category android:name=&quot;android.intent.category.BROWSABLE&quot; /&gt;</div><div class="line"> </div><div class="line">    &lt;data</div><div class="line">        android:host=&quot;login&quot;</div><div class="line">        android:scheme=&quot;github&quot; /&gt;</div><div class="line">&lt;/intent-filter&gt;</div></pre></td></tr></table></figure>
+<p>&#x524D;&#x9762;&#x7684;<code>action</code>&#x4E0E;<code>category</code>&#x914D;&#x7F6E;&#x662F;&#x56FA;&#x5B9A;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x9700;&#x8981;&#x652F;&#x6301;&#x4E0D;&#x540C;&#x7684;<code>scheme</code>&#xFF0C;&#x4E3B;&#x8981;&#x4FEE;&#x6539;&#x7684;&#x662F;<code>data</code>&#x4E2D;&#x7684;&#x914D;&#x7F6E;&#x3002;</p>
+<p>&#x5C06;<code>scheme</code>&#x4E0E;<code>host</code>&#x5206;&#x522B;&#x5BF9;&#x5E94;&#x5230;<code>REDIRECT_URI</code>&#x4E2D;&#x7684;&#x6570;&#x503C;&#x3002;</p>
+<h3 id="IOS"><a href="#IOS" class="headerlink" title="IOS"></a>IOS</h3><p>&#x627E;&#x5230;<code>info.plist</code>&#x6587;&#x4EF6;&#xFF0C;&#x6DFB;&#x52A0;<code>URL types</code>&#x4FBF;&#x7B7E;&#xFF0C;&#x5728;&#x5B83;&#x7684;item&#x4E0B;&#x914D;&#x7F6E;&#x5BF9;&#x5E94;&#x7684;<code>URL identifier</code>&#x4E0E;<code>URL Schemes</code></p>
+<p><img src="/2020/07/09/&#x4ECE;&#x96F6;&#x5F00;&#x59CB;&#x7684;Flutter&#x4E4B;&#x65C5;-MethodChannel/method_channel_2.png" alt=""></p>
+<p>&#x914D;&#x7F6E;&#x5B8C;scheme&#x4E4B;&#x540E;&#xFF0C;&#x5C31;&#x80FD;&#x591F;&#x6B63;&#x5E38;&#x8FD4;&#x56DE;&#x5230;&#x5BF9;&#x5E94;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x9875;&#x9762;&#x3002;</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x9700;&#x8981;&#x8003;&#x8651;&#x7684;&#x662F;&#xFF0C;&#x5982;&#x4F55;&#x62FF;&#x5230;&#x8FD4;&#x56DE;&#x7684;code&#x503C;</p>
+<h2 id="MethodChannel"><a href="#MethodChannel" class="headerlink" title="MethodChannel"></a>MethodChannel</h2><p>&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x4ECA;&#x5929;&#x7684;&#x4E3B;&#x89D2;&#x5C31;&#x8BE5;&#x4E0A;&#x573A;&#x4E86;&#x3002;</p>
+<p><code>MethodChannel</code>&#x7B80;&#x5355;&#x7684;&#x8BF4;&#x5C31;&#x662F;<code>Flutter</code>&#x63D0;&#x4F9B;&#x4E0E;&#x5BA2;&#x6237;&#x7AEF;&#x901A;&#x4FE1;&#x7684;&#x6E20;&#x9053;&#xFF0C;&#x4F7F;&#x7528;&#x65F6;&#x4E92;&#x76F8;&#x7EA6;&#x5B9A;&#x4E00;&#x4E2A;&#x6E20;&#x9053;<code>name</code>&#x4E0E;&#x5BF9;&#x5E94;&#x7684;&#x8C03;&#x7528;&#x5BA2;&#x6237;&#x7AEF;&#x6307;&#x5B9A;&#x65B9;&#x6CD5;&#x7684;<code>method</code>&#x3002;</p>
+<p>&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5148;&#x6765;&#x7EA6;&#x5B9A;&#x597D;&#x8FD9;&#x4E24;&#x4E2A;&#x503C;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">const String METHOD_CHANNEL_NAME = &apos;app.channel.shared.data&apos;;</div><div class="line">const String CALL_LOGIN_CODE = &apos;getLoginCode&apos;;</div></pre></td></tr></table></figure>
+<p>&#x7136;&#x540E;&#x901A;&#x8FC7;<code>MethodChannel</code>&#x6765;&#x83B7;&#x53D6;&#x5BF9;&#x5E94;&#x7684;&#x6E20;&#x9053;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">callLoginCode(AppLifecycleState state) async {</div><div class="line">  if (state == AppLifecycleState.resumed) {</div><div class="line">    final platform = const MethodChannel(METHOD_CHANNEL_NAME);</div><div class="line">    final code = await platform.invokeMethod(CALL_LOGIN_CODE);</div><div class="line">    if (code != null) {</div><div class="line">      _getAccessTokenFromCode(code);</div><div class="line">    }</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x4F7F;&#x7528;<code>invokeMethod</code>&#x6765;&#x8C03;&#x7528;&#x5BA2;&#x6237;&#x7AEF;&#x5BF9;&#x5E94;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x91CC;&#x662F;&#x7528;&#x6765;&#x83B7;&#x53D6;&#x6388;&#x6743;&#x6210;&#x529F;&#x540E;&#x8FD4;&#x56DE;&#x5BA2;&#x6237;&#x7AEF;&#x7684;code&#x3002;</p>
+<p>&#x8FD9;&#x662F;Flutter&#x8C03;&#x7528;&#x5BA2;&#x6237;&#x7AEF;&#x65B9;&#x6CD5;&#x7684;&#x6B65;&#x9AA4;&#xFF0C;&#x4E0B;&#x9762;&#x518D;&#x770B;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x5B9E;&#x73B0;</p>
+<h3 id="Android-1"><a href="#Android-1" class="headerlink" title="Android"></a>Android</h3><p>&#x9996;&#x5148;&#x6211;&#x4EEC;&#x5C06;&#x7EA6;&#x5B9A;&#x597D;&#x7684;&#x6E20;&#x9053;&#x540D;&#x79F0;&#x4E0E;&#x56DE;&#x8C03;&#x65B9;&#x6CD5;&#x540D;&#x5B9A;&#x4E49;&#x4E3A;&#x5E38;&#x91CF;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">object Constants {</div><div class="line">    const val AUTHORIZATION_CODE = &quot;code&quot;</div><div class="line">    const val METHOD_CHANNEL_NAME = &quot;app.channel.shared.data&quot;</div><div class="line">    const val CALL_LOGIN_CODE = &quot;getLoginCode&quot;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5728;&#x4E4B;&#x524D;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x5728;<code>AndroidManifest.xml</code>&#x4E2D;&#x5B9A;&#x4E49;&#x7684;scheme&#xFF0C;&#x6240;&#x4EE5;&#x8BA4;&#x8BC1;&#x6210;&#x529F;&#x540E;&#x56DE;&#x8FD4;&#x56DE;&#x5BA2;&#x6237;&#x7AEF;&#x7684;<code>MainActivity</code>&#x9875;&#x9762;&#xFF0C;&#x540C;&#x65F6;&#x56DE;&#x8C03;<code>onNewIntent</code>&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x6240;&#x4EE5;&#x83B7;&#x53D6;&#x8FD4;&#x56DE;code&#x7684;&#x65B9;&#x5F0F;&#x53EF;&#x4EE5;&#x5728;<code>onNewIntent</code>&#x4E2D;&#x8FDB;&#x884C;&#xFF0C;&#x540C;&#x65F6;&#x8FD8;&#x9700;&#x8981;&#x5EFA;&#x7ACB;&#x5BF9;&#x5E94;&#x7684;<code>MethodChannel</code>&#x4E0E;&#x63D0;&#x4F9B;&#x56DE;&#x8C03;&#x7684;&#x65B9;&#x6CD5;&#x3002;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">class MainActivity : FlutterActivity() {</div><div class="line"> </div><div class="line">    private var mAuthorizationCode: String? = null</div><div class="line"> </div><div class="line">    override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {</div><div class="line">        GeneratedPluginRegistrant.registerWith(flutterEngine)</div><div class="line">        setupMethodChannel()</div><div class="line">    }</div><div class="line"> </div><div class="line">    override fun onNewIntent(intent: Intent) {</div><div class="line">        super.onNewIntent(intent)</div><div class="line">        getExtra(intent)</div><div class="line">    }</div><div class="line"> </div><div class="line">    private fun getExtra(intent: Intent?) {</div><div class="line">        // from author login</div><div class="line">        mAuthorizationCode = intent?.data?.getQueryParameter(Constants.AUTHORIZATION_CODE)</div><div class="line">    }</div><div class="line"> </div><div class="line">    private fun setupMethodChannel() {</div><div class="line">        MethodChannel(flutterEngine?.dartExecutor, Constants.METHOD_CHANNEL_NAME).setMethodCallHandler { call, result -&gt;</div><div class="line">            if (call.method == Constants.CALL_LOGIN_CODE &amp;&amp; !TextUtils.isEmpty(mAuthorizationCode)) {</div><div class="line">                result.success(mAuthorizationCode)</div><div class="line">                mAuthorizationCode = null</div><div class="line">            }</div><div class="line">        }</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p><code>MethodChannel</code>&#x5EFA;&#x7ACB;&#x6E20;&#x9053;&#xFF0C;<code>setMethodCallHandler</code>&#x6765;&#x54CD;&#x5E94;Flutter&#x4E2D;&#x9700;&#x8981;&#x8C03;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#x3002;&#x901A;&#x8FC7;&#x5224;&#x65AD;&#x56DE;&#x8C03;&#x7684;&#x65B9;&#x6CD5;&#x540D;&#x79F0;&#xFF0C;&#x5373;&#x4E4B;&#x524D;&#x5728;Flutter&#x4E2D;&#x7EA6;&#x5B9A;&#x7684;<code>CALL_LOGIN_CODE</code>&#x3002;&#x6765;&#x6267;&#x884C;&#x5BF9;&#x5E94;&#x7684;&#x903B;&#x8F91;</p>
+<p>&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x8FD4;&#x56DE;&#x7684;code&#x503C;&#xFF0C;&#x53EA;&#x9700;&#x901A;&#x8FC7;<code>result</code>&#x7684;<code>success</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5C06;&#x83B7;&#x53D6;&#x5230;&#x7684;code&#x4F20;&#x9012;&#x8FC7;&#x53BB;&#x5373;&#x53EF;&#x3002;&#x4E4B;&#x540E;Flutter&#x5C31;&#x80FD;&#x591F;&#x83B7;&#x53D6;&#x5230;&#x8BE5;&#x503C;&#x3002;</p>
+<h3 id="IOS-1"><a href="#IOS-1" class="headerlink" title="IOS"></a>IOS</h3><p>&#x5728;<code>AppDelegate.swift</code>&#x4E2D;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;methodChannel&#xFF0C;&#x4F7F;&#x7528;&#x7EA6;&#x5B9A;&#x597D;&#x7684;name&#x3002;</p>
+<p>methodChannel&#x7684;&#x521B;&#x5EFA;IOS&#x662F;&#x901A;&#x8FC7;<code>FlutterMethodChannel.init</code>&#x6765;&#x751F;&#x6210;&#x3002;&#x4E4B;&#x540E;&#x7684;&#x56DE;&#x8C03;&#x4E0E;Android&#x7684;&#x57FA;&#x672C;&#x7C7B;&#x4F3C;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">@UIApplicationMain</div><div class="line">@objc class AppDelegate: FlutterAppDelegate {</div><div class="line">    var paramsMap: Dictionary&lt;String, String&gt; = [:]</div><div class="line">  override func application(</div><div class="line">    _ application: UIApplication,</div><div class="line">    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?</div><div class="line">  ) -&gt; Bool {</div><div class="line">    GeneratedPluginRegistrant.register(with: self)</div><div class="line">     </div><div class="line">    let controller: FlutterViewController = window?.rootViewController as! FlutterViewController</div><div class="line">    let methodChannel = FlutterMethodChannel.init(name: &quot;app.channel.shared.data&quot;, binaryMessenger: controller.binaryMessenger)</div><div class="line">     </div><div class="line">    methodChannel.setMethodCallHandler { (call, result) in</div><div class="line">        if &quot;getLoginCode&quot; == call.method &amp;&amp; !self.paramsMap.isEmpty {</div><div class="line">            result(self.paramsMap[&quot;code&quot;])</div><div class="line">            self.paramsMap.removeAll()</div><div class="line">        }</div><div class="line">    }</div><div class="line">     </div><div class="line">    return super.application(application, didFinishLaunchingWithOptions: launchOptions)</div><div class="line">  }</div><div class="line">    override func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -&gt; Bool {</div><div class="line">        let absoluteString = url.absoluteURL.absoluteString</div><div class="line">        let urlComponents = NSURLComponents(string: absoluteString)</div><div class="line">        let queryItems = urlComponents?.queryItems</div><div class="line">        for item in queryItems! {</div><div class="line">            paramsMap[item.name] = item.value</div><div class="line">        }</div><div class="line">        return true</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5728;<code>setMethodCallHandler</code>&#x4E2D;&#x5224;&#x65AD;&#x56DE;&#x8C03;&#x7684;&#x65B9;&#x6CD5;&#x662F;&#x5426;&#x4E0E;&#x7EA6;&#x5B9A;&#x7684;&#x65B9;&#x6CD5;&#x540D;&#x4E00;&#x81F4;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x81F4;&#x518D;&#x901A;&#x8FC7;<code>result</code>&#x65B9;&#x6CD5;&#x5C06;code&#x4F20;&#x9012;&#x7ED9;Flutter&#x3002;</p>
+<p>&#x81F3;&#x6B64;Android&#x4E0E;IOS&#x90FD;&#x4E0E;Flutter&#x5EFA;&#x7ACB;&#x4E86;&#x901A;&#x4FE1;&#xFF0C;&#x5B83;&#x4EEC;&#x4E4B;&#x95F4;&#x7684;&#x6865;&#x6881;&#x5C31;&#x662F;&#x901A;&#x8FC7;MethodChannel&#x6765;&#x642D;&#x5EFA;&#x7684;&#x3002;</p>
+<p>&#x6700;&#x540E;code&#x4F20;&#x56DE;&#x5230;Flutter&#x4E4B;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x518D;&#x5C06;code&#x8FDB;&#x884C;&#x8BF7;&#x6C42;&#x83B7;&#x53D6;&#x5230;&#x5BF9;&#x5E94;&#x7684;token&#x3002;</p>
+<p>&#x5230;&#x8FD9;&#x91CC;&#x6574;&#x4E2A;&#x6388;&#x6743;&#x8BA4;&#x8BC1;&#x5C31;&#x5B8C;&#x6210;&#x4E86;&#xFF0C;&#x4E4B;&#x540E;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;token&#x6765;&#x8BF7;&#x6C42;&#x7528;&#x6237;&#x76F8;&#x5173;&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x83B7;&#x53D6;&#x5BF9;&#x5E94;&#x7684;&#x6570;&#x636E;&#x3002;</p>
+<blockquote>
+<p>token&#x7684;&#x83B7;&#x53D6;&#x4E0E;&#x76F8;&#x5173;&#x63A5;&#x53E3;&#x7684;&#x8C03;&#x7528;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x67E5;&#x770B;<a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="external">flutter_github</a>&#x6E90;&#x7801;&#x83B7;&#x53D6;</p>
+</blockquote>
+<h2 id="flutter-github"><a href="#flutter-github" class="headerlink" title="flutter_github"></a>flutter_github</h2><p><a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="external">flutter_github</a>&#xFF0C;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x57FA;&#x4E8E;Github Open Api&#x5F00;&#x53D1;&#x7684;Flutter&#x7248;&#x672C;&#x7684;Github&#x5BA2;&#x6237;&#x7AEF;&#x3002;&#x8BE5;&#x9879;&#x76EE;&#x4E3B;&#x8981;&#x662F;&#x7528;&#x6765;&#x7EC3;&#x4E60;Flutter&#xFF0C;&#x611F;&#x5174;&#x8DA3;&#x7684;&#x53EF;&#x4EE5;&#x52A0;&#x5165;&#x4E00;&#x8D77;&#x6765;&#x5B66;&#x4E60;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x5E2E;&#x52A9;&#x7684;&#x8BDD;&#x4E5F;&#x8BF7;&#x4E0D;&#x8981;&#x541D;&#x556C;&#x4F60;&#x7684;&#x5173;&#x6CE8;&#x3002;</p>
+<p><img src="/2020/07/09/&#x4ECE;&#x96F6;&#x5F00;&#x59CB;&#x7684;Flutter&#x4E4B;&#x65C5;-MethodChannel/flutter_github_preview.png" alt=""></p>
+<p>&#x5F53;&#x7136;&#x5982;&#x679C;&#x4F60;&#x60F3;&#x4E86;&#x89E3;Android&#x539F;&#x751F;&#xFF0C;<a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="external">AwesomeGithub</a>&#x662F;&#x4E00;&#x4E2A;&#x4E0D;&#x9519;&#x7684;&#x9009;&#x62E9;&#x3002;&#x5B83;&#x662F;<a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="external">flutter_github</a>&#x7684;&#x7EAF;Android&#x7248;&#x672C;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x4F60;&#x559C;&#x6B22;&#x6211;&#x7684;&#x6587;&#x7AE0;&#x6A21;&#x5F0F;&#xFF0C;&#x6216;&#x8005;&#x5BF9;&#x6211;&#x63A5;&#x4E0B;&#x6765;&#x7684;&#x6587;&#x7AE0;&#x611F;&#x5174;&#x8DA3;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x5173;&#x6CE8;&#x6211;&#x7684;&#x5FAE;&#x4FE1;&#x516C;&#x4F17;&#x53F7;&#xFF1A;&#x3010;Android&#x8865;&#x7ED9;&#x7AD9;&#x3011;</p>
+<p>&#x6216;&#x8005;&#x626B;&#x63CF;&#x4E0B;&#x65B9;&#x4E8C;&#x7EF4;&#x7801;&#xFF0C;&#x4E0E;&#x6211;&#x5EFA;&#x7ACB;&#x6709;&#x6548;&#x7684;&#x6C9F;&#x901A;&#xFF0C;&#x540C;&#x65F6;&#x80FD;&#x591F;&#x66F4;&#x65B9;&#x4FBF;&#x7684;&#x6536;&#x5230;&#x76F8;&#x5173;&#x7684;&#x6280;&#x672F;&#x63A8;&#x9001;&#x3002;</p>
+<p><img src="/2020/07/09/&#x4ECE;&#x96F6;&#x5F00;&#x59CB;&#x7684;Flutter&#x4E4B;&#x65C5;-MethodChannel/android&#x8865;&#x7ED9;&#x7AD9;.jpg" alt=""></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">赞赏是一门艺术</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/rouse_wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/rouse_alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2020/06/24/从零开始的Flutter之旅-Navigator/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="fexo-comments comments-post">
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>
+  <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+  <script src="https://jjeejj.github.io/js/gitment.js"></script>
+  <script>
+    (function () {
+      var gitment = new Gitment({
+        owner: 'idisfkj',
+        repo: 'idisfkj.github.io',
+        id: 'Thu Jul 09 2020 09:22:24 GMT+0800',
+        oauth: {
+          client_id: 'dafb1df02ea9f875bb78',
+          client_secret: 'e9873d78aa5eaed5ce61d1d865a5af501dae377a'
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      })
+      gitment.render('gitment-comments')
+    })()
+  </script>
+
+  
+  
+</div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
