@@ -23,7 +23,7 @@
 <meta property="og:description" content="&amp;#x524D;&amp;#x8A00;Android Startup&amp;#x63D0;&amp;#x4F9B;&amp;#x4E00;&amp;#x79CD;&amp;#x5728;&amp;#x5E94;&amp;#x7528;&amp;#x542F;&amp;#x52A8;&amp;#x65F6;&amp;#x80FD;&amp;#x591F;&amp;#x66F4;&amp;#x52A0;&amp;#x7B80;&amp;#x5355;&amp;#x3001;&amp;#x9AD8;&amp;#x6548;&amp;#x7684;&amp;#x65B9;&amp;">
 <meta property="og:image" content="https://www.rousetime.com/2020/09/09/Android-Startup实现分析/android_startup_diagram.png">
 <meta property="og:image" content="https://www.rousetime.com/2020/09/09/Android-Startup实现分析/Android补给站.jpg">
-<meta property="og:updated_time" content="2020-09-09T10:45:31.023Z">
+<meta property="og:updated_time" content="2020-09-09T10:48:34.694Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Startup实现分析">
 <meta name="twitter:description" content="&amp;#x524D;&amp;#x8A00;Android Startup&amp;#x63D0;&amp;#x4F9B;&amp;#x4E00;&amp;#x79CD;&amp;#x5728;&amp;#x5E94;&amp;#x7528;&amp;#x542F;&amp;#x52A8;&amp;#x65F6;&amp;#x80FD;&amp;#x591F;&amp;#x66F4;&amp;#x52A0;&amp;#x7B80;&amp;#x5355;&amp;#x3001;&amp;#x9AD8;&amp;#x6548;&amp;#x7684;&amp;#x65B9;&amp;">
@@ -187,7 +187,7 @@
 
 
   <div id="toc" class="toc-article">
-    <strong class="toc-title">Posts List</strong>
+    <strong class="toc-title">文章目录</strong>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#手动"><span class="toc-text">手动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自动"><span class="toc-text">自动</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#依赖支持"><span class="toc-text">依赖支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#闭环处理"><span class="toc-text">闭环处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程处理"><span class="toc-text">线程处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异步等待"><span class="toc-text">异步等待</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#依赖回调"><span class="toc-text">依赖回调</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#手动通知"><span class="toc-text">手动通知</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拓扑优化"><span class="toc-text">拓扑优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目"><span class="toc-text">项目</span></a></li></ol>
   </div>
 
@@ -420,7 +420,7 @@
     <a class="show pull-left" href="/2020/08/05/我为何弃用Jetpack的App-Startup/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="hide pull-right" href="/">
+    <a class="show pull-right" href="/2020/09/20/重温Retrofit源码，笑看协程实现/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
@@ -442,7 +442,7 @@
   <span id="cover" class="cover hide"></span>
   <div id="modal-dialog" class="modal-dialog hide-dialog">
     <div class="modal-header">
-      <span id="close" class="btn-close">Close</span>
+      <span id="close" class="btn-close">关闭</span>
     </div>
     <hr>
     <div class="modal-body">
