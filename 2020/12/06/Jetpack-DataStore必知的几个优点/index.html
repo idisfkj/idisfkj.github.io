@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Jetpack:DataStore必知的几个优点 | Rouse</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Jetpack," />
+  
+
+  <meta name="description" content="&amp;#x6700;&amp;#x8FD1;Jetpack&amp;#x53C8;&amp;#x589E;&amp;#x52A0;&amp;#x4E86;&amp;#x65B0;&amp;#x6210;&amp;#x5458;&amp;#xFF0C;&amp;#x63D0;&amp;#x51FA;&amp;#x4E86;&amp;#x4E00;&amp;#x4E2A;&amp;#x5173;&amp;#x4E8E;&amp;#x5C0F;&amp;#x578B;&amp;#x6570;&amp;#x636E;&amp;#x5B58;&amp;#x50A8;&amp;#x76F8;&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jetpack:DataStore必知的几个优点">
+<meta property="og:url" content="https://www.rousetime.com/2020/12/06/Jetpack-DataStore必知的几个优点/index.html">
+<meta property="og:site_name" content="Rouse">
+<meta property="og:description" content="&amp;#x6700;&amp;#x8FD1;Jetpack&amp;#x53C8;&amp;#x589E;&amp;#x52A0;&amp;#x4E86;&amp;#x65B0;&amp;#x6210;&amp;#x5458;&amp;#xFF0C;&amp;#x63D0;&amp;#x51FA;&amp;#x4E86;&amp;#x4E00;&amp;#x4E2A;&amp;#x5173;&amp;#x4E8E;&amp;#x5C0F;&amp;#x578B;&amp;#x6570;&amp;#x636E;&amp;#x5B58;&amp;#x50A8;&amp;#x76F8;&amp;">
+<meta property="og:image" content="https://3.bp.blogspot.com/-Vk_q5hWw6DQ/X00ZfiRrB9I/AAAAAAAAPlo/u-kvBvmMfzgRnNViYLwaAim-E7wq5yxKACLcBGAsYHQ/s1600/Screen%2BShot%2B2020-08-31%2Bat%2B11.25.43%2BAM.png">
+<meta property="og:updated_time" content="2020-12-06T09:55:13.216Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jetpack:DataStore必知的几个优点">
+<meta name="twitter:description" content="&amp;#x6700;&amp;#x8FD1;Jetpack&amp;#x53C8;&amp;#x589E;&amp;#x52A0;&amp;#x4E86;&amp;#x65B0;&amp;#x6210;&amp;#x5458;&amp;#xFF0C;&amp;#x63D0;&amp;#x51FA;&amp;#x4E86;&amp;#x4E00;&amp;#x4E2A;&amp;#x5173;&amp;#x4E8E;&amp;#x5C0F;&amp;#x578B;&amp;#x6570;&amp;#x636E;&amp;#x5B58;&amp;#x50A8;&amp;#x76F8;&amp;">
+<meta name="twitter:image" content="https://3.bp.blogspot.com/-Vk_q5hWw6DQ/X00ZfiRrB9I/AAAAAAAAPlo/u-kvBvmMfzgRnNViYLwaAim-E7wq5yxKACLcBGAsYHQ/s1600/Screen%2BShot%2B2020-08-31%2Bat%2B11.25.43%2BAM.png">
+
+  
+
+  
+  <!-- <link href="/favicon.ico" rel="icon" type="image/x-icon"> -->
+    <link rel="icon" href="/favicon.ico">
+    <!-- <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?bd7ea96a22c9c7b90353962460fa0b8e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SharedPreferences的糟心事"><span class="toc-text">SharedPreferences的糟心事</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一次性读取阻塞主线程"><span class="toc-text">一次性读取阻塞主线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型不安全"><span class="toc-text">类型不安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#apply异步没有回调"><span class="toc-text">apply异步没有回调</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#导致ANR"><span class="toc-text">导致ANR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不能跨进程通信"><span class="toc-text">不能跨进程通信</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DataStore"><span class="toc-text">DataStore</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#引入DataStore"><span class="toc-text">引入DataStore</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建DataStore"><span class="toc-text">创建DataStore</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#读"><span class="toc-text">读</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#写"><span class="toc-text">写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迁移SharedPreferences"><span class="toc-text">迁移SharedPreferences</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目"><span class="toc-text">项目</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Jetpack-DataStore必知的几个优点" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Jetpack:DataStore必知的几个优点</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2020.12.06</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Rouse</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>&#x6700;&#x8FD1;<code>Jetpack</code>&#x53C8;&#x589E;&#x52A0;&#x4E86;&#x65B0;&#x6210;&#x5458;&#xFF0C;&#x63D0;&#x51FA;&#x4E86;&#x4E00;&#x4E2A;&#x5173;&#x4E8E;&#x5C0F;&#x578B;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x76F8;&#x5173;&#x7684;<code>DataStore</code>&#x7EC4;&#x4EF6;&#x3002;</p>
+<p>&#x6839;&#x636E;&#x5B98;&#x7F51;&#x7684;&#x63CF;&#x8FF0;&#xFF0C;<code>DataStore</code>&#x5B8C;&#x5168;&#x662F;&#x5BF9;&#x6807;&#x73B0;&#x6709;&#x7684;<code>SharedPreferences</code>&#x3002;</p>
+<p><code>SharedPreferences</code>&#x76F8;&#x4FE1;&#x5927;&#x5BB6;&#x90FD;&#x6709;&#x7528;&#x8FC7;&#xFF0C;&#x65E2;&#x7136;&#x5728;&#x73B0;&#x6709;&#x7684;&#x57FA;&#x7840;&#x4E0A;&#x63D0;&#x51FA;<code>DataStore</code>&#x90A3;&#x81EA;&#x7136;&#x662F;&#x4E3A;&#x4E86;&#x89E3;&#x51B3;<code>SharedPreferences</code>&#x7684;&#x7F3A;&#x70B9;&#x7684;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x4F60;&#x8FD8;&#x4E0D;&#x77E5;&#x9053;<code>SharedPreferences</code>&#x6709;&#x4EC0;&#x4E48;&#x7F3A;&#x70B9;&#xFF1F;&#x6CA1;&#x5173;&#x7CFB;&#xFF0C;&#x6211;&#x4EEC;&#x6B63;&#x597D;&#x6765;&#x590D;&#x4E60;&#x4E00;&#x904D;&#x3002;&#x4F60;&#x53EF;&#x4EE5;&#x5BF9;&#x6807;&#x4E00;&#x4E0B;&#x5728;&#x4F7F;&#x7528;<code>SharedPreferences</code>&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x662F;&#x5426;&#x4E5F;&#x9047;&#x5230;&#x8FC7;&#x8FD9;&#x4E9B;&#x95EE;&#x9898;&#x3002;</p>
+<h2 id="SharedPreferences&#x7684;&#x7CDF;&#x5FC3;&#x4E8B;"><a href="#SharedPreferences&#x7684;&#x7CDF;&#x5FC3;&#x4E8B;" class="headerlink" title="SharedPreferences&#x7684;&#x7CDF;&#x5FC3;&#x4E8B;"></a>SharedPreferences&#x7684;&#x7CDF;&#x5FC3;&#x4E8B;</h2><p>&#x4E3A;&#x4E86;&#x7CBE;&#x7B80;&#x8BED;&#x8A00;&#xFF0C;&#x4E0B;&#x9762;&#x90FD;&#x5C06;<code>SharedPreferences</code>&#x7B80;&#x79F0;<code>sp</code></p>
+<h3 id="&#x4E00;&#x6B21;&#x6027;&#x8BFB;&#x53D6;&#x963B;&#x585E;&#x4E3B;&#x7EBF;&#x7A0B;"><a href="#&#x4E00;&#x6B21;&#x6027;&#x8BFB;&#x53D6;&#x963B;&#x585E;&#x4E3B;&#x7EBF;&#x7A0B;" class="headerlink" title="&#x4E00;&#x6B21;&#x6027;&#x8BFB;&#x53D6;&#x963B;&#x585E;&#x4E3B;&#x7EBF;&#x7A0B;"></a>&#x4E00;&#x6B21;&#x6027;&#x8BFB;&#x53D6;&#x963B;&#x585E;&#x4E3B;&#x7EBF;&#x7A0B;</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sp = getSharedPreferences(&quot;settings_preference&quot;, Context.MODE_PRIVATE)</div></pre></td></tr></table></figure>
+<p>&#x5728;&#x4F7F;&#x7528;<code>sp</code>&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x4F1A;&#x901A;&#x8FC7;<code>getSharedPreferences</code>&#x6765;&#x521D;&#x59CB;&#x5316;<code>sp</code>&#x3002;</p>
+<p>&#x4E0A;&#x9762;&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x6700;&#x7EC8;&#x4F1A;&#x8FDB;&#x5165;<code>SharedPreferencesImpl</code>&#x7684;<code>loadFromDisk</code>&#x65B9;&#x6CD5;&#x3002;</p>
+<blockquote>
+<p>&#x5177;&#x4F53;&#x8C03;&#x7528;&#x5C31;&#x4E0D;&#x5E26;&#x5927;&#x5BB6;&#x8D70;&#x4E00;&#x904D;&#x4E86;&#xFF0C;&#x5982;&#x679C;&#x90FD;&#x8D34;&#x51FA;&#x6765;&#x6587;&#x7AE0;&#x5C31;&#x53D8;&#x6210;&#x4EE3;&#x7801;&#x7C98;&#x8D34;&#x677F;&#x4E86;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x5173;&#x6CE8;&#x6838;&#x5FC3;&#x903B;&#x8F91;&#xFF0C;&#x5176;&#x5B83;&#x611F;&#x5174;&#x8DA3;&#x7684;&#x53EF;&#x4EE5;&#x81EA;&#x884C;&#x67E5;&#x770B;&#x6E90;&#x7801;</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">private void loadFromDisk() {</div><div class="line">    synchronized (mLock) {</div><div class="line">        if (mLoaded) {</div><div class="line">            return;</div><div class="line">        }</div><div class="line">        if (mBackupFile.exists()) {</div><div class="line">            mFile.delete();</div><div class="line">            mBackupFile.renameTo(mFile);</div><div class="line">        }</div><div class="line">    }</div><div class="line"> </div><div class="line">    // Debugging</div><div class="line">    if (mFile.exists() &amp;&amp; !mFile.canRead()) {</div><div class="line">        Log.w(TAG, &quot;Attempt to read preferences file &quot; + mFile + &quot; without permission&quot;);</div><div class="line">    }</div><div class="line"> </div><div class="line">    Map&lt;String, Object&gt; map = null;</div><div class="line">    StructStat stat = null;</div><div class="line">    Throwable thrown = null;</div><div class="line">    try {</div><div class="line">        stat = Os.stat(mFile.getPath());</div><div class="line">        if (mFile.canRead()) {</div><div class="line">            BufferedInputStream str = null;</div><div class="line">            try {</div><div class="line">                str = new BufferedInputStream(</div><div class="line">                        new FileInputStream(mFile), 16 * 1024);</div><div class="line">                map = (Map&lt;String, Object&gt;) XmlUtils.readMapXml(str);</div><div class="line">            } catch (Exception e) {</div><div class="line">                Log.w(TAG, &quot;Cannot read &quot; + mFile.getAbsolutePath(), e);</div><div class="line">            } finally {</div><div class="line">                IoUtils.closeQuietly(str);</div><div class="line">            }</div><div class="line">        }</div><div class="line">    } catch (ErrnoException e) {</div><div class="line">        // An errno exception means the stat failed. Treat as empty/non-existing by</div><div class="line">        // ignoring.</div><div class="line">    } catch (Throwable t) {</div><div class="line">        thrown = t;</div><div class="line">    }</div><div class="line"> </div><div class="line">    synchronized (mLock) {</div><div class="line">        mLoaded = true;</div><div class="line">        mThrowable = thrown;</div><div class="line"> </div><div class="line">        // It&apos;s important that we always signal waiters, even if we&apos;ll make</div><div class="line">        // them fail with an exception. The try-finally is pretty wide, but</div><div class="line">        // better safe than sorry.</div><div class="line">        try {</div><div class="line">            if (thrown == null) {</div><div class="line">                if (map != null) {</div><div class="line">                    mMap = map;</div><div class="line">                    mStatTimestamp = stat.st_mtim;</div><div class="line">                    mStatSize = stat.st_size;</div><div class="line">                } else {</div><div class="line">                    mMap = new HashMap&lt;&gt;();</div><div class="line">                }</div><div class="line">            }</div><div class="line">            // In case of a thrown exception, we retain the old map. That allows</div><div class="line">            // any open editors to commit and store updates.</div><div class="line">        } catch (Throwable t) {</div><div class="line">            mThrowable = t;</div><div class="line">        } finally {</div><div class="line">            mLock.notifyAll();</div><div class="line">        }</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x91CC;&#x901A;&#x8FC7;&#x5BF9;&#x8C61;&#x9501;<code>mLock</code>&#x673A;&#x5236;&#x6765;&#x5BF9;&#x5176;&#x8FDB;&#x884C;&#x52A0;&#x9501;&#x64CD;&#x4F5C;&#x3002;&#x53EA;&#x6709;&#x5F53;<code>sp</code>&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x6570;&#x636E;&#x5168;&#x90E8;&#x8BFB;&#x53D6;&#x5B8C;&#x6BD5;&#x4E4B;&#x540E;&#x624D;&#x4F1A;&#x8C03;&#x7528;<code>mLock.notifyAll()</code>&#x6765;&#x91CA;&#x653E;&#x9501;&#x3002;</p>
+<p>&#x800C;&#x53E6;&#x4E00;&#x8FB9;&#x5BF9;&#x5E94;&#x7684;&#x83B7;&#x53D6;&#x6570;&#x636E;&#x7684;<code>get</code>&#x65B9;&#x6CD5;&#xFF0C;&#x4F8B;&#x5982;<code>getString</code>&#x65B9;&#x6CD5;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">public String getString(String key, @Nullable String defValue) {</div><div class="line">    synchronized (mLock) {</div><div class="line">        awaitLoadedLocked();</div><div class="line">        String v = (String)mMap.get(key);</div><div class="line">        return v != null ? v : defValue;</div><div class="line">    }</div><div class="line">}</div><div class="line"> </div><div class="line">private void awaitLoadedLocked() {</div><div class="line">    if (!mLoaded) {</div><div class="line">        // Raise an explicit StrictMode onReadFromDisk for this</div><div class="line">        // thread, since the real read will be in a different</div><div class="line">        // thread and otherwise ignored by StrictMode.</div><div class="line">        BlockGuard.getThreadPolicy().onReadFromDisk();</div><div class="line">    }</div><div class="line">    while (!mLoaded) {</div><div class="line">        try {</div><div class="line">            mLock.wait(); // &#x7B49;&#x5F85;sp&#x6587;&#x4EF6;&#x8BFB;&#x53D6;&#x5B8C;&#x6BD5;</div><div class="line">        } catch (InterruptedException unused) {</div><div class="line">        }</div><div class="line">    }</div><div class="line">    if (mThrowable != null) {</div><div class="line">        throw new IllegalStateException(mThrowable);</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x91CC;&#x4F1A;&#x5728;<code>awaitLoadedLocked</code>&#x65B9;&#x6CD5;&#x4E2D;&#x8C03;&#x7528;<code>mLock.wait()</code>&#x6765;&#x7B49;&#x5F85;<code>sp</code>&#x7684;&#x521D;&#x59CB;&#x5316;&#x5B8C;&#x6210;&#x3002;</p>
+<p>&#x6240;&#x4EE5;&#x5982;&#x679C;<code>sp</code>&#x6587;&#x4EF6;&#x8FC7;&#x5927;&#xFF0C;&#x521D;&#x59CB;&#x5316;&#x6240;&#x82B1;&#x7684;&#x65F6;&#x95F4;&#x8FC7;&#x591A;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x540E;&#x9762;<code>sp</code>&#x6570;&#x636E;&#x83B7;&#x53D6;&#x65F6;&#x7684;&#x963B;&#x585E;&#x3002;</p>
+<h3 id="&#x7C7B;&#x578B;&#x4E0D;&#x5B89;&#x5168;"><a href="#&#x7C7B;&#x578B;&#x4E0D;&#x5B89;&#x5168;" class="headerlink" title="&#x7C7B;&#x578B;&#x4E0D;&#x5B89;&#x5168;"></a>&#x7C7B;&#x578B;&#x4E0D;&#x5B89;&#x5168;</h3><p>&#x5728;&#x6211;&#x4EEC;&#x4F7F;&#x7528;<code>sp</code>&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x7528;&#x7684;&#x6700;&#x591A;&#x7684;&#x5E94;&#x8BE5;&#x662F;&#x5B83;&#x7684;<code>put</code>&#x4E0E;<code>get</code>&#x65B9;&#x6CD5;&#x3002;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x7528;&#x8FD9;&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#x6765;&#x5199;&#x4E00;&#x6BB5;&#x4EE3;&#x7801;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">sp = getSharedPreferences(&quot;settings_preference&quot;, Context.MODE_PRIVATE)</div><div class="line"> </div><div class="line">// &#x67D0;&#x4E00;&#x4E2A;&#x5730;&#x65B9;&#x7684;&#x903B;&#x8F91;</div><div class="line">sp.edit().putString(&quot;key_name_from_sp&quot;, &quot;from sp&quot;).apply()</div><div class="line"> </div><div class="line">// &#x53E6;&#x4E00;&#x4E2A;&#x5730;&#x65B9;&#x7684;&#x903B;&#x8F91;</div><div class="line">sp.edit().putInt(&quot;key_name_from_sp&quot;, &quot;from sp&quot;).apply()</div><div class="line"> </div><div class="line">// &#x83B7;&#x53D6;key_name_from_sp&#x503C;</div><div class="line">sp.getString(&quot;key_name_from_sp&quot;, &quot;&quot;)</div></pre></td></tr></table></figure>
+<p>&#x5982;&#x679C;&#x4F60;&#x8FD0;&#x884C;&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x4F60;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x5F02;&#x5E38;&#xFF0C;&#x672C;&#x8D28;&#x95EE;&#x9898;&#x662F;&#x5BF9;&#x540C;&#x4E00;&#x4E2A;<code>key</code>&#x8D4B;&#x503C;&#x4E86;&#x4E0D;&#x540C;&#x7C7B;&#x578B;&#x7684;&#x503C;&#x3002;&#x5C06;&#x539F;&#x6765;<code>String</code>&#x7C7B;&#x578B;&#x7684;&#x503C;&#x8F6C;&#x53D8;&#x6210;<code>Int</code>&#x7C7B;&#x578B;&#x3002;&#x7531;&#x4E8E;<code>sp</code>&#x5185;&#x90E8;&#x662F;&#x901A;&#x8FC7;<code>Map</code>&#x6765;&#x4FDD;&#x5B58;&#x5BF9;&#x4E8E;&#x7684;<code>key-value</code>&#xFF0C;&#x6240;&#x4EE5;&#x5B83;&#x5E76;&#x4E0D;&#x80FD;&#x4FDD;&#x8BC1;<code>key-value</code>&#x7684;&#x7C7B;&#x578B;&#x56FA;&#x5B9A;&#xFF0C;&#x4E5F;&#x8FDB;&#x4E00;&#x6B65;&#x5BFC;&#x81F4;&#x901A;&#x8FC7;<code>get</code>&#x65B9;&#x6CD5;&#x6765;&#x83B7;&#x53D6;&#x5BF9;&#x5E94;<code>key</code>&#x7684;&#x503C;&#x7684;&#x7C7B;&#x578B;&#x4E5F;&#x662F;&#x4E0D;&#x5B89;&#x5168;&#x7684;&#x3002;&#x8FD9;&#x5C31;&#x9020;&#x6210;&#x4E86;&#x6240;&#x8C13;&#x7684;&#x7C7B;&#x578B;&#x4E0D;&#x5B89;&#x5168;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public String getString(String key, @Nullable String defValue) {</div><div class="line">    synchronized (mLock) {</div><div class="line">        awaitLoadedLocked();</div><div class="line">        String v = (String)mMap.get(key);</div><div class="line">        return v != null ? v : defValue;</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5728;<code>getString</code>&#x7684;&#x6E90;&#x7801;&#x4E2D;&#xFF0C;&#x4F1A;&#x8FDB;&#x884C;&#x7C7B;&#x578B;&#x5F3A;&#x5236;&#x8F6C;&#x6362;&#xFF0C;&#x5982;&#x679C;&#x7C7B;&#x578B;&#x4E0D;&#x5BF9;&#x5C31;&#x4F1A;&#x5BFC;&#x81F4;&#x7A0B;&#x5E8F;&#x5D29;&#x6E83;&#x3002;&#x7531;&#x4E8E;<code>sp</code>&#x4E0D;&#x4F1A;&#x5728;&#x4EE3;&#x7801;&#x7F16;&#x8BD1;&#x65F6;&#x8FDB;&#x884C;&#x63D0;&#x9192;&#xFF0C;&#x53EA;&#x80FD;&#x5728;&#x4EE3;&#x7801;&#x8FD0;&#x884C;&#x4E4B;&#x540E;&#x624D;&#x80FD;&#x53D1;&#x73B0;&#xFF0C;&#x6240;&#x4EE5;&#x5C31;&#x907F;&#x514D;&#x4E0D;&#x6389;&#x53EF;&#x80FD;&#x53D1;&#x751F;&#x7684;&#x5F02;&#x5E38;&#xFF0C;&#x4ECE;&#x800C;&#x5BFC;&#x81F4;<code>sp</code>&#x7C7B;&#x578B;&#x4E0D;&#x5B89;&#x5168;&#x3002;</p>
+<h3 id="apply&#x5F02;&#x6B65;&#x6CA1;&#x6709;&#x56DE;&#x8C03;"><a href="#apply&#x5F02;&#x6B65;&#x6CA1;&#x6709;&#x56DE;&#x8C03;" class="headerlink" title="apply&#x5F02;&#x6B65;&#x6CA1;&#x6709;&#x56DE;&#x8C03;"></a>apply&#x5F02;&#x6B65;&#x6CA1;&#x6709;&#x56DE;&#x8C03;</h3><p>&#x4E3A;&#x4E86;&#x9632;&#x6B62;<code>sp</code>&#x5199;&#x5165;&#x65F6;&#x963B;&#x585E;&#x7EBF;&#x7A0B;&#xFF0C;&#x4E00;&#x822C;&#x90FD;&#x4F1A;&#x4F7F;&#x7528;<code>apply</code>&#x65B9;&#x6CD5;&#x6765;&#x5C06;&#x6570;&#x636E;&#x5F02;&#x6B65;&#x63D0;&#x4EA4;&#x5230;&#x78C1;&#x76D8;&#xFF0C;&#x5373;&#x5199;&#x5165;&#x5230;&#x6587;&#x4EF6;&#x4E2D;&#x3002;</p>
+<p>&#x867D;&#x7136;<code>apply</code>&#x662F;&#x5F02;&#x6B65;&#xFF0C;&#x4F46;&#x5B83;&#x5E76;&#x6CA1;&#x6709;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x540C;&#x6837;&#x4E5F;&#x6CA1;&#x6709;&#x5BF9;&#x5E94;&#x7684;&#x7ED3;&#x679C;&#x56DE;&#x8C03;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public void apply() {</div><div class="line">	...</div><div class="line">}</div></pre></td></tr></table></figure>
+<h3 id="&#x5BFC;&#x81F4;ANR"><a href="#&#x5BFC;&#x81F4;ANR" class="headerlink" title="&#x5BFC;&#x81F4;ANR"></a>&#x5BFC;&#x81F4;ANR</h3><p><code>apply</code>&#x5F02;&#x6B65;&#x63D0;&#x4EA4;&#x89E3;&#x51B3;&#x4E86;&#x7EBF;&#x7A0B;&#x7684;&#x963B;&#x585E;&#x95EE;&#x9898;&#xFF0C;&#x4F46;&#x5982;&#x679C;<code>apply</code>&#x4EFB;&#x52A1;&#x8FC7;&#x591A;&#x6570;&#x636E;&#x91CF;&#x8FC7;&#x5927;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x5BFC;&#x81F4;<code>ANR</code>&#x7684;&#x4EA7;&#x751F;&#x3002;</p>
+<p><code>ANR</code>&#x7684;&#x4EA7;&#x751F;&#x662F;&#x4E3B;&#x7EBF;&#x7A0B;&#x957F;&#x65F6;&#x95F4;&#x672A;&#x54CD;&#x5E94;&#x5BFC;&#x81F4;&#x7684;&#x3002;<code>apply</code>&#x4E0D;&#x662F;&#x5F02;&#x6B65;&#x7684;&#x5417;&#xFF1F;&#x5B83;&#x600E;&#x4E48;&#x53C8;&#x4F1A;&#x4EA7;&#x751F;<code>ANR</code>&#x5462;&#xFF1F;</p>
+<p>&#x6765;&#x770B;&#x4E0B;<code>apply</code>&#x7684;&#x6E90;&#x7801;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">public void apply() {</div><div class="line">    final long startTime = System.currentTimeMillis();</div><div class="line"> </div><div class="line">    final MemoryCommitResult mcr = commitToMemory();</div><div class="line">    final Runnable awaitCommit = new Runnable() {</div><div class="line">            @Override</div><div class="line">            public void run() {</div><div class="line">                try {</div><div class="line">                    mcr.writtenToDiskLatch.await();</div><div class="line">                } catch (InterruptedException ignored) {</div><div class="line">                }</div><div class="line"></div><div class="line">                if (DEBUG &amp;&amp; mcr.wasWritten) {</div><div class="line">                    Log.d(TAG, mFile.getName() + &quot;:&quot; + mcr.memoryStateGeneration</div><div class="line">                            + &quot; applied after &quot; + (System.currentTimeMillis() - startTime)</div><div class="line">                            + &quot; ms&quot;);</div><div class="line">                }</div><div class="line">            }</div><div class="line">        };</div><div class="line"> </div><div class="line">    // &#x6CE8;&#x610F;&#xFF1A;&#x5C06;awaitCommit&#x6DFB;&#x52A0;&#x5230;&#x961F;&#x5217;&#x4E2D;</div><div class="line">    QueuedWork.addFinisher(awaitCommit);</div><div class="line"> </div><div class="line">    Runnable postWriteRunnable = new Runnable() {</div><div class="line">            @Override</div><div class="line">            public void run() {</div><div class="line">                awaitCommit.run();</div><div class="line">                // &#x6210;&#x529F;&#x5199;&#x5165;&#x78C1;&#x76D8;&#x4E4B;&#x540E;&#x624D;&#x5C06;awaitCommit&#x79FB;&#x9664;</div><div class="line">                QueuedWork.removeFinisher(awaitCommit);</div><div class="line">            }</div><div class="line">        };</div><div class="line"> </div><div class="line">    SharedPreferencesImpl.this.enqueueDiskWrite(mcr, postWriteRunnable);</div><div class="line"> </div><div class="line">    // Okay to notify the listeners before it&apos;s hit disk</div><div class="line">    // because the listeners should always get the same</div><div class="line">    // SharedPreferences instance back, which has the</div><div class="line">    // changes reflected in memory.</div><div class="line">    notifyListeners(mcr);</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x91CC;&#x5173;&#x952E;&#x70B9;&#x662F;&#x4F1A;&#x5C06;<code>awaitCommit</code>&#x52A0;&#x5165;&#x5230;<code>QueuedWork</code>&#x961F;&#x5217;&#x4E2D;&#xFF0C;&#x53EA;&#x6709;&#x5F53;<code>awaitCommit</code>&#x6267;&#x884C;&#x5B8C;&#x4E4B;&#x540E;&#x624D;&#x4F1A;&#x8FDB;&#x884C;&#x79FB;&#x9664;&#x3002;</p>
+<p>&#x8FD9;&#x662F;&#x4E00;&#x65B9;&#x9762;&#xFF0C;&#x6211;&#x4EEC;&#x518D;&#x6765;&#x770B;&#x53E6;&#x4E00;&#x65B9;&#x9762;&#x3002;</p>
+<p>&#x5728;<code>Activity</code>&#x7684;<code>onPause</code>&#x4E0E;<code>onStop</code>&#x3001;<code>Service</code>&#x7684;<code>onDestory</code>&#x4E2D;&#x4F1A;&#x7B49;&#x5F85;<code>QueuedWork</code>&#x4E2D;&#x7684;&#x4EFB;&#x52A1;&#x5168;&#x90E8;&#x5B8C;&#x6210;&#xFF0C;&#x4E00;&#x65E6;<code>QueuedWork</code>&#x4E2D;&#x7684;&#x4EFB;&#x52A1;&#x975E;&#x5E38;&#x8017;&#x65F6;&#xFF0C;&#x4F8B;&#x5982;<code>sp</code>&#x7684;&#x5199;&#x5165;&#x78C1;&#x76D8;&#x6570;&#x636E;&#x91CF;&#x8FC7;&#x591A;&#xFF0C;&#x5C31;&#x4F1A;&#x5BFC;&#x81F4;&#x4E3B;&#x7EBF;&#x7A0B;&#x957F;&#x65F6;&#x95F4;&#x672A;&#x54CD;&#x5E94;&#xFF0C;&#x4ECE;&#x800C;&#x4EA7;&#x751F;<code>ANR</code>&#x3002;</p>
+<p>&#x5177;&#x4F53;&#x8C03;&#x7528;&#x5206;&#x522B;&#x5728;<code>ActivityThread</code>&#x4E2D;&#x7684;<code>handlePauseActivity</code>&#x3001;<code>handlePauseActivity</code>&#x4E0E;<code>handleStopService</code>&#x65B9;&#x6CD5;&#x4E2D;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">public void handlePauseActivity(IBinder token, boolean finished, boolean userLeaving,</div><div class="line">        int configChanges, PendingTransactionActions pendingActions, String reason) {</div><div class="line">    ActivityClientRecord r = mActivities.get(token);</div><div class="line">    if (r != null) {</div><div class="line">        if (userLeaving) {</div><div class="line">            performUserLeavingActivity(r);</div><div class="line">        }</div><div class="line"> </div><div class="line">        r.activity.mConfigChangeFlags |= configChanges;</div><div class="line">        performPauseActivity(r, finished, reason, pendingActions);</div><div class="line"></div><div class="line">        // Make sure any pending writes are now committed.</div><div class="line">        if (r.isPreHoneycomb()) {</div><div class="line">            //&#x7B49;&#x5F85;&#x4EFB;&#x52A1;&#x5B8C;&#x6210;</div><div class="line">            QueuedWork.waitToFinish();</div><div class="line">        }</div><div class="line">        mSomeActivitiesChanged = true;</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x90A3;&#x5982;&#x4F55;&#x89E3;&#x51B3;&#x5462;&#xFF1F;&#x9996;&#x5148;&#x4F7F;&#x7528;<code>sp</code>&#x4E0D;&#x8981;&#x5B58;&#x50A8;&#x8FC7;&#x5927;&#x7684;<code>key-value</code>&#x6570;&#x636E;&#xFF0C;&#x672C;&#x8EAB;<code>sp</code>&#x5C31;&#x662F;&#x8F7B;&#x91CF;&#x7684;&#x5B58;&#x50A8;&#xFF0C;&#x5BF9;&#x4E8E;&#x5927;&#x6570;&#x636E;&#x8FD8;&#x662F;&#x4F7F;&#x7528;<code>room</code>&#x6765;&#x5B58;&#x50A8;&#x3002;</p>
+<p>&#x6B64;&#x7C7B;<code>ANR</code>&#x90FD;&#x662F;&#x7ECF;&#x7531;<code>QueuedWork.waitToFinish()</code>&#x89E6;&#x53D1;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x5728;&#x8C03;&#x7528;&#x6B64;&#x51FD;&#x6570;&#x4E4B;&#x524D;&#xFF0C;&#x5C06;&#x5176;&#x4E2D;&#x4FDD;&#x5B58;&#x7684;&#x961F;&#x5217;&#x624B;&#x52A8;&#x6E05;&#x7A7A;&#xFF0C;&#x90A3;&#x4E48;&#x662F;&#x4E0D;&#x662F;&#x80FD;&#x89E3;&#x51B3;&#x95EE;&#x9898;&#x5462;&#xFF0C;&#x7B54;&#x6848;&#x662F;&#x80AF;&#x5B9A;&#x7684;&#x3002;</p>
+<p>&#x53E6;&#x5916;&#x5728;&#x4ECA;&#x65E5;&#x5934;&#x6761;&#x7684;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#x4E2D;&#x5DF2;&#x7ECF;&#x63D0;&#x51FA;&#x89E3;&#x51B3;<code>ANR</code>&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5177;&#x4F53;&#x89E3;&#x51B3;&#x53EF;&#x4EE5;&#x81EA;&#x884C;&#x67E5;&#x770B;</p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI1MzYzMjE0MQ==&amp;mid=2247484387&amp;idx=1&amp;sn=e3c8d6ef52520c51b5e07306d9750e70&amp;scene=21#wechat_redirect" target="_blank" rel="external">https://mp.weixin.qq.com/s?__biz=MzI1MzYzMjE0MQ==&amp;mid=2247484387&amp;idx=1&amp;sn=e3c8d6ef52520c51b5e07306d9750e70&amp;scene=21#wechat_redirect</a></p>
+<h3 id="&#x4E0D;&#x80FD;&#x8DE8;&#x8FDB;&#x7A0B;&#x901A;&#x4FE1;"><a href="#&#x4E0D;&#x80FD;&#x8DE8;&#x8FDB;&#x7A0B;&#x901A;&#x4FE1;" class="headerlink" title="&#x4E0D;&#x80FD;&#x8DE8;&#x8FDB;&#x7A0B;&#x901A;&#x4FE1;"></a>&#x4E0D;&#x80FD;&#x8DE8;&#x8FDB;&#x7A0B;&#x901A;&#x4FE1;</h3><p><code>sp</code>&#x662F;&#x4E0D;&#x80FD;&#x8DE8;&#x8FDB;&#x7A0B;&#x901A;&#x4FE1;&#x7684;&#xFF0C;&#x867D;&#x7136;&#x5728;&#x83B7;&#x53D6;<code>sp</code>&#x7684;&#x65F6;&#x5019;&#x63D0;&#x4F9B;&#x4E86;<code>MODE_MULTI_PROCESS</code>&#xFF0C;&#x4F46;&#x5185;&#x90E8;&#x5E76;&#x4E0D;&#x662F;&#x7528;&#x6765;&#x8DE8;&#x8FDB;&#x7A0B;&#x7684;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public SharedPreferences getSharedPreferences(File file, int mode) {</div><div class="line">    if ((mode &amp; Context.MODE_MULTI_PROCESS) != 0 ||</div><div class="line">        getApplicationInfo().targetSdkVersion &lt; android.os.Build.VERSION_CODES.HONEYCOMB) {</div><div class="line">        // &#x91CD;&#x65B0;&#x8BFB;&#x53D6;SP&#x6587;&#x4EF6;&#x5185;&#x5BB9;</div><div class="line">        sp.startReloadIfChangedUnexpectedly();</div><div class="line">    }</div><div class="line">    return sp;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x91CC;&#x4F7F;&#x7528;<code>MODE_MULTI_PROCESS</code>&#x53EA;&#x662F;&#x91CD;&#x65B0;&#x8BFB;&#x53D6;&#x4E00;&#x904D;&#x6587;&#x4EF6;&#x800C;&#x5DF2;&#xFF0C;&#x5E76;&#x4E0D;&#x80FD;&#x4FDD;&#x8BC1;&#x8DE8;&#x8FDB;&#x7A0B;&#x901A;&#x4FE1;&#x3002;</p>
+<p>&#x4E0A;&#x9762;&#x7684;<code>sp</code>&#x95EE;&#x9898;&#x4E0D;&#x77E5;&#x9053;&#x4F60;&#x5728;&#x4F7F;&#x7528;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x662F;&#x5426;&#x6709;&#x9047;&#x5230;&#x8FC7;&#xFF0C;&#x6216;&#x8005;&#x8BF4;&#x6709;&#x5E78;&#x4E2D;&#x6807;&#x51E0;&#x6761;&#xFF0C;&#x5927;&#x5BB6;&#x53EF;&#x4EE5;&#x7559;&#x8A00;&#x6765;&#x5BF9;&#x6BD4;&#x4E00;&#x4E0B;&#xFF0C;&#x8BF4;&#x51FA;&#x4F60;&#x7684;&#x6545;&#x4E8B;(&#x6B64;&#x5904;&#x5E94;&#x8BE5;&#x6709;&#x9152;)&#x3002;</p>
+<h2 id="DataStore"><a href="#DataStore" class="headerlink" title="DataStore"></a>DataStore</h2><p>&#x9488;&#x5BF9;<code>sp</code>&#x90A3;&#x51E0;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;<code>DataStore</code>&#x90FD;&#x591F;&#x80FD;&#x89C4;&#x907F;&#x3002;&#x4E3A;&#x4E86;&#x7CBE;&#x7B80;&#x8BED;&#x8A00;&#xFF0C;&#x4E0B;&#x9762;&#x90FD;&#x5C06;<code>DataStore</code>&#x7B80;&#x79F0;<code>ds</code></p>
+<ol>
+<li><code>ds</code>&#x5185;&#x90E8;&#x4F7F;&#x7528;<code>kotlin</code>&#x534F;&#x7A0B;&#x901A;&#x8FC7;&#x6302;&#x8D77;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x907F;&#x514D;&#x963B;&#x585E;&#x7EBF;&#x7A0B;&#xFF0C;&#x540C;&#x65F6;&#x4E5F;&#x907F;&#x514D;&#x4EA7;&#x751F;<code>ANR</code>&#x3002;</li>
+<li><code>ds</code>&#x4E0D;&#x4EC5;&#x652F;&#x6301;<code>sp</code>&#x540C;&#x65F6;&#x8FD8;&#x652F;&#x6301;<a href="https://developers.google.com/protocol-buffers" target="_blank" rel="external">protocol buffers</a>&#x7C7B;&#x578B;&#x7684;&#x5B58;&#x50A8;&#xFF0C;&#x800C;<code>protocol buffers</code>&#x53EF;&#x4EE5;&#x4FDD;&#x8BC1;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x5B89;&#x5168;&#x3002;</li>
+<li><code>ds</code>&#x80FD;&#x591F;&#x5728;&#x7F16;&#x8BD1;&#x9636;&#x6BB5;&#x63D0;&#x9192;<code>sp</code>&#x7C7B;&#x578B;&#x9519;&#x8BEF;&#xFF0C;&#x4FDD;&#x8BC1;<code>sp</code>&#x7C7B;&#x578B;&#x7684;&#x7C7B;&#x578B;&#x4E0D;&#x5B89;&#x5168;&#x95EE;&#x9898;&#x3002;</li>
+<li><code>ds</code>&#x4F7F;&#x7528;<code>Flow</code>&#x6765;&#x83B7;&#x53D6;&#x6570;&#x636E;&#xFF0C;&#x6BCF;&#x6B21;&#x4FDD;&#x5B58;&#x6570;&#x636E;&#x4E4B;&#x540E;&#x90FD;&#x4F1A;&#x901A;&#x77E5;&#x6700;&#x8FD1;&#x7684;<code>Flow</code>&#x3002;</li>
+<li><code>ds</code>&#x5B8C;&#x7F8E;&#x652F;&#x6301;<code>sp</code>&#x6570;&#x636E;&#x7684;&#x8FC1;&#x79FB;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x65E0;&#x6210;&#x672C;&#x8FC7;&#x6E21;&#x5230;<code>ds</code>&#x3002;</li>
+</ol>
+<p>&#x6240;&#x4EE5;<code>ds</code>&#x5C06;&#x4F1A;&#x662F;<code>Android</code>&#x540E;&#x7EED;&#x8F7B;&#x91CF;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x7684;&#x9996;&#x9009;&#x7EC4;&#x4EF6;&#x3002;&#x6211;&#x4EEC;&#x4E5F;&#x662F;&#x65F6;&#x5019;&#x6765;&#x4E86;&#x89E3;<code>ds</code>&#x7684;&#x4F7F;&#x7528;&#x3002;</p>
+<h3 id="&#x5F15;&#x5165;DataStore"><a href="#&#x5F15;&#x5165;DataStore" class="headerlink" title="&#x5F15;&#x5165;DataStore"></a>&#x5F15;&#x5165;DataStore</h3><p>&#x9996;&#x5148;&#x6211;&#x4EEC;&#x8981;&#x5F15;&#x5165;<code>ds</code>&#xFF0C;&#x65B9;&#x5F0F;&#x5F88;&#x7B80;&#x5355;&#x76F4;&#x63A5;&#x5728;<code>build</code>&#x4E2D;&#x6DFB;&#x52A0;&#x4F9D;&#x8D56;&#x5373;&#x53EF;&#x3002;&#x552F;&#x4E00;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;<code>ds</code>&#x652F;&#x6301;<code>sp</code>&#x4E0E;<code>protocol buffers</code>&#x4E24;&#x79CD;&#x7C7B;&#x578B;&#xFF0C;&#x6240;&#x4EE5;&#x5BF9;&#x5E94;&#x7684;&#x4E5F;&#x6709;&#x4E24;&#x79CD;&#x4F9D;&#x8D56;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// Preferences DataStore</div><div class="line">implementation &quot;androidx.datastore:datastore-preferences:1.0.0-alpha01&quot;</div><div class="line"> </div><div class="line">// Proto DataStore</div><div class="line">implementation  &quot;androidx.datastore:datastore-core:1.0.0-alpha01&quot;</div></pre></td></tr></table></figure>
+<p>&#x4E0B;&#x9762;&#x9488;&#x5BF9;&#x8FD9;&#x4E24;&#x79CD;&#x7C7B;&#x578B;&#x5206;&#x522B;&#x505A;&#x4ECB;&#x7ECD;&#x3002;</p>
+<h3 id="&#x521B;&#x5EFA;DataStore"><a href="#&#x521B;&#x5EFA;DataStore" class="headerlink" title="&#x521B;&#x5EFA;DataStore"></a>&#x521B;&#x5EFA;DataStore</h3><p>&#x9488;&#x5BF9;<code>sp</code>&#x7C7B;&#x578B;&#x7684;&#x6570;&#x636E;&#xFF0C;<code>ds</code>&#x53EA;&#x9700;&#x901A;&#x8FC7;<code>createDataStore</code>&#x65B9;&#x6CD5;&#x6765;&#x83B7;&#x53D6;&#x5BF9;&#x5E94;&#x7684;<code>ds</code>&#x5BF9;&#x8C61;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">private val dataStore = createDataStore(&quot;settings&quot;)</div></pre></td></tr></table></figure>
+<p>&#x5176;&#x4E2D;<code>settings</code>&#x4E3A;&#x5BF9;&#x5E94;&#x7684;&#x6587;&#x4EF6;&#x540D;&#xFF0C;&#x5B58;&#x50A8;&#x65B9;&#x5F0F;&#x4E3A;<code>datastore/ + name + .preferences_pb</code></p>
+<p><code>protocol buffers</code>&#x7C7B;&#x578B;&#x9700;&#x8981;&#x989D;&#x5916;&#x5B9E;&#x73B0;<code>Serializer</code>&#x63A5;&#x53E3;&#xFF0C;&#x63D0;&#x4F9B;&#x8BFB;&#x5199;&#x7684;&#x5165;&#x53E3;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">object SettingsSerializer : Serializer&lt;Settings&gt; {</div><div class="line"> </div><div class="line">    override fun readFrom(input: InputStream): Settings {</div><div class="line">        return Settings.parseFrom(input)</div><div class="line">    }</div><div class="line"> </div><div class="line">    override fun writeTo(t: Settings, output: OutputStream) {</div><div class="line">        t.writeTo(output)</div><div class="line">    }</div><div class="line"> </div><div class="line">}</div><div class="line"> </div><div class="line">private val dataStoreProto = createDataStore(&quot;settings.pb&quot;, SettingsSerializer)</div></pre></td></tr></table></figure>
+<p>&#x5176;&#x4E2D;&#x7684;<code>Settings</code>&#x7C7B;&#x662F;&#x901A;&#x8FC7;<code>protocol buffers</code>&#x811A;&#x672C;&#x81EA;&#x52A8;&#x751F;&#x6210;&#x7684;&#x3002;&#x8981;&#x751F;&#x6210;<code>Settings</code>&#x7C7B;&#xFF0C;&#x4F60;&#x9700;&#x8981;&#x505A;&#x4E24;&#x4EF6;&#x4E8B;</p>
+<ol>
+<li>&#x914D;&#x7F6E;<code>protocol buffers</code>&#x73AF;&#x5883;</li>
+<li>&#x7F16;&#x5199;<code>.proto</code>&#x6587;&#x4EF6;</li>
+</ol>
+<p>&#x6240;&#x4EE5;&#x4F60;&#x53EF;&#x80FD;&#x9700;&#x8981;&#x61C2;&#x4E00;&#x70B9;<code>protocol buffers</code>&#x76F8;&#x5173;&#x7684;&#x8BED;&#x6CD5;&#x3002;</p>
+<blockquote>
+<p>&#x5982;&#x679C;&#x540E;&#x7EED;&#x6709;&#x7A7A;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x5355;&#x72EC;&#x5F00;&#x6587;&#x7AE0;&#x4ECB;&#x7ECD;&#x4E00;&#x4E0B;<code>protocol buffers</code>&#x76F8;&#x5173;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x5927;&#x5382;&#x7528;&#x7684;&#x57FA;&#x672C;&#x4E0A;&#x90FD;&#x662F;<code>protocol buffers</code>&#x3002;</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">syntax = &quot;proto3&quot;;</div><div class="line"></div><div class="line">option java_multiple_files = true;</div><div class="line"></div><div class="line">message Settings {</div><div class="line">    string key_name = 1;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x4F7F;&#x7528;<code>protocol buffers</code>&#x8FD0;&#x884C;&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x5C31;&#x80FD;&#x81EA;&#x52A8;&#x5E2E;&#x6211;&#x4EEC;&#x751F;&#x6210;&#x5BF9;&#x5E94;&#x7684;<code>Settings</code>&#x7C7B;&#x3002;&#x5176;&#x4E2D;&#x5B83;&#x91CC;&#x9762;&#x7684;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x5C31;&#x662F;<code>keyName_</code>&#xFF0C;&#x5B83;&#x662F;<code>String</code>&#x7C7B;&#x578B;&#x3002;&#x901A;&#x8FC7;&#x521B;&#x5EFA;&#x7C7B;&#x4E0E;&#x5BF9;&#x5E94;&#x53D8;&#x91CF;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x7EA6;&#x5B9A;&#x7C7B;&#x578B;&#x7684;&#x5B89;&#x5168;&#x3002;</p>
+<h3 id="&#x8BFB;"><a href="#&#x8BFB;" class="headerlink" title="&#x8BFB;"></a>&#x8BFB;</h3><p><code>sp</code>&#x4E0E;<code>protocol buffers</code>&#x7C7B;&#x578B;&#x7684;&#x8BFB;&#x64CD;&#x4F5C;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;&#x90FD;&#x4E00;&#x6837;&#xFF0C;&#x9996;&#x5148;&#x90FD;&#x8981;&#x521B;&#x5EFA;<code>Preferences.Key</code>&#x7C7B;&#x578B;&#x7684;<code>key</code>&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">val DATA_KEY = preferencesKey&lt;String&gt;(&quot;key_name&quot;)</div></pre></td></tr></table></figure>
+<p>&#x5BF9;&#x5E94;&#x7684;<code>preferencesKey</code>&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">inline fun &lt;reified T : Any&gt; preferencesKey(name: String): Preferences.Key&lt;T&gt; {</div><div class="line">    return when (T::class) {</div><div class="line">        Int::class -&gt; {</div><div class="line">            Preferences.Key&lt;T&gt;(name)</div><div class="line">        }</div><div class="line">        String::class -&gt; {</div><div class="line">            Preferences.Key&lt;T&gt;(name)</div><div class="line">        }</div><div class="line">        Boolean::class -&gt; {</div><div class="line">            Preferences.Key&lt;T&gt;(name)</div><div class="line">        }</div><div class="line">        Float::class -&gt; {</div><div class="line">            Preferences.Key&lt;T&gt;(name)</div><div class="line">        }</div><div class="line">        Long::class -&gt; {</div><div class="line">            Preferences.Key&lt;T&gt;(name)</div><div class="line">        }</div><div class="line">        Set::class -&gt; {</div><div class="line">            throw IllegalArgumentException(&quot;Use `preferencesSetKey` to create keys for Sets.&quot;)</div><div class="line">        }</div><div class="line">        else -&gt; {</div><div class="line">            throw IllegalArgumentException(&quot;Type not supported: ${T::class.java}&quot;)</div><div class="line">        }</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5B83;&#x652F;&#x6301;<code>Int</code>&#x3001;<code>String</code>&#x3001;<code>Boolean</code>&#x3001;<code>Float</code>&#x4E0E;<code>Long</code>&#x7C7B;&#x578B;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x53E6;&#x5916;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;<code>preferencesSetKey</code>&#xFF0C;&#x7528;&#x6765;&#x652F;&#x6301;<code>set</code>&#x7C7B;&#x578B;&#x7684;&#x6570;&#x636E;&#x3002;</p>
+<p>&#x8C03;&#x7528;<code>preferencesKey</code>&#x6BCF;&#x6B21;&#x90FD;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;<code>Preferences.Key</code>&#x5BF9;&#x8C61;&#xFF0C;&#x90A3;&#x5B83;&#x8FD9;&#x6837;&#x5982;&#x4F55;&#x4FDD;&#x8BC1;&#x662F;&#x540C;&#x4E00;&#x4E2A;<code>key</code>&#x5462;?</p>
+<p>&#x5982;&#x679C;&#x4F60;&#x53BB;&#x770B;&#x6E90;&#x7801;&#x5C31;&#x4F1A;&#x4E00;&#x76EE;&#x4E86;&#x7136;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">internal constructor(val name: String) {</div><div class="line">    override fun equals(other: Any?) =</div><div class="line">        if (other is Key&lt;*&gt;) {</div><div class="line">            name == other.name</div><div class="line">        } else {</div><div class="line">            false</div><div class="line">        }</div><div class="line"> </div><div class="line">    override fun hashCode(): Int {</div><div class="line">        return name.hashCode()</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x539F;&#x6765;&#x662F;&#x5B83;&#x91CD;&#x5199;&#x4E86;<code>equals</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5185;&#x90E8;&#x5B9E;&#x73B0;&#x5BF9;<code>name</code>&#x7684;&#x6BD4;&#x8F83;&#x3002;&#x90A3;&#x4E48;&#x53EA;&#x8981;&#x521B;&#x5EFA;<code>preferencesKey</code>&#x65F6;&#x4F20;&#x5165;&#x7684;<code>name</code>&#x76F8;&#x540C;&#xFF0C;&#x5C31;&#x80FD;&#x4FDD;&#x8BC1;&#x83B7;&#x53D6;&#x5230;&#x7684;&#x662F;&#x540C;&#x4E00;&#x4E2A;<code>key</code>&#x7684;&#x6570;&#x636E;&#x3002;</p>
+<p>&#x6709;&#x4E86;<code>key</code>&#xFF0C;&#x518D;&#x6765;&#x901A;&#x8FC7;<code>dataStore.data.map</code>&#x6765;&#x83B7;&#x53D6;<code>Flow</code>&#xFF0C;&#x540C;&#x65F6;&#x66B4;&#x9732;&#x51FA;&#x5BF9;&#x5E94;&#x7684;<code>Preferences</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">private suspend fun read() {</div><div class="line">    dataStore.data.map {</div><div class="line">        // unSafe type</div><div class="line">        if (it[DATA_KEY] is String) {</div><div class="line">            it[DATA_KEY] ?: &quot;&quot;</div><div class="line">        } else {</div><div class="line">            &quot;type is String: ${it[DATA_KEY] is String}&quot;</div><div class="line">        }</div><div class="line">    }.collect {</div><div class="line">        Toast.makeText(this@DataStoreActivity, &quot;read result: $it&quot;, Toast.LENGTH_LONG).show()</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x540C;&#x65F6;&#x5728;<code>read</code>&#x4E2D;&#x5199;&#x4E86;&#x4E00;&#x4E2A;&#x9A8C;&#x8BC1;<code>SharedPreference</code>&#x7C7B;&#x578B;&#x4E0D;&#x5B89;&#x5168;&#x7684;&#x793A;&#x4F8B;&#x3002;&#x5982;&#x679C;&#x5728;&#x522B;&#x7684;&#x5730;&#x65B9;&#x8D4B;&#x503C;&#x4E86;<code>DATA_KEY</code>&#x975E;<code>String</code>&#x7C7B;&#x578B;&#x7684;&#x6570;&#x636E;&#x65F6;&#xFF0C;&#x5C06;&#x4F1A;&#x5F39;&#x51FA;<code>else</code>&#x4E2D;&#x7684;&#x8BED;&#x53E5;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x662F;<code>protocol buffers</code>&#x7684;&#x8BFB;&#x53D6;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">private suspend fun protoRead() {</div><div class="line">    dataStoreProto.data.map {</div><div class="line">        // safe type</div><div class="line">        it.keyName</div><div class="line">    }.collect {</div><div class="line">        Toast.makeText(this, &quot;read result success form proto: $it&quot;, Toast.LENGTH_LONG).show()</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#x8FD9;&#x91CC;&#x83B7;&#x53D6;&#x7684;&#x6570;&#x636E;&#x5C31;&#x662F;&#x7C7B;&#x578B;&#x5B89;&#x5168;&#x7684;&#x3002;&#x8FD9;&#x91CC;&#x7684;<code>it</code>&#x5BF9;&#x5E94;&#x7684;&#x5C31;&#x662F;&#x5728;<code>ds</code>&#x521B;&#x5EFA;&#x65F6;&#x4EA7;&#x751F;&#x7684;<code>Settings</code>&#x3002;</p>
+<h3 id="&#x5199;"><a href="#&#x5199;" class="headerlink" title="&#x5199;"></a>&#x5199;</h3><p>&#x5199;<code>sp</code>&#x4E0E;<code>protocol buffers</code>&#x6709;&#x6240;&#x4E0D;&#x540C;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;<code>sp</code>&#x76F4;&#x63A5;&#x4F7F;&#x7528;<code>dataStore.edit</code>&#x6765;&#x5199;&#x5165;&#x6570;&#x636E;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">private suspend fun write(value: String) {</div><div class="line">    dataStore.edit {</div><div class="line">        it[DATA_KEY] = value</div><div class="line">        LogUtils.d(&quot;dataStore write: $value&quot;)</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x800C;<code>protocol buffers</code>&#x4F7F;&#x7528;&#x7684;&#x662F;<code>updateData</code>&#x65B9;&#x6CD5;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">private suspend fun protoWrite(value: String) {</div><div class="line">    dataStoreProto.updateData {</div><div class="line">        it.toBuilder().setKeyName(value).build()</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<h3 id="&#x8FC1;&#x79FB;SharedPreferences"><a href="#&#x8FC1;&#x79FB;SharedPreferences" class="headerlink" title="&#x8FC1;&#x79FB;SharedPreferences"></a>&#x8FC1;&#x79FB;SharedPreferences</h3><p>&#x8FC1;&#x79FB;&#x4E5F;&#x5206;&#x4E3A;&#x4E24;&#x79CD;&#xFF0C;&#x4E00;&#x79CD;&#x662F;&#x8FC1;&#x79FB;&#x5230;<code>ds</code>&#x7684;<code>sp</code>&#x4E2D;&#xFF1B;&#x53E6;&#x4E00;&#x79CD;&#x662F;&#x8FC1;&#x79FB;&#x5230;<code>protocol buffers</code>&#x4E2D;&#x3002;</p>
+<p>&#x5177;&#x4F53;&#x6765;&#x770B;&#xFF0C;&#x5982;&#x679C;&#x8FC1;&#x79FB;&#x5230;<code>ds</code>&#x7684;<code>sp</code>&#x4E2D;&#xFF0C;&#x53EA;&#x9700;&#x5728;&#x4E4B;&#x524D;&#x521B;&#x5EFA;<code>ds</code>&#x57FA;&#x7840;&#x4E0A;&#x989D;&#x5916;&#x518D;&#x52A0;&#x4E00;&#x4E2A;<code>migrations</code>&#x53C2;&#x6570;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">private val dataStore = createDataStore(&quot;settings&quot;, migrations = listOf(SharedPreferencesMigration(this, &quot;settings_preference&quot;)))</div></pre></td></tr></table></figure>
+<p>&#x901A;&#x8FC7;&#x521B;&#x5EFA;<code>SharedPreferencesMigration</code>&#x6765;&#x8FC1;&#x79FB;&#x5BF9;&#x5E94;&#x7684;<code>sp</code>&#x6570;&#x636E;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x8FC1;&#x79FB;&#x5230;<code>protocol buffers</code>&#x4E2D;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">val settingsDataStore: DataStore&lt;Settings&gt; = context.createDataStore(</div><div class="line">    produceFile = { File(context.filesDir, &quot;settings.preferences_pb&quot;) },</div><div class="line">    serializer = SettingsSerializer,</div><div class="line">    migrations = listOf(</div><div class="line">        SharedPreferencesMigration(</div><div class="line">            context,</div><div class="line">            &quot;settings_preferences&quot;            </div><div class="line">        ) { sharedPrefs: SharedPreferencesView, currentData: UserPreferences -&gt;</div><div class="line">            // Map your sharedPrefs to your type here</div><div class="line">          }</div><div class="line">    )</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>&#x8FC1;&#x79FB;&#x5B8C;&#x4E4B;&#x540E;&#x9700;&#x8981;&#x6267;&#x884C;&#x4E00;&#x6B21;&#x4EE3;&#x7801;&#xFF0C;&#x540C;&#x65F6;&#x5E94;&#x8BE5;&#x505C;&#x6B62;&#x518D;&#x6B21;&#x4F7F;&#x7528;<code>sp</code>&#x3002;&#x5982;&#x679C;&#x8FC1;&#x79FB;&#x6210;&#x529F;&#x5C06;&#x4F1A;&#x5220;&#x9664;&#x4E4B;&#x524D;<code>sp</code>&#x7684;<code>.xml</code>&#x7C7B;&#x578B;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x751F;&#x6210;&#x5BF9;&#x5E94;<code>ds</code>&#x6587;&#x4EF6;&#x3002;</p>
+<p>&#x6700;&#x540E;&#x9644;&#x4E0A;&#x4E00;&#x5F20;<code>Google</code>&#x5206;&#x6790;&#x7684;<code>SharedPreferences</code>&#x548C;<code>DataStore</code>&#x7684;&#x533A;&#x522B;&#x56FE;</p>
+<p><img src="https://3.bp.blogspot.com/-Vk_q5hWw6DQ/X00ZfiRrB9I/AAAAAAAAPlo/u-kvBvmMfzgRnNViYLwaAim-E7wq5yxKACLcBGAsYHQ/s1600/Screen%2BShot%2B2020-08-31%2Bat%2B11.25.43%2BAM.png" alt="aaa"></p>
+<p>&#x76EE;&#x524D;&#x53EF;&#x4EE5;&#x770B;&#x5230;<code>DataStore</code>&#x8FD8;&#x5904;&#x5728;<code>alpha</code>&#x7248;&#x672C;&#xFF0C;&#x975E;&#x5E38;&#x671F;&#x5F85;&#x5B83;&#x4E4B;&#x540E;&#x7684;&#x6B63;&#x5F0F;&#x7248;&#x672C;&#x3002;</p>
+<p>&#x53E6;&#x5916;&#xFF0C;&#x9488;&#x5BF9;<code>DataStore</code>&#x7684;&#x4F7F;&#x7528;&#xFF0C;&#x6211;&#x5199;&#x4E86;&#x4E00;&#x4E2A;<code>demo</code>&#xFF0C;&#x5927;&#x5BB6;&#x53EF;&#x4EE5;&#x5728;<a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="external">android-api-analysis</a>&#x4E2D;&#x83B7;&#x53D6;&#x3002;</p>
+<h2 id="&#x9879;&#x76EE;"><a href="#&#x9879;&#x76EE;" class="headerlink" title="&#x9879;&#x76EE;"></a>&#x9879;&#x76EE;</h2><p><a href="https://github.com/idisfkj/android-startup" target="_blank" rel="external">android_startup</a>: &#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x5728;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65F6;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x3001;&#x9AD8;&#x6548;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521D;&#x59CB;&#x5316;&#x7EC4;&#x4EF6;&#x3002;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>android-startup</code>&#x6765;&#x7B80;&#x5316;&#x542F;&#x52A8;&#x5E8F;&#x5217;&#xFF0C;&#x5E76;&#x663E;&#x5F0F;&#x5730;&#x8BBE;&#x7F6E;&#x521D;&#x59CB;&#x5316;&#x987A;&#x5E8F;&#x4E0E;&#x7EC4;&#x4EF6;&#x4E4B;&#x95F4;&#x7684;&#x4F9D;&#x8D56;&#x5173;&#x7CFB;&#x3002; &#x4E0E;&#x6B64;&#x540C;&#x65F6;<code>android-startup</code>&#x652F;&#x6301;&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#x7B49;&#x5F85;&#xFF0C;&#x5E76;&#x901A;&#x8FC7;&#x6709;&#x5411;&#x65E0;&#x73AF;&#x56FE;&#x62D3;&#x6251;&#x6392;&#x5E8F;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x4FDD;&#x8BC1;&#x5185;&#x90E8;&#x4F9D;&#x8D56;&#x7EC4;&#x4EF6;&#x7684;&#x521D;&#x59CB;&#x5316;&#x987A;&#x5E8F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="external">AwesomeGithub</a>: &#x57FA;&#x4E8E;<code>Github</code>&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7EAF;&#x7EC3;&#x4E60;&#x9879;&#x76EE;&#xFF0C;&#x652F;&#x6301;&#x7EC4;&#x4EF6;&#x5316;&#x5F00;&#x53D1;&#xFF0C;&#x652F;&#x6301;&#x8D26;&#x6237;&#x5BC6;&#x7801;&#x4E0E;&#x8BA4;&#x8BC1;&#x767B;&#x9646;&#x3002;&#x4F7F;&#x7528;<code>Kotlin</code>&#x8BED;&#x8A00;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#xFF0C;&#x9879;&#x76EE;&#x67B6;&#x6784;&#x662F;&#x57FA;&#x4E8E;<code>Jetpack&amp;DataBinding</code>&#x7684;<code>MVVM</code>&#xFF1B;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;<code>Arouter</code>&#x3001;<code>Retrofit</code>&#x3001;<code>Coroutine</code>&#x3001;<code>Glide</code>&#x3001;<code>Dagger</code>&#x4E0E;<code>Hilt</code>&#x7B49;&#x6D41;&#x884C;&#x5F00;&#x6E90;&#x6280;&#x672F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="external">flutter_github</a>: &#x57FA;&#x4E8E;<code>Flutter</code>&#x7684;&#x8DE8;&#x5E73;&#x53F0;&#x7248;&#x672C;<code>Github</code>&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x4E0E;<code>AwesomeGithub</code>&#x76F8;&#x5BF9;&#x5E94;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="external">android-api-analysis</a>: &#x7ED3;&#x5408;&#x8BE6;&#x7EC6;&#x7684;<code>Demo</code>&#x6765;&#x5168;&#x9762;&#x89E3;&#x6790;<code>Android</code>&#x76F8;&#x5173;&#x7684;&#x77E5;&#x8BC6;&#x70B9;, &#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x5FEB;&#x7684;&#x638C;&#x63E1;&#x4E0E;&#x7406;&#x89E3;&#x6240;&#x9610;&#x8FF0;&#x7684;&#x8981;&#x70B9;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/daily_algorithm" target="_blank" rel="external">daily_algorithm</a>: &#x6BCF;&#x65E5;&#x4E00;&#x7B97;&#x6CD5;&#xFF0C;&#x7531;&#x6D45;&#x5165;&#x6DF1;&#xFF0C;&#x6B22;&#x8FCE;&#x52A0;&#x5165;&#x4E00;&#x8D77;&#x5171;&#x52C9;&#x3002;</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">赞赏是一门艺术</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/rouse_wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/rouse_alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2020/12/03/算法之旅-复杂度分析/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="fexo-comments comments-post">
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
+  <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.js"></script>
+  <script>
+    (function () {
+      var gitment = new Gitment({
+        owner: 'idisfkj',
+        repo: 'idisfkj.github.io',
+        id: 'Sun Dec 06 2020 17:53:31 GMT+0800',
+        oauth: {
+          client_id: 'dafb1df02ea9f875bb78',
+          client_secret: 'e9873d78aa5eaed5ce61d1d865a5af501dae377a'
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      })
+      gitment.render('gitment-comments')
+    })()
+  </script>
+
+  
+  
+</div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
