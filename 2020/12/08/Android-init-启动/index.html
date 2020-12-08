@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android init 启动 | Rouse</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="启动," />
+  
+
+  <meta name="description" content="Android&amp;#x662F;&amp;#x57FA;&amp;#x4E8E;Linux&amp;#x7CFB;&amp;#x7EDF;&amp;#x7684;&amp;#xFF0C;&amp;#x6240;&amp;#x4EE5;Android&amp;#x542F;&amp;#x52A8;&amp;#x5C06;&amp;#x7531;Linux Kernel&amp;#x542F;&amp;#x52A8;&amp;#x5E76;&amp;#x521B;&amp;#x5EFA;init&amp;#x8FDB;&amp;#x7A0B;&amp;#x30">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android init 启动">
+<meta property="og:url" content="https://www.rousetime.com/2020/12/08/Android-init-启动/index.html">
+<meta property="og:site_name" content="Rouse">
+<meta property="og:description" content="Android&amp;#x662F;&amp;#x57FA;&amp;#x4E8E;Linux&amp;#x7CFB;&amp;#x7EDF;&amp;#x7684;&amp;#xFF0C;&amp;#x6240;&amp;#x4EE5;Android&amp;#x542F;&amp;#x52A8;&amp;#x5C06;&amp;#x7531;Linux Kernel&amp;#x542F;&amp;#x52A8;&amp;#x5E76;&amp;#x521B;&amp;#x5EFA;init&amp;#x8FDB;&amp;#x7A0B;&amp;#x30">
+<meta property="og:updated_time" content="2020-12-08T10:46:12.570Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android init 启动">
+<meta name="twitter:description" content="Android&amp;#x662F;&amp;#x57FA;&amp;#x4E8E;Linux&amp;#x7CFB;&amp;#x7EDF;&amp;#x7684;&amp;#xFF0C;&amp;#x6240;&amp;#x4EE5;Android&amp;#x542F;&amp;#x52A8;&amp;#x5C06;&amp;#x7531;Linux Kernel&amp;#x542F;&amp;#x52A8;&amp;#x5E76;&amp;#x521B;&amp;#x5EFA;init&amp;#x8FDB;&amp;#x7A0B;&amp;#x30">
+
+  
+
+  
+  <!-- <link href="/favicon.ico" rel="icon" type="image/x-icon"> -->
+    <link rel="icon" href="/favicon.ico">
+    <!-- <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?bd7ea96a22c9c7b90353962460fa0b8e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#init"><span class="toc-text">init</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#main"><span class="toc-text">main</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FirstStageMain"><span class="toc-text">FirstStageMain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SetupSelinux"><span class="toc-text">SetupSelinux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SecondStageMain"><span class="toc-text">SecondStageMain</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化属性服务"><span class="toc-text">初始化属性服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化single句柄"><span class="toc-text">初始化single句柄</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开启属性服务"><span class="toc-text">开启属性服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解析-rc文件"><span class="toc-text">解析.rc文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目"><span class="toc-text">项目</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Android-init-启动" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Android init 启动</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2020.12.08</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Rouse</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p><code>Android</code>&#x662F;&#x57FA;&#x4E8E;<code>Linux</code>&#x7CFB;&#x7EDF;&#x7684;&#xFF0C;&#x6240;&#x4EE5;<code>Android</code>&#x542F;&#x52A8;&#x5C06;&#x7531;<code>Linux Kernel</code>&#x542F;&#x52A8;&#x5E76;&#x521B;&#x5EFA;<code>init</code>&#x8FDB;&#x7A0B;&#x3002;&#x8BE5;&#x8FDB;&#x7A0B;&#x662F;&#x6240;&#x6709;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x7684;&#x9F3B;&#x7956;&#x3002;</p>
+<p>&#x5728;<code>init</code>&#x8FDB;&#x7A0B;&#x542F;&#x52A8;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x4F1A;&#x76F8;&#x7EE7;&#x542F;&#x52A8;<code>servicemanager</code>(binder&#x670D;&#x52A1;&#x7BA1;&#x7406;&#x8005;)&#x3001;<code>Zygote</code>&#x8FDB;&#x7A0B;(java&#x8FDB;&#x7A0B;)&#x3002;&#x800C;<code>Zygote</code>&#x53C8;&#x4F1A;&#x521B;&#x5EFA;<code>system_server</code>&#x8FDB;&#x7A0B;&#x4EE5;&#x53CA;<code>app</code>&#x8FDB;&#x7A0B;&#x3002;</p>
+<p>&#x6240;&#x4EE5;&#x4F60;&#x4E00;&#x5B9A;&#x542C;&#x5230;&#x8FC7;&#x8FD9;&#x53E5;&#x8BDD;&#xFF1A;app&#x8FDB;&#x7A0B;&#x662F;&#x7531;<code>Zygote</code>&#x8FDB;&#x7A0B;&#x901A;&#x8FC7;<code>fork</code>&#x521B;&#x5EFA;&#x51FA;&#x6765;&#x7684;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x6211;&#x5C1D;&#x8BD5;&#x6765;&#x5206;&#x6790;<code>Android</code>&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x4E2D;&#x5173;&#x4E8E;<code>init</code>&#x8FDB;&#x7A0B;&#x7684;&#x521B;&#x5EFA;&#x8FC7;&#x7A0B;&#x3002;</p>
+<blockquote>
+<p>&#x6B64;&#x6B21;&#x5206;&#x6790;&#x8FC7;&#x7A0B;&#x57FA;&#x4E8E;<code>Android 10.0</code></p>
+</blockquote>
+<h2 id="init"><a href="#init" class="headerlink" title="init"></a>init</h2><p><code>init</code>&#x8FDB;&#x7A0B;&#x662F;<code>Android</code>&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x4E2D;&#x5728;<code>Linux</code>&#x7CFB;&#x7EDF;&#x4E2D;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x3002;<code>init</code>&#x542F;&#x52A8;&#x5165;&#x53E3;&#x662F;&#x5728;&#x5B83;&#x7684;<code>SecondStageMain</code>&#x65B9;&#x6CD5;&#x4E2D;&#x3002;&#x4F46;&#x8C03;&#x7528;<code>init</code>&#x7684;<code>SecondStageMain</code>&#x65B9;&#x6CD5;&#x662F;&#x901A;&#x8FC7;<code>main.cpp</code>&#x4E2D;&#x7684;<code>main</code>&#x65B9;&#x6CD5;&#x8FDB;&#x884C;&#x7684;&#x3002;</p>
+<p>&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5C31;&#x4ECE;<code>main.cpp</code>&#x7684;<code>main</code>&#x65B9;&#x6CD5;&#x5F00;&#x59CB;&#x3002;</p>
+<h2 id="main"><a href="#main" class="headerlink" title="main"></a>main</h2><blockquote>
+<p>system/core/init/main.cpp</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">int main(int argc, char** argv) {</div><div class="line">#if __has_feature(address_sanitizer)</div><div class="line">    __asan_set_error_report_callback(AsanReportCallback);</div><div class="line">#endif</div><div class="line">  </div><div class="line">    // &#x521B;&#x5EFA;&#x8BBE;&#x5907;&#x8282;&#x70B9;&#x3001;&#x6743;&#x9650;&#x8BBE;&#x5B9A;&#x7B49;</div><div class="line">    if (!strcmp(basename(argv[0]), &quot;ueventd&quot;)) {</div><div class="line">        return ueventd_main(argc, argv);</div><div class="line">    }</div><div class="line">  </div><div class="line">    if (argc &gt; 1) {</div><div class="line">        // &#x521D;&#x59CB;&#x5316;&#x65E5;&#x5FD7;&#x7CFB;&#x7EDF;</div><div class="line">        if (!strcmp(argv[1], &quot;subcontext&quot;)) {</div><div class="line">            android::base::InitLogging(argv, &amp;android::base::KernelLogger);</div><div class="line">            const BuiltinFunctionMap function_map;</div><div class="line"></div><div class="line">            return SubcontextMain(argc, argv, &amp;function_map);</div><div class="line">        }</div><div class="line"> </div><div class="line">        // 2. &#x521B;&#x5EFA;&#x589E;&#x5F3A;&#x578B;Linux</div><div class="line">        if (!strcmp(argv[1], &quot;selinux_setup&quot;)) {</div><div class="line">            return SetupSelinux(argv);</div><div class="line">        }</div><div class="line"> </div><div class="line">        // 3. &#x89E3;&#x6790;init.rc&#x6587;&#x4EF6;&#x3001;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#x3001;&#x521B;&#x5EFA;epoll&#x4E0E;&#x5904;&#x7406;&#x5B50;&#x8FDB;&#x7A0B;&#x7684;&#x7EC8;&#x6B62;&#x7B49;</div><div class="line">        if (!strcmp(argv[1], &quot;second_stage&quot;)) {</div><div class="line">            return SecondStageMain(argc, argv);</div><div class="line">        }</div><div class="line">    }</div><div class="line"> </div><div class="line">    // 1. &#x6302;&#x8F7D;&#x76F8;&#x5173;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</div><div class="line">    return FirstStageMain(argc, argv);</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5728;<code>main.cpp</code>&#x7684;<code>main</code>&#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x4E3B;&#x8981;&#x5206;&#x4E3A;&#x4E09;&#x6B65;&#xFF1A;</p>
+<ol>
+<li>FirstStageMain</li>
+<li>SetupSelinux</li>
+<li>SecondStageMain</li>
+</ol>
+<h3 id="FirstStageMain"><a href="#FirstStageMain" class="headerlink" title="FirstStageMain"></a>FirstStageMain</h3><blockquote>
+<p>system/core/init/first_stage_init.cpp</p>
+</blockquote>
+<p>&#x5B83;&#x662F;<code>init</code>&#x8FDB;&#x7A0B;&#x542F;&#x52A8;&#x7684;&#x7B2C;&#x4E00;&#x6B65;&#xFF0C;&#x4E3B;&#x8981;&#x4EFB;&#x52A1;&#x662F;&#x6302;&#x8F7D;&#x76F8;&#x5173;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">int FirstStageMain(int argc, char** argv) {</div><div class="line">    if (REBOOT_BOOTLOADER_ON_PANIC) {</div><div class="line">        InstallRebootSignalHandlers();</div><div class="line">    }</div><div class="line">  </div><div class="line">    boot_clock::time_point start_time = boot_clock::now();</div><div class="line">  </div><div class="line">    std::vector&lt;std::pair&lt;std::string, int&gt;&gt; errors;</div><div class="line">#define CHECKCALL(x) \</div><div class="line">    if (x != 0) errors.emplace_back(#x &quot; failed&quot;, errno);</div><div class="line">  </div><div class="line">    // Clear the umask.</div><div class="line">    umask(0);</div><div class="line">  </div><div class="line">    // &#x521B;&#x5EFA;&#x4E8E;&#x6302;&#x8F7D;&#x76F8;&#x5173;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</div><div class="line">    CHECKCALL(clearenv());</div><div class="line">    CHECKCALL(setenv(&quot;PATH&quot;, _PATH_DEFPATH, 1));</div><div class="line">    // Get the basic filesystem setup we need put together in the initramdisk</div><div class="line">    // on / and then we&apos;ll let the rc file figure out the rest.</div><div class="line">    CHECKCALL(mount(&quot;tmpfs&quot;, &quot;/dev&quot;, &quot;tmpfs&quot;, MS_NOSUID, &quot;mode=0755&quot;));</div><div class="line">    CHECKCALL(mkdir(&quot;/dev/pts&quot;, 0755));</div><div class="line">    CHECKCALL(mkdir(&quot;/dev/socket&quot;, 0755));</div><div class="line">    CHECKCALL(mount(&quot;devpts&quot;, &quot;/dev/pts&quot;, &quot;devpts&quot;, 0, NULL));</div><div class="line">#define MAKE_STR(x) __STRING(x)</div><div class="line">    CHECKCALL(mount(&quot;proc&quot;, &quot;/proc&quot;, &quot;proc&quot;, 0, &quot;hidepid=2,gid=&quot; MAKE_STR(AID_READPROC)));</div><div class="line">#undef MAKE_STR</div><div class="line">    // Don&apos;t expose the raw commandline to unprivileged processes.</div><div class="line">    CHECKCALL(chmod(&quot;/proc/cmdline&quot;, 0440));</div><div class="line">    gid_t groups[] = {AID_READPROC};</div><div class="line">    CHECKCALL(setgroups(arraysize(groups), groups));</div><div class="line">    CHECKCALL(mount(&quot;sysfs&quot;, &quot;/sys&quot;, &quot;sysfs&quot;, 0, NULL));</div><div class="line">    CHECKCALL(mount(&quot;selinuxfs&quot;, &quot;/sys/fs/selinux&quot;, &quot;selinuxfs&quot;, 0, NULL));</div><div class="line">    ...</div><div class="line">    ...</div><div class="line">    // Now that tmpfs is mounted on /dev and we have /dev/kmsg, we can actually</div><div class="line">    // talk to the outside world...</div><div class="line">     </div><div class="line">    // &#x521D;&#x59CB;&#x5316;&#x65E5;&#x5FD7;&#x7CFB;&#x7EDF;</div><div class="line">    InitKernelLogging(argv);</div><div class="line">    ...</div><div class="line">    ...</div><div class="line">     </div><div class="line">    // &#x8FDB;&#x5165;&#x4E0B;&#x4E00;&#x6B65;</div><div class="line">    const char* path = &quot;/system/bin/init&quot;;</div><div class="line">    const char* args[] = {path, &quot;selinux_setup&quot;, nullptr};</div><div class="line">    execv(path, const_cast&lt;char**&gt;(args));</div><div class="line">  </div><div class="line">    // execv() only returns if an error happened, in which case we</div><div class="line">    // panic and never fall through this conditional.</div><div class="line">    PLOG(FATAL) &lt;&lt; &quot;execv(\&quot;&quot; &lt;&lt; path &lt;&lt; &quot;\&quot;) failed&quot;;</div><div class="line">  </div><div class="line">    return 1;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x4E3B;&#x8981;&#x901A;&#x8FC7;<code>mount</code>&#x6302;&#x8F7D;&#x5BF9;&#x5E94;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#xFF0C;<code>mkdir</code>&#x521B;&#x5EFA;&#x5BF9;&#x5E94;&#x7684;&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#xFF0C;&#x5E76;&#x914D;&#x7F6E;&#x76F8;&#x5E94;&#x7684;&#x8BBF;&#x95EE;&#x6743;&#x9650;&#x3002;</p>
+<p>&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x8FD9;&#x4E9B;&#x6587;&#x4EF6;&#x53EA;&#x662F;&#x5728;&#x5E94;&#x7528;&#x8FD0;&#x884C;&#x7684;&#x65F6;&#x5019;&#x5B58;&#x5728;&#xFF0C;&#x4E00;&#x65E6;&#x5E94;&#x7528;&#x8FD0;&#x884C;&#x7ED3;&#x675F;&#x5C31;&#x4F1A;&#x968F;&#x7740;&#x5E94;&#x7528;&#x4E00;&#x8D77;&#x6D88;&#x5931;&#x3002;</p>
+<p>&#x6302;&#x8F7D;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E3B;&#x8981;&#x6709;&#x56DB;&#x7C7B;&#xFF1A;</p>
+<ol>
+<li><code>tmpfs</code>: &#x4E00;&#x79CD;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#xFF0C;&#x5B83;&#x4F1A;&#x5C06;&#x6240;&#x6709;&#x7684;&#x6587;&#x4EF6;&#x5B58;&#x50A8;&#x5728;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x4E2D;&#x3002;&#x7531;&#x4E8E;<code>tmpfs</code>&#x662F;&#x9A7B;&#x7559;&#x5728;<code>RAM</code>&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x5B83;&#x7684;&#x5185;&#x5BB9;&#x662F;&#x4E0D;&#x6301;&#x4E45;&#x7684;&#x3002;&#x65AD;&#x7535;&#x540E;&#xFF0C;<code>tmpfs</code> &#x7684;&#x5185;&#x5BB9;&#x5C31;&#x6D88;&#x5931;&#x4E86;&#xFF0C;&#x8FD9;&#x4E5F;&#x662F;&#x88AB;&#x79F0;&#x4F5C;<code>tmpfs</code>&#x7684;&#x6839;&#x672C;&#x539F;&#x56E0;&#x3002;</li>
+<li><code>devpts</code>: &#x4E3A;&#x4F2A;&#x7EC8;&#x7AEF;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x6807;&#x51C6;&#x63A5;&#x53E3;&#xFF0C;&#x5B83;&#x7684;&#x6807;&#x51C6;&#x6302;&#x63A5;&#x70B9;&#x662F;<code>/dev/pts</code>&#x3002;&#x53EA;&#x8981;<code>pty</code>&#x7684;&#x4E3B;&#x590D;&#x5408;&#x8BBE;&#x5907;<code>/dev/ptmx</code>&#x88AB;&#x6253;&#x5F00;&#xFF0C;&#x5C31;&#x4F1A;&#x5728;<code>/dev/pts</code>&#x4E0B;&#x52A8;&#x6001;&#x7684;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;<code>pty</code>&#x8BBE;&#x5907;&#x6587;&#x4EF6;&#x3002;</li>
+<li><code>proc</code>: &#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x865A;&#x62DF;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x770B;&#x4F5C;&#x662F;&#x5185;&#x6838;&#x5185;&#x90E8;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x901A;&#x8FC7;&#x5B83;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x83B7;&#x5F97;&#x7CFB;&#x7EDF;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x540C;&#x65F6;&#x4E5F;&#x80FD;&#x591F;&#x5728;&#x8FD0;&#x884C;&#x65F6;&#x4FEE;&#x6539;&#x7279;&#x5B9A;&#x7684;&#x5185;&#x6838;&#x53C2;&#x6570;&#x3002;</li>
+<li><code>sysfs</code>: &#x4E0E;<code>proc</code>&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7C7B;&#x4F3C;&#xFF0C;&#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x4E0D;&#x5360;&#x6709;&#x4EFB;&#x4F55;&#x78C1;&#x76D8;&#x7A7A;&#x95F4;&#x7684;&#x865A;&#x62DF;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x3002;&#x5B83;&#x901A;&#x5E38;&#x88AB;&#x6302;&#x63A5;&#x5728;<code>/sys</code>&#x76EE;&#x5F55;&#x4E0B;&#x3002;</li>
+</ol>
+<p>&#x5728;<code>FirstStageMain</code>&#x8FD8;&#x4F1A;&#x901A;&#x8FC7;<code>InitKernelLogging(argv)</code>&#x6765;&#x521D;&#x59CB;&#x5316;<code>log</code>&#x65E5;&#x5FD7;&#x7CFB;&#x7EDF;&#x3002;&#x6B64;&#x65F6;<code>Android</code>&#x8FD8;&#x6CA1;&#x6709;&#x81EA;&#x5DF1;&#x7684;&#x7CFB;&#x7EDF;&#x65E5;&#x5FD7;&#xFF0C;&#x91C7;&#x7528;<code>kernel</code>&#x7684;<code>log</code>&#x7CFB;&#x7EDF;&#xFF0C;&#x6253;&#x5F00;&#x7684;&#x8BBE;&#x5907;&#x8282;&#x70B9;<code>/dev/kmsg</code>&#xFF0C; &#x90A3;&#x4E48;&#x53EF;&#x901A;&#x8FC7;<code>cat /dev/kmsg</code>&#x6765;&#x83B7;&#x53D6;&#x5185;&#x6838;<code>log</code>&#x3002;</p>
+<p>&#x6700;&#x540E;&#x4F1A;&#x901A;&#x8FC7;<code>execv</code>&#x65B9;&#x6CD5;&#x4F20;&#x9012;&#x5BF9;&#x5E94;&#x7684;<code>path</code>&#x4E0E;&#x4E0B;&#x4E00;&#x9636;&#x6BB5;&#x7684;&#x53C2;&#x6570;<code>selinux_setup</code>&#x3002;</p>
+<h3 id="SetupSelinux"><a href="#SetupSelinux" class="headerlink" title="SetupSelinux"></a>SetupSelinux</h3><blockquote>
+<p>system/core/init/selinux.cpp</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">// This function initializes SELinux then execs init to run in the init SELinux context.</div><div class="line">int SetupSelinux(char** argv) {</div><div class="line">    InitKernelLogging(argv);</div><div class="line"> </div><div class="line">    if (REBOOT_BOOTLOADER_ON_PANIC) {</div><div class="line">        InstallRebootSignalHandlers();</div><div class="line">    }</div><div class="line">   </div><div class="line">    // Set up SELinux, loading the SELinux policy.</div><div class="line">    SelinuxSetupKernelLogging();</div><div class="line">    SelinuxInitialize();</div><div class="line">  </div><div class="line">    // We&apos;re in the kernel domain and want to transition to the init domain.  File systems that</div><div class="line">    // store SELabels in their xattrs, such as ext4 do not need an explicit restorecon here,</div><div class="line">    // but other file systems do.  In particular, this is needed for ramdisks such as the</div><div class="line">    // recovery image for A/B devices.</div><div class="line">    if (selinux_android_restorecon(&quot;/system/bin/init&quot;, 0) == -1) {</div><div class="line">        PLOG(FATAL) &lt;&lt; &quot;restorecon failed of /system/bin/init failed&quot;;</div><div class="line">    }</div><div class="line"> </div><div class="line">    // &#x8FDB;&#x5165;&#x4E0B;&#x4E00;&#x6B65;</div><div class="line">    const char* path = &quot;/system/bin/init&quot;;</div><div class="line">    const char* args[] = {path, &quot;second_stage&quot;, nullptr};</div><div class="line">    execv(path, const_cast&lt;char**&gt;(args));</div><div class="line">   </div><div class="line">    // execv() only returns if an error happened, in which case we</div><div class="line">    // panic and never return from this function.</div><div class="line">    PLOG(FATAL) &lt;&lt; &quot;execv(\&quot;&quot; &lt;&lt; path &lt;&lt; &quot;\&quot;) failed&quot;;</div><div class="line"> </div><div class="line">    return 1;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x4E3B;&#x8981;&#x662F;&#x7528;&#x6765;&#x63D0;&#x9AD8;<code>linux</code>&#x7684;&#x5B89;&#x5168;&#xFF0C;&#x8FDB;&#x4E00;&#x6B65;&#x7EA6;&#x675F;&#x8BBF;&#x95EE;&#x7684;&#x6743;&#x9650;&#x3002;</p>
+<p>&#x6700;&#x540E;&#x4E5F;&#x662F;&#x901A;&#x8FC7;<code>execv</code>&#x6765;&#x8FDB;&#x7A0B;<code>init</code>&#x542F;&#x52A8;&#x7684;&#x6838;&#x5FC3;&#x9636;&#x6BB5;<code>SecondStageMain</code>&#x3002;</p>
+<h3 id="SecondStageMain"><a href="#SecondStageMain" class="headerlink" title="SecondStageMain"></a>SecondStageMain</h3><blockquote>
+<p>system/core/init/init.cpp</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div></pre></td><td class="code"><pre><div class="line">int SecondStageMain(int argc, char** argv) {</div><div class="line">    if (REBOOT_BOOTLOADER_ON_PANIC) {</div><div class="line">        InstallRebootSignalHandlers();</div><div class="line">    }</div><div class="line">     </div><div class="line">    ...</div><div class="line">    ...</div><div class="line">     </div><div class="line">    // &#x521D;&#x59CB;&#x5316;&#x5C5E;&#x6027;&#x670D;&#x52A1;</div><div class="line">    property_init();</div><div class="line"> </div><div class="line">    // If arguments are passed both on the command line and in DT,</div><div class="line">    // properties set in DT always have priority over the command-line ones.</div><div class="line">    process_kernel_dt();</div><div class="line">    process_kernel_cmdline();</div><div class="line"> </div><div class="line">    // Propagate the kernel variables to internal variables</div><div class="line">    // used by init as well as the current required properties.</div><div class="line">    export_kernel_boot_props();</div><div class="line"> </div><div class="line">    // Make the time that init started available for bootstat to log.</div><div class="line">    property_set(&quot;ro.boottime.init&quot;, getenv(&quot;INIT_STARTED_AT&quot;));</div><div class="line">    property_set(&quot;ro.boottime.init.selinux&quot;, getenv(&quot;INIT_SELINUX_TOOK&quot;));</div><div class="line"> </div><div class="line">    // Set libavb version for Framework-only OTA match in Treble build.</div><div class="line">    const char* avb_version = getenv(&quot;INIT_AVB_VERSION&quot;);</div><div class="line">    if (avb_version) property_set(&quot;ro.boot.avb_version&quot;, avb_version);</div><div class="line"> </div><div class="line">    // See if need to load debug props to allow adb root, when the device is unlocked.</div><div class="line">    const char* force_debuggable_env = getenv(&quot;INIT_FORCE_DEBUGGABLE&quot;);</div><div class="line">    if (force_debuggable_env &amp;&amp; AvbHandle::IsDeviceUnlocked()) {</div><div class="line">        load_debug_prop = &quot;true&quot;s == force_debuggable_env;</div><div class="line">    }</div><div class="line"> </div><div class="line">    // Clean up our environment.</div><div class="line">    unsetenv(&quot;INIT_STARTED_AT&quot;);</div><div class="line">    unsetenv(&quot;INIT_SELINUX_TOOK&quot;);</div><div class="line">    unsetenv(&quot;INIT_AVB_VERSION&quot;);</div><div class="line">    unsetenv(&quot;INIT_FORCE_DEBUGGABLE&quot;);</div><div class="line"> </div><div class="line">    // Now set up SELinux for second stage.</div><div class="line">    SelinuxSetupKernelLogging();</div><div class="line">    SelabelInitialize();</div><div class="line">    SelinuxRestoreContext();</div><div class="line"> </div><div class="line">    Epoll epoll;</div><div class="line">    if (auto result = epoll.Open(); !result) {</div><div class="line">        PLOG(FATAL) &lt;&lt; result.error();</div><div class="line">    }</div><div class="line"> </div><div class="line">    // &#x521D;&#x59CB;&#x5316;single&#x53E5;&#x67C4;</div><div class="line">    InstallSignalFdHandler(&amp;epoll);</div><div class="line"> </div><div class="line">    property_load_boot_defaults(load_debug_prop);</div><div class="line">    UmountDebugRamdisk();</div><div class="line">    fs_mgr_vendor_overlay_mount_all();</div><div class="line">    export_oem_lock_status();</div><div class="line">    // &#x5F00;&#x542F;&#x5C5E;&#x6027;&#x670D;&#x52A1;</div><div class="line">    StartPropertyService(&amp;epoll);</div><div class="line">    MountHandler mount_handler(&amp;epoll);</div><div class="line">    set_usb_controller();</div><div class="line"> </div><div class="line">    const BuiltinFunctionMap function_map;</div><div class="line">    Action::set_function_map(&amp;function_map);</div><div class="line"> </div><div class="line">    if (!SetupMountNamespaces()) {</div><div class="line">        PLOG(FATAL) &lt;&lt; &quot;SetupMountNamespaces failed&quot;;</div><div class="line">    }</div><div class="line"> </div><div class="line">    subcontexts = InitializeSubcontexts();</div><div class="line"> </div><div class="line">    ActionManager&amp; am = ActionManager::GetInstance();</div><div class="line">    ServiceList&amp; sm = ServiceList::GetInstance();</div><div class="line"> </div><div class="line">    // &#x89E3;&#x6790;init.rc&#x7B49;&#x76F8;&#x5173;&#x6587;&#x4EF6;</div><div class="line">    LoadBootScripts(am, sm);</div><div class="line"> </div><div class="line">    // Turning this on and letting the INFO logging be discarded adds 0.2s to</div><div class="line">    // Nexus 9 boot time, so it&apos;s disabled by default.</div><div class="line">    if (false) DumpState();</div><div class="line"> </div><div class="line">    // Make the GSI status available before scripts start running.</div><div class="line">    if (android::gsi::IsGsiRunning()) {</div><div class="line">        property_set(&quot;ro.gsid.image_running&quot;, &quot;1&quot;);</div><div class="line">    } else {</div><div class="line">        property_set(&quot;ro.gsid.image_running&quot;, &quot;0&quot;);</div><div class="line">    }</div><div class="line"> </div><div class="line">    am.QueueBuiltinAction(SetupCgroupsAction, &quot;SetupCgroups&quot;);</div><div class="line"> </div><div class="line">    am.QueueEventTrigger(&quot;early-init&quot;);</div><div class="line"> </div><div class="line">    // Queue an action that waits for coldboot done so we know ueventd has set up all of /dev...</div><div class="line">    am.QueueBuiltinAction(wait_for_coldboot_done_action, &quot;wait_for_coldboot_done&quot;);</div><div class="line">    // ... so that we can start queuing up actions that require stuff from /dev.</div><div class="line">    am.QueueBuiltinAction(MixHwrngIntoLinuxRngAction, &quot;MixHwrngIntoLinuxRng&quot;);</div><div class="line">    am.QueueBuiltinAction(SetMmapRndBitsAction, &quot;SetMmapRndBits&quot;);</div><div class="line">    am.QueueBuiltinAction(SetKptrRestrictAction, &quot;SetKptrRestrict&quot;);</div><div class="line">    Keychords keychords;</div><div class="line">    am.QueueBuiltinAction(</div><div class="line">        [&amp;epoll, &amp;keychords](const BuiltinArguments&amp; args) -&gt; Result&lt;Success&gt; {</div><div class="line">            for (const auto&amp; svc : ServiceList::GetInstance()) {</div><div class="line">                keychords.Register(svc-&gt;keycodes());</div><div class="line">            }</div><div class="line">            keychords.Start(&amp;epoll, HandleKeychord);</div><div class="line">            return Success();</div><div class="line">        },</div><div class="line">        &quot;KeychordInit&quot;);</div><div class="line">    am.QueueBuiltinAction(console_init_action, &quot;console_init&quot;);</div><div class="line"> </div><div class="line">    // Trigger all the boot actions to get us started.</div><div class="line">    am.QueueEventTrigger(&quot;init&quot;);</div><div class="line"> </div><div class="line">    // Starting the BoringSSL self test, for NIAP certification compliance.</div><div class="line">    am.QueueBuiltinAction(StartBoringSslSelfTest, &quot;StartBoringSslSelfTest&quot;);</div><div class="line"> </div><div class="line">    // Repeat mix_hwrng_into_linux_rng in case /dev/hw_random or /dev/random</div><div class="line">    // wasn&apos;t ready immediately after wait_for_coldboot_done</div><div class="line">    am.QueueBuiltinAction(MixHwrngIntoLinuxRngAction, &quot;MixHwrngIntoLinuxRng&quot;);</div><div class="line"> </div><div class="line">    // Initialize binder before bringing up other system services</div><div class="line">    am.QueueBuiltinAction(InitBinder, &quot;InitBinder&quot;);</div><div class="line"> </div><div class="line">    // Don&apos;t mount filesystems or start core system services in charger mode.</div><div class="line">    std::string bootmode = GetProperty(&quot;ro.bootmode&quot;, &quot;&quot;);</div><div class="line">    if (bootmode == &quot;charger&quot;) {</div><div class="line">        am.QueueEventTrigger(&quot;charger&quot;);</div><div class="line">    } else {</div><div class="line">        am.QueueEventTrigger(&quot;late-init&quot;);</div><div class="line">    }</div><div class="line"> </div><div class="line">    // Run all property triggers based on current state of the properties.</div><div class="line">    am.QueueBuiltinAction(queue_property_triggers_action, &quot;queue_property_triggers&quot;);</div><div class="line"> </div><div class="line">    while (true) {</div><div class="line">        // By default, sleep until something happens.</div><div class="line">        auto epoll_timeout = std::optional&lt;std::chrono::milliseconds&gt;{};</div><div class="line"></div><div class="line">        if (do_shutdown &amp;&amp; !shutting_down) {</div><div class="line">            do_shutdown = false;</div><div class="line">            if (HandlePowerctlMessage(shutdown_command)) {</div><div class="line">                shutting_down = true;</div><div class="line">            }</div><div class="line">        }</div><div class="line"> </div><div class="line">        if (!(waiting_for_prop || Service::is_exec_service_running())) {</div><div class="line">            am.ExecuteOneCommand();</div><div class="line">        }</div><div class="line">        if (!(waiting_for_prop || Service::is_exec_service_running())) {</div><div class="line">            if (!shutting_down) {</div><div class="line">                auto next_process_action_time = HandleProcessActions();</div><div class="line"></div><div class="line">                // If there&apos;s a process that needs restarting, wake up in time for that.</div><div class="line">                if (next_process_action_time) {</div><div class="line">                    epoll_timeout = std::chrono::ceil&lt;std::chrono::milliseconds&gt;(</div><div class="line">                            *next_process_action_time - boot_clock::now());</div><div class="line">                    if (*epoll_timeout &lt; 0ms) epoll_timeout = 0ms;</div><div class="line">                }</div><div class="line">            }</div><div class="line"> </div><div class="line">            // If there&apos;s more work to do, wake up again immediately.</div><div class="line">            if (am.HasMoreCommands()) epoll_timeout = 0ms;</div><div class="line">        }</div><div class="line"> </div><div class="line">        if (auto result = epoll.Wait(epoll_timeout); !result) {</div><div class="line">            LOG(ERROR) &lt;&lt; result.error();</div><div class="line">        }</div><div class="line">    }</div><div class="line"></div><div class="line">    return 0;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5728;<code>SecondStageMain</code>&#x4E2D;&#x4E3B;&#x8981;&#x5206;&#x4E3A;4&#x6B65;</p>
+<ol>
+<li>&#x521D;&#x59CB;&#x5316;&#x5C5E;&#x6027;&#x670D;&#x52A1;</li>
+<li>&#x521D;&#x59CB;&#x5316;single&#x53E5;&#x67C4;</li>
+<li>&#x5F00;&#x542F;&#x5C5E;&#x6027;&#x670D;&#x52A1;</li>
+<li>&#x89E3;&#x6790;.rc&#x6587;&#x4EF6;</li>
+</ol>
+<h2 id="&#x521D;&#x59CB;&#x5316;&#x5C5E;&#x6027;&#x670D;&#x52A1;"><a href="#&#x521D;&#x59CB;&#x5316;&#x5C5E;&#x6027;&#x670D;&#x52A1;" class="headerlink" title="&#x521D;&#x59CB;&#x5316;&#x5C5E;&#x6027;&#x670D;&#x52A1;"></a>&#x521D;&#x59CB;&#x5316;&#x5C5E;&#x6027;&#x670D;&#x52A1;</h2><blockquote>
+<p>system/core/init/property_service.cpp</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">void property_init() {</div><div class="line">    mkdir(&quot;/dev/__properties__&quot;, S_IRWXU | S_IXGRP | S_IXOTH);</div><div class="line">    CreateSerializedPropertyInfo();</div><div class="line">    if (__system_property_area_init()) {</div><div class="line">        LOG(FATAL) &lt;&lt; &quot;Failed to initialize property area&quot;;</div><div class="line">    }</div><div class="line">    if (!property_info_area.LoadDefaultPath()) {</div><div class="line">        LOG(FATAL) &lt;&lt; &quot;Failed to load serialized property info file&quot;;</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x4E3B;&#x8981;&#x65B9;&#x6CD5;&#x662F;<code>__system_property_area_init()</code>&#xFF0C;&#x7528;&#x6765;&#x521B;&#x5EFA;&#x8DE8;&#x8FDB;&#x7A0B;&#x5185;&#x5B58;&#xFF0C;&#x4E3B;&#x8981;&#x64CD;&#x4F5C;&#x4E3A;</p>
+<ol>
+<li>&#x6267;&#x884C;<code>open</code>&#xFF0C;&#x6253;&#x5F00;<code>dev/properities</code>&#x5171;&#x4EAB;&#x5185;&#x5B58;&#x6587;&#x4EF6;&#xFF0C;&#x5927;&#x5C0F;&#x4E3A;<code>128KB</code></li>
+<li>&#x6267;&#x884C;<code>mmap</code>&#xFF0C;&#x5C06;&#x5185;&#x5B58;&#x6620;&#x5C04;&#x5230;<code>init</code>&#x8FDB;&#x7A0B;</li>
+<li>&#x5C06;&#x8BE5;&#x5185;&#x5B58;&#x7684;&#x9996;&#x5730;&#x5740;&#x4FDD;&#x5B58;&#x5728;&#x5168;&#x5C40;&#x53D8;&#x91CF;<code>__system_property_area__</code>&#xFF0C;&#x540E;&#x7EED;&#x7684;&#x589E;&#x52A0;&#x6216;&#x8005;&#x4FEE;&#x6539;&#x5C5E;&#x6027;&#x90FD;&#x57FA;&#x4E8E;&#x8BE5;&#x53D8;&#x91CF;&#x6765;&#x8BA1;&#x7B97;&#x4F4D;&#x7F6E;&#x3002;</li>
+</ol>
+<h2 id="&#x521D;&#x59CB;&#x5316;single&#x53E5;&#x67C4;"><a href="#&#x521D;&#x59CB;&#x5316;single&#x53E5;&#x67C4;" class="headerlink" title="&#x521D;&#x59CB;&#x5316;single&#x53E5;&#x67C4;"></a>&#x521D;&#x59CB;&#x5316;single&#x53E5;&#x67C4;</h2><blockquote>
+<p>system/core/init/init.cpp</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">static void InstallSignalFdHandler(Epoll* epoll) {</div><div class="line">    // Applying SA_NOCLDSTOP to a defaulted SIGCHLD handler prevents the signalfd from receiving</div><div class="line">    // SIGCHLD when a child process stops or continues (b/77867680#comment9).</div><div class="line">    const struct sigaction act { .sa_handler = SIG_DFL, .sa_flags = SA_NOCLDSTOP };</div><div class="line">    sigaction(SIGCHLD, &amp;act, nullptr);</div><div class="line"> </div><div class="line">    sigset_t mask;</div><div class="line">    sigemptyset(&amp;mask);</div><div class="line">    sigaddset(&amp;mask, SIGCHLD);</div><div class="line"> </div><div class="line">    if (!IsRebootCapable()) {</div><div class="line">        // If init does not have the CAP_SYS_BOOT capability, it is running in a container.</div><div class="line">        // In that case, receiving SIGTERM will cause the system to shut down.</div><div class="line">        sigaddset(&amp;mask, SIGTERM);</div><div class="line">    }</div><div class="line"> </div><div class="line">    if (sigprocmask(SIG_BLOCK, &amp;mask, nullptr) == -1) {</div><div class="line">        PLOG(FATAL) &lt;&lt; &quot;failed to block signals&quot;;</div><div class="line">    }</div><div class="line"> </div><div class="line">    // Register a handler to unblock signals in the child processes.</div><div class="line">    const int result = pthread_atfork(nullptr, nullptr, &amp;UnblockSignals);</div><div class="line">    if (result != 0) {</div><div class="line">        LOG(FATAL) &lt;&lt; &quot;Failed to register a fork handler: &quot; &lt;&lt; strerror(result);</div><div class="line">    }</div><div class="line"> </div><div class="line">    signal_fd = signalfd(-1, &amp;mask, SFD_CLOEXEC);</div><div class="line">    if (signal_fd == -1) {</div><div class="line">        PLOG(FATAL) &lt;&lt; &quot;failed to create signalfd&quot;;</div><div class="line">    }</div><div class="line"> </div><div class="line">    if (auto result = epoll-&gt;RegisterHandler(signal_fd, HandleSignalFd); !result) {</div><div class="line">        LOG(FATAL) &lt;&lt; result.error();</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x6BCF;&#x4E2A;&#x8FDB;&#x7A0B;&#x5728;&#x5904;&#x7406;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;&#x53D1;&#x9001;&#x7684;<code>signal</code>&#x4FE1;&#x53F7;&#x65F6;&#x90FD;&#x9700;&#x8981;&#x5148;&#x6CE8;&#x518C;&#xFF0C;&#x5F53;&#x8FDB;&#x7A0B;&#x7684;&#x8FD0;&#x884C;&#x72B6;&#x6001;&#x6539;&#x53D8;&#x6216;&#x7EC8;&#x6B62;&#x65F6;&#x4F1A;&#x4EA7;&#x751F;&#x67D0;&#x79CD;<code>signal</code>&#x4FE1;&#x53F7;&#xFF0C;<code>init</code>&#x8FDB;&#x7A0B;&#x662F;&#x6240;&#x6709;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x8FDB;&#x7A0B;&#x7684;&#x7236;&#x8FDB;&#x7A0B;&#xFF0C;&#x5F53;&#x5176;&#x5B50;&#x8FDB;&#x7A0B;&#x7EC8;&#x6B62;&#x65F6;&#x4EA7;&#x751F;<code>signal</code>&#x4FE1;&#x53F7;&#x3002;&#x4EE5;&#x4FBF;&#x7236;&#x8FDB;&#x7A0B;&#x8FDB;&#x884C;&#x5904;&#x7406;&#x3002;</p>
+<p>&#x4E3B;&#x8981;&#x76EE;&#x7684;&#x662F;&#x4E3A;&#x4E86;&#x9632;&#x6B62;&#x5B50;&#x8FDB;&#x7A0B;&#x6210;&#x4E3A;&#x50F5;&#x5C38;&#x8FDB;&#x7A0B;&#x3002;</p>
+<p>&#x4F55;&#x4E3A;&#x50F5;&#x5C38;&#x8FDB;&#x7A0B;&#xFF1F;</p>
+<p>&#x7236;&#x8FDB;&#x7A0B;&#x4F7F;&#x7528;<code>fork</code>&#x521B;&#x5EFA;&#x5B50;&#x8FDB;&#x7A0B;&#xFF0C;&#x5B50;&#x8FDB;&#x7A0B;&#x7EC8;&#x6B62;&#x540E;&#xFF0C;&#x5982;&#x679C;&#x7236;&#x8FDB;&#x7A0B;&#x4E0D;&#x77E5;&#x9053;&#x5B50;&#x8FDB;&#x7A0B;&#x5DF2;&#x7ECF;&#x7EC8;&#x6B62;&#x7684;&#x8BDD;&#xFF0C;&#x8FD9;&#x65F6;&#x5B50;&#x8FDB;&#x7A0B;&#x867D;&#x7136;&#x5DF2;&#x7ECF;&#x9000;&#x51FA;&#xFF0C;&#x4F46;&#x662F;&#x5728;&#x7CFB;&#x7EDF;&#x8FDB;&#x7A0B;&#x8868;&#x4E2D;&#x8FD8;&#x4E3A;&#x5B83;&#x4FDD;&#x7559;&#x4E86;&#x4E00;&#x4E9B;&#x4FE1;&#x606F;&#xFF08;&#x5982;&#x8FDB;&#x7A0B;&#x53F7;&#x3001;&#x8FD0;&#x884C;&#x65F6;&#x95F4;&#x3001;&#x9000;&#x51FA;&#x72B6;&#x6001;&#x7B49;&#xFF09;&#xFF0C;&#x8FD9;&#x4E2A;&#x5B50;&#x8FDB;&#x7A0B;&#x5C31;&#x662F;&#x6240;&#x8C13;&#x7684;&#x50F5;&#x5C38;&#x8FDB;&#x7A0B;&#x3002;&#x5176;&#x4E2D;&#x7CFB;&#x7EDF;&#x8FDB;&#x7A0B;&#x8868;&#x662F;&#x4E00;&#x9879;&#x6709;&#x9650;&#x7684;&#x8D44;&#x6E90;&#xFF0C;&#x5982;&#x679C;&#x5B83;&#x88AB;&#x50F5;&#x5C38;&#x8FDB;&#x7A0B;&#x8017;&#x5C3D;&#x7684;&#x8BDD;&#xFF0C;&#x7CFB;&#x7EDF;&#x53EF;&#x80FD;&#x4F1A;&#x65E0;&#x6CD5;&#x521B;&#x5EFA;&#x65B0;&#x7684;&#x8FDB;&#x7A0B;&#x3002;</p>
+<p>&#x901A;&#x8FC7;<code>epoll</code>&#x8FDB;&#x884C;&#x6CE8;&#x518C;&#x53E5;&#x67C4;&#xFF0C;&#x6700;&#x540E;&#x4F1A;&#x7531;<code>HandleSignalFd</code>&#x8FDB;&#x884C;&#x56DE;&#x8C03;&#x64CD;&#x4F5C;&#x3002;</p>
+<p><code>epoll</code>&#x53C8;&#x662F;&#x4EC0;&#x4E48;&#xFF1F;</p>
+<p>&#x5728;<code>Linux</code>&#x7684;&#x65B0;&#x5185;&#x6838;&#x4E2D;&#xFF0C;<code>epoll</code>&#x662F;&#x7528;&#x6765;&#x53D6;&#x4EE3;<code>select/poll</code>&#x7684;&#xFF0C;&#x5B83;&#x662F;<code>Linux</code>&#x5185;&#x6838;&#x4E3A;&#x5904;&#x7406;&#x5927;&#x6279;&#x91CF;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x7684;&#x6539;&#x8FDB;&#x7248;<code>poll</code>&#xFF0C;&#x662F;<code>Linux</code>&#x4E0B;&#x591A;&#x8DEF;&#x590D;&#x7528;<code>I/O</code>&#x63A5;&#x53E3;<code>select/poll</code>&#x7684;&#x589E;&#x5F3A;&#x7248;&#xFF0C;&#x5B83;&#x80FD;&#x663E;&#x8457;&#x63D0;&#x5347;&#x7A0B;&#x5E8F;&#x5728;&#x5927;&#x91CF;&#x5E76;&#x53D1;&#x8FDE;&#x63A5;&#x4E2D;&#x53EA;&#x6709;&#x5C11;&#x91CF;&#x6D3B;&#x8DC3;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x7684;&#x7CFB;&#x7EDF;<code>CPU</code>&#x5229;&#x7528;&#x7387;&#x3002;</p>
+<p><code>epoll</code>&#x5185;&#x90E8;&#x4F7F;&#x7528;&#x4E86;&#x7EA2;&#x9ED1;&#x6811;&#xFF0C;&#x6240;&#x4EE5;&#x67E5;&#x627E;&#x6548;&#x7387;&#x6BD4;&#x4F7F;&#x7528;&#x6570;&#x7EC4;&#x7684;<code>select</code>&#x66F4;&#x5FEB;&#x3002;</p>
+<h2 id="&#x5F00;&#x542F;&#x5C5E;&#x6027;&#x670D;&#x52A1;"><a href="#&#x5F00;&#x542F;&#x5C5E;&#x6027;&#x670D;&#x52A1;" class="headerlink" title="&#x5F00;&#x542F;&#x5C5E;&#x6027;&#x670D;&#x52A1;"></a>&#x5F00;&#x542F;&#x5C5E;&#x6027;&#x670D;&#x52A1;</h2><blockquote>
+<p>system/core/init/property_service.cpp</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">void StartPropertyService(Epoll* epoll) {</div><div class="line">    selinux_callback cb;</div><div class="line">    cb.func_audit = SelinuxAuditCallback;</div><div class="line">    selinux_set_callback(SELINUX_CB_AUDIT, cb);</div><div class="line"> </div><div class="line">    property_set(&quot;ro.property_service.version&quot;, &quot;2&quot;);</div><div class="line"></div><div class="line">    property_set_fd = CreateSocket(PROP_SERVICE_NAME, SOCK_STREAM | SOCK_CLOEXEC | SOCK_NONBLOCK,</div><div class="line">                                   false, 0666, 0, 0, nullptr);</div><div class="line">    if (property_set_fd == -1) {</div><div class="line">        PLOG(FATAL) &lt;&lt; &quot;start_property_service socket creation failed&quot;;</div><div class="line">    }</div><div class="line"> </div><div class="line">    listen(property_set_fd, 8);</div><div class="line"> </div><div class="line">    if (auto result = epoll-&gt;RegisterHandler(property_set_fd, handle_property_set_fd); !result) {</div><div class="line">        PLOG(FATAL) &lt;&lt; result.error();</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x4E3B;&#x8981;&#x505A;&#x7684;&#x4EFB;&#x52A1;&#x662F;&#xFF1A;</p>
+<ol>
+<li>&#x521B;&#x5EFA;&#x975E;&#x963B;&#x585E;&#x5F0F;&#x7684;<code>Socket</code>&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;<code>property_set_fd</code>&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x3002;</li>
+<li>&#x4F7F;&#x7528;<code>listen()</code>&#x51FD;&#x6570;&#x53BB;&#x76D1;&#x542C;<code>property_set_fd</code>&#xFF0C;&#x6B64;&#x65F6;<code>Socket</code>&#x5373;&#x6210;&#x4E3A;&#x5C5E;&#x6027;&#x670D;&#x52A1;&#x7AEF;&#xFF0C;&#x5E76;&#x4E14;&#x5B83;&#x6700;&#x591A;&#x540C;&#x65F6;&#x53EF;&#x4E3A;<code>8</code>&#x4E2A;&#x8BD5;&#x56FE;&#x8BBE;&#x7F6E;&#x5C5E;&#x6027;&#x7684;&#x7528;&#x6237;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#x3002;</li>
+<li>&#x4F7F;&#x7528;<code>epoll</code>&#x6CE8;&#x518C;&#xFF0C;&#x5F53;<code>property_set_fd</code>&#x4E2D;&#x6709;&#x6570;&#x636E;&#x5230;&#x6765;&#x65F6;&#xFF0C;<code>init</code>&#x8FDB;&#x7A0B;&#x5C06;&#x8C03;&#x7528;<code>handle_property_set_fd()</code>&#x51FD;&#x6570;&#x8FDB;&#x884C;&#x5904;&#x7406;&#x3002;</li>
+</ol>
+<h2 id="&#x89E3;&#x6790;-rc&#x6587;&#x4EF6;"><a href="#&#x89E3;&#x6790;-rc&#x6587;&#x4EF6;" class="headerlink" title="&#x89E3;&#x6790;.rc&#x6587;&#x4EF6;"></a>&#x89E3;&#x6790;.rc&#x6587;&#x4EF6;</h2><blockquote>
+<p>system/core/init/init.cpp</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">static void LoadBootScripts(ActionManager&amp; action_manager, ServiceList&amp; service_list) {</div><div class="line">    Parser parser = CreateParser(action_manager, service_list);</div><div class="line"> </div><div class="line">    std::string bootscript = GetProperty(&quot;ro.boot.init_rc&quot;, &quot;&quot;);</div><div class="line">    if (bootscript.empty()) {</div><div class="line">        parser.ParseConfig(&quot;/init.rc&quot;);</div><div class="line">        if (!parser.ParseConfig(&quot;/system/etc/init&quot;)) {</div><div class="line">            late_import_paths.emplace_back(&quot;/system/etc/init&quot;);</div><div class="line">        }</div><div class="line">        if (!parser.ParseConfig(&quot;/product/etc/init&quot;)) {</div><div class="line">            late_import_paths.emplace_back(&quot;/product/etc/init&quot;);</div><div class="line">        }</div><div class="line">        if (!parser.ParseConfig(&quot;/product_services/etc/init&quot;)) {</div><div class="line">            late_import_paths.emplace_back(&quot;/product_services/etc/init&quot;);</div><div class="line">        }</div><div class="line">        if (!parser.ParseConfig(&quot;/odm/etc/init&quot;)) {</div><div class="line">            late_import_paths.emplace_back(&quot;/odm/etc/init&quot;);</div><div class="line">        }</div><div class="line">        if (!parser.ParseConfig(&quot;/vendor/etc/init&quot;)) {</div><div class="line">            late_import_paths.emplace_back(&quot;/vendor/etc/init&quot;);</div><div class="line">        }</div><div class="line">    } else {</div><div class="line">        parser.ParseConfig(bootscript);</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x901A;&#x8FC7;<code>ParseConfig</code>&#x6765;&#x89E3;&#x6790;<code>init.rc</code>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x3002;</p>
+<p><code>.rc</code>&#x6587;&#x4EF6;&#x8BED;&#x6CD5;&#x662F;&#x4EE5;&#x884C;&#x5C3E;&#x5355;&#x4F4D;&#xFF0C;&#x4EE5;&#x7A7A;&#x683C;&#x95F4;&#x9694;&#x7684;&#x8BED;&#x6CD5;&#xFF0C;&#x4EE5;<code>#</code>&#x5F00;&#x59CB;&#x4EE3;&#x8868;&#x6CE8;&#x91CA;&#x884C;&#x3002;<code>.rc</code>&#x6587;&#x4EF6;&#x4E3B;&#x8981;&#x5305;&#x542B;<code>Action</code>&#x3001;<code>Service</code>&#x3001;<code>Command</code>&#x3001;<code>Options</code>&#x3001;<code>Import</code>&#xFF0C;&#x5176;&#x4E2D;&#x5BF9;&#x4E8E;<code>Action</code>&#x548C;<code>Service</code>&#x7684;&#x540D;&#x79F0;&#x90FD;&#x662F;&#x552F;&#x4E00;&#x7684;&#xFF0C;&#x5BF9;&#x4E8E;&#x91CD;&#x590D;&#x7684;&#x547D;&#x540D;&#x89C6;&#x4E3A;&#x65E0;&#x6548;&#x3002;</p>
+<p><code>init.rc</code>&#x4E2D;&#x7684;<code>Action</code>&#x3001;<code>Service</code>&#x8BED;&#x53E5;&#x90FD;&#x6709;&#x76F8;&#x5E94;&#x7684;&#x7C7B;&#x6765;&#x89E3;&#x6790;&#xFF0C;&#x5373;<code>ActionParser</code>&#x3001;<code>ServiceParser</code>&#x3002;</p>
+<p>&#x5728;&#x89E3;&#x6790;<code>init.rc</code>&#x4E2D;&#x7684;&#x914D;&#x7F6E;&#xFF0C;&#x8FDB;&#x884C;&#x542F;&#x52A8;<code>Zygote</code>&#x3002;</p>
+<blockquote>
+<p>&#x5173;&#x4E8E;<code>Zygote</code>&#x7684;&#x542F;&#x52A8;&#x540E;&#x7EED;&#x518D;&#x5206;&#x6790;&#x3002;</p>
+</blockquote>
+<p>&#x4ECA;&#x5929;&#x4E3B;&#x8981;&#x5C1D;&#x8BD5;&#x5206;&#x6790;&#x4E86;&#x4E00;&#x4E0B;<code>Android</code>&#x5728;<code>Linux</code>&#x7CFB;&#x7EDF;&#x4E0B;&#x7684;<code>init</code>&#x542F;&#x52A8;&#x6D89;&#x53CA;&#x7684;&#x4E3B;&#x8981;&#x6D41;&#x7A0B;&#x3002;</p>
+<p>&#x53EF;&#x89C1;<code>init</code>&#x542F;&#x52A8;&#x4E3B;&#x8981;&#x6D89;&#x53CA;&#x7684;&#x5DE5;&#x4F5C;&#x662F;&#xFF1A;</p>
+<ol>
+<li>&#x521B;&#x5EFA;&#x4E0E;&#x6302;&#x8F7D;&#x542F;&#x52A8;&#x6240;&#x9700;&#x8981;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</li>
+<li>&#x521D;&#x59CB;&#x5316;&#x5C5E;&#x6027;&#x670D;&#x52A1;</li>
+<li>&#x521B;&#x5EFA;<code>single</code>&#x53E5;&#x67C4;&#xFF0C;&#x6765;&#x76D1;&#x542C;&#x5B50;&#x8FDB;&#x7A0B;&#xFF0C;&#x9632;&#x6B62;&#x50F5;&#x5C38;&#x8FDB;&#x7A0B;&#x7684;&#x4EA7;&#x751F;</li>
+<li>&#x5F00;&#x542F;&#x5C5E;&#x6027;&#x670D;&#x52A1;</li>
+<li>&#x89E3;&#x6790;<code>.rc</code>&#x6587;&#x4EF6;&#x5E76;&#x542F;&#x52A8;<code>Zygote</code>&#x8FDB;&#x7A0B;</li>
+</ol>
+<h2 id="&#x9879;&#x76EE;"><a href="#&#x9879;&#x76EE;" class="headerlink" title="&#x9879;&#x76EE;"></a>&#x9879;&#x76EE;</h2><p><a href="https://github.com/idisfkj/android-startup" target="_blank" rel="external">android_startup</a>: &#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x5728;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65F6;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x3001;&#x9AD8;&#x6548;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521D;&#x59CB;&#x5316;&#x7EC4;&#x4EF6;&#xFF0C;&#x4F18;&#x5316;&#x542F;&#x52A8;&#x901F;&#x5EA6;&#x3002;&#x4E0D;&#x4EC5;&#x652F;&#x6301;<code>Jetpack App Startup</code>&#x7684;&#x5168;&#x90E8;&#x529F;&#x80FD;&#xFF0C;&#x8FD8;&#x63D0;&#x4F9B;&#x989D;&#x5916;&#x7684;&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#x7B49;&#x5F85;&#x3001;&#x7EBF;&#x7A0B;&#x63A7;&#x5236;&#x4E0E;&#x591A;&#x8FDB;&#x7A0B;&#x652F;&#x6301;&#x7B49;&#x529F;&#x80FD;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="external">AwesomeGithub</a>: &#x57FA;&#x4E8E;<code>Github</code>&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7EAF;&#x7EC3;&#x4E60;&#x9879;&#x76EE;&#xFF0C;&#x652F;&#x6301;&#x7EC4;&#x4EF6;&#x5316;&#x5F00;&#x53D1;&#xFF0C;&#x652F;&#x6301;&#x8D26;&#x6237;&#x5BC6;&#x7801;&#x4E0E;&#x8BA4;&#x8BC1;&#x767B;&#x9646;&#x3002;&#x4F7F;&#x7528;<code>Kotlin</code>&#x8BED;&#x8A00;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#xFF0C;&#x9879;&#x76EE;&#x67B6;&#x6784;&#x662F;&#x57FA;&#x4E8E;<code>Jetpack&amp;DataBinding</code>&#x7684;<code>MVVM</code>&#xFF1B;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;<code>Arouter</code>&#x3001;<code>Retrofit</code>&#x3001;<code>Coroutine</code>&#x3001;<code>Glide</code>&#x3001;<code>Dagger</code>&#x4E0E;<code>Hilt</code>&#x7B49;&#x6D41;&#x884C;&#x5F00;&#x6E90;&#x6280;&#x672F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="external">flutter_github</a>: &#x57FA;&#x4E8E;<code>Flutter</code>&#x7684;&#x8DE8;&#x5E73;&#x53F0;&#x7248;&#x672C;<code>Github</code>&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x4E0E;<code>AwesomeGithub</code>&#x76F8;&#x5BF9;&#x5E94;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="external">android-api-analysis</a>: &#x7ED3;&#x5408;&#x8BE6;&#x7EC6;&#x7684;<code>Demo</code>&#x6765;&#x5168;&#x9762;&#x89E3;&#x6790;<code>Android</code>&#x76F8;&#x5173;&#x7684;&#x77E5;&#x8BC6;&#x70B9;, &#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x5FEB;&#x7684;&#x638C;&#x63E1;&#x4E0E;&#x7406;&#x89E3;&#x6240;&#x9610;&#x8FF0;&#x7684;&#x8981;&#x70B9;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/daily_algorithm" target="_blank" rel="external">daily_algorithm</a>: &#x6BCF;&#x65E5;&#x4E00;&#x7B97;&#x6CD5;&#xFF0C;&#x7531;&#x6D45;&#x5165;&#x6DF1;&#xFF0C;&#x6B22;&#x8FCE;&#x52A0;&#x5165;&#x4E00;&#x8D77;&#x5171;&#x52C9;&#x3002;</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">赞赏是一门艺术</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/rouse_wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/rouse_alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2020/12/06/Jetpack-DataStore必知的几个优点/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="fexo-comments comments-post">
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
+  <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.js"></script>
+  <script>
+    (function () {
+      var gitment = new Gitment({
+        owner: 'idisfkj',
+        repo: 'idisfkj.github.io',
+        id: 'Tue Dec 08 2020 18:41:26 GMT+0800',
+        oauth: {
+          client_id: 'dafb1df02ea9f875bb78',
+          client_secret: 'e9873d78aa5eaed5ce61d1d865a5af501dae377a'
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      })
+      gitment.render('gitment-comments')
+    })()
+  </script>
+
+  
+  
+</div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
