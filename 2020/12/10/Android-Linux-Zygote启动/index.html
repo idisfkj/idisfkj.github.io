@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android Linux Zygote启动 | Rouse</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="启动," />
+  
+
+  <meta name="description" content="Android init &amp;#x542F;&amp;#x52A8;
+Android&amp;#x542F;&amp;#x52A8;&amp;#x7684;&amp;#x7B2C;&amp;#x4E00;&amp;#x4E2A;&amp;#x8FDB;&amp;#x7A0B;&amp;#x662F;&amp;#x7531;Linux Kernel&amp;#x542F;&amp;#x52A8;&amp;#x7684;init&amp;#x8FDB;&amp;#x7A0B;&amp;#x3002;&amp;#x5728;init&amp;#x8FDB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Linux Zygote启动">
+<meta property="og:url" content="https://www.rousetime.com/2020/12/10/Android-Linux-Zygote启动/index.html">
+<meta property="og:site_name" content="Rouse">
+<meta property="og:description" content="Android init &amp;#x542F;&amp;#x52A8;
+Android&amp;#x542F;&amp;#x52A8;&amp;#x7684;&amp;#x7B2C;&amp;#x4E00;&amp;#x4E2A;&amp;#x8FDB;&amp;#x7A0B;&amp;#x662F;&amp;#x7531;Linux Kernel&amp;#x542F;&amp;#x52A8;&amp;#x7684;init&amp;#x8FDB;&amp;#x7A0B;&amp;#x3002;&amp;#x5728;init&amp;#x8FDB">
+<meta property="og:image" content="https://www.rousetime.com/2020/12/10/Android-Linux-Zygote启动/linux_zygote_init.png">
+<meta property="og:updated_time" content="2020-12-10T10:27:16.439Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Linux Zygote启动">
+<meta name="twitter:description" content="Android init &amp;#x542F;&amp;#x52A8;
+Android&amp;#x542F;&amp;#x52A8;&amp;#x7684;&amp;#x7B2C;&amp;#x4E00;&amp;#x4E2A;&amp;#x8FDB;&amp;#x7A0B;&amp;#x662F;&amp;#x7531;Linux Kernel&amp;#x542F;&amp;#x52A8;&amp;#x7684;init&amp;#x8FDB;&amp;#x7A0B;&amp;#x3002;&amp;#x5728;init&amp;#x8FDB">
+<meta name="twitter:image" content="https://www.rousetime.com/2020/12/10/Android-Linux-Zygote启动/linux_zygote_init.png">
+
+  
+
+  
+  <!-- <link href="/favicon.ico" rel="icon" type="image/x-icon"> -->
+    <link rel="icon" href="/favicon.ico">
+    <!-- <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?bd7ea96a22c9c7b90353962460fa0b8e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#rc文件语法"><span class="toc-text">.rc文件语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Actions"><span class="toc-text">Actions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Commands"><span class="toc-text">Commands</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Services"><span class="toc-text">Services</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Options"><span class="toc-text">Options</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Imports"><span class="toc-text">Imports</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Zygote"><span class="toc-text">Zygote</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目"><span class="toc-text">项目</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Android-Linux-Zygote启动" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Android Linux Zygote启动</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2020.12.10</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Rouse</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p><a href="https://mp.weixin.qq.com/s?__biz=MzIzNTc5NDY4Nw==&amp;mid=2247484889&amp;idx=1&amp;sn=b39c8bc0a9925464022b77a341263cf0&amp;chksm=e8e0fc49df97755f598ef0082409c573d7715ce33bb27b1c98194410d487ae69adbeb2293d84&amp;token=1353481402&amp;lang=zh_CN#rd" target="_blank" rel="external">Android init &#x542F;&#x52A8;</a></p>
+<p><code>Android</code>&#x542F;&#x52A8;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x662F;&#x7531;<code>Linux Kernel</code>&#x542F;&#x52A8;&#x7684;<code>init</code>&#x8FDB;&#x7A0B;&#x3002;&#x5728;<code>init</code>&#x8FDB;&#x7A0B;&#x542F;&#x52A8;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x4F1A;&#x901A;&#x8FC7;&#x89E3;&#x6790;<code>init.rc</code>&#x6587;&#x4EF6;&#x6765;&#x542F;&#x52A8;<code>zygote</code>&#x8FDB;&#x7A0B;&#x3002;</p>
+<p><code>zygote</code>&#x8FDB;&#x7A0B;&#x662F;<code>Android</code>&#x6240;&#x5728;<code>Java</code>&#x5C42;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#xFF0C;&#x63A5;&#x4E0B;&#x6765;&#x6211;&#x4EEC;&#x4E00;&#x8D77;&#x6765;&#x770B;&#x4E00;&#x4E0B;<code>zygote</code>&#x7684;&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x3002;</p>
+<h2 id="rc&#x6587;&#x4EF6;&#x8BED;&#x6CD5;"><a href="#rc&#x6587;&#x4EF6;&#x8BED;&#x6CD5;" class="headerlink" title=".rc&#x6587;&#x4EF6;&#x8BED;&#x6CD5;"></a>.rc&#x6587;&#x4EF6;&#x8BED;&#x6CD5;</h2><p>&#x5982;&#x679C;&#x4F60;&#x76F4;&#x63A5;&#x6253;&#x5F00;<code>init.rc</code>&#x6587;&#x4EF6;&#x770B;&#x5B83;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x4F60;&#x5927;&#x6982;&#x7387;&#x4F1A;&#x4E00;&#x8138;&#x61F5;&#x903C;&#x3002;&#x56E0;&#x4E3A;&#x5B83;&#x4F7F;&#x7528;&#x4E86;&#x4E00;&#x5957;&#x72EC;&#x6709;&#x7684;&#x8BED;&#x6CD5;&#x3002;</p>
+<p>&#x9996;&#x5148;&#x6765;&#x4E86;&#x89E3;&#x4E00;&#x4E0B;<code>.rc</code>&#x8BED;&#x6CD5;&#x3002;&#x5B83;&#x5185;&#x90E8;&#x4F7F;&#x7528;&#x7684;&#x662F;<code>Android Init Language</code>&#xFF0C;&#x4FD7;&#x79F0;<strong>Android&#x521D;&#x59CB;&#x5316;&#x8BED;&#x8A00;</strong>&#x3002;</p>
+<p>&#x5728;&#x4E0A;&#x7BC7;&#x6587;&#x7AE0;&#x4E2D;&#x5176;&#x5B9E;&#x5DF2;&#x7ECF;&#x63D0;&#x53CA;&#x8FC7;&#xFF0C;&#x5B83;&#x7684;&#x8BED;&#x6CD5;&#x4E3B;&#x8981;&#x5206;&#x4E3A;&#x4E94;&#x7C7B;&#xFF0C;&#x5206;&#x522B;&#x4E3A;&#xFF1A;<code>Actions</code>&#x3001;<code>Commands</code>&#x3001;<code>Services</code>&#x3001;    <code>Options</code>&#x4E0E;<code>Imports</code>&#x3002;</p>
+<h3 id="Actions"><a href="#Actions" class="headerlink" title="Actions"></a>Actions</h3><p><code>Actions</code>&#x79F0;&#x4E3A;&#x547D;&#x4EE4;&#x5E8F;&#x5217;&#x3002;</p>
+<p>&#x5B83;&#x7ED3;&#x5408;<code>trigger</code>&#x89E6;&#x53D1;&#x5668;&#x4E00;&#x8D77;&#x4F7F;&#x7528;&#x3002;&#x4E3B;&#x8981;&#x7528;&#x4E8E;&#x786E;&#x5B9A;&#x8BE5;<code>Actions</code>&#x4F5C;&#x7528;&#x7684;&#x65F6;&#x673A;&#xFF0C;&#x5F53;&#x53D1;&#x751F;&#x65F6;&#x673A;&#x4E0E;&#x67D0;&#x4E2A;<code>Actions</code>&#x7684;<code>trigger</code>&#x76F8;&#x5339;&#x914D;&#x65F6;&#xFF0C;&#x8FD9;&#x4E2A;<code>Actions</code>&#x5C06;&#x4F1A;&#x6DFB;&#x52A0;&#x5230;&#x6267;&#x884C;&#x7684;&#x961F;&#x5217;&#x4E2D;&#xFF0C;&#x961F;&#x5217;&#x4E2D;&#x7684;&#x6BCF;&#x4E2A;<code>Actions</code>&#x90FD;&#x6309;&#x987A;&#x5E8F;&#x51FA;&#x961F;&#xFF0C;&#x5E76;&#x4E14;&#x8BE5;<code>Actions</code>&#x4E2D;&#x7684;&#x6BCF;&#x4E2A;&#x547D;&#x4EE4;&#x90FD;&#x6309;&#x987A;&#x5E8F;&#x6267;&#x884C;&#x3002;</p>
+<p><code>Actions</code>&#x7684;&#x683C;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">on &lt;trigger&gt; [&amp;&amp; &lt;trigger&gt;]*</div><div class="line">   &lt;command&gt;</div><div class="line">   &lt;command&gt;</div><div class="line">   &lt;command&gt;</div></pre></td></tr></table></figure>
+<p>&#x4EE5;<code>on</code>&#x5F00;&#x5934;&#xFF0C;&#x914D;&#x5408;&#x5BF9;&#x5E94;&#x7684;<code>trigger</code>&#xFF0C;&#x4E00;&#x65E6;<code>trigger</code>&#x89E6;&#x53D1;&#xFF0C;&#x5C06;&#x4F1A;&#x6267;&#x884C;&#x4E0B;&#x9762;&#x7684;<code>command</code>&#x3002;</p>
+<p><code>trigger</code>&#x4E3B;&#x8981;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x51E0;&#x79CD;&#x7C7B;&#x578B;&#xFF1A;</p>
+<ol>
+<li><code>early-init</code>: &#x5728;&#x521D;&#x59CB;&#x5316;&#x65E9;&#x671F;&#x9636;&#x6BB5;&#x89E6;&#x53D1;</li>
+<li><code>init</code>: &#x5728;&#x521D;&#x59CB;&#x5316;&#x9636;&#x6BB5;&#x89E6;&#x53D1;</li>
+<li><code>late-init</code>: &#x5728;&#x521D;&#x59CB;&#x5316;&#x665A;&#x671F;&#x9636;&#x6BB5;&#x89E6;&#x53D1;</li>
+<li><code>boot/charger</code>: &#x5F53;&#x7CFB;&#x7EDF;&#x542F;&#x52A8;/&#x5145;&#x7535;&#x65F6;&#x89E6;&#x53D1;&#xFF0C;&#x8FD8;&#x5305;&#x542B;&#x5176;&#x4ED6;&#x60C5;&#x51B5;&#xFF0C;&#x6B64;&#x5904;&#x4E0D;&#x4E00;&#x4E00;&#x5217;&#x4E3E;</li>
+<li><code>property:&lt;key&gt;=&lt;value&gt;</code>: &#x5F53;&#x5C5E;&#x6027;&#x503C;&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#x65F6;&#x89E6;&#x53D1;</li>
+</ol>
+<p>&#x6765;&#x770B;&#x4E00;&#x4E2A;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">on boot</div><div class="line">   setprop a 1</div><div class="line">   setprop b 2</div><div class="line"> </div><div class="line">on boot &amp;&amp; property:true=true</div><div class="line">   setprop c 1</div><div class="line">   setprop d 2</div><div class="line"> </div><div class="line">on boot</div><div class="line">   setprop e 1</div><div class="line">   setprop f 2</div></pre></td></tr></table></figure>
+<p>&#x5F53;<code>boot</code>&#x89E6;&#x53D1;&#x5E76;&#x5047;&#x8BBE;&#x5C5E;&#x6027;<code>true</code>&#x7B49;&#x4E8E;<code>true</code>&#x65F6;&#xFF0C;&#x5C06;&#x89E6;&#x53D1;&#x4E0A;&#x9762;&#x7684;<code>Actions</code>, &#x6267;&#x884C;&#x7684;&#x547D;&#x4EE4;&#x987A;&#x5E8F;&#x4E3A;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">setprop a 1</div><div class="line">setprop b 2</div><div class="line">setprop c 1</div><div class="line">setprop d 2</div><div class="line">setprop e 1</div><div class="line">setprop f 2</div></pre></td></tr></table></figure>
+<h3 id="Commands"><a href="#Commands" class="headerlink" title="Commands"></a>Commands</h3><p><code>Commands</code>&#x4FD7;&#x79F0;&#x6307;&#x4EE4;&#x3002;</p>
+<p>&#x5C31;&#x662F;<code>Linux</code>&#x9700;&#x8981;&#x6267;&#x884C;&#x7684;&#x5177;&#x4F53;&#x5185;&#x5BB9;&#x3002;</p>
+<p><code>Commands</code>&#x5305;&#x542B;&#x7684;&#x6307;&#x4EE4;&#x8FD8;&#x662F;&#x5F88;&#x591A;&#x7684;&#xFF0C;&#x8FD9;&#x91CC;&#x5217;&#x4E3E;&#x4E00;&#x4E9B;&#x5E38;&#x7528;&#x7684;&#x6307;&#x4EE4;&#x3002;</p>
+<ol>
+<li><code>class_start &lt;service_class_name&gt;</code>&#xFF1A; &#x542F;&#x52A8;&#x5C5E;&#x4E8E;&#x540C;&#x4E00;&#x4E2A;<code>class</code>&#x7684;&#x6240;&#x6709;&#x670D;&#x52A1;</li>
+<li><code>start &lt;service_name&gt;</code>&#xFF1A; &#x542F;&#x52A8;&#x6307;&#x5B9A;&#x7684;&#x670D;&#x52A1;&#xFF0C;&#x82E5;&#x5DF2;&#x542F;&#x52A8;&#x5219;&#x8DF3;&#x8FC7;</li>
+<li><code>stop &lt;service_name&gt;</code>&#xFF1A; &#x505C;&#x6B62;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x7684;&#x670D;&#x52A1;</li>
+<li><code>setprop &lt;name&gt; &lt;value&gt;</code>&#xFF1A;&#x8BBE;&#x7F6E;&#x5C5E;&#x6027;&#x503C;</li>
+<li><code>mkdir &lt;path&gt;</code>&#xFF1A;&#x521B;&#x5EFA;&#x6307;&#x5B9A;&#x76EE;&#x5F55;</li>
+<li><code>symlink &lt;target&gt; &lt;sym_link&gt;</code>&#xFF1A; &#x521B;&#x5EFA;&#x8FDE;&#x63A5;&#x5230;<code>&lt;target&gt;</code>&#x7684;<code>&lt;sym_link&gt;</code>&#x7B26;&#x53F7;&#x94FE;&#x63A5;</li>
+<li><code>write &lt;path&gt; &lt;string&gt;</code>&#xFF1A; &#x5411;&#x6587;&#x4EF6;<code>path</code>&#x4E2D;&#x5199;&#x5165;&#x5B57;&#x7B26;&#x4E32;</li>
+<li><code>exec</code>&#xFF1A; <code>fork</code>&#x5E76;&#x6267;&#x884C;&#xFF0C;&#x4F1A;&#x963B;&#x585E;<code>init</code>&#x8FDB;&#x7A0B;&#x76F4;&#x5230;&#x7A0B;&#x5E8F;&#x5B8C;&#x6BD5;</li>
+<li><code>exprot &lt;name&gt; &lt;name&gt;</code>&#xFF1A;&#x8BBE;&#x5B9A;&#x73AF;&#x5883;&#x53D8;&#x91CF;</li>
+<li><code>loglevel &lt;level&gt;</code>&#xFF1A;&#x8BBE;&#x7F6E;<code>log</code>&#x7EA7;&#x522B;</li>
+</ol>
+<p>&#x8FD9;&#x4E2A;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x9047;&#x5230;&#x5C31;&#x76F4;&#x63A5;&#x5BF9;&#x7167;&#x67E5;&#x770B;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#xFF0C;&#x4F8B;&#x5982;&#x4E0A;&#x9762;&#x63D0;&#x5230;&#x7684;<code>setprop</code>&#xFF0C;&#x5B83;&#x5C31;&#x662F;&#x7528;&#x6765;&#x5BF9;&#x5C5E;&#x6027;&#x8D4B;&#x503C;&#x7684;&#x3002;</p>
+<h3 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h3><p><code>Services</code>&#x4FD7;&#x79F0;&#x670D;&#x52A1;&#x3002;</p>
+<p>&#x5B83;&#x7531;<code>init</code>&#x8FDB;&#x7A0B;&#x542F;&#x52A8;&#xFF0C;&#x4E00;&#x822C;&#x8FD0;&#x884C;&#x5728;<code>init</code>&#x7684;&#x5B50;&#x8FDB;&#x7A0B;&#x4E2D;&#xFF0C;&#x542F;&#x52A8;&#x670D;&#x52A1;&#x65F6;&#x9996;&#x5148;&#x4F1A;&#x5224;&#x65AD;&#x8BE5;&#x670D;&#x52A1;&#x5BF9;&#x5E94;&#x7684;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x5B58;&#x5728;&#xFF0C;&#x800C;&#x670D;&#x52A1;&#x5B9A;&#x4E49;&#x5728;<code>.rc</code>&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x4F1A;&#x901A;&#x8FC7;<code>init</code>&#x8FDB;&#x7A0B;<code>fork</code>&#x51FA;&#x5B50;&#x8FDB;&#x7A0B;&#x6765;&#x542F;&#x52A8;&#x5BF9;&#x5E94;&#x7684;<code>Service</code>&#x3002;</p>
+<p>&#x5177;&#x4F53;&#x7684;&#x5B9A;&#x4E49;&#x683C;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">service &lt;name&gt; &lt;pathname&gt; [ &lt;argument&gt; ]*</div><div class="line">   &lt;option&gt;</div><div class="line">   &lt;option&gt;</div><div class="line">   ...</div></pre></td></tr></table></figure>
+<p>&#x4F8B;&#x5982;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service servicemanager /system/bin/servicemanager</div></pre></td></tr></table></figure>
+<p>&#x4EE3;&#x8868;&#x7684;&#x610F;&#x4E49;&#x662F;&#xFF1A;&#x8BE5;&#x670D;&#x52A1;&#x7684;&#x540D;&#x79F0;&#x662F;<code>servicemanager</code>&#xFF0C;&#x5BF9;&#x5E94;&#x7684;&#x6267;&#x884C;&#x8DEF;&#x5F84;&#x4E3A;<code>/system/bin/servicemanager</code>&#x3002;</p>
+<h3 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h3><p><code>Options</code>&#x4FD7;&#x79F0;&#x53EF;&#x9009;&#x9879;&#x3002;</p>
+<p>&#x5B83;&#x90FD;&#x4F5C;&#x7528;&#x4E8E;<code>Services</code>&#xFF0C;&#x6539;&#x53D8;&#x670D;&#x52A1;&#x7684;&#x8FD0;&#x884C;&#x65B9;&#x5F0F;&#x4E0E;&#x5BF9;&#x5E94;&#x7684;&#x65F6;&#x95F4;&#x7B49;&#x3002;</p>
+<p>&#x5B83;&#x7684;&#x5185;&#x5BB9;&#x4E0E;<code>Commands</code>&#x4E00;&#x6837;&#x6709;&#x5F88;&#x591A;&#xFF0C;&#x8FD9;&#x91CC;&#x5217;&#x4E3E;&#x4E00;&#x4E9B;&#x5E38;&#x7528;&#x7684;&#xFF0C;&#x9047;&#x5230;&#x76F4;&#x63A5;&#x67E5;&#x770B;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;</p>
+<ol>
+<li><code>disabled</code>: &#x4E0D;&#x968F;<code>class</code>&#x81EA;&#x52A8;&#x542F;&#x52A8;&#xFF0C;&#x53EA;&#x6709;&#x6839;&#x636E;<code>service</code>&#x540D;&#x624D;&#x542F;&#x52A8;</li>
+<li><code>oneshot</code>: <code>service</code>&#x9000;&#x51FA;&#x540E;&#x4E0D;&#x518D;&#x91CD;&#x542F;</li>
+<li><code>user/group</code>&#xFF1A; &#x8BBE;&#x7F6E;&#x6267;&#x884C;&#x670D;&#x52A1;&#x7684;&#x7528;&#x6237;/&#x7528;&#x6237;&#x7EC4;&#xFF0C;&#x9ED8;&#x8BA4;&#x90FD;&#x662F;<code>root</code></li>
+<li><code>class</code>&#xFF1A;&#x8BBE;&#x7F6E;&#x6240;&#x5C5E;&#x7684;&#x7C7B;&#x540D;&#xFF0C;&#x5F53;&#x6240;&#x5C5E;&#x7C7B;&#x542F;&#x52A8;/&#x9000;&#x51FA;&#x65F6;&#xFF0C;&#x670D;&#x52A1;&#x4E5F;&#x542F;&#x52A8;/&#x505C;&#x6B62;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;<code>default</code></li>
+<li><code>onrestart</code>:&#x5F53;&#x670D;&#x52A1;&#x91CD;&#x542F;&#x65F6;&#x6267;&#x884C;&#x76F8;&#x5E94;&#x547D;&#x4EE4;</li>
+<li><code>socket</code>: &#x521B;&#x5EFA;&#x540D;&#x4E3A;<code>/dev/socket/&lt;name&gt;</code>&#x7684;<code>socket</code></li>
+<li><code>critical</code>: &#x5728;&#x89C4;&#x5B9A;&#x65F6;&#x95F4;&#x5185;&#x8BE5;<code>service</code>&#x4E0D;&#x65AD;&#x91CD;&#x542F;&#xFF0C;&#x5219;&#x7CFB;&#x7EDF;&#x4F1A;&#x91CD;&#x542F;&#x5E76;&#x8FDB;&#x5165;&#x6062;&#x590D;&#x6A21;&#x5F0F;</li>
+</ol>
+<blockquote>
+<p><code>default</code>: &#x610F;&#x5473;&#x7740;<code>disabled=false</code>&#xFF0C;<code>oneshot=false</code>&#xFF0C;<code>critical=false</code></p>
+</blockquote>
+<h3 id="Imports"><a href="#Imports" class="headerlink" title="Imports"></a>Imports</h3><p><code>Imports</code>&#x4FD7;&#x79F0;&#x5BFC;&#x5165;&#x3002;</p>
+<p>&#x7528;&#x9014;&#x662F;&#x7528;&#x6765;&#x5BFC;&#x5165;&#x5BF9;&#x5E94;&#x7684;<code>.rc</code>&#x6587;&#x4EF6;&#x3002;</p>
+<p>&#x5177;&#x4F53;&#x683C;&#x5F0F;&#x4E3A;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">import &lt;path&gt;</div></pre></td></tr></table></figure>
+<p>&#x4F8B;&#x5982;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import /init.environ.rc</div><div class="line">import /init.usb.rc</div><div class="line">import /init.${ro.hardware}.rc</div></pre></td></tr></table></figure>
+<h2 id="Zygote"><a href="#Zygote" class="headerlink" title="Zygote"></a>Zygote</h2><p>&#x73B0;&#x5728;&#x5DF2;&#x7ECF;&#x5BF9;<code>.rc</code>&#x8BED;&#x6CD5;&#x6709;&#x4E86;&#x4E00;&#x4E2A;&#x521D;&#x6B65;&#x7684;&#x4E86;&#x89E3;&#xFF0C;&#x6211;&#x4EEC;&#x518D;&#x6765;&#x770B;<code>init.rc</code>&#x7684;&#x6E90;&#x6587;&#x4EF6;&#xFF0C;&#x6765;&#x5206;&#x6790;&#x4E00;&#x4E0B;&#x5B83;&#x662F;&#x5982;&#x4F55;&#x542F;&#x52A8;<code>Zygote</code>&#x8FDB;&#x7A0B;&#x7684;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">on early-init</div><div class="line">    # Set init and its forked children&apos;s oom_adj.</div><div class="line">    write /proc/1/oom_score_adj -1000</div><div class="line"> </div><div class="line">    # Apply strict SELinux checking of PROT_EXEC on mmap/mprotect calls.</div><div class="line">    write /sys/fs/selinux/checkreqprot 0</div><div class="line"> </div><div class="line">    # Set the security context for the init process.</div><div class="line">    # This should occur before anything else (e.g. ueventd) is started.</div><div class="line">    setcon u:r:init:s0</div><div class="line"> </div><div class="line">    # Set the security context of /adb_keys if present.</div><div class="line">    restorecon /adb_keys</div><div class="line"> </div><div class="line">    start ueventd</div><div class="line"> </div><div class="line">    # create mountpoints</div><div class="line">    mkdir /mnt 0775 root system</div><div class="line"> </div><div class="line">on init</div><div class="line">    sysclktz 0</div><div class="line"> </div><div class="line">    loglevel 3</div><div class="line"> </div><div class="line">    ...</div><div class="line">    ...</div><div class="line"> </div><div class="line">on late-init</div><div class="line">   ...</div><div class="line">   ...</div><div class="line"> </div><div class="line">on post-fs //&#x6302;&#x8F7D;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</div><div class="line">    </div><div class="line">   ...</div><div class="line">   ...</div><div class="line"> </div><div class="line">on post-fs-data //&#x6302;&#x8F7D;data</div><div class="line">   ...</div><div class="line">   ...</div><div class="line"> </div><div class="line">on boot //&#x542F;&#x52A8;&#x6838;&#x5FC3;&#x670D;&#x52A1;</div><div class="line">   ...</div><div class="line">   ...</div><div class="line"> </div><div class="line">   class_start very-first</div><div class="line"> </div><div class="line">on property:androVM.inited=1</div><div class="line">    class_start core</div><div class="line">    class_start main</div><div class="line"> </div><div class="line">on property:genymotion.local_opengl.started=1</div><div class="line">    start surfaceflinger</div><div class="line"> </div><div class="line">on nonencrypted</div><div class="line">    class_start main</div><div class="line">    class_start late_start</div></pre></td></tr></table></figure>
+<p>&#x4EE5;&#x4E0A;&#x662F;&#x5404;&#x4E2A;&#x89E6;&#x53D1;&#x5668;&#x7684;&#x6267;&#x884C;&#x987A;&#x5E8F;&#x3002;&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#x4F1A;&#x6267;&#x884C;<code>class_start</code>&#x6765;&#x542F;&#x52A8;&#x540D;&#x79F0;&#x4E3A;<code>main</code>&#x7684;&#x7C7B;&#xFF0C;&#x5E76;&#x542F;&#x52A8;&#x5B83;&#x5173;&#x8054;&#x7684;<code>service</code>&#x3002;</p>
+<p>&#x5176;&#x4E2D;<code>class_start</code>&#x5BF9;&#x5E94;&#x7684;&#x5C31;&#x662F;<code>builtins.cpp</code>&#x4E2D;&#x7684;<code>do_class_start</code>&#x3002;&#x5B83;&#x4EEC;&#x4E4B;&#x95F4;&#x7684;&#x6620;&#x5C04;&#x5173;&#x7CFB;&#x662F;&#x7531;<code>BuiltinFunctionMap</code>&#x7EF4;&#x62A4;&#x7684;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">const BuiltinFunctionMap&amp; GetBuiltinFunctionMap() {</div><div class="line">    constexpr std::size_t kMax = std::numeric_limits&lt;std::size_t&gt;::max();</div><div class="line">    // clang-format off</div><div class="line">    static const BuiltinFunctionMap builtin_functions = {</div><div class="line">        {&quot;bootchart&quot;,               {1,     1,    {false,  do_bootchart}}},</div><div class="line">        {&quot;chmod&quot;,                   {2,     2,    {true,   do_chmod}}},</div><div class="line">        {&quot;chown&quot;,                   {2,     3,    {true,   do_chown}}},</div><div class="line">        {&quot;class_reset&quot;,             {1,     1,    {false,  do_class_reset}}},</div><div class="line">        {&quot;class_reset_post_data&quot;,   {1,     1,    {false,  do_class_reset_post_data}}},</div><div class="line">        {&quot;class_restart&quot;,           {1,     1,    {false,  do_class_restart}}},</div><div class="line">        {&quot;class_start&quot;,             {1,     1,    {false,  do_class_start}}},</div><div class="line">        {&quot;class_start_post_data&quot;,   {1,     1,    {false,  do_class_start_post_data}}},</div><div class="line">        ...</div><div class="line">        ...</div><div class="line">   }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5B83;&#x4E0E;&#x5BF9;&#x5E94;&#x7684;<code>Actions</code>&#x7ED1;&#x5B9A;&#x662F;&#x5728;<code>init.cpp</code>&#x4E2D;&#x7684;<code>SecondStageMain</code>&#x65B9;&#x6CD5;&#x91CC;&#x9762;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">const BuiltinFunctionMap&amp; function_map = GetBuiltinFunctionMap();</div><div class="line">Action::set_function_map(&amp;function_map);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>system/core/init/builtins.cpp</p>
+</blockquote>
+<p>&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x76F4;&#x63A5;&#x770B;<code>do_class_start</code>&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">static Result&lt;void&gt; do_class_start(const BuiltinArguments&amp; args) {</div><div class="line">    // Do not start a class if it has a property persist.dont_start_class.CLASS set to 1.</div><div class="line">    if (android::base::GetBoolProperty(&quot;persist.init.dont_start_class.&quot; + args[1], false))</div><div class="line">        return {};</div><div class="line">    // Starting a class does not start services which are explicitly disabled.</div><div class="line">    // They must  be started individually.</div><div class="line">    for (const auto&amp; service : ServiceList::GetInstance()) {</div><div class="line">        if (service-&gt;classnames().count(args[1])) {</div><div class="line">            if (auto result = service-&gt;StartIfNotDisabled(); !result.ok()) {</div><div class="line">                LOG(ERROR) &lt;&lt; &quot;Could not start service &apos;&quot; &lt;&lt; service-&gt;name()</div><div class="line">                           &lt;&lt; &quot;&apos; as part of class &apos;&quot; &lt;&lt; args[1] &lt;&lt; &quot;&apos;: &quot; &lt;&lt; result.error();</div><div class="line">            }</div><div class="line">        }</div><div class="line">    }</div><div class="line">    return {};</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x65B9;&#x6CD5;&#x4E2D;&#x4F1A;&#x901A;&#x8FC7;<code>ServiceList::GetInstance</code>&#x6765;&#x83B7;&#x53D6;&#x89E3;&#x6790;<code>.rc</code>&#x6587;&#x4EF6;&#x4E2D;&#x7684;<code>Service</code>&#x94FE;&#x8868;&#xFF0C;&#x901A;&#x8FC7;&#x5339;&#x914D;&#x5BF9;&#x5E94;&#x7684;<code>classnames</code>&#x6765;&#x627E;&#x5230;&#x5BF9;&#x5E94;&#x7684;<code>Service</code>&#x3002;</p>
+<p>&#x6839;&#x636E;&#x4E0A;&#x9762;&#x7684;<code>class_start main</code>&#xFF0C;&#x8BF4;&#x660E;&#x8981;&#x627E;&#x7684;&#x662F;<code>class</code>&#x540D;&#x79F0;&#x4E3A;<code>main</code>&#x8FD9;&#x4E2A;&#x5173;&#x8054;&#x7684;<code>Service</code>&#x3002;</p>
+<p>&#x8FD9;&#x4E2A;<code>main service</code>&#x4F4D;&#x4E8E;<code>init.zygote.rc</code>&#x4E2D;&#xFF0C;&#x5185;&#x90E8;&#x6E90;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-system-server</div><div class="line">    class main</div><div class="line">    socket zygote stream 660 root system</div><div class="line">    onrestart write /sys/android_power/request_state wake</div><div class="line">    onrestart write /sys/power/state on</div><div class="line">    onrestart restart media</div><div class="line">    onrestart restart netd</div></pre></td></tr></table></figure>
+<p>&#x5B83;&#x53EA;&#x6CE8;&#x518C;&#x4E86;&#x4E00;&#x4E2A;<code>service</code>&#xFF0C;&#x540D;&#x79F0;&#x4E3A;<code>zygote</code>&#xFF0C;&#x5BF9;&#x5E94;&#x7684;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x4E3A;<code>/system/bin/app_process</code>, &#x540E;&#x9762;&#x7684;<code>--zygote --start-system-serve</code>&#x90FD;&#x662F;&#x5B83;&#x7684;&#x542F;&#x52A8;&#x53C2;&#x6570;&#x3002;</p>
+<p>&#x901A;&#x8FC7;<code>class main</code>&#x8BBE;&#x7F6E;&#x5B83;&#x7684;&#x542F;&#x52A8;&#x7C7B;&#x4E3A;<code>main</code>&#xFF0C;&#x901A;&#x8FC7;&#x5B83;&#x6765;&#x542F;&#x52A8;&#x8FD9;&#x4E2A;<code>service</code>&#x3002;</p>
+<p>&#x8FD9;&#x91CC;&#x6B63;&#x597D;&#x5BF9;&#x5E94;&#x7684;&#x4E0A;&#x9762;&#x9700;&#x8981;&#x5BFB;&#x627E;&#x7684;&#x7C7B;&#x540D;&#x4E3A;<code>main</code>&#x7684;&#x542F;&#x52A8;&#x7C7B;&#x6765;&#x542F;&#x52A8;<code>service</code>&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x542F;&#x52A8;&#x7684;&#x8FD9;&#x4E2A;<code>service</code>&#x5C31;&#x662F;<code>zygote</code>&#x3002;</p>
+<p>&#x81F3;&#x4E8E;<code>service</code>&#x7684;&#x89E3;&#x6790;&#x8FC7;&#x7A0B;&#x5728;&#x4E4B;&#x524D;&#x7684;&#x6587;&#x7AE0;<code>init</code>&#x542F;&#x52A8;&#x6709;&#x63D0;&#x53CA;&#x8FC7;&#xFF0C;&#x5B83;&#x662F;&#x901A;&#x8FC7;<code>LoadBootScripts(am, sm)</code>&#x8FDB;&#x5165;&#x89E3;&#x6790;<code>.rc</code>&#x6587;&#x4EF6;&#xFF0C;&#x7136;&#x540E;&#x5185;&#x90E8;&#x4F1A;&#x901A;&#x8FC7;<code>service_parser.cpp</code>&#x6765;&#x89E3;&#x6790;&#x5BF9;&#x5E94;&#x7684;<code>service</code>&#x8BED;&#x53E5;&#xFF0C;&#x6700;&#x540E;&#x5C06;&#x89E3;&#x6790;&#x7684;<code>service</code>&#x4FE1;&#x606F;&#x6DFB;&#x52A0;&#x5230;<code>service vector</code>&#x94FE;&#x8868;&#x4E2D;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">service_list_-&gt;AddService(std::move(service_));</div><div class="line"> </div><div class="line">vector&lt;_Tp, _Allocator&gt;::__emplace_back_slow_path(_Args&amp;&amp;... __args)</div></pre></td></tr></table></figure>
+<p>&#x627E;&#x5230;&#x5339;&#x914D;&#x7684;<code>main class</code>&#x4E4B;&#x540E;&#xFF0C;&#x4F1A;&#x8FDB;&#x5165;<code>StartIfNotDisabled</code></p>
+<blockquote>
+<p>system/core/init/service.cpp</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Result&lt;void&gt; Service::StartIfNotDisabled() {</div><div class="line">    if (!(flags_ &amp; SVC_DISABLED)) {</div><div class="line">        return Start();</div><div class="line">    } else {</div><div class="line">        flags_ |= SVC_DISABLED_START;</div><div class="line">    }</div><div class="line">    return {};</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5982;&#x679C;&#x5B83;&#x4E0D;&#x662F;<code>disabled</code>&#x5C31;&#x662F;&#x8C03;&#x7528;<code>Start</code>&#xFF0C;&#x901A;&#x8FC7;&#x4E0A;&#x9762;&#x7684;<code>service</code>&#x6CE8;&#x518C;&#x4FE1;&#x606F;&#x662F;&#x6CA1;&#x6709;&#x8BBE;&#x7F6E;<code>disabled</code>&#xFF0C;&#x6240;&#x4EE5;&#x4E3A;<code>false</code>&#x3002;&#x5373;&#x8FDB;&#x5165;<code>Start</code>&#x542F;&#x52A8;<code>service</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">Result&lt;void&gt; Service::Start() {</div><div class="line">  </div><div class="line">    ...</div><div class="line">    ...</div><div class="line"> </div><div class="line">    if (flags_ &amp; SVC_RUNNING) {</div><div class="line">        if ((flags_ &amp; SVC_ONESHOT) &amp;&amp; disabled) {</div><div class="line">            flags_ |= SVC_RESTART;</div><div class="line">        }</div><div class="line">        // &#x5982;&#x679C;&#x6CA1;&#x6709;&#x9519;&#x8BEF;&#x5C31;&#x542F;&#x52A8;&#x4E4B;&#x524D;&#x542F;&#x52A8;&#x7684;service</div><div class="line">        reboot_on_failure.Disable();</div><div class="line">        return {};</div><div class="line">    }</div><div class="line"> </div><div class="line">    &#x3002;&#x3002;&#x3002;</div><div class="line"> </div><div class="line">    // &#x5224;&#x65AD;&#x8BE5;service&#x5BF9;&#x4E8E;&#x7684;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x5B58;&#x5728;</div><div class="line">    struct stat sb;</div><div class="line">    if (stat(args_[0].c_str(), &amp;sb) == -1) {</div><div class="line">        flags_ |= SVC_DISABLED;</div><div class="line">        return ErrnoError() &lt;&lt; &quot;Cannot find &apos;&quot; &lt;&lt; args_[0] &lt;&lt; &quot;&apos;&quot;;</div><div class="line">    }</div><div class="line"> </div><div class="line">    ...</div><div class="line"> </div><div class="line">    pid_t pid = -1;</div><div class="line">    if (namespaces_.flags) {</div><div class="line">        pid = clone(nullptr, nullptr, namespaces_.flags | SIGCHLD, nullptr);</div><div class="line">    } else {</div><div class="line">        // fork()&#x521B;&#x5EFA;&#x5B50;&#x8FDB;&#x7A0B;</div><div class="line">        pid = fork();</div><div class="line">    }</div><div class="line">  </div><div class="line">    if (pid == 0) { // fork&#x7684;&#x5B50;&#x8FDB;&#x7A0B;</div><div class="line">        umask(077);</div><div class="line">  </div><div class="line">        ...</div><div class="line">        ...</div><div class="line">  </div><div class="line">        if (!ExpandArgsAndExecv(args_, sigstop_)) {</div><div class="line">            PLOG(ERROR) &lt;&lt; &quot;cannot execv(&apos;&quot; &lt;&lt; args_[0]</div><div class="line">                        &lt;&lt; &quot;&apos;). See the &apos;Debugging init&apos; section of init&apos;s README.md for tips&quot;;</div><div class="line">        }</div><div class="line">  </div><div class="line">        _exit(127);</div><div class="line">    }</div><div class="line"> </div><div class="line">    ...</div><div class="line"> </div><div class="line">    NotifyStateChange(&quot;running&quot;);</div><div class="line">    reboot_on_failure.Disable();</div><div class="line">    return {};</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5728;<code>Start</code>&#x4E2D;&#x9996;&#x5148;&#x4F1A;&#x5224;&#x65AD;&#x8BE5;<code>service</code>&#x662F;&#x5426;&#x5DF2;&#x7ECF;&#x542F;&#x52A8;&#xFF0C;&#x82E5;&#x6CA1;&#x6709;&#xFF0C;&#x7136;&#x540E;&#x53BB;&#x9A8C;&#x8BC1;&#x8BE5;<code>service</code>&#x662F;&#x5426;&#x80FD;&#x591F;&#x627E;&#x5230;&#x5BF9;&#x5E94;&#x7684;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#xFF0C;&#x8FD9;&#x91CC;&#x5BF9;&#x5E94;&#x7684;&#x5C31;&#x662F;<code>/system/bin/app_process</code>&#x3002;<br>&#x6700;&#x540E;&#x4F1A;&#x901A;&#x8FC7;<code>fork()</code>&#x6765;&#x521B;&#x5EFA;&#x5B50;&#x8FDB;&#x7A0B;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;<code>pid = 0</code>&#x3002;</p>
+<p>&#x6240;&#x4EE5;&#x5F53;<code>pid === 0</code>&#x65F6;&#xFF0C;&#x8BF4;&#x660E;&#x8FD0;&#x884C;&#x5728;&#x5B50;&#x8FDB;&#x7A0B;&#x4E2D;&#xFF0C;&#x7136;&#x540E;&#x8FDB;&#x5165;<code>ExpandArgsAndExecv</code>&#x65B9;&#x6CD5;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">static bool ExpandArgsAndExecv(const std::vector&lt;std::string&gt;&amp; args, bool sigstop) {</div><div class="line">    std::vector&lt;std::string&gt; expanded_args;</div><div class="line">    std::vector&lt;char*&gt; c_strings;</div><div class="line"> </div><div class="line">    expanded_args.resize(args.size());</div><div class="line">    c_strings.push_back(const_cast&lt;char*&gt;(args[0].data()));</div><div class="line">    for (std::size_t i = 1; i &lt; args.size(); ++i) {</div><div class="line">        auto expanded_arg = ExpandProps(args[i]);</div><div class="line">        if (!expanded_arg.ok()) {</div><div class="line">            LOG(FATAL) &lt;&lt; args[0] &lt;&lt; &quot;: cannot expand arguments&apos;: &quot; &lt;&lt; expanded_arg.error();</div><div class="line">        }</div><div class="line">        expanded_args[i] = *expanded_arg;</div><div class="line">        c_strings.push_back(expanded_args[i].data());</div><div class="line">    }</div><div class="line">    c_strings.push_back(nullptr);</div><div class="line"></div><div class="line">    if (sigstop) {</div><div class="line">        kill(getpid(), SIGSTOP);</div><div class="line">    }</div><div class="line"> </div><div class="line">    // &#x542F;&#x52A8;zygote</div><div class="line">    return execv(c_strings[0], c_strings.data()) == 0;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5728;<code>ExpandArgsAndExecv</code>&#x65B9;&#x6CD5;&#x4E2D;&#x6700;&#x540E;&#x4F1A;&#x901A;&#x8FC7;<code>execv</code>&#x6765;&#x542F;&#x52A8;&#x5B50;&#x8FDB;&#x7A0B;&#xFF0C;&#x5BF9;&#x5E94;&#x7684;&#x662F;&#x8FDB;&#x5165;<code>app_main.cpp</code>&#x5E76;&#x8C03;&#x7528;&#x5B83;&#x7684;<code>main</code>&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x5373;<code>zygote</code>&#x662F;&#x901A;&#x8FC7;<code>fork</code>&#x548C;<code>execv</code>&#x5171;&#x540C;&#x521B;&#x5EFA;&#x7684;&#x3002;</p>
+<p>&#x518D;&#x6765;&#x770B;<code>app_main.cpp</code>&#x505A;&#x4E86;&#x4EC0;&#x4E48;</p>
+<blockquote>
+<p>frameworks/base/cmds/app_process/app_main.cpp</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">int main(int argc, char* const argv[])</div><div class="line">{</div><div class="line">    ...</div><div class="line">    ...</div><div class="line">     </div><div class="line">    // --zygote : Start in zygote mode</div><div class="line">    // --start-system-server : Start the system server.</div><div class="line">    // --application : Start in application (stand alone, non zygote) mode.</div><div class="line">    // --nice-name : The nice name for this process.</div><div class="line">  </div><div class="line">    ...</div><div class="line"> </div><div class="line">    bool zygote = false;</div><div class="line">    bool startSystemServer = false;</div><div class="line">    bool application = false;</div><div class="line">    String8 niceName;</div><div class="line">    String8 className;</div><div class="line"> </div><div class="line">    ++i;  // Skip unused &quot;parent dir&quot; argument.</div><div class="line">    while (i &lt; argc) {</div><div class="line">        const char* arg = argv[i++];</div><div class="line">        if (strcmp(arg, &quot;--zygote&quot;) == 0) {</div><div class="line">            // &#x542F;&#x52A8;&#x7684;&#x662F;zygote</div><div class="line">            zygote = true;</div><div class="line">            // &#x8BBE;&#x7F6E;&#x8FDB;&#x7A0B;&#x540D;&#x79F0;&#xFF0C;&#x8FD9;&#x91CC;&#x4E3A;zygote</div><div class="line">            niceName = ZYGOTE_NICE_NAME;</div><div class="line">        } else if (strcmp(arg, &quot;--start-system-server&quot;) == 0) {</div><div class="line">            // &#x542F;&#x52A8;&#x5B8C;zygote&#x4E4B;&#x540E;&#xFF0C;&#x9700;&#x8981;&#x5F00;&#x542F;system service</div><div class="line">            startSystemServer = true;</div><div class="line">        } else if (strcmp(arg, &quot;--application&quot;) == 0) {</div><div class="line">            application = true;</div><div class="line">        } else if (strncmp(arg, &quot;--nice-name=&quot;, 12) == 0) {</div><div class="line">            niceName.setTo(arg + 12);</div><div class="line">        } else if (strncmp(arg, &quot;--&quot;, 2) != 0) {</div><div class="line">            className.setTo(arg);</div><div class="line">            break;</div><div class="line">        } else {</div><div class="line">            --i;</div><div class="line">            break;</div><div class="line">        }</div><div class="line">    }</div><div class="line"> </div><div class="line">    ...</div><div class="line"> </div><div class="line">    if (zygote) {</div><div class="line">        // &#x542F;&#x52A8;java ZygoteInit</div><div class="line">        runtime.start(&quot;com.android.internal.os.ZygoteInit&quot;, args, zygote);</div><div class="line">    } else if (className) {</div><div class="line">        runtime.start(&quot;com.android.internal.os.RuntimeInit&quot;, args, zygote);</div><div class="line">    } else {</div><div class="line">        fprintf(stderr, &quot;Error: no class name or --zygote supplied.\n&quot;);</div><div class="line">        app_usage();</div><div class="line">        LOG_ALWAYS_FATAL(&quot;app_process: no class name or --zygote supplied.&quot;);</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x6838;&#x5FC3;&#x90E8;&#x5206;&#x5C31;&#x4E24;&#x6B65;&#xFF0C;&#x7B2C;&#x4E00;&#x6B65;&#x662F;&#x89E3;&#x6790;<code>service</code>&#x4E2D;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x8FD9;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x5728;<code>.rc</code>&#x4E2D;&#x6CE8;&#x518C;&#x65F6;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x7B2C;&#x4E8C;&#x6B65;&#x901A;&#x8FC7;<code>runtime.start</code>&#x6765;&#x542F;&#x52A8;<code>java</code>&#x4E2D;&#x7684;<code>ZygoteInit</code>&#x3002;</p>
+<p>&#x8FD9;&#x4E00;&#x6B65;&#x662F;<code>Linux</code>&#x9996;&#x6B21;&#x8FDB;&#x5165;&#x5230;<code>Java</code>&#x5C42;&#x3002;</p>
+<p>&#x4E3A;&#x4E86;&#x907F;&#x514D;&#x5355;&#x7BC7;&#x5E45;&#x5EA6;&#x8FC7;&#x957F;&#xFF0C;&#x5173;&#x4E8E;<code>Linux</code>&#x5982;&#x4F55;&#x542F;&#x52A8;<code>Java</code>&#x4E2D;&#x7684;<code>ZygoteInit</code>&#x4E0E;<code>ZygoteInit</code>&#x7684;&#x5185;&#x90E8;&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#xFF0C;&#x8FD9;&#x5757;&#x7684;&#x5177;&#x4F53;&#x5185;&#x5BB9;&#x5C06;&#x4F1A;&#x5728;&#x4E0B;&#x7BC7;&#x6587;&#x7AE0;&#x7EE7;&#x7EED;&#x5206;&#x6790;&#x3002;</p>
+<p>&#x6700;&#x540E;&#x603B;&#x7ED3;&#x4E00;&#x4E0B;<code>zygote</code>&#x5728;<code>Linux</code>&#x4E2D;&#x7684;&#x521B;&#x5EFA;&#x8FC7;&#x7A0B;&#xFF1A;</p>
+<ol>
+<li>&#x901A;&#x8FC7;<code>LoadBootScripts(am, sm)</code>&#x89E3;&#x6790;<code>.rc</code>&#x6587;&#x4EF6;</li>
+<li>&#x89E3;&#x6790;&#x5B8C;&#x4E4B;&#x540E;&#xFF0C;&#x6839;&#x636E;<code>Actions</code>&#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x65F6;&#x673A;&#x627E;&#x5230;&#x7C7B;&#x540D;&#x4E3A;<code>main</code>&#x7684;&#x542F;&#x52A8;&#x7C7B;</li>
+<li>&#x6839;&#x636E;<code>main</code>&#x542F;&#x52A8;&#x7C7B;&#x6765;&#x542F;&#x52A8;&#x5BF9;&#x5E94;&#x7684;<code>zygote</code>&#x670D;&#x52A1;</li>
+<li>&#x7136;&#x540E;&#x901A;&#x8FC7;<code>fork</code>&#x6765;&#x521B;&#x5EFA;<code>zygote</code>&#x5B50;&#x8FDB;&#x7A0B;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;<code>pid = 0</code></li>
+<li>&#x901A;&#x8FC7;<code>execv</code>&#x6765;&#x542F;&#x52A8;<code>zygote</code>&#x5B50;&#x8FDB;&#x7A0B;&#xFF0C;&#x8FDB;&#x5165;<code>app_main.cpp</code>&#x7684;<code>main</code>&#x65B9;&#x6CD5;<br>&#x65B9;&#x6CD5;</li>
+<li>&#x6700;&#x540E;&#x518D;&#x89E3;&#x6790;&#x6CE8;&#x518C;&#x8868;&#x4E2D;<code>service</code>&#x7684;&#x53C2;&#x6570;&#x5E76;&#x901A;&#x8FC7;<code>runtime.start</code>&#x542F;&#x52A8;<code>java</code>&#x5C42;&#x7684;<code>ZygoteInit</code></li>
+</ol>
+<p><strong>&#x4E00;&#x56FE;&#x80DC;&#x5343;&#x6587;</strong></p>
+<p><img src="/2020/12/10/Android-Linux-Zygote&#x542F;&#x52A8;/linux_zygote_init.png" alt="linux_zygote_init"></p>
+<h2 id="&#x9879;&#x76EE;"><a href="#&#x9879;&#x76EE;" class="headerlink" title="&#x9879;&#x76EE;"></a>&#x9879;&#x76EE;</h2><p><a href="https://github.com/idisfkj/android-startup" target="_blank" rel="external">android_startup</a>: &#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x5728;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65F6;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x3001;&#x9AD8;&#x6548;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521D;&#x59CB;&#x5316;&#x7EC4;&#x4EF6;&#x3002;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>android-startup</code>&#x6765;&#x7B80;&#x5316;&#x542F;&#x52A8;&#x5E8F;&#x5217;&#xFF0C;&#x5E76;&#x663E;&#x5F0F;&#x5730;&#x8BBE;&#x7F6E;&#x521D;&#x59CB;&#x5316;&#x987A;&#x5E8F;&#x4E0E;&#x7EC4;&#x4EF6;&#x4E4B;&#x95F4;&#x7684;&#x4F9D;&#x8D56;&#x5173;&#x7CFB;&#x3002; &#x4E0E;&#x6B64;&#x540C;&#x65F6;<code>android-startup</code>&#x652F;&#x6301;&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#x7B49;&#x5F85;&#xFF0C;&#x5E76;&#x901A;&#x8FC7;&#x6709;&#x5411;&#x65E0;&#x73AF;&#x56FE;&#x62D3;&#x6251;&#x6392;&#x5E8F;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x4FDD;&#x8BC1;&#x5185;&#x90E8;&#x4F9D;&#x8D56;&#x7EC4;&#x4EF6;&#x7684;&#x521D;&#x59CB;&#x5316;&#x987A;&#x5E8F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="external">AwesomeGithub</a>: &#x57FA;&#x4E8E;<code>Github</code>&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7EAF;&#x7EC3;&#x4E60;&#x9879;&#x76EE;&#xFF0C;&#x652F;&#x6301;&#x7EC4;&#x4EF6;&#x5316;&#x5F00;&#x53D1;&#xFF0C;&#x652F;&#x6301;&#x8D26;&#x6237;&#x5BC6;&#x7801;&#x4E0E;&#x8BA4;&#x8BC1;&#x767B;&#x9646;&#x3002;&#x4F7F;&#x7528;<code>Kotlin</code>&#x8BED;&#x8A00;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#xFF0C;&#x9879;&#x76EE;&#x67B6;&#x6784;&#x662F;&#x57FA;&#x4E8E;<code>Jetpack&amp;DataBinding</code>&#x7684;<code>MVVM</code>&#xFF1B;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;<code>Arouter</code>&#x3001;<code>Retrofit</code>&#x3001;<code>Coroutine</code>&#x3001;<code>Glide</code>&#x3001;<code>Dagger</code>&#x4E0E;<code>Hilt</code>&#x7B49;&#x6D41;&#x884C;&#x5F00;&#x6E90;&#x6280;&#x672F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="external">flutter_github</a>: &#x57FA;&#x4E8E;<code>Flutter</code>&#x7684;&#x8DE8;&#x5E73;&#x53F0;&#x7248;&#x672C;<code>Github</code>&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x4E0E;<code>AwesomeGithub</code>&#x76F8;&#x5BF9;&#x5E94;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="external">android-api-analysis</a>: &#x7ED3;&#x5408;&#x8BE6;&#x7EC6;&#x7684;<code>Demo</code>&#x6765;&#x5168;&#x9762;&#x89E3;&#x6790;<code>Android</code>&#x76F8;&#x5173;&#x7684;&#x77E5;&#x8BC6;&#x70B9;, &#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x5FEB;&#x7684;&#x638C;&#x63E1;&#x4E0E;&#x7406;&#x89E3;&#x6240;&#x9610;&#x8FF0;&#x7684;&#x8981;&#x70B9;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/daily_algorithm" target="_blank" rel="external">daily_algorithm</a>: &#x6BCF;&#x65E5;&#x4E00;&#x7B97;&#x6CD5;&#xFF0C;&#x7531;&#x6D45;&#x5165;&#x6DF1;&#xFF0C;&#x6B22;&#x8FCE;&#x52A0;&#x5165;&#x4E00;&#x8D77;&#x5171;&#x52C9;&#x3002;</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">赞赏是一门艺术</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/rouse_wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/rouse_alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2020/12/08/Android-init-启动/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="fexo-comments comments-post">
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
+  <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.js"></script>
+  <script>
+    (function () {
+      var gitment = new Gitment({
+        owner: 'idisfkj',
+        repo: 'idisfkj.github.io',
+        id: 'Thu Dec 10 2020 18:23:47 GMT+0800',
+        oauth: {
+          client_id: 'dafb1df02ea9f875bb78',
+          client_secret: 'e9873d78aa5eaed5ce61d1d865a5af501dae377a'
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      })
+      gitment.render('gitment-comments')
+    })()
+  </script>
+
+  
+  
+</div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
