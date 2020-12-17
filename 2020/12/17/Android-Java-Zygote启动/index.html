@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android Java Zygote启动 | Rouse</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="启动," />
+  
+
+  <meta name="description" content="Android init &amp;#x542F;&amp;#x52A8;
+Android Linux Zygote&amp;#x542F;&amp;#x52A8;
+&amp;#x5728;&amp;#x4E4B;&amp;#x524D;&amp;#x7684;&amp;#x6587;&amp;#x7AE0;&amp;#x4E2D;&amp;#x6211;&amp;#x4EEC;&amp;#x5DF2;&amp;#x7ECF;&amp;#x5206;&amp;#x6790;&amp;#x5230;Zygote&amp;#x6700;&amp;#x540E">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Java Zygote启动">
+<meta property="og:url" content="https://www.rousetime.com/2020/12/17/Android-Java-Zygote启动/index.html">
+<meta property="og:site_name" content="Rouse">
+<meta property="og:description" content="Android init &amp;#x542F;&amp;#x52A8;
+Android Linux Zygote&amp;#x542F;&amp;#x52A8;
+&amp;#x5728;&amp;#x4E4B;&amp;#x524D;&amp;#x7684;&amp;#x6587;&amp;#x7AE0;&amp;#x4E2D;&amp;#x6211;&amp;#x4EEC;&amp;#x5DF2;&amp;#x7ECF;&amp;#x5206;&amp;#x6790;&amp;#x5230;Zygote&amp;#x6700;&amp;#x540E">
+<meta property="og:image" content="https://www.rousetime.com/2020/12/17/Android-Java-Zygote启动/java_zygote.jpg">
+<meta property="og:updated_time" content="2020-12-17T12:39:23.818Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Java Zygote启动">
+<meta name="twitter:description" content="Android init &amp;#x542F;&amp;#x52A8;
+Android Linux Zygote&amp;#x542F;&amp;#x52A8;
+&amp;#x5728;&amp;#x4E4B;&amp;#x524D;&amp;#x7684;&amp;#x6587;&amp;#x7AE0;&amp;#x4E2D;&amp;#x6211;&amp;#x4EEC;&amp;#x5DF2;&amp;#x7ECF;&amp;#x5206;&amp;#x6790;&amp;#x5230;Zygote&amp;#x6700;&amp;#x540E">
+<meta name="twitter:image" content="https://www.rousetime.com/2020/12/17/Android-Java-Zygote启动/java_zygote.jpg">
+
+  
+
+  
+  <!-- <link href="/favicon.ico" rel="icon" type="image/x-icon"> -->
+    <link rel="icon" href="/favicon.ico">
+    <!-- <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?bd7ea96a22c9c7b90353962460fa0b8e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AndroidRuntime"><span class="toc-text">AndroidRuntime</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建虚拟机"><span class="toc-text">创建虚拟机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JNI方法注册"><span class="toc-text">JNI方法注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参数、类、方法构建与调用"><span class="toc-text">参数、类、方法构建与调用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ZygoteInit"><span class="toc-text">ZygoteInit</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#注册Socket"><span class="toc-text">注册Socket</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#预加载"><span class="toc-text">预加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SystemServer"><span class="toc-text">SystemServer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#runSelectLoop"><span class="toc-text">runSelectLoop</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#processOneCommand"><span class="toc-text">processOneCommand</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目"><span class="toc-text">项目</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Android-Java-Zygote启动" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Android Java Zygote启动</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2020.12.17</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Rouse</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p><a href="https://mp.weixin.qq.com/s?__biz=MzIzNTc5NDY4Nw==&amp;mid=2247484889&amp;idx=1&amp;sn=b39c8bc0a9925464022b77a341263cf0&amp;chksm=e8e0fc49df97755f598ef0082409c573d7715ce33bb27b1c98194410d487ae69adbeb2293d84&amp;token=1204064574&amp;lang=zh_CN#rd" target="_blank" rel="external">Android init &#x542F;&#x52A8;</a></p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzIzNTc5NDY4Nw==&amp;mid=2247484889&amp;idx=1&amp;sn=b39c8bc0a9925464022b77a341263cf0&amp;chksm=e8e0fc49df97755f598ef0082409c573d7715ce33bb27b1c98194410d487ae69adbeb2293d84&amp;token=1204064574&amp;lang=zh_CN#rd" target="_blank" rel="external">Android Linux Zygote&#x542F;&#x52A8;</a></p>
+<p>&#x5728;&#x4E4B;&#x524D;&#x7684;&#x6587;&#x7AE0;&#x4E2D;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x5206;&#x6790;&#x5230;<code>Zygote</code>&#x6700;&#x540E;&#x5728;<code>Linux</code>&#x7684;<code>init</code>&#x8FDB;&#x7A0B;&#x4E2D;&#x662F;&#x901A;&#x8FC7;&#x5982;&#x4E0B;&#x4EE3;&#x7801;&#x542F;&#x52A8;<code>Java</code>&#x5C42;&#x7684;<code>ZygoteInit</code>&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">runtime.start(&quot;com.android.internal.os.ZygoteInit&quot;, args, zygote);</div></pre></td></tr></table></figure>
+<p>&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x8FDB;&#x5165;<code>runtime.start()</code>&#x65B9;&#x6CD5;&#x770B;&#x4E0B;&#x5B83;&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x3002;</p>
+<h2 id="AndroidRuntime"><a href="#AndroidRuntime" class="headerlink" title="AndroidRuntime"></a>AndroidRuntime</h2><blockquote>
+<p>frameworks/base/core/jni/AndroidRuntime.cpp</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div></pre></td><td class="code"><pre><div class="line">void AndroidRuntime::start(const char* className, const Vector&lt;String8&gt;&amp; options, bool zygote)</div><div class="line">{</div><div class="line">    ALOGD(&quot;&gt;&gt;&gt;&gt;&gt;&gt; START %s uid %d &lt;&lt;&lt;&lt;&lt;&lt;\n&quot;,</div><div class="line">            className != NULL ? className : &quot;(unknown)&quot;, getuid());</div><div class="line"> </div><div class="line">    static const String8 startSystemServer(&quot;start-system-server&quot;);</div><div class="line">    // Whether this is the primary zygote, meaning the zygote which will fork system server.</div><div class="line">    bool primary_zygote = false;</div><div class="line"> </div><div class="line">    /*</div><div class="line">     * &apos;startSystemServer == true&apos; means runtime is obsolete and not run from</div><div class="line">     * init.rc anymore, so we print out the boot start event here.</div><div class="line">     */</div><div class="line">    for (size_t i = 0; i &lt; options.size(); ++i) {</div><div class="line">        if (options[i] == startSystemServer) {</div><div class="line">            primary_zygote = true;</div><div class="line">           /* track our progress through the boot sequence */</div><div class="line">           const int LOG_BOOT_PROGRESS_START = 3000;</div><div class="line">           LOG_EVENT_LONG(LOG_BOOT_PROGRESS_START,  ns2ms(systemTime(SYSTEM_TIME_MONOTONIC)));</div><div class="line">        }</div><div class="line">    }</div><div class="line"> </div><div class="line">    const char* rootDir = getenv(&quot;ANDROID_ROOT&quot;);</div><div class="line">    if (rootDir == NULL) {</div><div class="line">        rootDir = &quot;/system&quot;;</div><div class="line">        if (!hasDir(&quot;/system&quot;)) {</div><div class="line">            LOG_FATAL(&quot;No root directory specified, and /system does not exist.&quot;);</div><div class="line">            return;</div><div class="line">        }</div><div class="line">        setenv(&quot;ANDROID_ROOT&quot;, rootDir, 1);</div><div class="line">    }</div><div class="line"> </div><div class="line">    const char* artRootDir = getenv(&quot;ANDROID_ART_ROOT&quot;);</div><div class="line">    if (artRootDir == NULL) {</div><div class="line">        LOG_FATAL(&quot;No ART directory specified with ANDROID_ART_ROOT environment variable.&quot;);</div><div class="line">        return;</div><div class="line">    }</div><div class="line"> </div><div class="line">    const char* i18nRootDir = getenv(&quot;ANDROID_I18N_ROOT&quot;);</div><div class="line">    if (i18nRootDir == NULL) {</div><div class="line">        LOG_FATAL(&quot;No runtime directory specified with ANDROID_I18N_ROOT environment variable.&quot;);</div><div class="line">        return;</div><div class="line">    }</div><div class="line"> </div><div class="line">    const char* tzdataRootDir = getenv(&quot;ANDROID_TZDATA_ROOT&quot;);</div><div class="line">    if (tzdataRootDir == NULL) {</div><div class="line">        LOG_FATAL(&quot;No tz data directory specified with ANDROID_TZDATA_ROOT environment variable.&quot;);</div><div class="line">        return;</div><div class="line">    }</div><div class="line"> </div><div class="line">    //const char* kernelHack = getenv(&quot;LD_ASSUME_KERNEL&quot;);</div><div class="line">    //ALOGD(&quot;Found LD_ASSUME_KERNEL=&apos;%s&apos;\n&quot;, kernelHack);</div><div class="line"> </div><div class="line">    /* start the virtual machine */</div><div class="line">    JniInvocation jni_invocation;</div><div class="line">    jni_invocation.Init(NULL);</div><div class="line">    JNIEnv* env;</div><div class="line">    // 1. &#x521B;&#x5EFA;&#x865A;&#x62DF;&#x673A;</div><div class="line">    if (startVm(&amp;mJavaVM, &amp;env, zygote, primary_zygote) != 0) {</div><div class="line">        return;</div><div class="line">    }</div><div class="line">    onVmCreated(env);</div><div class="line"> </div><div class="line">    /*</div><div class="line">     * Register android functions.</div><div class="line">     */</div><div class="line">    // 2. &#x4F7F;&#x7528;JNI&#x6CE8;&#x518C;&#x5BF9;&#x5E94;&#x7684;Android Native &#x65B9;&#x6CD5;</div><div class="line">    if (startReg(env) &lt; 0) {</div><div class="line">        ALOGE(&quot;Unable to register all android natives\n&quot;);</div><div class="line">        return;</div><div class="line">    }</div><div class="line"> </div><div class="line">    /*</div><div class="line">     * We want to call main() with a String array with arguments in it.</div><div class="line">     * At present we have two arguments, the class name and an option string.</div><div class="line">     * Create an array to hold them.</div><div class="line">     */</div><div class="line">    jclass stringClass;</div><div class="line">    jobjectArray strArray;</div><div class="line">    jstring classNameStr;</div><div class="line"> </div><div class="line">    // 3. &#x62FC;&#x63A5;&#x53C2;&#x6570;&#xFF0C;&#x83B7;&#x53D6;ZygoteInit Class &#x4E0E; main&#x65B9;&#x6CD5;id</div><div class="line">    // &#x83B7;&#x53D6; str = new String[options.size() + 1]</div><div class="line">    stringClass = env-&gt;FindClass(&quot;java/lang/String&quot;);</div><div class="line">    assert(stringClass != NULL);</div><div class="line">    strArray = env-&gt;NewObjectArray(options.size() + 1, stringClass, NULL);</div><div class="line">    assert(strArray != NULL);</div><div class="line">     </div><div class="line">    // &#x83B7;&#x53D6; str[0] = &quot;com.android.internal.os.ZygoteInit&quot;</div><div class="line">    classNameStr = env-&gt;NewStringUTF(className);</div><div class="line">    assert(classNameStr != NULL);</div><div class="line">    env-&gt;SetObjectArrayElement(strArray, 0, classNameStr);</div><div class="line"> </div><div class="line">    // &#x83B7;&#x53D6; str[1] = &quot;start-system-server&quot;</div><div class="line">    // &#x83B7;&#x53D6; str[2] = &quot;--abi-list=xxxx&quot;</div><div class="line">    for (size_t i = 0; i &lt; options.size(); ++i) {</div><div class="line">        jstring optionsStr = env-&gt;NewStringUTF(options.itemAt(i).string());</div><div class="line">        assert(optionsStr != NULL);</div><div class="line">        env-&gt;SetObjectArrayElement(strArray, i + 1, optionsStr);</div><div class="line">    }</div><div class="line"> </div><div class="line">    /*</div><div class="line">     * Start VM.  This thread becomes the main thread of the VM, and will</div><div class="line">     * not return until the VM exits.</div><div class="line">     */</div><div class="line">      </div><div class="line">    // &#x83B7;&#x53D6; &quot;com/android/internal/os/ZygoteInit&quot;</div><div class="line">    char* slashClassName = toSlashClassName(className != NULL ? className : &quot;&quot;);</div><div class="line">    // &#x83B7;&#x53D6;ZygoteInit Class</div><div class="line">    jclass startClass = env-&gt;FindClass(slashClassName);</div><div class="line">    if (startClass == NULL) {</div><div class="line">        ALOGE(&quot;JavaVM unable to locate class &apos;%s&apos;\n&quot;, slashClassName);</div><div class="line">        /* keep going */</div><div class="line">    } else {</div><div class="line">        // &#x83B7;&#x53D6; ZygoteInit&#x4E2D;&#x7684;main&#x65B9;&#x6CD5;&#x5BF9;&#x5E94;&#x7684;&#x65B9;&#x6CD5;id</div><div class="line">        jmethodID startMeth = env-&gt;GetStaticMethodID(startClass, &quot;main&quot;,</div><div class="line">            &quot;([Ljava/lang/String;)V&quot;);</div><div class="line">        if (startMeth == NULL) {</div><div class="line">            ALOGE(&quot;JavaVM unable to find main() in &apos;%s&apos;\n&quot;, className);</div><div class="line">            /* keep going */</div><div class="line">        } else {</div><div class="line">            // 4. &#x8C03;&#x7528; ZygoteInit.main()&#x65B9;&#x6CD5;</div><div class="line">            env-&gt;CallStaticVoidMethod(startClass, startMeth, strArray);</div><div class="line"></div><div class="line">#if 0</div><div class="line">            if (env-&gt;ExceptionCheck())</div><div class="line">                threadExitUncaughtException(env);</div><div class="line">#endif</div><div class="line">        }</div><div class="line">    }</div><div class="line">    // &#x91CA;&#x653E;&#x5185;&#x5B58;&#x7A7A;&#x95F4;</div><div class="line">    free(slashClassName);</div><div class="line"></div><div class="line">    ALOGD(&quot;Shutting down VM\n&quot;);</div><div class="line">    if (mJavaVM-&gt;DetachCurrentThread() != JNI_OK)</div><div class="line">        ALOGW(&quot;Warning: unable to detach main thread\n&quot;);</div><div class="line">    if (mJavaVM-&gt;DestroyJavaVM() != 0)</div><div class="line">        ALOGW(&quot;Warning: VM did not shut down cleanly\n&quot;);</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x6839;&#x636E;&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x6CE8;&#x91CA;&#xFF0C;&#x5C0F;&#x61A9;&#x5C06;<code>start()</code>&#x65B9;&#x6CD5;&#x5206;&#x4E3A;&#x56DB;&#x6B65;&#xFF1A;</p>
+<ol>
+<li>&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x673A;</li>
+<li>&#x901A;&#x8FC7;<code>JNI</code>&#x6CE8;&#x518C;<code>Android Native</code>&#x65B9;&#x6CD5;</li>
+<li>&#x62FC;&#x63A5;&#x53C2;&#x6570;&#x3001;&#x83B7;&#x53D6;<code>ZygoteInit Class</code>&#x4E0E;&#x5176;&#x5BF9;&#x5E94;&#x7684;<code>main</code>&#x65B9;&#x6CD5;<code>id</code></li>
+<li>&#x8C03;&#x7528;<code>ZygoteInit.main()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x8FDB;&#x53BB;<code>Java</code>&#x5C42;</li>
+</ol>
+<h3 id="&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x673A;"><a href="#&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x673A;" class="headerlink" title="&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x673A;"></a>&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x673A;</h3><p>&#x901A;&#x8FC7;<code>startVm()</code>&#x6765;&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x673A;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">int AndroidRuntime::startVm(JavaVM** pJavaVM, JNIEnv** pEnv, bool zygote, bool primary_zygote)</div><div class="line">{</div><div class="line">    JavaVMInitArgs initArgs;</div><div class="line">    char propBuf[PROPERTY_VALUE_MAX];</div><div class="line">    char jniOptsBuf[sizeof(&quot;-Xjniopts:&quot;)-1 + PROPERTY_VALUE_MAX];</div><div class="line">    char heapstartsizeOptsBuf[sizeof(&quot;-Xms&quot;)-1 + PROPERTY_VALUE_MAX];</div><div class="line">    char heapsizeOptsBuf[sizeof(&quot;-Xmx&quot;)-1 + PROPERTY_VALUE_MAX];</div><div class="line">    char heapgrowthlimitOptsBuf[sizeof(&quot;-XX:HeapGrowthLimit=&quot;)-1 + PROPERTY_VALUE_MAX];</div><div class="line">    char heapminfreeOptsBuf</div><div class="line">    ....</div><div class="line">     </div><div class="line">        parseRuntimeOption(&quot;dalvik.vm.heapstartsize&quot;, heapstartsizeOptsBuf, &quot;-Xms&quot;, &quot;4m&quot;);</div><div class="line">    parseRuntimeOption(&quot;dalvik.vm.heapsize&quot;, heapsizeOptsBuf, &quot;-Xmx&quot;, &quot;16m&quot;);</div><div class="line"></div><div class="line">    parseRuntimeOption(&quot;dalvik.vm.heapgrowthlimit&quot;, heapgrowthlimitOptsBuf, &quot;-XX:HeapGrowthLimit=&quot;);</div><div class="line">    parseRuntimeOption(&quot;dalvik.vm.heapminfree&quot;, heapminfreeOptsBuf, &quot;-XX:HeapMinFree=&quot;);</div><div class="line">    parseRuntimeOption(&quot;dalvik.vm.heapmaxfree&quot;, heapmaxfreeOptsBuf, &quot;-XX:HeapMaxFree=&quot;);</div><div class="line">    </div><div class="line">    ....</div><div class="line">    </div><div class="line">    initArgs.version = JNI_VERSION_1_4;</div><div class="line">    initArgs.options = mOptions.editArray();</div><div class="line">    initArgs.nOptions = mOptions.size();</div><div class="line">    initArgs.ignoreUnrecognized = JNI_FALSE;</div><div class="line"> </div><div class="line">    /*</div><div class="line">     * Initialize the VM.</div><div class="line">     *</div><div class="line">     * The JavaVM* is essentially per-process, and the JNIEnv* is per-thread.</div><div class="line">     * If this call succeeds, the VM is ready, and we can start issuing</div><div class="line">     * JNI calls.</div><div class="line">     */</div><div class="line">    if (JNI_CreateJavaVM(pJavaVM, pEnv, &amp;initArgs) &lt; 0) {</div><div class="line">        ALOGE(&quot;JNI_CreateJavaVM failed\n&quot;);</div><div class="line">        return -1;</div><div class="line">    }</div><div class="line"> </div><div class="line">    return 0;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x8BE5;&#x65B9;&#x6CD5;&#x5F88;&#x957F;&#xFF0C;&#x4F46;&#x4E3B;&#x8981;&#x4EFB;&#x52A1;&#x5C31;&#x662F;&#x8BBE;&#x7F6E;&#x865A;&#x62DF;&#x673A;&#x7684;&#x76F8;&#x5173;&#x53C2;&#x6570;&#xFF0C;&#x5177;&#x4F53;&#x5404;&#x4E2A;&#x5C5E;&#x6027;&#x7684;&#x4F5C;&#x7528;&#x5C31;&#x4E0D;&#x505A;&#x5206;&#x6790;&#xFF0C;&#x611F;&#x5174;&#x8DA3;&#x7684;&#x53EF;&#x4EE5;&#x81EA;&#x884C;<code>google</code>&#x5BF9;&#x5E94;&#x641C;&#x7D22;&#x3002;</p>
+<h3 id="JNI&#x65B9;&#x6CD5;&#x6CE8;&#x518C;"><a href="#JNI&#x65B9;&#x6CD5;&#x6CE8;&#x518C;" class="headerlink" title="JNI&#x65B9;&#x6CD5;&#x6CE8;&#x518C;"></a>JNI&#x65B9;&#x6CD5;&#x6CE8;&#x518C;</h3><p>&#x901A;&#x8FC7;<code>startReg()</code>&#x6765;&#x6CE8;&#x518C;<code>Android Native</code>&#x65B9;&#x6CD5;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">int AndroidRuntime::startReg(JNIEnv* env)</div><div class="line">{</div><div class="line">    ATRACE_NAME(&quot;RegisterAndroidNatives&quot;);</div><div class="line">    /*</div><div class="line">     * This hook causes all future threads created in this process to be</div><div class="line">     * attached to the JavaVM.  (This needs to go away in favor of JNI</div><div class="line">     * Attach calls.)</div><div class="line">     */</div><div class="line">    androidSetCreateThreadFunc((android_create_thread_fn) javaCreateThreadEtc);</div><div class="line"></div><div class="line">    ALOGV(&quot;--- registering native functions ---\n&quot;);</div><div class="line"> </div><div class="line">    /*</div><div class="line">     * Every &quot;register&quot; function calls one or more things that return</div><div class="line">     * a local reference (e.g. FindClass).  Because we haven&apos;t really</div><div class="line">     * started the VM yet, they&apos;re all getting stored in the base frame</div><div class="line">     * and never released.  Use Push/Pop to manage the storage.</div><div class="line">     */</div><div class="line">    env-&gt;PushLocalFrame(200);</div><div class="line"> </div><div class="line">    // &#x901A;&#x8FC7;JNI&#x6CE8;&#x518C;</div><div class="line">    if (register_jni_procs(gRegJNI, NELEM(gRegJNI), env) &lt; 0) {</div><div class="line">        env-&gt;PopLocalFrame(NULL);</div><div class="line">        return -1;</div><div class="line">    }</div><div class="line">    env-&gt;PopLocalFrame(NULL);</div><div class="line"> </div><div class="line">    //createJavaThread(&quot;fubar&quot;, quickTest, (void*) &quot;hello&quot;);</div><div class="line"> </div><div class="line">    return 0;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x4E3B;&#x8981;&#x90E8;&#x5206;&#x662F;&#x901A;&#x8FC7;<code>register_jni_procs</code>&#x6765;&#x6CE8;&#x518C;<code>JNI</code>&#x65B9;&#x6CD5;&#x3002;&#x5BF9;&#x5E94;&#x7684;&#x662F;<code>gRegJNI</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">static const RegJNIRec gRegJNI[] = {</div><div class="line">        REG_JNI(register_com_android_internal_os_RuntimeInit),</div><div class="line">        REG_JNI(register_com_android_internal_os_ZygoteInit_nativeZygoteInit),</div><div class="line">        REG_JNI(register_android_os_SystemClock),</div><div class="line">        REG_JNI(register_android_util_EventLog),</div><div class="line">        REG_JNI(register_android_util_Log),</div><div class="line">        REG_JNI(register_android_util_MemoryIntArray),</div><div class="line">        ...</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x65B9;&#x6CD5;&#x5F88;&#x591A;&#x5C31;&#x4E0D;&#x4E00;&#x4E00;&#x5217;&#x4E3E;&#x51FA;&#x6765;&#x3002;</p>
+<p>&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">register_com_android_internal_os_ZygoteInit_nativeZygoteInit</div><div class="line"> </div><div class="line">int register_com_android_internal_os_ZygoteInit_nativeZygoteInit(JNIEnv* env)</div><div class="line">{</div><div class="line">    const JNINativeMethod methods[] = {</div><div class="line">        { &quot;nativeZygoteInit&quot;, &quot;()V&quot;,</div><div class="line">            (void*) com_android_internal_os_ZygoteInit_nativeZygoteInit },</div><div class="line">    };</div><div class="line">    return jniRegisterNativeMethods(env, &quot;com/android/internal/os/ZygoteInit&quot;,</div><div class="line">        methods, NELEM(methods));</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5BF9;&#x5E94;&#x7684;&#x5C31;&#x662F;<code>com/android/internal/os/ZygoteInit</code>&#x4E2D;&#x7684;<code>nativeZygoteInit()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x800C;<code>nativeZygoteInit()</code>&#x65B9;&#x6CD5;&#x901A;&#x8FC7;<code>JNI</code>&#x6CE8;&#x518C;&#x4E4B;&#x540E;&#xFF0C;&#x5728;<code>Linux</code>&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x662F;&#x5BF9;&#x5E94;&#x7684;<code>com_android_internal_os_ZygoteInit_nativeZygoteInit()</code>&#x65B9;&#x6CD5;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">static void com_android_internal_os_ZygoteInit_nativeZygoteInit(JNIEnv* env, jobject clazz)</div><div class="line">{</div><div class="line">    gCurRuntime-&gt;onZygoteInit();</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x6700;&#x540E;&#x5B83;&#x4F1A;&#x8C03;&#x7528;<code>onZygoteInit()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5B83;&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x5728;<code>app_main.cpp</code>&#x4E2D;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">virtual void onZygoteInit()</div><div class="line">{</div><div class="line">    sp&lt;ProcessState&gt; proc = ProcessState::self();</div><div class="line">    ALOGV(&quot;App process: starting thread pool.\n&quot;);</div><div class="line">    proc-&gt;startThreadPool();</div><div class="line">}</div></pre></td></tr></table></figure>
+<h3 id="&#x53C2;&#x6570;&#x3001;&#x7C7B;&#x3001;&#x65B9;&#x6CD5;&#x6784;&#x5EFA;&#x4E0E;&#x8C03;&#x7528;"><a href="#&#x53C2;&#x6570;&#x3001;&#x7C7B;&#x3001;&#x65B9;&#x6CD5;&#x6784;&#x5EFA;&#x4E0E;&#x8C03;&#x7528;" class="headerlink" title="&#x53C2;&#x6570;&#x3001;&#x7C7B;&#x3001;&#x65B9;&#x6CD5;&#x6784;&#x5EFA;&#x4E0E;&#x8C03;&#x7528;"></a>&#x53C2;&#x6570;&#x3001;&#x7C7B;&#x3001;&#x65B9;&#x6CD5;&#x6784;&#x5EFA;&#x4E0E;&#x8C03;&#x7528;</h3><p>&#x5728;&#x8FD9;&#x4E00;&#x6B65;&#x4E3B;&#x8981;&#x901A;&#x8FC7;<code>FindClass()</code>&#x65B9;&#x6CD5;&#x6765;&#x83B7;&#x53D6;&#x5BF9;&#x5E94;<code>Java</code>&#x7684;<code>Class</code>&#x7C7B;&#x578B;&#xFF0C;&#x6784;&#x5EFA;&#x5BF9;&#x5E94;&#x7684;<code>String[]</code>&#x7C7B;&#x578B;&#x7684;&#x53C2;&#x6570;&#x4E0E;<code>ZygoteInit Class</code>&#x3002;</p>
+<p>&#x518D;&#x901A;&#x8FC7;<code>GetStaticMethodID()</code>&#x65B9;&#x6CD5;&#x6765;&#x83B7;&#x53D6;&#x5BF9;&#x5E94;<code>main()</code>&#x65B9;&#x6CD5;&#x7684;&#x65B9;&#x6CD5;<code>id</code>&#xFF0C;&#x4EE5;&#x4FBF;&#x4E3A;&#x4E4B;&#x540E;&#x8C03;&#x7528;<code>ZygoteInit.main()</code>&#x65B9;&#x6CD5;&#x505A;&#x51C6;&#x5907;&#x3002;</p>
+<p>&#x6700;&#x540E;&#x5728;&#x901A;&#x8FC7;<code>CallStaticVoidMethod()</code>&#x6765;&#x8C03;&#x7528;<code>ZygoteInit.main()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x6700;&#x7EC8;&#x8FDB;&#x5165;<code>Java</code>&#x5C42;&#x7684;<code>ZygoteInit</code>&#x3002;</p>
+<p>&#x4ECE;<code>runtime.start()</code>&#x5230;&#x8C03;&#x7528;<code>Java</code>&#x5C42;&#x7684;<code>ZygoteInit.main()</code>&#x7684;&#x6574;&#x4E2A;&#x8FC7;&#x7A0B;&#x6D41;&#x7A0B;&#x56FE;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="/2020/12/17/Android-Java-Zygote&#x542F;&#x52A8;/java_zygote.jpg" alt=""></p>
+<h2 id="ZygoteInit"><a href="#ZygoteInit" class="headerlink" title="ZygoteInit"></a>ZygoteInit</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div></pre></td><td class="code"><pre><div class="line">public static void main(String argv[]) {</div><div class="line">    // &#x521B;&#x5EFA;zygoteServer</div><div class="line">    ZygoteServer zygoteServer = new ZygoteServer();</div><div class="line">     </div><div class="line">    ZygoteHooks.startZygoteNoThreadCreation();</div><div class="line"> </div><div class="line">    // &#x8BBE;&#x7F6E;zygote&#x81EA;&#x5DF1;&#x7684;&#x8FDB;&#x7A0B;group id</div><div class="line">    try {</div><div class="line">        Os.setpgid(0, 0);</div><div class="line">    } catch (ErrnoException ex) {</div><div class="line">        throw new RuntimeException(&quot;Failed to setpgid(0,0)&quot;, ex);</div><div class="line">    }</div><div class="line"> </div><div class="line">    final Runnable caller;</div><div class="line">    try {</div><div class="line">        // Report Zygote start time to tron unless it is a runtime restart</div><div class="line">        if (!&quot;1&quot;.equals(SystemProperties.get(&quot;sys.boot_completed&quot;))) {</div><div class="line">            MetricsLogger.histogram(null, &quot;boot_zygote_init&quot;,</div><div class="line">                    (int) SystemClock.elapsedRealtime());</div><div class="line">        }</div><div class="line"> </div><div class="line">        String bootTimeTag = Process.is64Bit() ? &quot;Zygote64Timing&quot; : &quot;Zygote32Timing&quot;;</div><div class="line">        TimingsTraceLog bootTimingsTraceLog = new TimingsTraceLog(bootTimeTag,</div><div class="line">                Trace.TRACE_TAG_DALVIK);</div><div class="line">        bootTimingsTraceLog.traceBegin(&quot;ZygoteInit&quot;);</div><div class="line">        RuntimeInit.enableDdms();</div><div class="line"> </div><div class="line">        // &#x89E3;&#x6790;&#x53C2;&#x6570;&#xFF0C;&#x8FD9;&#x4E9B;&#x53C2;&#x6570;&#x6765;&#x81EA;&#x4E8E;`Linux`&#x5C42;</div><div class="line">        boolean startSystemServer = false;</div><div class="line">        String socketName = &quot;zygote&quot;;</div><div class="line">        String abiList = null;</div><div class="line">        boolean enableLazyPreload = false;</div><div class="line">        for (int i = 1; i &lt; argv.length; i++) {</div><div class="line">            // &#x662F;&#x5426;&#x9700;&#x8981;&#x542F;&#x52A8;system_server&#x670D;&#x52A1;</div><div class="line">            if (&quot;start-system-server&quot;.equals(argv[i])) {</div><div class="line">                startSystemServer = true;</div><div class="line">            } else if (&quot;--enable-lazy-preload&quot;.equals(argv[i])) {</div><div class="line">                // &#x662F;&#x5426;&#x9700;&#x8981;&#x61D2;&#x52A0;&#x8F7D;</div><div class="line">                enableLazyPreload = true;</div><div class="line">            } else if (argv[i].startsWith(ABI_LIST_ARG)) {</div><div class="line">                // &#x83B7;&#x53D6;abi_list</div><div class="line">                abiList = argv[i].substring(ABI_LIST_ARG.length());</div><div class="line">            } else if (argv[i].startsWith(SOCKET_NAME_ARG)) {</div><div class="line">                // &#x83B7;&#x53D6;socket&#x540D;&#x79F0;</div><div class="line">                socketName = argv[i].substring(SOCKET_NAME_ARG.length());</div><div class="line">            } else {</div><div class="line">                throw new RuntimeException(&quot;Unknown command line argument: &quot; + argv[i]);</div><div class="line">            }</div><div class="line">        }</div><div class="line"> </div><div class="line">        if (abiList == null) {</div><div class="line">            throw new RuntimeException(&quot;No ABI list supplied.&quot;);</div><div class="line">        }</div><div class="line"> </div><div class="line">        // &#x6CE8;&#x518C;zygote&#x7684;socket</div><div class="line">        zygoteServer.registerServerSocketFromEnv(socketName);</div><div class="line">        // In some configurations, we avoid preloading resources and classes eagerly.</div><div class="line">        // In such cases, we will preload things prior to our first fork.</div><div class="line">        if (!enableLazyPreload) {</div><div class="line">            bootTimingsTraceLog.traceBegin(&quot;ZygotePreload&quot;);</div><div class="line">            EventLog.writeEvent(LOG_BOOT_PROGRESS_PRELOAD_START,</div><div class="line">                SystemClock.uptimeMillis());</div><div class="line">            // &#x9884;&#x52A0;&#x8F7D;</div><div class="line">            preload(bootTimingsTraceLog);</div><div class="line">            EventLog.writeEvent(LOG_BOOT_PROGRESS_PRELOAD_END,</div><div class="line">                SystemClock.uptimeMillis());</div><div class="line">            bootTimingsTraceLog.traceEnd(); // ZygotePreload</div><div class="line">        } else {</div><div class="line">            Zygote.resetNicePriority();</div><div class="line">        }</div><div class="line"> </div><div class="line">        // Do an initial gc to clean up after startup</div><div class="line">        bootTimingsTraceLog.traceBegin(&quot;PostZygoteInitGC&quot;);</div><div class="line">        // &#x89E6;&#x53D1;gc</div><div class="line">        gcAndFinalize();</div><div class="line">        bootTimingsTraceLog.traceEnd(); // PostZygoteInitGC</div><div class="line"> </div><div class="line">        bootTimingsTraceLog.traceEnd(); // ZygoteInit</div><div class="line">        // Disable tracing so that forked processes do not inherit stale tracing tags from</div><div class="line">        // Zygote.</div><div class="line">        Trace.setTracingEnabled(false, 0);</div><div class="line"> </div><div class="line">        Zygote.nativeSecurityInit();</div><div class="line"> </div><div class="line">        // Zygote process unmounts root storage spaces.</div><div class="line">        Zygote.nativeUnmountStorageOnInit();</div><div class="line"> </div><div class="line">        ZygoteHooks.stopZygoteNoThreadCreation();</div><div class="line"> </div><div class="line">        // &#x542F;&#x52A8; system_server</div><div class="line">        if (startSystemServer) {</div><div class="line">            Runnable r = forkSystemServer(abiList, socketName, zygoteServer);</div><div class="line"></div><div class="line">            // {@code r == null} in the parent (zygote) process, and {@code r != null} in the</div><div class="line">            // child (system_server) process.</div><div class="line">            if (r != null) {</div><div class="line">                r.run();</div><div class="line">                return;</div><div class="line">            }</div><div class="line">        }</div><div class="line"></div><div class="line">        Log.i(TAG, &quot;Accepting command socket connections&quot;);</div><div class="line"> </div><div class="line">        // &#x8FDB;&#x5165;&#x5FAA;&#x73AF;&#x6A21;&#x5F0F;</div><div class="line">        caller = zygoteServer.runSelectLoop(abiList);</div><div class="line">    } catch (Throwable ex) {</div><div class="line">        Log.e(TAG, &quot;System zygote died with exception&quot;, ex);</div><div class="line">        throw ex;</div><div class="line">    } finally {</div><div class="line">        zygoteServer.closeServerSocket();</div><div class="line">    }</div><div class="line"> </div><div class="line">    // We&apos;re in the child process and have exited the select loop. Proceed to execute the</div><div class="line">    // command.</div><div class="line">    if (caller != null) {</div><div class="line">        caller.run();</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x7EC8;&#x4E8E;&#x89C1;&#x5230;<code>Java</code>&#x4EE3;&#x7801;&#x4E86;&#xFF0C;&#x4E0D;&#x5BB9;&#x6613;&#x554A;~</p>
+<p>&#x9996;&#x5148;&#x4F1A;&#x521B;&#x5EFA;<code>zygoteServer</code>&#xFF0C;&#x4E3A;<code>Zygote</code>&#x8BBE;&#x7F6E;&#x81EA;&#x5DF1;&#x7684;&#x8FDB;&#x7A0B;&#x5206;&#x7EC4;<code>id</code>&#xFF1B;&#x7136;&#x540E;&#x4F1A;&#x89E3;&#x6790;&#x4F20;&#x9012;&#x8FC7;&#x6765;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x6839;&#x636E;&#x53C2;&#x6570;&#x6267;&#x884C;&#x4E4B;&#x540E;&#x7684;&#x540E;&#x7EED;&#x64CD;&#x4F5C;&#x3002;</p>
+<h3 id="&#x6CE8;&#x518C;Socket"><a href="#&#x6CE8;&#x518C;Socket" class="headerlink" title="&#x6CE8;&#x518C;Socket"></a>&#x6CE8;&#x518C;Socket</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">void registerServerSocketFromEnv(String socketName) {</div><div class="line">    if (mServerSocket == null) {</div><div class="line">        int fileDesc;</div><div class="line">        final String fullSocketName = ANDROID_SOCKET_PREFIX + socketName;</div><div class="line">        try {</div><div class="line">            String env = System.getenv(fullSocketName);</div><div class="line">            fileDesc = Integer.parseInt(env);</div><div class="line">        } catch (RuntimeException ex) {</div><div class="line">            throw new RuntimeException(fullSocketName + &quot; unset or invalid&quot;, ex);</div><div class="line">        }</div><div class="line"> </div><div class="line">        try {</div><div class="line">            FileDescriptor fd = new FileDescriptor();</div><div class="line">            fd.setInt$(fileDesc);</div><div class="line">            mServerSocket = new LocalServerSocket(fd);</div><div class="line">            mCloseSocketFd = true;</div><div class="line">        } catch (IOException ex) {</div><div class="line">            throw new RuntimeException(</div><div class="line">                    &quot;Error binding to local socket &apos;&quot; + fileDesc + &quot;&apos;&quot;, ex);</div><div class="line">        }</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x901A;&#x8FC7;<code>registerServerSocketFromEnv</code>&#x6765;&#x6CE8;&#x518C;<code>socket</code>&#xFF0C;&#x4F7F;&#x7528;<code>LocalServerSocket</code>&#x521B;&#x5EFA;&#x672C;&#x5730;<code>socket</code>&#x670D;&#x52A1;&#xFF0C;&#x6765;&#x76D1;&#x542C;&#x5BF9;&#x4E8E;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;<code>fd</code>&#x3002;</p>
+<h3 id="&#x9884;&#x52A0;&#x8F7D;"><a href="#&#x9884;&#x52A0;&#x8F7D;" class="headerlink" title="&#x9884;&#x52A0;&#x8F7D;"></a>&#x9884;&#x52A0;&#x8F7D;</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">static void preload(TimingsTraceLog bootTimingsTraceLog) {</div><div class="line">    // &#x9884;&#x52A0;&#x8F7D;&#x4F4D;&#x4E8E;/system/etc/preloaded-classes&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x7C7B;</div><div class="line">    preloadClasses();</div><div class="line"> </div><div class="line">    // &#x9884;&#x52A0;&#x8F7D;&#x8D44;&#x6E90;&#xFF0C;&#x4FDD;&#x5B58;drawable&#x4E0E;color</div><div class="line">    preloadResources();</div><div class="line">    </div><div class="line">    // &#x9884;&#x52A0;&#x8F7D;OpenGL</div><div class="line">    preloadOpenGL();</div><div class="line">    </div><div class="line">    // &#x9884;&#x52A0;&#x8F7D;&#x5171;&#x4EAB;&#x5E93;&#xFF0C;&#x5305;&#x62EC;android&#x3001;compiler_rt&#x3001;jnigraphics</div><div class="line">    preloadSharedLibraries();</div><div class="line">    </div><div class="line">    // &#x9884;&#x52A0;&#x8F7D; &#x6587;&#x672C;&#x8FDE;&#x63A5;&#x7B26;&#x8D44;&#x6E90;</div><div class="line">    preloadTextResources();</div><div class="line">    </div><div class="line">    // &#x4EC5;&#x7528;&#x4E8E;zygote&#x8FDB;&#x7A0B;&#xFF0C;&#x7528;&#x4E8E;&#x5185;&#x5B58;&#x5171;&#x4EAB;&#x7684;&#x8FDB;&#x7A0B;</div><div class="line">    WebViewFactory.prepareWebViewInZygote();</div><div class="line">    </div><div class="line">    endIcuCachePinning();</div><div class="line">    warmUpJcaProviders();</div><div class="line"> </div><div class="line">    sPreloadComplete = true;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5BF9;&#x4E8E;&#x7C7B;&#x52A0;&#x8F7D;&#xFF0C;&#x91C7;&#x7528;&#x53CD;&#x5C04;&#x673A;&#x5236;<code>Class.forName()</code>&#x65B9;&#x6CD5;&#x6765;&#x52A0;&#x8F7D;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x8D44;&#x6E90;&#x52A0;&#x8F7D;&#xFF0C;&#x4E3B;&#x8981;&#x662F;<code>com.android.internal.R.array.preloaded_drawables</code>&#x548C;<code>com.android.internal.R.array.preloaded_color_state_lists</code>&#xFF0C;&#x5728;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E2D;&#x4EE5;<code>com.android.internal.R.xxx</code>&#x5F00;&#x5934;&#x7684;&#x8D44;&#x6E90;&#xFF0C;&#x4FBF;&#x662F;&#x6B64;&#x65F6;&#x7531;<code>Zygote</code>&#x52A0;&#x8F7D;&#x5230;&#x5185;&#x5B58;&#x7684;&#x3002;</p>
+<p>&#x5728;&#x8FD9;&#x91CC;&#x9884;&#x52A0;&#x8F7D;&#x76EE;&#x7684;&#x662F;&#x4E3A;&#x4E86;&#x4E4B;&#x540E;<code>fork</code>&#x51FA;&#x5B50;&#x7684;&#x8FDB;&#x7A0B;&#xFF0C;&#x540C;&#x65F6;&#x4F7F;&#x7528;<code>copy on write</code>&#x6280;&#x672F;&#xFF0C;&#x4F7F;&#x5F97;&#x5B50;&#x8FDB;&#x7A0B;&#x5728;&#x53EA;&#x8BFB;&#x6A21;&#x5F0F;&#x4E0B;&#x4E0E;&#x7236;&#x8FDB;&#x7A0B;&#x5171;&#x7528;&#x4E00;&#x5757;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#xFF0C;&#x4ECE;&#x800C;&#x4FDD;&#x8BC1;&#x5B50;&#x8FDB;&#x7A0B;&#x80FD;&#x591F;&#x8FC5;&#x901F;<code>fork</code>&#x5904;&#x7406;&#xFF0C;&#x51CF;&#x5C11;&#x6570;&#x636E;&#x7684;&#x62F7;&#x8D1D;&#x6570;&#x91CF;&#x3002;</p>
+<h3 id="SystemServer"><a href="#SystemServer" class="headerlink" title="SystemServer"></a>SystemServer</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">if (startSystemServer) {</div><div class="line">    Runnable r = forkSystemServer(abiList, socketName, zygoteServer);</div><div class="line"> </div><div class="line">    // {@code r == null} in the parent (zygote) process, and {@code r != null} in the</div><div class="line">    // child (system_server) process.</div><div class="line">    if (r != null) {</div><div class="line">        r.run();</div><div class="line">        return;</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x521B;&#x5EFA;<code>system_server</code>&#x670D;&#x52A1;&#xFF0C;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x540E;&#x7EED;&#x5230;<code>system_server</code>&#x7684;&#x65F6;&#x5019;&#x518D;&#x5206;&#x6790;&#x3002;</p>
+<h3 id="runSelectLoop"><a href="#runSelectLoop" class="headerlink" title="runSelectLoop"></a>runSelectLoop</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line">Runnable runSelectLoop(String abiList) {</div><div class="line">    ArrayList&lt;FileDescriptor&gt; fds = new ArrayList&lt;FileDescriptor&gt;();</div><div class="line">    ArrayList&lt;ZygoteConnection&gt; peers = new ArrayList&lt;ZygoteConnection&gt;();</div><div class="line"> </div><div class="line">    // &#x4FDD;&#x5B58;fd</div><div class="line">    fds.add(mServerSocket.getFileDescriptor());</div><div class="line">    peers.add(null);</div><div class="line"> </div><div class="line">    while (true) {</div><div class="line">        StructPollfd[] pollFds = new StructPollfd[fds.size()];</div><div class="line">        for (int i = 0; i &lt; pollFds.length; ++i) {</div><div class="line">            pollFds[i] = new StructPollfd();</div><div class="line">            pollFds[i].fd = fds.get(i);</div><div class="line">            pollFds[i].events = (short) POLLIN;</div><div class="line">        }</div><div class="line">        try {</div><div class="line">            // &#x8F6E;&#x8BE2;&#xFF0C;&#x5F53;pollFds&#x6709;&#x4E8B;&#x4EF6;&#x5230;&#x6765;&#x5219;&#x5F80;&#x4E0B;&#x6267;&#x884C;&#xFF0C;&#x5426;&#x5219;&#x963B;&#x585E;&#x5728;&#x8FD9;&#x91CC;</div><div class="line">            Os.poll(pollFds, -1);</div><div class="line">        } catch (ErrnoException ex) {</div><div class="line">            throw new RuntimeException(&quot;poll failed&quot;, ex);</div><div class="line">        }</div><div class="line">        for (int i = pollFds.length - 1; i &gt;= 0; --i) {</div><div class="line">            // &#x91C7;&#x7528;I/O&#x591A;&#x8DEF;&#x590D;&#x7528;&#x673A;&#x5236;&#xFF0C;&#x5F53;&#x63A5;&#x6536;&#x5230;&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x51FA;&#x8FDE;&#x63A5;&#x8BF7;&#x6C42; &#x6216;&#x8005;&#x6570;&#x636E;&#x5904;&#x7406;&#x8BF7;&#x6C42;&#x5230;&#x6765;&#xFF0C;&#x5219;&#x5F80;&#x4E0B;&#x6267;&#x884C;</div><div class="line">            // &#x5426;&#x5219;&#x8FDB;&#x5165;continue&#xFF0C;&#x8DF3;&#x51FA;&#x672C;&#x6B21;&#x5FAA;&#x73AF;</div><div class="line">            if ((pollFds[i].revents &amp; POLLIN) == 0) {</div><div class="line">                continue;</div><div class="line">            }</div><div class="line"> </div><div class="line">            if (i == 0) {</div><div class="line">                // &#x5373;fds[0]&#xFF0C;&#x4EE3;&#x8868;&#x7684;&#x662F;sServerSocket&#xFF0C;&#x5219;&#x610F;&#x5473;&#x7740;&#x6709;&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x8BF7;&#x6C42;</div><div class="line">                // &#x5219;&#x521B;&#x5EFA;ZygoteConnection&#x5BF9;&#x8C61;,&#x5E76;&#x6DFB;&#x52A0;&#x5230;fds</div><div class="line">                ZygoteConnection newPeer = acceptCommandPeer(abiList);</div><div class="line">                peers.add(newPeer);</div><div class="line">                fds.add(newPeer.getFileDesciptor());</div><div class="line">            } else {</div><div class="line">                // i&gt;0&#xFF0C;&#x5219;&#x4EE3;&#x8868;&#x901A;&#x8FC7;socket&#x63A5;&#x6536;&#x6765;&#x81EA;&#x5BF9;&#x7AEF;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x5E76;&#x6267;&#x884C;&#x76F8;&#x5E94;&#x64CD;&#x4F5C;</div><div class="line">                try {</div><div class="line">                    // &#x83B7;&#x53D6;&#x94FE;&#x63A5;</div><div class="line">                    ZygoteConnection connection = peers.get(i);</div><div class="line">                    // &#x6267;&#x884C;&#x64CD;&#x4F5C;</div><div class="line">                    final Runnable command = connection.processOneCommand(this);</div><div class="line"></div><div class="line">                    if (mIsForkChild) {</div><div class="line">                        if (command == null) {</div><div class="line">                            throw new IllegalStateException(&quot;command == null&quot;);</div><div class="line">                        }</div><div class="line"> </div><div class="line">                        return command;</div><div class="line">                    } else {</div><div class="line">                        if (command != null) {</div><div class="line">                            throw new IllegalStateException(&quot;command != null&quot;);</div><div class="line">                        }</div><div class="line"> </div><div class="line">                        if (connection.isClosedByPeer()) {</div><div class="line">                            connection.closeSocket();</div><div class="line">                            peers.remove(i);</div><div class="line">                            fds.remove(i);</div><div class="line">                        }</div><div class="line">                    }</div><div class="line">                } catch (Exception e) {</div><div class="line">                    if (!mIsForkChild) {</div><div class="line"> </div><div class="line">                        Slog.e(TAG, &quot;Exception executing zygote command: &quot;, e);</div><div class="line"> </div><div class="line">                        ZygoteConnection conn = peers.remove(i);</div><div class="line">                        conn.closeSocket();</div><div class="line"> </div><div class="line">                        fds.remove(i);</div><div class="line">                    } else {</div><div class="line">                        Log.e(TAG, &quot;Caught post-fork exception in child process.&quot;, e);</div><div class="line">                        throw e;</div><div class="line">                    }</div><div class="line">                } finally {</div><div class="line">                    mIsForkChild = false;</div><div class="line">                }</div><div class="line">            }</div><div class="line">        }</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p><code>Zygote</code>&#x91C7;&#x7528;&#x9AD8;&#x6548;&#x7684;<code>I/O</code>&#x591A;&#x8DEF;&#x590D;&#x7528;&#x673A;&#x5236;&#xFF0C;&#x4FDD;&#x8BC1;&#x5728;&#x6CA1;&#x6709;&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x8BF7;&#x6C42;&#x6216;&#x6570;&#x636E;&#x5904;&#x7406;&#x65F6;&#x4F11;&#x7720;&#xFF0C;&#x5426;&#x5219;&#x54CD;&#x5E94;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x8BF7;&#x6C42;&#x3002;</p>
+<h3 id="processOneCommand"><a href="#processOneCommand" class="headerlink" title="processOneCommand"></a>processOneCommand</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line">Runnable processOneCommand(ZygoteServer zygoteServer) {</div><div class="line">    String args[];</div><div class="line">    Arguments parsedArgs = null;</div><div class="line">    FileDescriptor[] descriptors;</div><div class="line"> </div><div class="line">    try {</div><div class="line">        // &#x8BFB;&#x53D6;&#x53C2;&#x6570;</div><div class="line">        args = readArgumentList();</div><div class="line">        descriptors = mSocket.getAncillaryFileDescriptors();</div><div class="line">    } catch (IOException ex) {</div><div class="line">        throw new IllegalStateException(&quot;IOException on command socket&quot;, ex);</div><div class="line">    }</div><div class="line"> </div><div class="line">    // readArgumentList returns null only when it has reached EOF with no available</div><div class="line">    // data to read. This will only happen when the remote socket has disconnected.</div><div class="line">    if (args == null) {</div><div class="line">        isEof = true;</div><div class="line">        return null;</div><div class="line">    }</div><div class="line"> </div><div class="line">    int pid = -1;</div><div class="line">    FileDescriptor childPipeFd = null;</div><div class="line">    FileDescriptor serverPipeFd = null;</div><div class="line"> </div><div class="line">    // &#x89E3;&#x6790;&#x53C2;&#x6570;&#xFF0C;&#x5E76;&#x8FDB;&#x884C;&#x8F6C;&#x6362;</div><div class="line">    parsedArgs = new Arguments(args);</div><div class="line"> </div><div class="line">    ...</div><div class="line"> </div><div class="line">    fd = zygoteServer.getServerSocketFileDescriptor();</div><div class="line"> </div><div class="line">    if (fd != null) {</div><div class="line">        fdsToClose[1] = fd.getInt$();</div><div class="line">    }</div><div class="line"> </div><div class="line">    fd = null;</div><div class="line"> </div><div class="line">    pid = Zygote.forkAndSpecialize(parsedArgs.uid, parsedArgs.gid, parsedArgs.gids,</div><div class="line">            parsedArgs.runtimeFlags, rlimits, parsedArgs.mountExternal, parsedArgs.seInfo,</div><div class="line">            parsedArgs.niceName, fdsToClose, fdsToIgnore, parsedArgs.startChildZygote,</div><div class="line">            parsedArgs.instructionSet, parsedArgs.appDataDir);</div><div class="line">  </div><div class="line">    try {</div><div class="line">        if (pid == 0) {</div><div class="line">            // &#x5B50;&#x8FDB;&#x7A0B;&#x6267;&#x884C;</div><div class="line">            zygoteServer.setForkChild();</div><div class="line"> </div><div class="line">            zygoteServer.closeServerSocket();</div><div class="line">            IoUtils.closeQuietly(serverPipeFd);</div><div class="line">            serverPipeFd = null;</div><div class="line"> </div><div class="line">            return handleChildProc(parsedArgs, descriptors, childPipeFd,</div><div class="line">                    parsedArgs.startChildZygote);</div><div class="line">        } else {</div><div class="line">            // &#x7236;&#x8FDB;&#x7A0B;&#x6267;&#x884C;</div><div class="line">            IoUtils.closeQuietly(childPipeFd);</div><div class="line">            childPipeFd = null;</div><div class="line">            handleParentProc(pid, descriptors, serverPipeFd);</div><div class="line">            return null;</div><div class="line">        }</div><div class="line">    } finally {</div><div class="line">        IoUtils.closeQuietly(childPipeFd);</div><div class="line">        IoUtils.closeQuietly(serverPipeFd);</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x901A;&#x8FC7;<code>fork</code>&#x65B9;&#x6CD5;&#x6765;&#x521B;&#x5EFA;&#x5B50;&#x8FDB;&#x7A0B;&#xFF0C;&#x8BE5;&#x65B9;&#x6CD5;&#x4F1A;&#x8FD4;&#x56DE;&#x4E24;&#x6B21;&#x7ED3;&#x679C;&#xFF1B;&#x5982;&#x679C;&#x4E3A;<code>0</code>&#x5219;&#x4EE3;&#x8868;&#x5F53;&#x524D;&#x9700;&#x8981;&#x6267;&#x884C;&#x5B50;&#x8FDB;&#x7A0B;&#x7684;&#x76F8;&#x5173;&#x903B;&#x8F91;&#xFF0C;&#x975E;<code>0</code>&#x5219;&#x662F;&#x7236;&#x8FDB;&#x7A0B;&#x7684;&#x903B;&#x8F91;&#x3002;</p>
+<p>&#x81F3;&#x6B64;<code>Zygote</code>&#x7684;&#x542F;&#x52A8;&#x5C31;&#x5B8C;&#x6210;&#x4E86;&#x3002;</p>
+<p>&#x6240;&#x4EE5;&#x5728;<code>Java</code>&#x5C42;<code>Zygote</code>&#x4E3B;&#x8981;&#x505A;&#x7684;&#x4E8B;&#x60C5;&#x4E3A;:</p>
+<ol>
+<li>&#x901A;&#x8FC7;<code>registerServerSocketFromEnv</code>&#x6765;&#x6CE8;&#x518C;<code>socket</code></li>
+<li>&#x901A;&#x8FC7;<code>preload</code>&#x9884;&#x52A0;&#x8F7D;&#x7C7B;&#x3001;<code>drawable</code>&#x4E0E;<code>color</code>&#x8D44;&#x6E90;&#x3001;<code>openGL</code>&#x3001;&#x5171;&#x4EAB;&#x5E93;&#x4E0E;<code>WebView</code>&#x76F8;&#x5173;&#x8D44;&#x6E90;</li>
+<li>&#x521B;&#x5EFA;<code>system_server</code>&#x670D;&#x52A1;</li>
+<li><code>runSelectLoop</code>&#x7B49;&#x5F85;&#x65B0;&#x6D88;&#x606F;&#x7684;&#x5230;&#x6765;&#xFF0C;&#x5E76;&#x521B;&#x5EFA;&#x65B0;&#x8FDB;&#x7A0B;</li>
+</ol>
+<p><code>Zygote</code>&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x91CD;&#x8981;&#x6B65;&#x9AA4;&#xFF1A;&#x542F;&#x52A8;<code>system_server</code>&#x540E;&#x7EED;&#x518D;&#x8FDB;&#x884C;&#x5206;&#x6790;&#xFF0C;&#x656C;&#x8BF7;&#x671F;&#x5F85;&#xFF01;</p>
+<h2 id="&#x9879;&#x76EE;"><a href="#&#x9879;&#x76EE;" class="headerlink" title="&#x9879;&#x76EE;"></a>&#x9879;&#x76EE;</h2><p><a href="https://github.com/idisfkj/android-startup" target="_blank" rel="external">android_startup</a>: &#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x5728;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65F6;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x3001;&#x9AD8;&#x6548;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521D;&#x59CB;&#x5316;&#x7EC4;&#x4EF6;&#x3002;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>android-startup</code>&#x6765;&#x7B80;&#x5316;&#x542F;&#x52A8;&#x5E8F;&#x5217;&#xFF0C;&#x5E76;&#x663E;&#x5F0F;&#x5730;&#x8BBE;&#x7F6E;&#x521D;&#x59CB;&#x5316;&#x987A;&#x5E8F;&#x4E0E;&#x7EC4;&#x4EF6;&#x4E4B;&#x95F4;&#x7684;&#x4F9D;&#x8D56;&#x5173;&#x7CFB;&#x3002; &#x4E0E;&#x6B64;&#x540C;&#x65F6;<code>android-startup</code>&#x652F;&#x6301;&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#x7B49;&#x5F85;&#xFF0C;&#x5E76;&#x901A;&#x8FC7;&#x6709;&#x5411;&#x65E0;&#x73AF;&#x56FE;&#x62D3;&#x6251;&#x6392;&#x5E8F;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x4FDD;&#x8BC1;&#x5185;&#x90E8;&#x4F9D;&#x8D56;&#x7EC4;&#x4EF6;&#x7684;&#x521D;&#x59CB;&#x5316;&#x987A;&#x5E8F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="external">AwesomeGithub</a>: &#x57FA;&#x4E8E;<code>Github</code>&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7EAF;&#x7EC3;&#x4E60;&#x9879;&#x76EE;&#xFF0C;&#x652F;&#x6301;&#x7EC4;&#x4EF6;&#x5316;&#x5F00;&#x53D1;&#xFF0C;&#x652F;&#x6301;&#x8D26;&#x6237;&#x5BC6;&#x7801;&#x4E0E;&#x8BA4;&#x8BC1;&#x767B;&#x9646;&#x3002;&#x4F7F;&#x7528;<code>Kotlin</code>&#x8BED;&#x8A00;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#xFF0C;&#x9879;&#x76EE;&#x67B6;&#x6784;&#x662F;&#x57FA;&#x4E8E;<code>Jetpack&amp;DataBinding</code>&#x7684;<code>MVVM</code>&#xFF1B;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;<code>Arouter</code>&#x3001;<code>Retrofit</code>&#x3001;<code>Coroutine</code>&#x3001;<code>Glide</code>&#x3001;<code>Dagger</code>&#x4E0E;<code>Hilt</code>&#x7B49;&#x6D41;&#x884C;&#x5F00;&#x6E90;&#x6280;&#x672F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="external">flutter_github</a>: &#x57FA;&#x4E8E;<code>Flutter</code>&#x7684;&#x8DE8;&#x5E73;&#x53F0;&#x7248;&#x672C;<code>Github</code>&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x4E0E;<code>AwesomeGithub</code>&#x76F8;&#x5BF9;&#x5E94;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="external">android-api-analysis</a>: &#x7ED3;&#x5408;&#x8BE6;&#x7EC6;&#x7684;<code>Demo</code>&#x6765;&#x5168;&#x9762;&#x89E3;&#x6790;<code>Android</code>&#x76F8;&#x5173;&#x7684;&#x77E5;&#x8BC6;&#x70B9;, &#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x5FEB;&#x7684;&#x638C;&#x63E1;&#x4E0E;&#x7406;&#x89E3;&#x6240;&#x9610;&#x8FF0;&#x7684;&#x8981;&#x70B9;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/daily_algorithm" target="_blank" rel="external">daily_algorithm</a>: &#x6BCF;&#x65E5;&#x4E00;&#x7B97;&#x6CD5;&#xFF0C;&#x7531;&#x6D45;&#x5165;&#x6DF1;&#xFF0C;&#x6B22;&#x8FCE;&#x52A0;&#x5165;&#x4E00;&#x8D77;&#x5171;&#x52C9;&#x3002;</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">赞赏是一门艺术</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/rouse_wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/rouse_alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2020/12/10/Android-Linux-Zygote启动/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="fexo-comments comments-post">
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
+  <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.js"></script>
+  <script>
+    (function () {
+      var gitment = new Gitment({
+        owner: 'idisfkj',
+        repo: 'idisfkj.github.io',
+        id: 'Thu Dec 17 2020 18:55:42 GMT+0800',
+        oauth: {
+          client_id: 'dafb1df02ea9f875bb78',
+          client_secret: 'e9873d78aa5eaed5ce61d1d865a5af501dae377a'
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      })
+      gitment.render('gitment-comments')
+    })()
+  </script>
+
+  
+  
+</div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
