@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android SystemServer启动(一) | Rouse</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="启动," />
+  
+
+  <meta name="description" content="Android init &amp;#x542F;&amp;#x52A8;
+Android Linux Zygote&amp;#x542F;&amp;#x52A8;
+Android Java Zygote&amp;#x542F;&amp;#x52A8;
+Android&amp;#x901A;&amp;#x8FC7;Linux&amp;#x542F;&amp;#x52A8;init&amp;#x8FDB;&amp;#x7A0B;&amp;#xFF0C;&amp;#x518D;&amp;#x901A;&amp;#x8FC7;i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android SystemServer启动(一)">
+<meta property="og:url" content="https://www.rousetime.com/2020/12/31/Android-SystemServer启动-一/index.html">
+<meta property="og:site_name" content="Rouse">
+<meta property="og:description" content="Android init &amp;#x542F;&amp;#x52A8;
+Android Linux Zygote&amp;#x542F;&amp;#x52A8;
+Android Java Zygote&amp;#x542F;&amp;#x52A8;
+Android&amp;#x901A;&amp;#x8FC7;Linux&amp;#x542F;&amp;#x52A8;init&amp;#x8FDB;&amp;#x7A0B;&amp;#xFF0C;&amp;#x518D;&amp;#x901A;&amp;#x8FC7;i">
+<meta property="og:updated_time" content="2020-12-31T01:51:57.547Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android SystemServer启动(一)">
+<meta name="twitter:description" content="Android init &amp;#x542F;&amp;#x52A8;
+Android Linux Zygote&amp;#x542F;&amp;#x52A8;
+Android Java Zygote&amp;#x542F;&amp;#x52A8;
+Android&amp;#x901A;&amp;#x8FC7;Linux&amp;#x542F;&amp;#x52A8;init&amp;#x8FDB;&amp;#x7A0B;&amp;#xFF0C;&amp;#x518D;&amp;#x901A;&amp;#x8FC7;i">
+
+  
+
+  
+  <!-- <link href="/favicon.ico" rel="icon" type="image/x-icon"> -->
+    <link rel="icon" href="/favicon.ico">
+    <!-- <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?bd7ea96a22c9c7b90353962460fa0b8e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#forkSystemServer"><span class="toc-text">forkSystemServer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nativeForkSystemServer"><span class="toc-text">nativeForkSystemServer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ForkCommon"><span class="toc-text">ForkCommon</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#handleSystemServerProcess"><span class="toc-text">handleSystemServerProcess</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#applicationInit"><span class="toc-text">applicationInit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#findStaticMain"><span class="toc-text">findStaticMain</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目"><span class="toc-text">项目</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Android-SystemServer启动-一" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Android SystemServer启动(一)</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2020.12.31</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Rouse</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p><a href="https://mp.weixin.qq.com/s?__biz=MzIzNTc5NDY4Nw==&amp;mid=2247484889&amp;idx=1&amp;sn=b39c8bc0a9925464022b77a341263cf0&amp;chksm=e8e0fc49df97755f598ef0082409c573d7715ce33bb27b1c98194410d487ae69adbeb2293d84&amp;token=1353481402&amp;lang=zh_CN#rd" target="_blank" rel="external">Android init &#x542F;&#x52A8;</a></p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzIzNTc5NDY4Nw==&amp;mid=2247484903&amp;idx=1&amp;sn=b55b5bd01ad292256364ecd965ca2288&amp;chksm=e8e0fc77df9775611d5d537f7388daaf7e1a8176667d23e3a6883d448d3a264c761dfc639ba9&amp;token=757375240&amp;lang=zh_CN#rd" target="_blank" rel="external">Android Linux Zygote&#x542F;&#x52A8;</a></p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzIzNTc5NDY4Nw==&amp;mid=2247484921&amp;idx=1&amp;sn=bf7251253d23c17c9148423f6f1e386e&amp;chksm=e8e0fc69df97757f2aec459954c07d0fc44be4bd6c6963dab2b5c5b01d8e8176c9069ddab12c&amp;token=757375240&amp;lang=zh_CN#rd" target="_blank" rel="external">Android Java Zygote&#x542F;&#x52A8;</a></p>
+<p><code>Android</code>&#x901A;&#x8FC7;<code>Linux</code>&#x542F;&#x52A8;<code>init</code>&#x8FDB;&#x7A0B;&#xFF0C;&#x518D;&#x901A;&#x8FC7;<code>init</code>&#x8FDB;&#x7A0B;<code>fork</code>&#x51FA;<code>Zygote</code>&#x8FDB;&#x7A0B;&#x3002;&#x5728;<code>Zygote</code>&#x4E2D;&#x6709;&#x4E00;&#x4E2A;&#x91CD;&#x8981;&#x7684;&#x6B65;&#x9AA4;&#x5C31;&#x662F;&#x542F;&#x52A8;<code>system_server</code>&#x8FDB;&#x7A0B;&#xFF0C;&#x5E76;&#x4E14;&#x521B;&#x5EFA;<code>SystemServer</code>&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x6765;&#x6DF1;&#x5165;&#x4E86;&#x89E3;&#x4E00;&#x4E0B;<code>SystemServer</code>&#x7684;&#x521B;&#x5EFA;&#x8FC7;&#x7A0B;&#x3002;</p>
+<blockquote>
+<p>&#x6B64;&#x6B21;&#x5206;&#x6790;&#x8FC7;&#x7A0B;&#x57FA;&#x4E8E;Android 10.0</p>
+</blockquote>
+<h2 id="forkSystemServer"><a href="#forkSystemServer" class="headerlink" title="forkSystemServer"></a>forkSystemServer</h2><p>&#x5728;<code>ZygoteInit</code>&#x4E2D;&#x4F1A;&#x901A;&#x8FC7;<code>forkSystemServer</code>&#x6765;&#x521B;&#x5EFA;<code>system_server</code>&#x8FDB;&#x7A0B;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line">private static Runnable forkSystemServer(String abiList, String socketName,</div><div class="line">        ZygoteServer zygoteServer) {</div><div class="line">    long capabilities = posixCapabilitiesAsBits(</div><div class="line">        OsConstants.CAP_IPC_LOCK,</div><div class="line">        OsConstants.CAP_KILL,</div><div class="line">        OsConstants.CAP_NET_ADMIN,</div><div class="line">        OsConstants.CAP_NET_BIND_SERVICE,</div><div class="line">        OsConstants.CAP_NET_BROADCAST,</div><div class="line">        OsConstants.CAP_NET_RAW,</div><div class="line">        OsConstants.CAP_SYS_MODULE,</div><div class="line">        OsConstants.CAP_SYS_NICE,</div><div class="line">        OsConstants.CAP_SYS_PTRACE,</div><div class="line">        OsConstants.CAP_SYS_TIME,</div><div class="line">        OsConstants.CAP_SYS_TTY_CONFIG,</div><div class="line">        OsConstants.CAP_WAKE_ALARM,</div><div class="line">        OsConstants.CAP_BLOCK_SUSPEND</div><div class="line">    );</div><div class="line">    /* Containers run without some capabilities, so drop any caps that are not available. */</div><div class="line">    StructCapUserHeader header = new StructCapUserHeader(</div><div class="line">            OsConstants._LINUX_CAPABILITY_VERSION_3, 0);</div><div class="line">    StructCapUserData[] data;</div><div class="line">    try {</div><div class="line">        data = Os.capget(header);</div><div class="line">    } catch (ErrnoException ex) {</div><div class="line">        throw new RuntimeException(&quot;Failed to capget()&quot;, ex);</div><div class="line">    }</div><div class="line">    capabilities &amp;= ((long) data[0].effective) | (((long) data[1].effective) &lt;&lt; 32);</div><div class="line"> </div><div class="line">    // system_server &#x8FDB;&#x7A0B;&#x53C2;&#x6570;</div><div class="line">    String args[] = {</div><div class="line">        &quot;--setuid=1000&quot;,</div><div class="line">        &quot;--setgid=1000&quot;,</div><div class="line">        &quot;--setgroups=1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1018,1021,1023,1024,1032,1065,3001,3002,3003,3006,3007,3009,3010&quot;,</div><div class="line">        &quot;--capabilities=&quot; + capabilities + &quot;,&quot; + capabilities,</div><div class="line">        &quot;--nice-name=system_server&quot;,</div><div class="line">        &quot;--runtime-args&quot;,</div><div class="line">        &quot;--target-sdk-version=&quot; + VMRuntime.SDK_VERSION_CUR_DEVELOPMENT,</div><div class="line">        &quot;com.android.server.SystemServer&quot;,</div><div class="line">    };</div><div class="line">    ZygoteConnection.Arguments parsedArgs = null;</div><div class="line"> </div><div class="line">    int pid;</div><div class="line"> </div><div class="line">    try {</div><div class="line">        // &#x89E3;&#x6790;&#x53C2;&#x6570;</div><div class="line">        parsedArgs = new ZygoteConnection.Arguments(args);</div><div class="line">        ZygoteConnection.applyDebuggerSystemProperty(parsedArgs);</div><div class="line">        ZygoteConnection.applyInvokeWithSystemProperty(parsedArgs);</div><div class="line"> </div><div class="line">        boolean profileSystemServer = SystemProperties.getBoolean(</div><div class="line">                &quot;dalvik.vm.profilesystemserver&quot;, false);</div><div class="line">        if (profileSystemServer) {</div><div class="line">            parsedArgs.runtimeFlags |= Zygote.PROFILE_SYSTEM_SERVER;</div><div class="line">        }</div><div class="line"> </div><div class="line">        // fork&#x51FA;system_server&#x8FDB;&#x7A0B;</div><div class="line">        pid = Zygote.forkSystemServer(</div><div class="line">                parsedArgs.uid, parsedArgs.gid,</div><div class="line">                parsedArgs.gids,</div><div class="line">                parsedArgs.runtimeFlags,</div><div class="line">                null,</div><div class="line">                parsedArgs.permittedCapabilities,</div><div class="line">                parsedArgs.effectiveCapabilities);</div><div class="line">    } catch (IllegalArgumentException ex) {</div><div class="line">        throw new RuntimeException(ex);</div><div class="line">    }</div><div class="line"> </div><div class="line">    // system_server&#x5B50;&#x8FDB;&#x7A0B;</div><div class="line">    if (pid == 0) {</div><div class="line">        if (hasSecondZygote(abiList)) {</div><div class="line">            waitForSecondaryZygote(socketName);</div><div class="line">        }</div><div class="line"> </div><div class="line">        // &#x5173;&#x95ED;&#x539F;&#x6709;&#x8FDB;&#x7A0B;</div><div class="line">        zygoteServer.closeServerSocket();</div><div class="line">        // &#x64CD;&#x4F5C;system_server&#x8FDB;&#x7A0B;</div><div class="line">        return handleSystemServerProcess(parsedArgs);</div><div class="line">    }</div><div class="line"></div><div class="line">    return null;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x91CC;&#x4F1A;&#x51C6;&#x5907;<code>fork</code>&#x7684;&#x8FDB;&#x7A0B;&#x53C2;&#x6570;&#xFF0C;&#x4ECE;&#x53C2;&#x6570;&#x4FE1;&#x606F;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;<code>system_server</code>&#x8FDB;&#x7A0B;&#x7684;<code>uid=1000&#x3001;gid=1000</code>&#xFF0C;&#x8FDB;&#x7A0B;&#x540D;&#x79F0;&#x4E3A;<code>system_server</code>&#xFF0C;&#x540E;&#x7EED;&#x542F;&#x52A8;&#x7684;<code>SystemServer</code>&#x8DEF;&#x5F84;&#x4E3A;<code>com.android.server.SystemServer</code>&#x3002;</p>
+<p>&#x4ECE;<code>zygote</code>&#x8FDB;&#x7A0B;<code>fork</code>&#x65B0;&#x8FDB;&#x7A0B;&#x4E4B;&#x540E;&#x4F1A;&#x5C06;&#x539F;&#x6765;&#x7684;<code>zygote</code>&#x7684;<code>socket</code>&#x5173;&#x95ED;&#xFF0C;&#x540C;&#x65F6;&#x5BF9;&#x4E8E;&#x6709;&#x4E24;&#x4E2A;<code>zygote</code>&#x8FDB;&#x7A0B;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x9700;&#x8981;&#x7B49;&#x5F85;&#x7B2C;<code>2</code>&#x4E2A;<code>zygote</code>&#x521B;&#x5EFA;&#x5B8C;&#x6210;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public static int forkSystemServer(int uid, int gid, int[] gids, int runtimeFlags,</div><div class="line">        int[][] rlimits, long permittedCapabilities, long effectiveCapabilities) {</div><div class="line">    VM_HOOKS.preFork();</div><div class="line">    // Resets nice priority for zygote process.</div><div class="line">    resetNicePriority();</div><div class="line">    int pid = nativeForkSystemServer(</div><div class="line">            uid, gid, gids, runtimeFlags, rlimits, permittedCapabilities, effectiveCapabilities);</div><div class="line">    // Enable tracing as soon as we enter the system_server.</div><div class="line">    if (pid == 0) {</div><div class="line">        Trace.setTracingEnabled(true, runtimeFlags);</div><div class="line">    }</div><div class="line">    VM_HOOKS.postForkCommon();</div><div class="line">    return pid;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p><code>nativeForkSystemServer</code>&#x6700;&#x7EC8;&#x4F1A;&#x901A;&#x8FC7;<code>JNI</code>&#x6620;&#x5C04;&#x5230;<code>com_android_internal_os_Zygote.cpp</code>&#x4E2D;&#x7684;<code>com_android_internal_os_Zygote_nativeForkSystemServer</code>&#x65B9;&#x6CD5;.</p>
+<h2 id="nativeForkSystemServer"><a href="#nativeForkSystemServer" class="headerlink" title="nativeForkSystemServer"></a>nativeForkSystemServer</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">static jint com_android_internal_os_Zygote_nativeForkSystemServer(</div><div class="line">        JNIEnv* env, jclass, uid_t uid, gid_t gid, jintArray gids,</div><div class="line">        jint runtime_flags, jobjectArray rlimits, jlong permitted_capabilities,</div><div class="line">        jlong effective_capabilities) {</div><div class="line">  std::vector&lt;int&gt; fds_to_close(MakeUsapPipeReadFDVector()),</div><div class="line">                   fds_to_ignore(fds_to_close);</div><div class="line"> </div><div class="line">  fds_to_close.push_back(gUsapPoolSocketFD);</div><div class="line"> </div><div class="line">  if (gUsapPoolEventFD != -1) {</div><div class="line">    fds_to_close.push_back(gUsapPoolEventFD);</div><div class="line">    fds_to_ignore.push_back(gUsapPoolEventFD);</div><div class="line">  }</div><div class="line"> </div><div class="line">  if (gSystemServerSocketFd != -1) {</div><div class="line">      fds_to_close.push_back(gSystemServerSocketFd);</div><div class="line">      fds_to_ignore.push_back(gSystemServerSocketFd);</div><div class="line">  }</div><div class="line"> </div><div class="line">  // fork &#x5B50;&#x8FDB;&#x7A0B;</div><div class="line">  pid_t pid = ForkCommon(env, true,</div><div class="line">                         fds_to_close,</div><div class="line">                         fds_to_ignore,</div><div class="line">                         true);</div><div class="line">  if (pid == 0) {</div><div class="line">      </div><div class="line">      // &#x5904;&#x7406;&#x5B50;&#x8FDB;&#x7A0B;</div><div class="line">      SpecializeCommon(env, uid, gid, gids, runtime_flags, rlimits,</div><div class="line">                       permitted_capabilities, effective_capabilities,</div><div class="line">                       MOUNT_EXTERNAL_DEFAULT, nullptr, nullptr, true,</div><div class="line">                       false, nullptr, nullptr, /* is_top_app= */ false,</div><div class="line">                       /* pkg_data_info_list */ nullptr,</div><div class="line">                       /* whitelisted_data_info_list */ nullptr, false, false);</div><div class="line">  } else if (pid &gt; 0) {</div><div class="line">      gSystemServerPid = pid;</div><div class="line">      int status;</div><div class="line">      if (waitpid(pid, &amp;status, WNOHANG) == pid) {</div><div class="line">          ALOGE(&quot;System server process %d has died. Restarting Zygote!&quot;, pid);</div><div class="line">          RuntimeAbort(env, __LINE__, &quot;System server process has died. Restarting Zygote!&quot;);</div><div class="line">      }</div><div class="line"> </div><div class="line">      if (UsePerAppMemcg()) {</div><div class="line">          if (!SetTaskProfiles(pid, std::vector&lt;std::string&gt;{&quot;SystemMemoryProcess&quot;})) {</div><div class="line">              ALOGE(&quot;couldn&apos;t add process %d into system memcg group&quot;, pid);</div><div class="line">          }</div><div class="line">      }</div><div class="line">  }</div><div class="line">  return pid;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x91CC;&#x4F1A;&#x901A;&#x8FC7;<code>ForkCommon</code>&#x6765;&#x521B;&#x5EFA;&#x5B50;&#x8FDB;&#x7A0B;</p>
+<h2 id="ForkCommon"><a href="#ForkCommon" class="headerlink" title="ForkCommon"></a>ForkCommon</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">static pid_t ForkCommon(JNIEnv* env, bool is_system_server,</div><div class="line">                        const std::vector&lt;int&gt;&amp; fds_to_close,</div><div class="line">                        const std::vector&lt;int&gt;&amp; fds_to_ignore,</div><div class="line">                        bool is_priority_fork) {</div><div class="line">  SetSignalHandlers();</div><div class="line"> </div><div class="line">  auto fail_fn = std::bind(ZygoteFailure, env, is_system_server ? &quot;system_server&quot; : &quot;zygote&quot;,</div><div class="line">                           nullptr, _1);</div><div class="line"> </div><div class="line">  BlockSignal(SIGCHLD, fail_fn);</div><div class="line"> </div><div class="line">  __android_log_close();</div><div class="line">  AStatsSocket_close();</div><div class="line"> </div><div class="line">  if (gOpenFdTable == nullptr) {</div><div class="line">    gOpenFdTable = FileDescriptorTable::Create(fds_to_ignore, fail_fn);</div><div class="line">  } else {</div><div class="line">    gOpenFdTable-&gt;Restat(fds_to_ignore, fail_fn);</div><div class="line">  }</div><div class="line"> </div><div class="line">  android_fdsan_error_level fdsan_error_level = android_fdsan_get_error_level();</div><div class="line"> </div><div class="line">  mallopt(M_PURGE, 0);</div><div class="line"> </div><div class="line">  // fork&#x5B50;&#x8FDB;&#x7A0B;</div><div class="line">  pid_t pid = fork();</div><div class="line"> </div><div class="line">  if (pid == 0) {</div><div class="line">    // &#x5904;&#x7406;&#x5B50;&#x8FDB;&#x7A0B;&#x903B;&#x8F91;</div><div class="line">    if (is_priority_fork) {</div><div class="line">      setpriority(PRIO_PROCESS, 0, PROCESS_PRIORITY_MAX);</div><div class="line">    } else {</div><div class="line">      setpriority(PRIO_PROCESS, 0, PROCESS_PRIORITY_MIN);</div><div class="line">    }</div><div class="line"> </div><div class="line">    // The child process.</div><div class="line">    PAuthKeyChange(env);</div><div class="line">    PreApplicationInit();</div><div class="line"> </div><div class="line">    // Clean up any descriptors which must be closed immediately</div><div class="line">    DetachDescriptors(env, fds_to_close, fail_fn);</div><div class="line"> </div><div class="line">    // Invalidate the entries in the USAP table.</div><div class="line">    ClearUsapTable();</div><div class="line"> </div><div class="line">    // Re-open all remaining open file descriptors so that they aren&apos;t shared</div><div class="line">    // with the zygote across a fork.</div><div class="line">    gOpenFdTable-&gt;ReopenOrDetach(fail_fn);</div><div class="line"> </div><div class="line">    // Turn fdsan back on.</div><div class="line">    android_fdsan_set_error_level(fdsan_error_level);</div><div class="line"> </div><div class="line">    // Reset the fd to the unsolicited zygote socket</div><div class="line">    gSystemServerSocketFd = -1;</div><div class="line">  } else {</div><div class="line">    ALOGD(&quot;Forked child process %d&quot;, pid);</div><div class="line">  }</div><div class="line"> </div><div class="line">  // We blocked SIGCHLD prior to a fork, we unblock it here.</div><div class="line">  UnblockSignal(SIGCHLD, fail_fn);</div><div class="line"> </div><div class="line">  return pid;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p><code>fork</code>&#x521B;&#x5EFA;&#x8FDB;&#x7A0B;&#x91C7;&#x7528;&#x7684;&#x662F;<code>copy on write</code>&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x4E2A;&#x662F;<code>Linux</code>&#x521B;&#x5EFA;&#x8FDB;&#x7A0B;&#x7684;&#x6807;&#x51C6;&#x65B9;&#x5F0F;&#xFF0C;&#x4F1A;&#x6709;&#x4E24;&#x6B21;&#x8FD4;&#x56DE;&#x503C;&#x3002;</p>
+<p>&#x8FD4;&#x56DE;<code>0</code>&#x65F6;&#x4EE3;&#x8868;&#x5B50;&#x8FDB;&#x7A0B;&#xFF0C;&#x8FD4;&#x56DE;&#x503C;&#x5927;&#x4E8E;<code>0</code>&#x4E3A;&#x7236;&#x8FDB;&#x7A0B;&#x3002;</p>
+<p>&#x8FDB;&#x7A0B;&#x521B;&#x5EFA;&#x5B8C;&#x6BD5;&#x4E4B;&#x540E;&#xFF0C;&#x4F1A;&#x8FD4;&#x56DE;<code>Java</code>&#x5C42;&#xFF0C;&#x5E76;&#x8FDB;&#x5165;<code>handleSystemServerProcess</code>&#x6765;&#x5904;&#x7406;<code>system_server</code>&#x8FDB;&#x7A0B;&#x903B;&#x8F91;&#x3002;</p>
+<h2 id="handleSystemServerProcess"><a href="#handleSystemServerProcess" class="headerlink" title="handleSystemServerProcess"></a>handleSystemServerProcess</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">private static Runnable handleSystemServerProcess(ZygoteConnection.Arguments parsedArgs) {</div><div class="line">    Os.umask(S_IRWXG | S_IRWXO);</div><div class="line"> </div><div class="line">    // &#x8BBE;&#x7F6E;&#x8FDB;&#x7A0B;&#x540D;&#x79F0;</div><div class="line">    if (parsedArgs.niceName != null) {</div><div class="line">        Process.setArgV0(parsedArgs.niceName);</div><div class="line">    }</div><div class="line"> </div><div class="line">    final String systemServerClasspath = Os.getenv(&quot;SYSTEMSERVERCLASSPATH&quot;);</div><div class="line">    if (systemServerClasspath != null) {</div><div class="line">        performSystemServerDexOpt(systemServerClasspath);</div><div class="line">        boolean profileSystemServer = SystemProperties.getBoolean(</div><div class="line">                &quot;dalvik.vm.profilesystemserver&quot;, false);</div><div class="line">        if (profileSystemServer &amp;&amp; (Build.IS_USERDEBUG || Build.IS_ENG)) {</div><div class="line">            try {</div><div class="line">                prepareSystemServerProfile(systemServerClasspath);</div><div class="line">            } catch (Exception e) {</div><div class="line">                Log.wtf(TAG, &quot;Failed to set up system server profile&quot;, e);</div><div class="line">            }</div><div class="line">        }</div><div class="line">    }</div><div class="line"> </div><div class="line">    if (parsedArgs.invokeWith != null) {</div><div class="line">        String[] args = parsedArgs.remainingArgs;</div><div class="line">        if (systemServerClasspath != null) {</div><div class="line">            String[] amendedArgs = new String[args.length + 2];</div><div class="line">            amendedArgs[0] = &quot;-cp&quot;;</div><div class="line">            amendedArgs[1] = systemServerClasspath;</div><div class="line">            System.arraycopy(args, 0, amendedArgs, 2, args.length);</div><div class="line">            args = amendedArgs;</div><div class="line">        }</div><div class="line"> </div><div class="line">        // &#x542F;&#x52A8;&#x5E94;&#x7528;&#x8FDB;&#x7A0B;</div><div class="line">        WrapperInit.execApplication(parsedArgs.invokeWith,</div><div class="line">                parsedArgs.niceName, parsedArgs.targetSdkVersion,</div><div class="line">                VMRuntime.getCurrentInstructionSet(), null, args);</div><div class="line"> </div><div class="line">        throw new IllegalStateException(&quot;Unexpected return from WrapperInit.execApplication&quot;);</div><div class="line">    } else {</div><div class="line">        ClassLoader cl = null;</div><div class="line">        if (systemServerClasspath != null) {</div><div class="line">            // &#x521B;&#x5EFA;ClassLoader</div><div class="line">            cl = createPathClassLoader(systemServerClasspath, parsedArgs.targetSdkVersion);</div><div class="line"></div><div class="line">            Thread.currentThread().setContextClassLoader(cl);</div><div class="line">        }</div><div class="line"> </div><div class="line">        return ZygoteInit.zygoteInit(parsedArgs.targetSdkVersion, parsedArgs.remainingArgs, cl);</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x8BBE;&#x7F6E;&#x8FDB;&#x7A0B;&#x540D;&#x79F0;<code>system_server</code>&#xFF0C;&#x5E76;&#x901A;&#x8FC7;<code>zygoteInit</code>&#x8FDB;&#x5165;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public static final Runnable zygoteInit(int targetSdkVersion, String[] argv, ClassLoader classLoader) {</div><div class="line">    if (RuntimeInit.DEBUG) {</div><div class="line">        Slog.d(RuntimeInit.TAG, &quot;RuntimeInit: Starting application from zygote&quot;);</div><div class="line">    }</div><div class="line"> </div><div class="line">    Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, &quot;ZygoteInit&quot;);</div><div class="line">    RuntimeInit.redirectLogStreams();</div><div class="line"> </div><div class="line">    RuntimeInit.commonInit();</div><div class="line">    ZygoteInit.nativeZygoteInit();</div><div class="line">    return RuntimeInit.applicationInit(targetSdkVersion, argv, classLoader);</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x91CC;&#x4F1A;&#x901A;&#x8FC7;&#x8C03;&#x7528;<code>RuntimeInit.commonInit</code>&#x6765;&#x521D;&#x59CB;&#x5316;&#x4E00;&#x4E9B;&#x516C;&#x7528;&#x7684;&#x4E1C;&#x897F;&#x3002;&#x5E76;&#x901A;&#x8FC7;<code>nativeZygoteInit</code>&#x8C03;&#x7528;&#x5BF9;&#x4E8E;&#x6620;&#x5C04;&#x7684;<code>Linux</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5373;<code>app_main.cpp</code>&#x4E2D;&#x7684;<code>onZygoteInit</code>&#x65B9;&#x6CD5;&#x6765;&#x521D;&#x59CB;&#x5316;<code>zygote</code>&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">virtual void onZygoteInit() {</div><div class="line">    sp&lt;ProcessState&gt; proc = ProcessState::self();</div><div class="line">    proc-&gt;startThreadPool(); //&#x542F;&#x52A8;&#x65B0;binder&#x7EBF;&#x7A0B;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p><code>ProcessState::self()</code>&#x662F;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#xFF0C;&#x4E3B;&#x8981;&#x5DE5;&#x4F5C;&#x662F;&#x8C03;&#x7528;<code>open()</code>&#x6253;&#x5F00;<code>/dev/binder</code>&#x9A71;&#x52A8;&#x8BBE;&#x5907;&#xFF0C;&#x518D;&#x5229;&#x7528;<code>mmap()</code>&#x6620;&#x5C04;&#x5185;&#x6838;&#x7684;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#xFF0C;&#x5C06;<code>Binder</code>&#x9A71;&#x52A8;&#x7684;<code>fd</code>&#x8D4B;&#x503C;<code>ProcessState</code>&#x5BF9;&#x8C61;&#x4E2D;&#x7684;&#x53D8;&#x91CF;<code>mDriverFD</code>&#xFF0C;&#x7528;&#x4E8E;&#x4EA4;&#x4E92;&#x64CD;&#x4F5C;&#x3002;<code>startThreadPool()</code>&#x662F;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;<code>binder</code>&#x7EBF;&#x7A0B;&#xFF0C;&#x4E0D;&#x65AD;&#x8FDB;&#x884C;<code>talkWithDriver()</code>&#x3002;</p>
+<h2 id="applicationInit"><a href="#applicationInit" class="headerlink" title="applicationInit"></a>applicationInit</h2><p>&#x7EE7;&#x7EED;&#x56DE;&#x5230;<code>Java</code>&#xFF0C;&#x8C03;&#x7528;<code>applicationInit</code>&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">protected static Runnable applicationInit(int targetSdkVersion, String[] argv,</div><div class="line">        ClassLoader classLoader) {</div><div class="line">    </div><div class="line">    nativeSetExitWithoutCleanup(true);</div><div class="line"> </div><div class="line">    VMRuntime.getRuntime().setTargetHeapUtilization(0.75f);</div><div class="line">    VMRuntime.getRuntime().setTargetSdkVersion(targetSdkVersion);</div><div class="line"> </div><div class="line">    // &#x89E3;&#x6790;&#x53C2;&#x6570;</div><div class="line">    final Arguments args = new Arguments(argv);</div><div class="line"> </div><div class="line">    Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);</div><div class="line"> </div><div class="line">    return findStaticMain(args.startClass, args.startArgs, classLoader);</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x901A;&#x8FC7;&#x4E4B;&#x524D;&#x7684;&#x53C2;&#x6570;&#x5217;&#x8868;&#x4FE1;&#x606F;&#xFF0C;&#x53EF;&#x4EE5;&#x77E5;&#x9053;&#x8FD9;&#x91CC;&#x7684;<code>startclass</code>&#x5C31;&#x662F;<code>com.android.server.SystemServer</code>&#x3002;</p>
+<h2 id="findStaticMain"><a href="#findStaticMain" class="headerlink" title="findStaticMain"></a>findStaticMain</h2><p>&#x6700;&#x540E;&#x8FDB;&#x5165;<code>findStaticMain</code>&#x65B9;&#x6CD5;&#x6765;&#x521B;&#x5EFA;<code>SystemServer</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">protected static Runnable findStaticMain(String className, String[] argv,</div><div class="line">        ClassLoader classLoader) {</div><div class="line">    Class&lt;?&gt; cl;</div><div class="line"> </div><div class="line">    try {</div><div class="line">        cl = Class.forName(className, true, classLoader);</div><div class="line">    } catch (ClassNotFoundException ex) {</div><div class="line">        throw new RuntimeException(</div><div class="line">                &quot;Missing class when invoking static main &quot; + className,</div><div class="line">                ex);</div><div class="line">    }</div><div class="line"> </div><div class="line">    Method m;</div><div class="line">    try {</div><div class="line">        m = cl.getMethod(&quot;main&quot;, new Class[] { String[].class });</div><div class="line">    } catch (NoSuchMethodException ex) {</div><div class="line">        throw new RuntimeException(</div><div class="line">                &quot;Missing static main on &quot; + className, ex);</div><div class="line">    } catch (SecurityException ex) {</div><div class="line">        throw new RuntimeException(</div><div class="line">                &quot;Problem getting static main on &quot; + className, ex);</div><div class="line">    }</div><div class="line"> </div><div class="line">    int modifiers = m.getModifiers();</div><div class="line">    if (! (Modifier.isStatic(modifiers) &amp;&amp; Modifier.isPublic(modifiers))) {</div><div class="line">        throw new RuntimeException(</div><div class="line">                &quot;Main method is not public and static on &quot; + className);</div><div class="line">    }</div><div class="line"> </div><div class="line">    return new MethodAndArgsCaller(m, argv);</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x8BE5;&#x65B9;&#x6CD5;&#x4E5F;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x901A;&#x8FC7;<code>Java</code>&#x53CD;&#x5C04;&#x6765;&#x83B7;&#x53D6;&#x5BF9;&#x5E94;&#x7684;<code>Class</code>&#x3001;<code>Method</code>&#xFF0C;&#x8FD9;&#x91CC;&#x5BF9;&#x5E94;&#x7684;&#x5C31;&#x662F;<code>SystemServer</code>&#x7684;<code>main</code>&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x6700;&#x540E;&#x8FD4;&#x56DE;<code>MethodAndArgsCaller</code>&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">static class MethodAndArgsCaller implements Runnable {</div><div class="line">    /** method to call */</div><div class="line">    private final Method mMethod;</div><div class="line"> </div><div class="line">    /** argument array */</div><div class="line">    private final String[] mArgs;</div><div class="line"> </div><div class="line">    public MethodAndArgsCaller(Method method, String[] args) {</div><div class="line">        mMethod = method;</div><div class="line">        mArgs = args;</div><div class="line">    }</div><div class="line"> </div><div class="line">    public void run() {</div><div class="line">        try {</div><div class="line">            mMethod.invoke(null, new Object[] { mArgs });</div><div class="line">        } catch (IllegalAccessException ex) {</div><div class="line">            throw new RuntimeException(ex);</div><div class="line">        } catch (InvocationTargetException ex) {</div><div class="line">            Throwable cause = ex.getCause();</div><div class="line">            if (cause instanceof RuntimeException) {</div><div class="line">                throw (RuntimeException) cause;</div><div class="line">            } else if (cause instanceof Error) {</div><div class="line">                throw (Error) cause;</div><div class="line">            }</div><div class="line">            throw new RuntimeException(ex);</div><div class="line">        }</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x6240;&#x4EE5;&#x5982;&#x679C;&#x8C03;&#x7528;<code>run</code>&#x65B9;&#x6CD5;&#x5C31;&#x4F1A;&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x6765;&#x6267;&#x884C;<code>SystemServer</code>&#x4E2D;&#x7684;<code>main</code>&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x800C;&#x8FD9;&#x4E2A;<code>Runnable</code>&#x6700;&#x7EC8;&#x5728;<code>ZygoteInit</code>&#x7684;<code>main</code>&#x65B9;&#x6CD5;&#x4E2D;&#x901A;&#x8FC7;<code>forkSystemServer</code>&#x521B;&#x5EFA;&#x5E76;&#x8FD4;&#x56DE;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">if (startSystemServer) {</div><div class="line">    Runnable r = forkSystemServer(abiList, socketName, zygoteServer);</div><div class="line"> </div><div class="line">    // {@code r == null} in the parent (zygote) process, and {@code r != null} in the</div><div class="line">    // child (system_server) process.</div><div class="line">    if (r != null) {</div><div class="line">        r.run();</div><div class="line">        return;</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x521B;&#x5EFA;&#x5E76;&#x8FD4;&#x56DE;<code>Runnable</code>&#x4E4B;&#x540E;&#xFF0C;&#x8C03;&#x7528;<code>r.run()</code>&#x6765;&#x6267;&#x884C;<code>SystemServer</code>&#x7684;<code>main</code>&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x6700;&#x7EC8;&#x8FDB;&#x5165;<code>SystemServer</code>&#x7684;&#x6D41;&#x7A0B;&#x3002;</p>
+<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x627E;&#x5230;&#x4E86;&#x8FDB;&#x5165;<code>SystemServer</code>&#x7684;&#x5165;&#x53E3;&#xFF0C;&#x540E;&#x7EED;&#x7EE7;&#x7EED;&#x5206;&#x6790;<code>SystemServer</code>&#x7684;&#x4F5C;&#x7528;&#x4E0E;&#x5185;&#x90E8;&#x6267;&#x884C;&#x7684;&#x903B;&#x8F91;&#x3002;</p>
+<h2 id="&#x9879;&#x76EE;"><a href="#&#x9879;&#x76EE;" class="headerlink" title="&#x9879;&#x76EE;"></a>&#x9879;&#x76EE;</h2><p><a href="https://github.com/idisfkj/android-startup" target="_blank" rel="external">android_startup</a>: &#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x5728;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65F6;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x3001;&#x9AD8;&#x6548;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521D;&#x59CB;&#x5316;&#x7EC4;&#x4EF6;&#x3002;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>android-startup</code>&#x6765;&#x7B80;&#x5316;&#x542F;&#x52A8;&#x5E8F;&#x5217;&#xFF0C;&#x5E76;&#x663E;&#x5F0F;&#x5730;&#x8BBE;&#x7F6E;&#x521D;&#x59CB;&#x5316;&#x987A;&#x5E8F;&#x4E0E;&#x7EC4;&#x4EF6;&#x4E4B;&#x95F4;&#x7684;&#x4F9D;&#x8D56;&#x5173;&#x7CFB;&#x3002; &#x4E0E;&#x6B64;&#x540C;&#x65F6;<code>android-startup</code>&#x652F;&#x6301;&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#x7B49;&#x5F85;&#xFF0C;&#x5E76;&#x901A;&#x8FC7;&#x6709;&#x5411;&#x65E0;&#x73AF;&#x56FE;&#x62D3;&#x6251;&#x6392;&#x5E8F;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x4FDD;&#x8BC1;&#x5185;&#x90E8;&#x4F9D;&#x8D56;&#x7EC4;&#x4EF6;&#x7684;&#x521D;&#x59CB;&#x5316;&#x987A;&#x5E8F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="external">AwesomeGithub</a>: &#x57FA;&#x4E8E;<code>Github</code>&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7EAF;&#x7EC3;&#x4E60;&#x9879;&#x76EE;&#xFF0C;&#x652F;&#x6301;&#x7EC4;&#x4EF6;&#x5316;&#x5F00;&#x53D1;&#xFF0C;&#x652F;&#x6301;&#x8D26;&#x6237;&#x5BC6;&#x7801;&#x4E0E;&#x8BA4;&#x8BC1;&#x767B;&#x9646;&#x3002;&#x4F7F;&#x7528;<code>Kotlin</code>&#x8BED;&#x8A00;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#xFF0C;&#x9879;&#x76EE;&#x67B6;&#x6784;&#x662F;&#x57FA;&#x4E8E;<code>Jetpack&amp;DataBinding</code>&#x7684;<code>MVVM</code>&#xFF1B;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;<code>Arouter</code>&#x3001;<code>Retrofit</code>&#x3001;<code>Coroutine</code>&#x3001;<code>Glide</code>&#x3001;<code>Dagger</code>&#x4E0E;<code>Hilt</code>&#x7B49;&#x6D41;&#x884C;&#x5F00;&#x6E90;&#x6280;&#x672F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="external">flutter_github</a>: &#x57FA;&#x4E8E;<code>Flutter</code>&#x7684;&#x8DE8;&#x5E73;&#x53F0;&#x7248;&#x672C;<code>Github</code>&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x4E0E;<code>AwesomeGithub</code>&#x76F8;&#x5BF9;&#x5E94;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="external">android-api-analysis</a>: &#x7ED3;&#x5408;&#x8BE6;&#x7EC6;&#x7684;<code>Demo</code>&#x6765;&#x5168;&#x9762;&#x89E3;&#x6790;<code>Android</code>&#x76F8;&#x5173;&#x7684;&#x77E5;&#x8BC6;&#x70B9;, &#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x5FEB;&#x7684;&#x638C;&#x63E1;&#x4E0E;&#x7406;&#x89E3;&#x6240;&#x9610;&#x8FF0;&#x7684;&#x8981;&#x70B9;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/daily_algorithm" target="_blank" rel="external">daily_algorithm</a>: &#x6BCF;&#x65E5;&#x4E00;&#x7B97;&#x6CD5;&#xFF0C;&#x7531;&#x6D45;&#x5165;&#x6DF1;&#xFF0C;&#x6B22;&#x8FCE;&#x52A0;&#x5165;&#x4E00;&#x8D77;&#x5171;&#x52C9;&#x3002;</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">赞赏是一门艺术</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/rouse_wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/rouse_alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2020/12/17/Android-Java-Zygote启动/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="fexo-comments comments-post">
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
+  <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.js"></script>
+  <script>
+    (function () {
+      var gitment = new Gitment({
+        owner: 'idisfkj',
+        repo: 'idisfkj.github.io',
+        id: 'Thu Dec 31 2020 09:39:56 GMT+0800',
+        oauth: {
+          client_id: 'dafb1df02ea9f875bb78',
+          client_secret: 'e9873d78aa5eaed5ce61d1d865a5af501dae377a'
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      })
+      gitment.render('gitment-comments')
+    })()
+  </script>
+
+  
+  
+</div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
