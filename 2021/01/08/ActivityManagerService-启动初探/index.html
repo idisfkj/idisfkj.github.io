@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>ActivityManagerService 启动初探 | Rouse</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="启动," />
+  
+
+  <meta name="description" content="&amp;#x5728;&amp;#x4E4B;&amp;#x524D;&amp;#x7684;Android SystemServer&amp;#x542F;&amp;#x52A8;(&amp;#x4E8C;)&amp;#x4E2D;&amp;#xFF0C;&amp;#x5206;&amp;#x6790;&amp;#x5230;&amp;#x5728;SystemServer&amp;#x4E2D;&amp;#x4F1A;&amp;#x542F;&amp;#x52A8;&amp;#x5927;&amp;#x91CF;&amp;#x7684;Servic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ActivityManagerService 启动初探">
+<meta property="og:url" content="https://www.rousetime.com/2021/01/08/ActivityManagerService-启动初探/index.html">
+<meta property="og:site_name" content="Rouse">
+<meta property="og:description" content="&amp;#x5728;&amp;#x4E4B;&amp;#x524D;&amp;#x7684;Android SystemServer&amp;#x542F;&amp;#x52A8;(&amp;#x4E8C;)&amp;#x4E2D;&amp;#xFF0C;&amp;#x5206;&amp;#x6790;&amp;#x5230;&amp;#x5728;SystemServer&amp;#x4E2D;&amp;#x4F1A;&amp;#x542F;&amp;#x52A8;&amp;#x5927;&amp;#x91CF;&amp;#x7684;Servic">
+<meta property="og:updated_time" content="2021-01-08T10:28:12.415Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ActivityManagerService 启动初探">
+<meta name="twitter:description" content="&amp;#x5728;&amp;#x4E4B;&amp;#x524D;&amp;#x7684;Android SystemServer&amp;#x542F;&amp;#x52A8;(&amp;#x4E8C;)&amp;#x4E2D;&amp;#xFF0C;&amp;#x5206;&amp;#x6790;&amp;#x5230;&amp;#x5728;SystemServer&amp;#x4E2D;&amp;#x4F1A;&amp;#x542F;&amp;#x52A8;&amp;#x5927;&amp;#x91CF;&amp;#x7684;Servic">
+
+  
+
+  
+  <!-- <link href="/favicon.ico" rel="icon" type="image/x-icon"> -->
+    <link rel="icon" href="/favicon.ico">
+    <!-- <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?bd7ea96a22c9c7b90353962460fa0b8e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#启动AMS"><span class="toc-text">启动AMS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#startBootstrapServices"><span class="toc-text">startBootstrapServices</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#initPowerManagement"><span class="toc-text">initPowerManagement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setSystemProcess"><span class="toc-text">setSystemProcess</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#startCoreServices"><span class="toc-text">startCoreServices</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#startOtherServices"><span class="toc-text">startOtherServices</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#installSystemProviders"><span class="toc-text">installSystemProviders</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WindowManagerService"><span class="toc-text">WindowManagerService</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#systemReady"><span class="toc-text">systemReady</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐"><span class="toc-text">推荐</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-ActivityManagerService-启动初探" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">ActivityManagerService 启动初探</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2021.01.08</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Rouse</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>&#x5728;&#x4E4B;&#x524D;&#x7684;<a href="https://mp.weixin.qq.com/s?__biz=MzIzNTc5NDY4Nw==&amp;mid=2247484991&amp;idx=1&amp;sn=7a4701c30ade3569c75591a12644c4f3&amp;chksm=e8e0ffafdf9776b9a00e9b912a47578622379e667e45a16f5d814b638e8ab04786e38403542b&amp;token=694410729&amp;lang=zh_CN#rd" target="_blank" rel="external">Android SystemServer&#x542F;&#x52A8;(&#x4E8C;)</a>&#x4E2D;&#xFF0C;&#x5206;&#x6790;&#x5230;&#x5728;<code>SystemServer</code>&#x4E2D;&#x4F1A;&#x542F;&#x52A8;&#x5927;&#x91CF;&#x7684;<code>Service</code>&#xFF0C;&#x5176;&#x4E2D;&#x5C31;&#x6709;&#x4E00;&#x4E2A;&#x6BD4;&#x8F83;&#x7279;&#x6B8A;&#x7684;<code>Service</code>&#xFF0C;&#x5B83;&#x5C31;&#x662F;<code>ActivityManagerService</code>&#x3002;</p>
+<p>&#x4ECA;&#x5929;&#x6211;&#x4EEC;&#x5C31;&#x6765;&#x4E86;&#x89E3;&#x4E00;&#x4E0B;<code>ActivityManageerService</code>&#x7684;&#x542F;&#x52A8;&#xFF0C;&#x4E0B;&#x9762;&#x90FD;&#x5C06;&#x5176;&#x7B80;&#x79F0;&#x4E3A;<code>AMS</code>&#x3002;</p>
+<h2 id="&#x542F;&#x52A8;AMS"><a href="#&#x542F;&#x52A8;AMS" class="headerlink" title="&#x542F;&#x52A8;AMS"></a>&#x542F;&#x52A8;AMS</h2><p><code>AMS</code>&#x7684;&#x542F;&#x52A8;&#x53D1;&#x751F;&#x5728;<code>SystemServer</code>&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;<code>BootPhase 0</code>&#x9636;&#x6BB5;&#x3002;</p>
+<p>&#x5728;&#x4E09;&#x5927;&#x5206;&#x7C7B;&#x670D;&#x52A1;&#x7684;&#x542F;&#x52A8;&#x670D;&#x52A1;&#x4E2D;&#xFF0C;&#x5373;<code>startBootstrapServices</code>&#x65B9;&#x6CD5;&#x4E2D;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">private void startBootstrapServices() {</div><div class="line">	...</div><div class="line"> </div><div class="line">    ActivityTaskManagerService atm = mSystemServiceManager.startService(</div><div class="line">            ActivityTaskManagerService.Lifecycle.class).getService();</div><div class="line">    mActivityManagerService = ActivityManagerService.Lifecycle.startService(</div><div class="line">            mSystemServiceManager, atm);</div><div class="line">    mActivityManagerService.setSystemServiceManager(mSystemServiceManager);</div><div class="line">    mActivityManagerService.setInstaller(installer);</div><div class="line">    mWindowManagerGlobalLock = atm.getGlobalLock();</div><div class="line"> </div><div class="line">    ...</div><div class="line">}</div></pre></td></tr></table></figure>
+<p><code>AMS</code>&#x7684;&#x662F;&#x901A;&#x8FC7;<code>AMS</code>&#x7684;&#x5185;&#x90E8;&#x7C7B;<code>Lifecycle</code>&#x6765;&#x521B;&#x5EFA;&#x7684;&#xFF0C;&#x540C;&#x65F6;&#x8C03;&#x7528;<code>Lifecycle.onStart()</code>&#x6765;&#x542F;&#x52A8;<code>AMS</code>&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">public static final class Lifecycle extends SystemService {</div><div class="line">    private final ActivityManagerService mService;</div><div class="line">    private static ActivityTaskManagerService sAtm;</div><div class="line"> </div><div class="line">    public Lifecycle(Context context) {</div><div class="line">        super(context);</div><div class="line">        mService = new ActivityManagerService(context, sAtm);</div><div class="line">    }</div><div class="line"> </div><div class="line">    public static ActivityManagerService startService(</div><div class="line">            SystemServiceManager ssm, ActivityTaskManagerService atm) {</div><div class="line">        sAtm = atm;</div><div class="line">        return ssm.startService(ActivityManagerService.Lifecycle.class).getService();</div><div class="line">    }</div><div class="line"> </div><div class="line">    @Override</div><div class="line">    public void onStart() {</div><div class="line">        mService.start();</div><div class="line">    }</div><div class="line">     </div><div class="line">    ...</div><div class="line">}</div></pre></td></tr></table></figure>
+<p><code>Lifecycle</code>&#x7EE7;&#x627F;&#x4E8E;<code>SystemService</code>&#xFF0C;&#x901A;&#x8FC7;<code>ssm</code>&#x5373;<code>SystemServiceManager</code>&#x6765;&#x542F;&#x52A8;&#x8FD9;&#x4E2A;<code>Service</code>&#x3002;</p>
+<p>&#x5185;&#x90E8;&#x662F;&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x6765;&#x521B;&#x5EFA;<code>Lifecycle</code>&#x5B9E;&#x4F8B;&#xFF0C;&#x800C;&#x5728;<code>Lifecycle</code>&#x5B9E;&#x4F8B;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x4F1A;&#x521B;&#x5EFA;<code>AMS</code>&#x3002;</p>
+<p>&#x6240;&#x4EE5;&#x63A5;&#x4E0B;&#x6765;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x4E0B;<code>AMS</code>&#x5B9E;&#x4F8B;&#x5316;&#x8FC7;&#x7A0B;&#x4E2D;&#x505A;&#x4E86;&#x4EC0;&#x4E48;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div></pre></td><td class="code"><pre><div class="line">public ActivityManagerService(Context systemContext, ActivityTaskManagerService atm) {</div><div class="line">	...</div><div class="line"> </div><div class="line">	// &#x521B;&#x5EFA;&#x540D;&#x4E3A;ActivityManager&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;&#x5E76;&#x521B;&#x5EFA;MainHandler </div><div class="line">	// &#x5904;&#x7406;&#x5404;&#x79CD;&#x72B6;&#x6001;&#x4FE1;&#x606F;&#x7684;&#x7EBF;&#x7A0B;&#xFF08;GC&#x3001;service_timeout&#x3001;update_time_zone&#x3001;kill_application&#x3001;kill_zygote&#xFF09;</div><div class="line">    mHandlerThread = new ServiceThread(TAG,</div><div class="line">            THREAD_PRIORITY_FOREGROUND, false /*allowIo*/);</div><div class="line">    mHandlerThread.start();</div><div class="line">    mHandler = new MainHandler(mHandlerThread.getLooper());</div><div class="line">    // &#x83B7;&#x53D6;UiHandler</div><div class="line">    mUiHandler = mInjector.getUiHandler(this);</div><div class="line"> </div><div class="line">    // &#x521B;&#x5EFA;&#x4E0E;&#x542F;&#x52A8;proc&#x7EBF;&#x7A0B;</div><div class="line">    mProcStartHandlerThread = new ServiceThread(TAG + &quot;:procStart&quot;,</div><div class="line">            THREAD_PRIORITY_FOREGROUND, false /* allowIo */);</div><div class="line">    mProcStartHandlerThread.start();</div><div class="line">    mProcStartHandler = new Handler(mProcStartHandlerThread.getLooper());</div><div class="line"> </div><div class="line">    // &#x5B9A;&#x4E49;&#x4E00;&#x4E9B;&#x5E38;&#x91CF;&#xFF0C;&#x7BA1;&#x7406;ActivityManager&#x7684;&#x884C;&#x4E3A;</div><div class="line">    mConstants = new ActivityManagerConstants(mContext, this, mHandler);</div><div class="line">    // &#x8FFD;&#x8E2A;&#x6D3B;&#x8DC3;&#x7684;uid</div><div class="line">    final ActiveUids activeUids = new ActiveUids(this, true /* postChangesToAtm */);</div><div class="line">    mProcessList.init(this, activeUids);</div><div class="line">    // &#x4F4E;&#x5185;&#x5B58;&#x63A2;&#x6D4B;&#x5668;</div><div class="line">    mLowMemDetector = new LowMemDetector(this);</div><div class="line">    mOomAdjuster = new OomAdjuster(this, mProcessList, activeUids);</div><div class="line"> </div><div class="line">    // &#x524D;&#x53F0;&#x5E7F;&#x64AD;&#x63A5;&#x6536;&#x5668;</div><div class="line">    final BroadcastConstants foreConstants = new BroadcastConstants(</div><div class="line">            Settings.Global.BROADCAST_FG_CONSTANTS);</div><div class="line">    foreConstants.TIMEOUT = BROADCAST_FG_TIMEOUT;</div><div class="line"> </div><div class="line">    // &#x540E;&#x53F0;&#x5E7F;&#x64AD;&#x63A5;&#x6536;&#x5668;</div><div class="line">    final BroadcastConstants backConstants = new BroadcastConstants(</div><div class="line">            Settings.Global.BROADCAST_BG_CONSTANTS);</div><div class="line">    backConstants.TIMEOUT = BROADCAST_BG_TIMEOUT;</div><div class="line"> </div><div class="line">    // &#x5378;&#x8F7D;&#x5E7F;&#x64AD;&#x63A5;&#x6536;&#x5668;</div><div class="line">    final BroadcastConstants offloadConstants = new BroadcastConstants(</div><div class="line">            Settings.Global.BROADCAST_OFFLOAD_CONSTANTS);</div><div class="line">    offloadConstants.TIMEOUT = BROADCAST_BG_TIMEOUT;</div><div class="line"> </div><div class="line">    offloadConstants.SLOW_TIME = Integer.MAX_VALUE;</div><div class="line"> </div><div class="line">    mEnableOffloadQueue = SystemProperties.getBoolean(</div><div class="line">            &quot;persist.device_config.activity_manager_native_boot.offload_queue_enabled&quot;, false);</div><div class="line"> </div><div class="line">    mFgBroadcastQueue = new BroadcastQueue(this, mHandler,</div><div class="line">            &quot;foreground&quot;, foreConstants, false);</div><div class="line">    mBgBroadcastQueue = new BroadcastQueue(this, mHandler,</div><div class="line">            &quot;background&quot;, backConstants, true);</div><div class="line">    mOffloadBroadcastQueue = new BroadcastQueue(this, mHandler,</div><div class="line">            &quot;offload&quot;, offloadConstants, true);</div><div class="line">    mBroadcastQueues[0] = mFgBroadcastQueue;</div><div class="line">    mBroadcastQueues[1] = mBgBroadcastQueue;</div><div class="line">    mBroadcastQueues[2] = mOffloadBroadcastQueue;</div><div class="line"> </div><div class="line">    mServices = new ActiveServices(this);</div><div class="line">    mProviderMap = new ProviderMap(this);</div><div class="line">    mPackageWatchdog = PackageWatchdog.getInstance(mUiContext);</div><div class="line">    mAppErrors = new AppErrors(mUiContext, this, mPackageWatchdog);</div><div class="line"> </div><div class="line">    final File systemDir = SystemServiceManager.ensureSystemDir();</div><div class="line"> </div><div class="line">    // &#x7535;&#x6C60;&#x72B6;&#x6001;</div><div class="line">    mBatteryStatsService = new BatteryStatsService(systemContext, systemDir,</div><div class="line">            BackgroundThread.get().getHandler());</div><div class="line">    mBatteryStatsService.getActiveStatistics().readLocked();</div><div class="line">    mBatteryStatsService.scheduleWriteToDisk();</div><div class="line">    mOnBattery = DEBUG_POWER ? true</div><div class="line">            : mBatteryStatsService.getActiveStatistics().getIsOnBattery();</div><div class="line">    mBatteryStatsService.getActiveStatistics().setCallback(this);</div><div class="line">    mOomAdjProfiler.batteryPowerChanged(mOnBattery);</div><div class="line"> </div><div class="line">    // &#x8FDB;&#x7A0B;&#x72B6;&#x6001;</div><div class="line">    mProcessStats = new ProcessStatsService(this, new File(systemDir, &quot;procstats&quot;));</div><div class="line"> </div><div class="line">    mAppOpsService = mInjector.getAppOpsService(new File(systemDir, &quot;appops.xml&quot;), mHandler);</div><div class="line"> </div><div class="line">    ... </div><div class="line"> </div><div class="line">    mActivityTaskManager = atm;</div><div class="line">    mActivityTaskManager.initialize(mIntentFirewall, mPendingIntentController,</div><div class="line">            DisplayThread.get().getLooper());</div><div class="line">    mAtmInternal = LocalServices.getService(ActivityTaskManagerInternal.class);</div><div class="line"> </div><div class="line">    // &#x8FDB;&#x7A0B;cpu&#x7EDF;&#x8BA1;&#x7EBF;&#x7A0B;</div><div class="line">    mProcessCpuThread = new Thread(&quot;CpuTracker&quot;) {</div><div class="line">        @Override</div><div class="line">        public void run() {</div><div class="line">            synchronized (mProcessCpuTracker) {</div><div class="line">                mProcessCpuInitLatch.countDown();</div><div class="line">                mProcessCpuTracker.init();</div><div class="line">            }</div><div class="line">            while (true) {</div><div class="line">                try {</div><div class="line">                    try {</div><div class="line">                        synchronized(this) {</div><div class="line">                            final long now = SystemClock.uptimeMillis();</div><div class="line">                            long nextCpuDelay = (mLastCpuTime.get()+MONITOR_CPU_MAX_TIME)-now;</div><div class="line">                            long nextWriteDelay = (mLastWriteTime+BATTERY_STATS_TIME)-now;</div><div class="line">                            //Slog.i(TAG, &quot;Cpu delay=&quot; + nextCpuDelay</div><div class="line">                            //        + &quot;, write delay=&quot; + nextWriteDelay);</div><div class="line">                            if (nextWriteDelay &lt; nextCpuDelay) {</div><div class="line">                                nextCpuDelay = nextWriteDelay;</div><div class="line">                            }</div><div class="line">                            if (nextCpuDelay &gt; 0) {</div><div class="line">                                mProcessCpuMutexFree.set(true);</div><div class="line">                                this.wait(nextCpuDelay);</div><div class="line">                            }</div><div class="line">                        }</div><div class="line">                    } catch (InterruptedException e) {</div><div class="line">                    }</div><div class="line">                    // &#x66F4;&#x65B0;cpu&#x7684;&#x4FE1;&#x606F;</div><div class="line">                    updateCpuStatsNow();</div><div class="line">                } catch (Exception e) {</div><div class="line">                    Slog.e(TAG, &quot;Unexpected exception collecting process stats&quot;, e);</div><div class="line">                }</div><div class="line">            }</div><div class="line">        }</div><div class="line">    };</div><div class="line"> </div><div class="line">    ...</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x4E3B;&#x8981;&#x505A;&#x7684;&#x4E8B;&#x662F;&#x521B;&#x5EFA;<code>ActivityManager</code>&#x3001;<code>proc</code>&#x4E0E;<code>CpuTracker</code>&#x7EBF;&#x7A0B;&#xFF1B;&#x540C;&#x65F6;&#x521B;&#x5EFA;&#x5BF9;&#x5E94;&#x7684;&#x5E7F;&#x64AD;&#x63A5;&#x6536;&#x5668;&#x3002;</p>
+<p>&#x521B;&#x5EFA;&#x5B8C;<code>AMS</code>&#x5B9E;&#x4F8B;&#x4E4B;&#x540E;&#x4F1A;&#x8C03;&#x7528;<code>start()</code>&#x65B9;&#x6CD5;&#x6765;&#x542F;&#x52A8;<code>AMS</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">private void start() {</div><div class="line">	// &#x79FB;&#x9664;&#x6240;&#x6709;&#x8FDB;&#x7A0B;&#x7EC4;</div><div class="line">    removeAllProcessGroups();</div><div class="line">    // &#x5F00;&#x542F;&#x8FDB;&#x7A0B;cpu&#x7EDF;&#x8BA1;&#x7EBF;&#x7A0B;</div><div class="line">    mProcessCpuThread.start();</div><div class="line"> </div><div class="line">    // &#x542F;&#x52A8;&#x7535;&#x6C60;&#x7EDF;&#x8BA1;&#x670D;&#x52A1;</div><div class="line">    mBatteryStatsService.publish();</div><div class="line">    mAppOpsService.publish(mContext);</div><div class="line"> </div><div class="line">    // &#x6DFB;&#x52A0;&#x5230;&#x672C;&#x5730;LocalServices&#x4E2D;</div><div class="line">    LocalServices.addService(ActivityManagerInternal.class, new LocalService());</div><div class="line">    mActivityTaskManager.onActivityManagerInternalAdded();</div><div class="line">    mUgmInternal.onActivityManagerInternalAdded();</div><div class="line">    mPendingIntentController.onActivityManagerInternalAdded();</div><div class="line"> </div><div class="line">    try {</div><div class="line">    	// &#x7B49;&#x5F85;&#x8FDB;&#x7A0B;cpu&#x7EDF;&#x8BA1;&#x7EBF;&#x7A0B;&#x8FD0;&#x884C;</div><div class="line">        mProcessCpuInitLatch.await();</div><div class="line">    } catch (InterruptedException e) {</div><div class="line">        Slog.wtf(TAG, &quot;Interrupted wait during start&quot;, e);</div><div class="line">        Thread.currentThread().interrupt();</div><div class="line">        throw new IllegalStateException(&quot;Interrupted wait during start&quot;);</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x4E2A;&#x65F6;&#x5019;<code>AMS</code>&#x5C31;&#x5DF2;&#x7ECF;&#x542F;&#x52A8;&#x5B8C;&#x6BD5;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x5728;&#x6765;&#x770B;&#x4E0B;<code>AMS</code>&#x5728;<code>SystemServer</code>&#x4E2D;&#x90FD;&#x5E72;&#x4E86;&#x4EC0;&#x4E48;</p>
+<h2 id="startBootstrapServices"><a href="#startBootstrapServices" class="headerlink" title="startBootstrapServices"></a>startBootstrapServices</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">private void startBootstrapServices() {</div><div class="line">	...</div><div class="line"> </div><div class="line">	mActivityManagerService.initPowerManagement();</div><div class="line">	...</div><div class="line"> </div><div class="line">	mActivityManagerService.setSystemProcess();</div><div class="line">	...</div><div class="line">}</div></pre></td></tr></table></figure>
+<h3 id="initPowerManagement"><a href="#initPowerManagement" class="headerlink" title="initPowerManagement"></a>initPowerManagement</h3><p>&#x9996;&#x5148;&#x4F1A;&#x521D;&#x59CB;&#x5316;<code>PowerManagement</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public void initPowerManagement() {</div><div class="line">    mActivityTaskManager.onInitPowerManagement();</div><div class="line">    mBatteryStatsService.initPowerManagement();</div><div class="line">    mLocalPowerManager = LocalServices.getService(PowerManagerInternal.class);</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x6700;&#x7EC8;&#x4F1A;&#x901A;&#x8FC7;<code>BatterStateService</code>&#x6765;&#x521D;&#x59CB;&#x5316;<code>PowerManagement</code>&#x3002;</p>
+<h3 id="setSystemProcess"><a href="#setSystemProcess" class="headerlink" title="setSystemProcess"></a>setSystemProcess</h3><p>&#x63A5;&#x4E0B;&#x6765;&#x662F;<code>setSystemProcess</code>&#xFF0C;&#x6CE8;&#x518C;&#x76F8;&#x5173;&#x7684;&#x670D;&#x52A1;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">public void setSystemProcess() {</div><div class="line">    try {</div><div class="line">    	// &#x6CE8;&#x518C;ActivityManagerService</div><div class="line">        ServiceManager.addService(Context.ACTIVITY_SERVICE, this, /* allowIsolated= */ true,</div><div class="line">                DUMP_FLAG_PRIORITY_CRITICAL | DUMP_FLAG_PRIORITY_NORMAL | DUMP_FLAG_PROTO);</div><div class="line">        // &#x6CE8;&#x518C; ProcessStatsService</div><div class="line">        ServiceManager.addService(ProcessStats.SERVICE_NAME, mProcessStats);</div><div class="line">        // &#x6CE8;&#x518C;MemBinder</div><div class="line">        ServiceManager.addService(&quot;meminfo&quot;, new MemBinder(this), /* allowIsolated= */ false,</div><div class="line">                DUMP_FLAG_PRIORITY_HIGH);</div><div class="line">        // &#x6CE8;&#x518C;GraphicsBinder</div><div class="line">        ServiceManager.addService(&quot;gfxinfo&quot;, new GraphicsBinder(this));</div><div class="line">        // &#x6CE8;&#x518C;DbBinder</div><div class="line">        ServiceManager.addService(&quot;dbinfo&quot;, new DbBinder(this));</div><div class="line">        if (MONITOR_CPU_USAGE) {</div><div class="line">        	// &#x6CE8;&#x518C;CpuBinder</div><div class="line">            ServiceManager.addService(&quot;cpuinfo&quot;, new CpuBinder(this),</div><div class="line">                    /* allowIsolated= */ false, DUMP_FLAG_PRIORITY_CRITICAL);</div><div class="line">        }</div><div class="line">        // &#x6CE8;&#x518C;PermissionController</div><div class="line">        ServiceManager.addService(&quot;permission&quot;, new PermissionController(this));</div><div class="line">        // &#x6CE8;&#x518C;ProcessInfoService</div><div class="line">        ServiceManager.addService(&quot;processinfo&quot;, new ProcessInfoService(this));</div><div class="line"> </div><div class="line">        // &#x52A0;&#x8F7D;&#x5305;&#x540D;&#x4E3A;android&#x7684;&#x5305;&#xFF0C;&#x6700;&#x7EC8;&#x901A;&#x8FC7;LoadedApk&#x6765;&#x52A0;&#x8F7D;</div><div class="line">        ApplicationInfo info = mContext.getPackageManager().getApplicationInfo(</div><div class="line">                &quot;android&quot;, STOCK_PM_FLAGS | MATCH_SYSTEM_ONLY);</div><div class="line">        mSystemThread.installSystemApplicationInfo(info, getClass().getClassLoader());</div><div class="line"> </div><div class="line">        ...</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x8FD9;&#x91CC;&#x5C06;<code>AMS</code>&#x6CE8;&#x518C;&#x5230;<code>ServiceManager</code>&#x4E2D;&#xFF0C;&#x540E;&#x7EED;&#x901A;&#x8FC7;<code>ActivityManager</code>&#x6765;&#x83B7;&#x53D6;&#x6CE8;&#x518C;&#x7684;<code>AMS</code>&#x3002;</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x5C31;&#x8FDB;&#x5165;&#x4E86;<code>startCoreServices</code>&#xFF0C;&#x542F;&#x52A8;&#x6838;&#x5FC3;&#x670D;&#x52A1;</p>
+<h2 id="startCoreServices"><a href="#startCoreServices" class="headerlink" title="startCoreServices"></a>startCoreServices</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">private void startCoreServices() {</div><div class="line">	...</div><div class="line">	mActivityManagerService.setUsageStatsManager(</div><div class="line">                LocalServices.getService(UsageStatsManagerInternal.class));</div><div class="line">	...</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x91CC;&#x505A;&#x7684;&#x4E8B;&#x60C5;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x8BBE;&#x7F6E;<code>UsageStateManager</code></p>
+<h2 id="startOtherServices"><a href="#startOtherServices" class="headerlink" title="startOtherServices"></a>startOtherServices</h2><p>&#x7EE7;&#x7EED;&#x6765;&#x5230;&#x542F;&#x52A8;&#x5176;&#x5B83;&#x7684;&#x670D;&#x52A1;&#x6A21;&#x5757;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">private void startOtherServices() {</div><div class="line">	...</div><div class="line">	mActivityManagerService.installSystemProviders();</div><div class="line"> </div><div class="line">	mActivityManagerService.setWindowManager(wm);</div><div class="line"> </div><div class="line">	mActivityManagerService.systemReady(...)</div><div class="line">	...</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x91CC;&#x4E3B;&#x8981;&#x505A;&#x7684;&#x662F;&#x5B89;&#x88C5;&#x7CFB;&#x7EDF;&#x7684;<code>Provider</code>&#x3001;&#x8BBE;&#x7F6E;<code>WindowManagerService</code>&#x4E0E;<code>systemReady</code>&#x7684;&#x51C6;&#x5907;&#x5DE5;&#x4F5C;&#x3002;</p>
+<h3 id="installSystemProviders"><a href="#installSystemProviders" class="headerlink" title="installSystemProviders"></a>installSystemProviders</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">public final void installSystemProviders() {</div><div class="line">    List&lt;ProviderInfo&gt; providers;</div><div class="line">    synchronized (this) {</div><div class="line">        ProcessRecord app = mProcessList.mProcessNames.get(&quot;system&quot;, SYSTEM_UID);</div><div class="line">        // &#x83B7;&#x53D6;Providers</div><div class="line">        providers = generateApplicationProvidersLocked(app);</div><div class="line">        if (providers != null) {</div><div class="line">            for (int i=providers.size()-1; i&gt;=0; i--) {</div><div class="line">                ProviderInfo pi = (ProviderInfo)providers.get(i);</div><div class="line">                // &#x6E05;&#x9664;&#x975E;&#x7CFB;&#x7EDF;&#x7684;Providers</div><div class="line">                if ((pi.applicationInfo.flags&amp;ApplicationInfo.FLAG_SYSTEM) == 0) {</div><div class="line">                    providers.remove(i);</div><div class="line">                }</div><div class="line">            }</div><div class="line">        }</div><div class="line">    }</div><div class="line">    // &#x901A;&#x8FC7;ActivityThread&#x6765;&#x5B89;&#x88C5;&#x7CFB;&#x7EDF;&#x7684;Providers</div><div class="line">    if (providers != null) {</div><div class="line">        mSystemThread.installSystemProviders(providers);</div><div class="line">    }</div><div class="line"> </div><div class="line">    synchronized (this) {</div><div class="line">        mSystemProvidersInstalled = true;</div><div class="line">    }</div><div class="line">    mConstants.start(mContext.getContentResolver());</div><div class="line">    mCoreSettingsObserver = new CoreSettingsObserver(this);</div><div class="line">    mActivityTaskManager.installSystemProviders();</div><div class="line">    mDevelopmentSettingsObserver = new DevelopmentSettingsObserver();</div><div class="line">    SettingsToPropertiesMapper.start(mContext.getContentResolver());</div><div class="line">    mOomAdjuster.initSettings();</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x91CC;&#x4E3B;&#x8981;&#x505A;&#x7684;&#x5C31;&#x662F;&#x5B89;&#x88C5;&#x7CFB;&#x7EDF;&#x7684;<code>Providers</code></p>
+<h3 id="WindowManagerService"><a href="#WindowManagerService" class="headerlink" title="WindowManagerService"></a>WindowManagerService</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public void setWindowManager(WindowManagerService wm) {</div><div class="line">    synchronized (this) {</div><div class="line">        mWindowManager = wm;</div><div class="line">        mActivityTaskManager.setWindowManager(wm);</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x8BBE;&#x7F6E;<code>WindowManagerService</code>&#x670D;&#x52A1;</p>
+<h3 id="systemReady"><a href="#systemReady" class="headerlink" title="systemReady"></a>systemReady</h3><p><code>systemReady</code>&#x7684;&#x903B;&#x8F91;&#x6BD4;&#x8F83;&#x591A;&#xFF0C;&#x6211;&#x4EEC;&#x62C6;&#x5F00;&#x6765;&#x8BF4;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public void systemReady(final Runnable goingCallback, TimingsTraceLog traceLog) {</div><div class="line">	goingCallback before</div><div class="line"> </div><div class="line">	if (goingCallback != null) goingCallback.run();</div><div class="line"> </div><div class="line">	goingCallback after</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5728;&#x8C03;&#x7528;<code>goingCallback.run</code>&#x4E4B;&#x524D;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">public void systemReady(final Runnable goingCallback, TimingsTraceLog traceLog) {</div><div class="line">	 synchronized(this) {</div><div class="line">        // &#x7B2C;&#x4E00;&#x6B21;&#x8FDB;&#x6765;&#x4E3A;false&#xFF0C;&#x8DF3;&#x8FC7;</div><div class="line">        if (mSystemReady) {</div><div class="line">            if (goingCallback != null) {</div><div class="line">                goingCallback.run();</div><div class="line">            }</div><div class="line">            return;</div><div class="line">        }</div><div class="line"> </div><div class="line">        ...</div><div class="line"> </div><div class="line">        mSystemReady = true;</div><div class="line">    }</div><div class="line"> </div><div class="line">    ...</div><div class="line"> </div><div class="line">    ArrayList&lt;ProcessRecord&gt; procsToKill = null;</div><div class="line">    synchronized(mPidsSelfLocked) {</div><div class="line">        for (int i=mPidsSelfLocked.size()-1; i&gt;=0; i--) {</div><div class="line">            ProcessRecord proc = mPidsSelfLocked.valueAt(i);</div><div class="line">            // &#x975E;president&#x8FDB;&#x7A0B;</div><div class="line">            if (!isAllowedWhileBooting(proc.info)){</div><div class="line">                if (procsToKill == null) {</div><div class="line">                    procsToKill = new ArrayList&lt;ProcessRecord&gt;();</div><div class="line">                }</div><div class="line">                // &#x52A0;&#x5165;&#x5230;procsTokill&#x4E2D;</div><div class="line">                procsToKill.add(proc);</div><div class="line">            }</div><div class="line">        }</div><div class="line">    }</div><div class="line"> </div><div class="line">    synchronized(this) {</div><div class="line">        if (procsToKill != null) {</div><div class="line">        	// kill procsToKill&#x4E2D;&#x7684;&#x8FDB;&#x7A0B;</div><div class="line">            for (int i=procsToKill.size()-1; i&gt;=0; i--) {</div><div class="line">                ProcessRecord proc = procsToKill.get(i);</div><div class="line">                mProcessList.removeProcessLocked(proc, true, false, &quot;system update done&quot;);</div><div class="line">            }</div><div class="line">        }</div><div class="line"> </div><div class="line">        mProcessesReady = true;</div><div class="line">    }</div><div class="line"> </div><div class="line">    ...</div><div class="line"> </div><div class="line">    if (goingCallback != null) goingCallback.run();</div><div class="line"> </div><div class="line">    ...</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x4E3B;&#x8981;&#x505A;&#x7684;&#x4E8B;&#x60C5;&#x6740;&#x6389;<code>procsToKill</code>&#x4E2D;&#x7684;&#x8FDB;&#x7A0B;&#xFF0C;&#x6B64;&#x65F6;&#x7CFB;&#x7EDF;&#x4E0E;&#x8FDB;&#x7A0B;&#x90FD;&#x5DF2;&#x7ECF;&#x51C6;&#x5907;&#x5C31;&#x7EEA;</p>
+<p>&#x4E4B;&#x540E;&#x518D;&#x8C03;&#x7528;<code>goingCallback.run</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">mActivityManagerService.systemReady(() -&gt; {</div><div class="line">    </div><div class="line">    // BootPhase 550</div><div class="line">    mSystemServiceManager.startBootPhase(</div><div class="line">            SystemService.PHASE_ACTIVITY_MANAGER_READY);</div><div class="line"> </div><div class="line">    try {</div><div class="line">        mActivityManagerService.startObservingNativeCrashes();</div><div class="line">    } catch (Throwable e) {</div><div class="line">        reportWtf(&quot;observing native crashes&quot;, e);</div><div class="line">    }</div><div class="line"> </div><div class="line">    traceBeginAndSlog(&quot;MakeConnectivityServiceReady&quot;);</div><div class="line">    try {</div><div class="line">        if (connectivityF != null) {</div><div class="line">            connectivityF.systemReady();</div><div class="line">        }</div><div class="line">    } catch (Throwable e) {</div><div class="line">        reportWtf(&quot;making Connectivity Service ready&quot;, e);</div><div class="line">    }</div><div class="line"> </div><div class="line">    ...</div><div class="line">     </div><div class="line">    // BootPhase 600</div><div class="line">    mSystemServiceManager.startBootPhase(</div><div class="line">            SystemService.PHASE_THIRD_PARTY_APPS_CAN_START);</div><div class="line"> </div><div class="line">    try {</div><div class="line">        if (locationF != null) {</div><div class="line">            locationF.systemRunning();</div><div class="line">        }</div><div class="line">    } catch (Throwable e) {</div><div class="line">        reportWtf(&quot;Notifying Location Service running&quot;, e);</div><div class="line">    }</div><div class="line"> </div><div class="line">    try {</div><div class="line">        if (countryDetectorF != null) {</div><div class="line">            countryDetectorF.systemRunning();</div><div class="line">        }</div><div class="line">    } catch (Throwable e) {</div><div class="line">        reportWtf(&quot;Notifying CountryDetectorService running&quot;, e);</div><div class="line">    }</div><div class="line"> </div><div class="line">    ...</div><div class="line"> </div><div class="line">}, BOOT_TIMINGS_TRACE_LOG);</div></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x4E2A;&#x5728;<a href="https://mp.weixin.qq.com/s?__biz=MzIzNTc5NDY4Nw==&amp;mid=2247484991&amp;idx=1&amp;sn=7a4701c30ade3569c75591a12644c4f3&amp;chksm=e8e0ffafdf9776b9a00e9b912a47578622379e667e45a16f5d814b638e8ab04786e38403542b&amp;token=694410729&amp;lang=zh_CN#rd" target="_blank" rel="external">Android SystemServer&#x542F;&#x52A8;(&#x4E8C;)</a>&#x4E2D;&#x5DF2;&#x7ECF;&#x5206;&#x6790;&#x4E86;&#xFF0C;&#x8FD9;&#x91CC;&#x5C31;&#x4E0D;&#x591A;&#x4ECB;&#x7ECD;&#x4E86;&#x3002;</p>
+<p>&#x4E3B;&#x8981;&#x662F;&#x5BF9;&#x4E00;&#x4E9B;&#x670D;&#x52A1;&#x8FDB;&#x884C;<code>systemReady</code>&#x4E0E;<code>systemRuning</code>&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x6700;&#x540E;&#x6765;&#x5230;<code>systemReady</code>&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x6B65;&#x9AA4;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div></pre></td><td class="code"><pre><div class="line">public void systemReady(final Runnable goingCallback, TimingsTraceLog traceLog) {</div><div class="line">	...</div><div class="line"> </div><div class="line">	if (goingCallback != null) goingCallback.run();</div><div class="line"> </div><div class="line">    final int currentUserId = mUserController.getCurrentUserId();</div><div class="line">    if (currentUserId != UserHandle.USER_SYSTEM &amp;&amp; !mUserController.isSystemUserStarted()) {</div><div class="line">        throw new RuntimeException(&quot;System user not started while current user is:&quot;</div><div class="line">                + currentUserId);</div><div class="line">    }</div><div class="line">    mBatteryStatsService.noteEvent(BatteryStats.HistoryItem.EVENT_USER_RUNNING_START,</div><div class="line">            Integer.toString(currentUserId), currentUserId);</div><div class="line">    mBatteryStatsService.noteEvent(BatteryStats.HistoryItem.EVENT_USER_FOREGROUND_START,</div><div class="line">            Integer.toString(currentUserId), currentUserId);</div><div class="line"> </div><div class="line">    // &#x8C03;&#x7528;&#x6240;&#x6709;SystemService&#x7684;onStartUser&#x65B9;&#x6CD5;</div><div class="line">    mSystemServiceManager.startUser(currentUserId);</div><div class="line"> </div><div class="line">    synchronized (this) {</div><div class="line">        // &#x5F00;&#x542F;Persistent app</div><div class="line">        startPersistentApps(PackageManager.MATCH_DIRECT_BOOT_AWARE);</div><div class="line"> </div><div class="line">        mBooting = true;</div><div class="line">        if (UserManager.isSplitSystemUser() &amp;&amp;</div><div class="line">                Settings.Secure.getInt(mContext.getContentResolver(),</div><div class="line">                     Settings.Secure.USER_SETUP_COMPLETE, 0) != 0) {</div><div class="line">            ComponentName cName = new ComponentName(mContext, SystemUserHomeActivity.class);</div><div class="line">            try {</div><div class="line">                AppGlobals.getPackageManager().setComponentEnabledSetting(cName,</div><div class="line">                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, 0,</div><div class="line">                        UserHandle.USER_SYSTEM);</div><div class="line">            } catch (RemoteException e) {</div><div class="line">                throw e.rethrowAsRuntimeException();</div><div class="line">            }</div><div class="line">        }</div><div class="line">        // &#x542F;&#x52A8;&#x7CFB;&#x7EDF;&#x684C;&#x9762;Activity</div><div class="line">        mAtmInternal.startHomeOnAllDisplays(currentUserId, &quot;systemReady&quot;);</div><div class="line"> </div><div class="line">        mAtmInternal.showSystemReadyErrorDialogsIfNeeded();</div><div class="line"> </div><div class="line">        final int callingUid = Binder.getCallingUid();</div><div class="line">        final int callingPid = Binder.getCallingPid();</div><div class="line">        long ident = Binder.clearCallingIdentity();</div><div class="line">        try {</div><div class="line">        	// &#x53D1;&#x9001;USER_STARTED&#x5E7F;&#x64AD;</div><div class="line">            Intent intent = new Intent(Intent.ACTION_USER_STARTED);</div><div class="line">            intent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY</div><div class="line">                    | Intent.FLAG_RECEIVER_FOREGROUND);</div><div class="line">            intent.putExtra(Intent.EXTRA_USER_HANDLE, currentUserId);</div><div class="line">            broadcastIntentLocked(null, null, intent,</div><div class="line">                    null, null, 0, null, null, null, OP_NONE,</div><div class="line">                    null, false, false, MY_PID, SYSTEM_UID, callingUid, callingPid,</div><div class="line">                    currentUserId);</div><div class="line"> </div><div class="line">            // &#x53D1;&#x9001;USER_STARTING&#x5E7F;&#x64AD;</div><div class="line">            intent = new Intent(Intent.ACTION_USER_STARTING);</div><div class="line">            intent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY);</div><div class="line">            intent.putExtra(Intent.EXTRA_USER_HANDLE, currentUserId);</div><div class="line">            broadcastIntentLocked(null, null, intent,</div><div class="line">                    null, new IIntentReceiver.Stub() {</div><div class="line">                        @Override</div><div class="line">                        public void performReceive(Intent intent, int resultCode, String data,</div><div class="line">                                Bundle extras, boolean ordered, boolean sticky, int sendingUser)</div><div class="line">                                throws RemoteException {</div><div class="line">                        }</div><div class="line">                    }, 0, null, null,</div><div class="line">                    new String[] {INTERACT_ACROSS_USERS}, OP_NONE,</div><div class="line">                    null, true, false, MY_PID, SYSTEM_UID, callingUid, callingPid,</div><div class="line">                    UserHandle.USER_ALL);</div><div class="line">        } catch (Throwable t) {</div><div class="line">            Slog.wtf(TAG, &quot;Failed sending first user broadcasts&quot;, t);</div><div class="line">        } finally {</div><div class="line">            Binder.restoreCallingIdentity(ident);</div><div class="line">        }</div><div class="line">        mAtmInternal.resumeTopActivities(false /* scheduleIdle */);</div><div class="line">        mUserController.sendUserSwitchBroadcasts(-1, currentUserId);</div><div class="line"> </div><div class="line">        BinderInternal.nSetBinderProxyCountWatermarks(BINDER_PROXY_HIGH_WATERMARK,</div><div class="line">                BINDER_PROXY_LOW_WATERMARK);</div><div class="line">        BinderInternal.nSetBinderProxyCountEnabled(true);</div><div class="line">        BinderInternal.setBinderProxyCountCallback(</div><div class="line">                new BinderInternal.BinderProxyLimitListener() {</div><div class="line">                    @Override</div><div class="line">                    public void onLimitReached(int uid) {</div><div class="line">                        Slog.wtf(TAG, &quot;Uid &quot; + uid + &quot; sent too many Binders to uid &quot;</div><div class="line">                                + Process.myUid());</div><div class="line">                        BinderProxy.dumpProxyDebugInfo();</div><div class="line">                        if (uid == Process.SYSTEM_UID) {</div><div class="line">                            Slog.i(TAG, &quot;Skipping kill (uid is SYSTEM)&quot;);</div><div class="line">                        } else {</div><div class="line">                            killUid(UserHandle.getAppId(uid), UserHandle.getUserId(uid),</div><div class="line">                                    &quot;Too many Binders sent to SYSTEM&quot;);</div><div class="line">                        }</div><div class="line">                    }</div><div class="line">                }, mHandler);</div><div class="line"> </div><div class="line">        // &#x6062;&#x590D;&#x6808;&#x9876;Activity</div><div class="line">        mAtmInternal.resumeTopActivities(false /* scheduleIdle */);</div><div class="line">        // &#x53D1;&#x9001;User_SWITCH &#x5E7F;&#x64AD;</div><div class="line">        mUserController.sendUserSwitchBroadcasts(-1, currentUserId);</div><div class="line"> </div><div class="line">        ...</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5176;&#x4E2D;<code>startUser</code>&#x4F1A;&#x56DE;&#x8C03;&#x4E4B;&#x524D;&#x7684;<code>SystemService</code>&#x7684;<code>onStartUser</code>&#x65B9;&#x6CD5;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">public void startUser(final int userHandle) {</div><div class="line">    final int serviceLen = mServices.size();</div><div class="line">    // &#x904D;&#x5386;mServices</div><div class="line">    for (int i = 0; i &lt; serviceLen; i++) {</div><div class="line">        final SystemService service = mServices.get(i);</div><div class="line">        Trace.traceBegin(Trace.TRACE_TAG_SYSTEM_SERVER, &quot;onStartUser &quot;</div><div class="line">                + service.getClass().getName());</div><div class="line">        long time = SystemClock.elapsedRealtime();</div><div class="line">        try {</div><div class="line">        	// &#x56DE;&#x8C03;onStartUser</div><div class="line">            service.onStartUser(userHandle);</div><div class="line">        } catch (Exception ex) {</div><div class="line">            Slog.wtf(TAG, &quot;Failure reporting start of user &quot; + userHandle</div><div class="line">                    + &quot; to service &quot; + service.getClass().getName(), ex);</div><div class="line">        }</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p><code>startHomeOnAllDisplays</code>&#x6700;&#x7EC8;&#x4F1A;&#x6765;&#x5230;<code>RootActivityContainer</code>&#x7684;<code>startHomeOnDisplay</code>&#x65B9;&#x6CD5;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">boolean startHomeOnDisplay(int userId, String reason, int displayId, boolean allowInstrumenting,</div><div class="line">        boolean fromHomeKey) {</div><div class="line">    if (displayId == INVALID_DISPLAY) {</div><div class="line">        displayId = getTopDisplayFocusedStack().mDisplayId;</div><div class="line">    }</div><div class="line"> </div><div class="line">    Intent homeIntent = null;</div><div class="line">    ActivityInfo aInfo = null;</div><div class="line">    if (displayId == DEFAULT_DISPLAY) {</div><div class="line">        homeIntent = mService.getHomeIntent();</div><div class="line">        aInfo = resolveHomeActivity(userId, homeIntent);</div><div class="line">    } else if (shouldPlaceSecondaryHomeOnDisplay(displayId)) {</div><div class="line">        Pair&lt;ActivityInfo, Intent&gt; info = resolveSecondaryHomeActivity(userId, displayId);</div><div class="line">        aInfo = info.first;</div><div class="line">        homeIntent = info.second;</div><div class="line">    }</div><div class="line">    if (aInfo == null || homeIntent == null) {</div><div class="line">        return false;</div><div class="line">    }</div><div class="line"> </div><div class="line">    if (!canStartHomeOnDisplay(aInfo, displayId, allowInstrumenting)) {</div><div class="line">        return false;</div><div class="line">    } </div><div class="line"> </div><div class="line">    // &#x8BBE;&#x7F6E;home Intent &#x7684;Component&#x4FE1;&#x606F;</div><div class="line">    homeIntent.setComponent(new ComponentName(aInfo.applicationInfo.packageName, aInfo.name));</div><div class="line">    homeIntent.setFlags(homeIntent.getFlags() | FLAG_ACTIVITY_NEW_TASK);</div><div class="line"> </div><div class="line">    // &#x8BBE;&#x7F6E;extra</div><div class="line">    if (fromHomeKey) {</div><div class="line">        homeIntent.putExtra(WindowManagerPolicy.EXTRA_FROM_HOME_KEY, true);</div><div class="line">    }</div><div class="line"> </div><div class="line">    final String myReason = reason + &quot;:&quot; + userId + &quot;:&quot; + UserHandle.getUserId(</div><div class="line">            aInfo.applicationInfo.uid) + &quot;:&quot; + displayId;</div><div class="line"> </div><div class="line">    // &#x542F;&#x52A8;&#x684C;&#x9762;Activity</div><div class="line">    mService.getActivityStartController().startHomeActivity(homeIntent, aInfo, myReason,</div><div class="line">            displayId);</div><div class="line">    return true;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x603B;&#x7ED3;&#x4E00;&#x4E0B;&#xFF0C;&#x5728;<code>goingCallback.run</code>&#x4E4B;&#x540E;&#xFF0C;&#x8BE5;&#x9636;&#x6BB5;&#x4E3B;&#x8981;&#x505A;&#x7684;&#x4E8B;&#x60C5;&#x662F;&#xFF1A;</p>
+<ol>
+<li>&#x8C03;&#x7528;&#x6240;&#x6709;&#x4E4B;&#x524D;&#x6DFB;&#x52A0;&#x7684;<code>SystemService</code>&#x7684;<code>onStartUser</code>&#x65B9;&#x6CD5;</li>
+<li>&#x542F;&#x52A8;<code>Persistent</code>&#x8FDB;&#x7A0B;</li>
+<li>&#x542F;&#x52A8;&#x7CFB;&#x7EDF;&#x684C;&#x9762;Activity</li>
+<li>&#x53D1;&#x9001;USER_STARTED&#x5E7F;&#x64AD;</li>
+<li>&#x53D1;&#x9001;USER_STARTING&#x5E7F;&#x64AD;</li>
+<li>&#x6062;&#x590D;&#x6808;&#x9876;Activity</li>
+<li>&#x53D1;&#x9001;User_SWITCH&#x5E7F;&#x64AD;</li>
+</ol>
+<p>&#x4EE5;&#x4E0A;&#x5C31;&#x662F;<code>AMS</code>&#x5728;<code>SystemServer</code>&#x4E2D;&#x7684;&#x5168;&#x90E8;&#x8FC7;&#x7A0B;, &#x4E5F;&#x662F;<code>AMS</code>&#x7684;&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x3002;</p>
+<p>&#x6574;&#x4E2A;&#x8FC7;&#x7A0B;&#x4E3B;&#x8981;&#x505A;&#x7684;&#x4E8B;&#x60C5;&#x662F;&#xFF1A;</p>
+<ol>
+<li>&#x901A;&#x8FC7;<code>Lifecycle</code>&#x521B;&#x5EFA;<code>AMS</code>&#x5B9E;&#x4F8B;&#xFF0C;&#x540C;&#x65F6;&#x8C03;&#x7528;<code>onStart()</code>&#x65B9;&#x6CD5;&#x542F;&#x52A8;<code>AMS</code></li>
+<li>&#x901A;&#x8FC7;<code>setSystemProcess</code>&#x6CE8;&#x518C;<code>AMS</code>&#x3001;<code>meminfo</code>&#x3001;<code>gfxinfo</code>&#x3001;<code>dbinfo</code>&#x3001;<code>cpuinfo</code>&#x7B49;&#x670D;&#x52A1;&#x5230;<code>ServiceManager</code>&#x4E2D;</li>
+<li>&#x901A;&#x8FC7;<code>installSystemProviders</code>&#x6765;&#x52A0;&#x8F7D;&#x7CFB;&#x7EDF;&#x7684;<code>providers</code></li>
+<li>&#x901A;&#x8FC7;<code>systemReady</code>&#x6765;<code>ready</code>&#x4E0E;<code>running</code>&#x5404;&#x79CD;&#x670D;&#x52A1;&#xFF0C;&#x540C;&#x65F6;&#x542F;&#x52A8;&#x684C;&#x9762;&#x5E94;&#x7528;&#xFF0C;&#x53D1;&#x9001;&#x76F8;&#x5173;&#x5E7F;&#x64AD;&#x4E0E;&#x6062;&#x590D;&#x6808;&#x9876;<code>Activity</code></li>
+</ol>
+<h2 id="&#x63A8;&#x8350;"><a href="#&#x63A8;&#x8350;" class="headerlink" title="&#x63A8;&#x8350;"></a>&#x63A8;&#x8350;</h2><p><a href="https://github.com/idisfkj/android-startup" target="_blank" rel="external">android_startup</a>: &#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x5728;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65F6;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x3001;&#x9AD8;&#x6548;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521D;&#x59CB;&#x5316;&#x7EC4;&#x4EF6;&#x3002;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>android-startup</code>&#x6765;&#x7B80;&#x5316;&#x542F;&#x52A8;&#x5E8F;&#x5217;&#xFF0C;&#x5E76;&#x663E;&#x5F0F;&#x5730;&#x8BBE;&#x7F6E;&#x521D;&#x59CB;&#x5316;&#x987A;&#x5E8F;&#x4E0E;&#x7EC4;&#x4EF6;&#x4E4B;&#x95F4;&#x7684;&#x4F9D;&#x8D56;&#x5173;&#x7CFB;&#x3002; &#x4E0E;&#x6B64;&#x540C;&#x65F6;<code>android-startup</code>&#x652F;&#x6301;&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#x7B49;&#x5F85;&#xFF0C;&#x5E76;&#x901A;&#x8FC7;&#x6709;&#x5411;&#x65E0;&#x73AF;&#x56FE;&#x62D3;&#x6251;&#x6392;&#x5E8F;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x4FDD;&#x8BC1;&#x5185;&#x90E8;&#x4F9D;&#x8D56;&#x7EC4;&#x4EF6;&#x7684;&#x521D;&#x59CB;&#x5316;&#x987A;&#x5E8F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="external">AwesomeGithub</a>: &#x57FA;&#x4E8E;<code>Github</code>&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7EAF;&#x7EC3;&#x4E60;&#x9879;&#x76EE;&#xFF0C;&#x652F;&#x6301;&#x7EC4;&#x4EF6;&#x5316;&#x5F00;&#x53D1;&#xFF0C;&#x652F;&#x6301;&#x8D26;&#x6237;&#x5BC6;&#x7801;&#x4E0E;&#x8BA4;&#x8BC1;&#x767B;&#x9646;&#x3002;&#x4F7F;&#x7528;<code>Kotlin</code>&#x8BED;&#x8A00;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#xFF0C;&#x9879;&#x76EE;&#x67B6;&#x6784;&#x662F;&#x57FA;&#x4E8E;<code>Jetpack&amp;DataBinding</code>&#x7684;<code>MVVM</code>&#xFF1B;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;<code>Arouter</code>&#x3001;<code>Retrofit</code>&#x3001;<code>Coroutine</code>&#x3001;<code>Glide</code>&#x3001;<code>Dagger</code>&#x4E0E;<code>Hilt</code>&#x7B49;&#x6D41;&#x884C;&#x5F00;&#x6E90;&#x6280;&#x672F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="external">flutter_github</a>: &#x57FA;&#x4E8E;<code>Flutter</code>&#x7684;&#x8DE8;&#x5E73;&#x53F0;&#x7248;&#x672C;<code>Github</code>&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x4E0E;<code>AwesomeGithub</code>&#x76F8;&#x5BF9;&#x5E94;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="external">android-api-analysis</a>: &#x7ED3;&#x5408;&#x8BE6;&#x7EC6;&#x7684;<code>Demo</code>&#x6765;&#x5168;&#x9762;&#x89E3;&#x6790;<code>Android</code>&#x76F8;&#x5173;&#x7684;&#x77E5;&#x8BC6;&#x70B9;, &#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x5FEB;&#x7684;&#x638C;&#x63E1;&#x4E0E;&#x7406;&#x89E3;&#x6240;&#x9610;&#x8FF0;&#x7684;&#x8981;&#x70B9;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/daily_algorithm" target="_blank" rel="external">daily_algorithm</a>: &#x7B97;&#x6CD5;&#x8FDB;&#x9636;&#xFF0C;&#x7531;&#x6D45;&#x5165;&#x6DF1;&#xFF0C;&#x6B22;&#x8FCE;&#x52A0;&#x5165;&#x4E00;&#x8D77;&#x5171;&#x52C9;&#x3002;</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">赞赏是一门艺术</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/rouse_wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/rouse_alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2021/01/07/一文彻底搞懂Kotlin-inline/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="fexo-comments comments-post">
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
+  <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.js"></script>
+  <script>
+    (function () {
+      var gitment = new Gitment({
+        owner: 'idisfkj',
+        repo: 'idisfkj.github.io',
+        id: 'Fri Jan 08 2021 18:25:02 GMT+0800',
+        oauth: {
+          client_id: 'dafb1df02ea9f875bb78',
+          client_secret: 'e9873d78aa5eaed5ce61d1d865a5af501dae377a'
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      })
+      gitment.render('gitment-comments')
+    })()
+  </script>
+
+  
+  
+</div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
