@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>突破自定义View性能瓶颈 | Rouse</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="自定义view,">
+  
+
+  <meta name="description" content="&amp;#x5728;Android&amp;#x5E94;&amp;#x7528;&amp;#x7A0B;&amp;#x5E8F;&amp;#x4E2D;&amp;#xFF0C;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;View&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x975E;&amp;#x5E38;&amp;#x5E38;&amp;#x89C1;&amp;#x7684;&amp;#x9700;&amp;#x6C42;&amp;#x3002;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E">
+<meta name="keywords" content="自定义view">
+<meta property="og:type" content="article">
+<meta property="og:title" content="突破自定义View性能瓶颈">
+<meta property="og:url" content="https://www.rousetime.com/2023/05/29/突破自定义View性能瓶颈/index.html">
+<meta property="og:site_name" content="Rouse">
+<meta property="og:description" content="&amp;#x5728;Android&amp;#x5E94;&amp;#x7528;&amp;#x7A0B;&amp;#x5E8F;&amp;#x4E2D;&amp;#xFF0C;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;View&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x975E;&amp;#x5E38;&amp;#x5E38;&amp;#x89C1;&amp;#x7684;&amp;#x9700;&amp;#x6C42;&amp;#x3002;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2023-05-29T13:10:49.892Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="突破自定义View性能瓶颈">
+<meta name="twitter:description" content="&amp;#x5728;Android&amp;#x5E94;&amp;#x7528;&amp;#x7A0B;&amp;#x5E8F;&amp;#x4E2D;&amp;#xFF0C;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E49;View&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x975E;&amp;#x5E38;&amp;#x5E38;&amp;#x89C1;&amp;#x7684;&amp;#x9700;&amp;#x6C42;&amp;#x3002;&amp;#x81EA;&amp;#x5B9A;&amp;#x4E">
+
+  
+
+  
+  <!-- <link href="/favicon.ico" rel="icon" type="image/x-icon"> -->
+    <link rel="icon" href="/favicon.ico">
+    <!-- <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?bd7ea96a22c9c7b90353962460fa0b8e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-使用正确的布局"><span class="toc-text">1. 使用正确的布局</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-缓存视图"><span class="toc-text">2. 缓存视图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-避免过多的绘制操作"><span class="toc-text">3. 避免过多的绘制操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-使用异步任务"><span class="toc-text">4. 使用异步任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-使用适当的数据结构"><span class="toc-text">5. 使用适当的数据结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐"><span class="toc-text">推荐</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-突破自定义View性能瓶颈" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">突破自定义View性能瓶颈</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2023.05.29</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Rouse</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>&#x5728;Android&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E2D;&#xFF0C;&#x81EA;&#x5B9A;&#x4E49;View&#x662F;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x5E38;&#x89C1;&#x7684;&#x9700;&#x6C42;&#x3002;&#x81EA;&#x5B9A;&#x4E49;View&#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x60A8;&#x521B;&#x5EFA;&#x72EC;&#x7279;&#x7684;UI&#x5143;&#x7D20;&#xFF0C;&#x4EE5;&#x6EE1;&#x8DB3;&#x60A8;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x7279;&#x5B9A;&#x9700;&#x6C42;&#x3002;&#x7136;&#x800C;&#xFF0C;&#x81EA;&#x5B9A;&#x4E49;View&#x4E5F;&#x53EF;&#x80FD;&#x4F1A;&#x5BFC;&#x81F4;&#x6027;&#x80FD;&#x95EE;&#x9898;&#xFF0C;&#x7279;&#x522B;&#x662F;&#x5728;&#x60A8;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x9700;&#x8981;&#x5904;&#x7406;&#x5927;&#x91CF;&#x81EA;&#x5B9A;&#x4E49;View&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x3002;</p>
+<p>&#x5728;&#x672C;&#x7BC7;&#x6587;&#x7AE0;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x63A2;&#x8BA8;&#x4E00;&#x4E9B;Android&#x81EA;&#x5B9A;&#x4E49;View&#x6027;&#x80FD;&#x4F18;&#x5316;&#x7684;&#x6280;&#x5DE7;&#xFF0C;&#x4EE5;&#x786E;&#x4FDD;&#x60A8;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5728;&#x5904;&#x7406;&#x81EA;&#x5B9A;&#x4E49;View&#x65F6;&#x4FDD;&#x6301;&#x9AD8;&#x6548;&#x548C;&#x7A33;&#x5B9A;&#x3002;&#x6211;&#x4EEC;&#x5C06;&#x4ECE;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x65B9;&#x9762;&#x8FDB;&#x884C;&#x8BA8;&#x8BBA;&#xFF1A;</p>
+<h2 id="1-&#x4F7F;&#x7528;&#x6B63;&#x786E;&#x7684;&#x5E03;&#x5C40;"><a href="#1-&#x4F7F;&#x7528;&#x6B63;&#x786E;&#x7684;&#x5E03;&#x5C40;" class="headerlink" title="1. &#x4F7F;&#x7528;&#x6B63;&#x786E;&#x7684;&#x5E03;&#x5C40;"></a>1. &#x4F7F;&#x7528;&#x6B63;&#x786E;&#x7684;&#x5E03;&#x5C40;</h2><p>&#x5728;&#x521B;&#x5EFA;&#x81EA;&#x5B9A;&#x4E49;View&#x65F6;&#xFF0C;&#x6B63;&#x786E;&#x7684;&#x5E03;&#x5C40;&#x662F;&#x81F3;&#x5173;&#x91CD;&#x8981;&#x7684;&#x3002;&#x4F7F;&#x7528;&#x6B63;&#x786E;&#x7684;&#x5E03;&#x5C40;&#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x60A8;&#x6700;&#x5927;&#x9650;&#x5EA6;&#x5730;&#x51CF;&#x5C11;&#x5E03;&#x5C40;&#x5C42;&#x6B21;&#x7ED3;&#x6784;&#xFF0C;&#x4ECE;&#x800C;&#x63D0;&#x9AD8;&#x60A8;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x6027;&#x80FD;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF0C;&#x5982;&#x679C;&#x60A8;&#x9700;&#x8981;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5177;&#x6709;&#x591A;&#x4E2A;&#x5B50;&#x89C6;&#x56FE;&#x7684;&#x81EA;&#x5B9A;&#x4E49;View&#xFF0C;&#x4F7F;&#x7528;ConstraintLayout&#x4EE3;&#x66FF;RelativeLayout&#x548C;LinearLayout&#x53EF;&#x4EE5;&#x7B80;&#x5316;&#x5E03;&#x5C40;&#x5E76;&#x51CF;&#x5C11;&#x5D4C;&#x5957;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x4E00;&#x4E2A;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- &#x6DFB;&#x52A0;&#x60A8;&#x7684;&#x81EA;&#x5B9A;&#x4E49;&#x89C6;&#x56FE;&#x7EC4;&#x4EF6;&#x548C;&#x7EA6;&#x675F;&#x6761;&#x4EF6; --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>&#x53E6;&#x4E00;&#x4E2A;&#x91CD;&#x8981;&#x7684;&#x5E03;&#x5C40;&#x6280;&#x5DE7;&#x662F;&#x4F7F;&#x7528;ViewStub&#x3002;ViewStub&#x662F;&#x4E00;&#x4E2A;&#x8F7B;&#x91CF;&#x7EA7;&#x7684;&#x89C6;&#x56FE;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x7528;&#x4F5C;&#x5360;&#x4F4D;&#x7B26;&#xFF0C;&#x76F4;&#x5230;&#x9700;&#x8981;&#x771F;&#x6B63;&#x7684;&#x89C6;&#x56FE;&#x65F6;&#x624D;&#x5145;&#x6C14;&#x3002;&#x8FD9;&#x53EF;&#x4EE5;&#x5927;&#x5927;&#x51CF;&#x5C11;&#x5E03;&#x5C40;&#x5C42;&#x6B21;&#x7ED3;&#x6784;&#x5E76;&#x63D0;&#x9AD8;&#x6027;&#x80FD;&#x3002;</p>
+<h2 id="2-&#x7F13;&#x5B58;&#x89C6;&#x56FE;"><a href="#2-&#x7F13;&#x5B58;&#x89C6;&#x56FE;" class="headerlink" title="2. &#x7F13;&#x5B58;&#x89C6;&#x56FE;"></a>2. &#x7F13;&#x5B58;&#x89C6;&#x56FE;</h2><p>&#x7F13;&#x5B58;&#x89C6;&#x56FE;&#x662F;&#x53E6;&#x4E00;&#x4E2A;&#x91CD;&#x8981;&#x7684;&#x6027;&#x80FD;&#x4F18;&#x5316;&#x6280;&#x5DE7;&#x3002;&#x5F53;&#x60A8;&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;View&#x65F6;&#xFF0C;&#x901A;&#x5E38;&#x9700;&#x8981;&#x521B;&#x5EFA;&#x591A;&#x4E2A;&#x5B9E;&#x4F8B;&#x3002;&#x5982;&#x679C;&#x60A8;&#x6CA1;&#x6709;&#x6B63;&#x786E;&#x5730;&#x7F13;&#x5B58;&#x8FD9;&#x4E9B;&#x5B9E;&#x4F8B;&#xFF0C;&#x90A3;&#x4E48;&#x60A8;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x53EF;&#x80FD;&#x4F1A;&#x53D8;&#x5F97;&#x975E;&#x5E38;&#x6162;&#x3002;</p>
+<p>&#x4E3A;&#x4E86;&#x7F13;&#x5B58;&#x89C6;&#x56FE;&#xFF0C;&#x60A8;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;Android&#x7684;ViewHolder&#x6A21;&#x5F0F;&#x6216;&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x7F13;&#x5B58;&#x5BF9;&#x8C61;&#x3002;ViewHolder&#x6A21;&#x5F0F;&#x662F;Android&#x5F00;&#x53D1;&#x8005;&#x5E7F;&#x6CDB;&#x4F7F;&#x7528;&#x7684;&#x4E00;&#x79CD;&#x6280;&#x672F;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x5217;&#x8868;&#x6216;&#x7F51;&#x683C;&#x89C6;&#x56FE;&#x4E2D;&#x63D0;&#x9AD8;&#x6027;&#x80FD;&#x3002;&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x7F13;&#x5B58;&#x5BF9;&#x8C61;&#x53EF;&#x4EE5;&#x66F4;&#x597D;&#x5730;&#x63A7;&#x5236;&#x89C6;&#x56FE;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x5E76;&#x51CF;&#x5C11;&#x89C6;&#x56FE;&#x7684;&#x521B;&#x5EFA;&#x548C;&#x9500;&#x6BC1;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x662F;ViewHolder&#x6A21;&#x5F0F;&#x7684;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomView</span></span>(context: Context) : View(context) {</span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ViewHolder</span> </span>{</span><br><span class="line">        <span class="comment">// &#x7F13;&#x5B58;&#x89C6;&#x56FE;</span></span><br><span class="line">        <span class="keyword">var</span> textView: TextView? = <span class="literal">null</span></span><br><span class="line">        <span class="keyword">var</span> imageView: ImageView? = <span class="literal">null</span></span><br><span class="line">        <span class="comment">// &#x6DFB;&#x52A0;&#x5176;&#x4ED6;&#x89C6;&#x56FE;&#x7EC4;&#x4EF6;</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> viewHolder: ViewHolder? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span> {</span><br><span class="line">        <span class="comment">// &#x521D;&#x59CB;&#x5316;ViewHolder</span></span><br><span class="line">        viewHolder = ViewHolder()</span><br><span class="line">        <span class="comment">// &#x67E5;&#x627E;&#x89C6;&#x56FE;&#x5E76;&#x5173;&#x8054;&#x5230;ViewHolder</span></span><br><span class="line">        viewHolder?.textView = findViewById(R.id.text_view)</span><br><span class="line">        viewHolder?.imageView = findViewById(R.id.image_view)</span><br><span class="line">        <span class="comment">// &#x6DFB;&#x52A0;&#x5176;&#x4ED6;&#x89C6;&#x56FE;&#x7EC4;&#x4EF6;&#x7684;&#x67E5;&#x627E;&#x548C;&#x5173;&#x8054;</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDraw</span><span class="params">(canvas: <span class="type">Canvas</span>)</span></span> {</span><br><span class="line">        <span class="keyword">super</span>.onDraw(canvas)</span><br><span class="line">        <span class="comment">// &#x7ED8;&#x5236;&#x89C6;&#x56FE;</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="3-&#x907F;&#x514D;&#x8FC7;&#x591A;&#x7684;&#x7ED8;&#x5236;&#x64CD;&#x4F5C;"><a href="#3-&#x907F;&#x514D;&#x8FC7;&#x591A;&#x7684;&#x7ED8;&#x5236;&#x64CD;&#x4F5C;" class="headerlink" title="3. &#x907F;&#x514D;&#x8FC7;&#x591A;&#x7684;&#x7ED8;&#x5236;&#x64CD;&#x4F5C;"></a>3. &#x907F;&#x514D;&#x8FC7;&#x591A;&#x7684;&#x7ED8;&#x5236;&#x64CD;&#x4F5C;</h2><p>&#x7ED8;&#x5236;&#x64CD;&#x4F5C;&#x662F;&#x81EA;&#x5B9A;&#x4E49;View&#x4E2D;&#x6700;&#x91CD;&#x8981;&#x7684;&#x6027;&#x80FD;&#x95EE;&#x9898;&#x4E4B;&#x4E00;&#x3002;&#x5982;&#x679C;&#x60A8;&#x7684;&#x81EA;&#x5B9A;&#x4E49;View&#x9700;&#x8981;&#x5927;&#x91CF;&#x7684;&#x7ED8;&#x5236;&#x64CD;&#x4F5C;&#xFF0C;&#x90A3;&#x4E48;&#x60A8;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x53EF;&#x80FD;&#x4F1A;&#x53D8;&#x5F97;&#x975E;&#x5E38;&#x6162;&#x3002;</p>
+<p>&#x4E3A;&#x4E86;&#x907F;&#x514D;&#x8FC7;&#x591A;&#x7684;&#x7ED8;&#x5236;&#x64CD;&#x4F5C;&#xFF0C;&#x60A8;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;View&#x7684;setWillNotDraw&#x65B9;&#x6CD5;&#x6765;&#x7981;&#x7528;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x7ED8;&#x5236;&#x3002;&#x60A8;&#x8FD8;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;Canvas&#x7684;clipRect&#x65B9;&#x6CD5;&#x6765;&#x9650;&#x5236;&#x7ED8;&#x5236;&#x64CD;&#x4F5C;&#x7684;&#x533A;&#x57DF;&#x3002;&#x6B64;&#x5916;&#xFF0C;&#x60A8;&#x8FD8;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x786C;&#x4EF6;&#x52A0;&#x901F;&#x6765;&#x52A0;&#x901F;&#x7ED8;&#x5236;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E2A;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomView</span></span>(context: Context) : View(context) {</span><br><span class="line">    <span class="keyword">init</span> {</span><br><span class="line">        setWillNotDraw(<span class="literal">true</span>) <span class="comment">// &#x7981;&#x7528;&#x7ED8;&#x5236;</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDraw</span><span class="params">(canvas: <span class="type">Canvas</span>)</span></span> {</span><br><span class="line">        <span class="keyword">super</span>.onDraw(canvas)</span><br><span class="line">        <span class="comment">// &#x7ED8;&#x5236;&#x64CD;&#x4F5C;</span></span><br><span class="line">        canvas.clipRect(<span class="number">0</span>, <span class="number">0</span>, width, height) <span class="comment">// &#x9650;&#x5236;&#x7ED8;&#x5236;&#x533A;&#x57DF;</span></span><br><span class="line">        <span class="comment">// &#x6DFB;&#x52A0;&#x5176;&#x4ED6;&#x7ED8;&#x5236;&#x64CD;&#x4F5C;</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="4-&#x4F7F;&#x7528;&#x5F02;&#x6B65;&#x4EFB;&#x52A1;"><a href="#4-&#x4F7F;&#x7528;&#x5F02;&#x6B65;&#x4EFB;&#x52A1;" class="headerlink" title="4. &#x4F7F;&#x7528;&#x5F02;&#x6B65;&#x4EFB;&#x52A1;"></a>4. &#x4F7F;&#x7528;&#x5F02;&#x6B65;&#x4EFB;&#x52A1;</h2><p>&#x5982;&#x679C;&#x60A8;&#x7684;&#x81EA;&#x5B9A;&#x4E49;View&#x9700;&#x8981;&#x6267;&#x884C;&#x8017;&#x65F6;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x4F8B;&#x5982;&#x4ECE;&#x7F51;&#x7EDC;&#x52A0;&#x8F7D;&#x56FE;&#x50CF;&#x6216;&#x5904;&#x7406;&#x5927;&#x91CF;&#x6570;&#x636E;&#xFF0C;&#x90A3;&#x4E48;&#x60A8;&#x5E94;&#x8BE5;&#x4F7F;&#x7528;&#x5F02;&#x6B65;&#x4EFB;&#x52A1;&#x6765;&#x6267;&#x884C;&#x8FD9;&#x4E9B;&#x64CD;&#x4F5C;&#x3002;&#x8FD9;&#x53EF;&#x4EE5;&#x786E;&#x4FDD;&#x60A8;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5728;&#x6267;&#x884C;&#x8FD9;&#x4E9B;&#x64CD;&#x4F5C;&#x65F6;&#x4FDD;&#x6301;&#x54CD;&#x5E94;&#xFF0C;&#x5E76;&#x4E14;&#x4E0D;&#x4F1A;&#x963B;&#x585E;&#x7528;&#x6237;&#x754C;&#x9762;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E2A;&#x4F7F;&#x7528;&#x5F02;&#x6B65;&#x4EFB;&#x52A1;&#x52A0;&#x8F7D;&#x56FE;&#x50CF;&#x7684;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomView</span></span>(context: Context) : View(context) {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> image: Bitmap? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">loadImageAsync</span><span class="params">(imageUrl: <span class="type">String</span>)</span></span> {</span><br><span class="line">        <span class="keyword">val</span> asyncTask = <span class="keyword">object</span> : AsyncTask&lt;<span class="built_in">Void</span>, <span class="built_in">Void</span>, Bitmap&gt;() {</span><br><span class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">doInBackground</span><span class="params">(<span class="keyword">vararg</span> params: <span class="type">Void</span>?)</span></span>: Bitmap {</span><br><span class="line">                <span class="comment">// &#x6267;&#x884C;&#x8017;&#x65F6;&#x64CD;&#x4F5C;&#xFF0C;&#x5982;&#x4ECE;&#x7F51;&#x7EDC;&#x52A0;&#x8F7D;&#x56FE;&#x50CF;</span></span><br><span class="line">                <span class="keyword">return</span> loadImageFromUrl(imageUrl)</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onPostExecute</span><span class="params">(result: <span class="type">Bitmap</span>)</span></span> {</span><br><span class="line">                <span class="keyword">super</span>.onPostExecute(result)</span><br><span class="line">                <span class="comment">// &#x5728;&#x4E3B;&#x7EBF;&#x7A0B;&#x66F4;&#x65B0;UI</span></span><br><span class="line">                image = result</span><br><span class="line">                invalidate() <span class="comment">// &#x5237;&#x65B0;&#x89C6;&#x56FE;</span></span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        asyncTask.execute()</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDraw</span><span class="params">(canvas: <span class="type">Canvas</span>)</span></span> {</span><br><span class="line">        <span class="keyword">super</span>.onDraw(canvas)</span><br><span class="line">        <span class="comment">// &#x7ED8;&#x5236;&#x56FE;&#x50CF;</span></span><br><span class="line">        image?.let {</span><br><span class="line">            canvas.drawBitmap(it, <span class="number">0f</span>, <span class="number">0f</span>, <span class="literal">null</span>)</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// &#x6DFB;&#x52A0;&#x5176;&#x4ED6;&#x7ED8;&#x5236;&#x64CD;&#x4F5C;</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="5-&#x4F7F;&#x7528;&#x9002;&#x5F53;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;"><a href="#5-&#x4F7F;&#x7528;&#x9002;&#x5F53;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;" class="headerlink" title="5. &#x4F7F;&#x7528;&#x9002;&#x5F53;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;"></a>5. &#x4F7F;&#x7528;&#x9002;&#x5F53;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;</h2><p>&#x5728;&#x81EA;&#x5B9A;&#x4E49;View&#x4E2D;&#xFF0C;&#x4F7F;&#x7528;&#x9002;&#x5F53;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x53EF;&#x4EE5;&#x5927;&#x5927;&#x63D0;&#x9AD8;&#x6027;&#x80FD;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x5982;&#x679C;&#x60A8;&#x9700;&#x8981;&#x7ED8;&#x5236;&#x5927;&#x91CF;&#x7684;&#x70B9;&#x6216;&#x7EBF;&#xFF0C;&#x90A3;&#x4E48;&#x4F7F;&#x7528;FloatBuffer&#x6216;ByteBuffer&#x53EF;&#x4EE5;&#x63D0;&#x9AD8;&#x6027;&#x80FD;&#x3002;&#x5982;&#x679C;&#x60A8;&#x9700;&#x8981;&#x5904;&#x7406;&#x5927;&#x91CF;&#x7684;&#x56FE;&#x50CF;&#x6570;&#x636E;&#xFF0C;&#x90A3;&#x4E48;&#x4F7F;&#x7528;BitmapFactory.Options&#x53EF;&#x4EE5;&#x51CF;&#x5C11;&#x5185;&#x5B58;&#x4F7F;&#x7528;&#x91CF;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E2A;&#x4F7F;&#x7528;FloatBuffer&#x7ED8;&#x5236;&#x70B9;&#x7684;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomView</span></span>(context: Context) : View(context) {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> pointBuffer: FloatBuffer? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span> {</span><br><span class="line">        <span class="comment">// &#x521D;&#x59CB;&#x5316;&#x70B9;&#x7684;&#x6570;&#x636E;</span></span><br><span class="line">        <span class="keyword">val</span> points = floatArrayOf(<span class="number">0f</span>, <span class="number">0f</span>, <span class="number">100f</span>, <span class="number">100f</span>, <span class="number">200f</span>, <span class="number">200f</span>)</span><br><span class="line">        pointBuffer = ByteBuffer.allocateDirect(points.size * <span class="number">4</span>)</span><br><span class="line">            .order(ByteOrder.nativeOrder())</span><br><span class="line">            .asFloatBuffer()</span><br><span class="line">        pointBuffer?.put(points)</span><br><span class="line">        pointBuffer?.position(<span class="number">0</span>)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDraw</span><span class="params">(canvas: <span class="type">Canvas</span>)</span></span> {</span><br><span class="line">        <span class="keyword">super</span>.onDraw(canvas)</span><br><span class="line">        <span class="comment">// &#x7ED8;&#x5236;&#x70B9;</span></span><br><span class="line">        pointBuffer?.let {</span><br><span class="line">            canvas.drawPoints(it, paint)</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// &#x6DFB;&#x52A0;&#x5176;&#x4ED6;&#x7ED8;&#x5236;&#x64CD;&#x4F5C;</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="&#x7ED3;&#x8BBA;"><a href="#&#x7ED3;&#x8BBA;" class="headerlink" title="&#x7ED3;&#x8BBA;"></a>&#x7ED3;&#x8BBA;</h2><p>&#x5728;&#x672C;&#x7BC7;&#x6587;&#x7AE0;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x63A2;&#x8BA8;&#x4E86;&#x4E00;&#x4E9B;Android&#x81EA;&#x5B9A;&#x4E49;View&#x6027;&#x80FD;&#x4F18;&#x5316;&#x7684;&#x6280;&#x5DE7;&#x3002;&#x901A;&#x8FC7;&#x4F7F;&#x7528;&#x6B63;&#x786E;&#x7684;&#x5E03;&#x5C40;&#xFF0C;&#x7F13;&#x5B58;&#x89C6;&#x56FE;&#xFF0C;&#x907F;&#x514D;&#x8FC7;&#x591A;&#x7684;&#x7ED8;&#x5236;&#x64CD;&#x4F5C;&#xFF0C;&#x4F7F;&#x7528;&#x5F02;&#x6B65;&#x4EFB;&#x52A1;&#x548C;&#x9002;&#x5F53;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x60A8;&#x53EF;&#x4EE5;&#x786E;&#x4FDD;&#x60A8;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5728;&#x5904;&#x7406;&#x81EA;&#x5B9A;&#x4E49;View&#x65F6;&#x4FDD;&#x6301;&#x9AD8;&#x6548;&#x548C;&#x7A33;&#x5B9A;&#x3002;</p>
+<p>&#x8BF7;&#x8BB0;&#x4F4F;&#xFF0C;&#x4F18;&#x5316;&#x81EA;&#x5B9A;&#x4E49;View&#x7684;&#x6027;&#x80FD;&#x662F;&#x4E00;&#x4E2A;&#x6301;&#x7EED;&#x7684;&#x8FC7;&#x7A0B;&#x3002;&#x60A8;&#x5E94;&#x8BE5;&#x7ECF;&#x5E38;&#x68C0;&#x67E5;&#x60A8;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#xFF0C;&#x5E76;&#x4F7F;&#x7528;&#x6700;&#x65B0;&#x7684;&#x6280;&#x672F;&#x548C;&#x6700;&#x4F73;&#x5B9E;&#x8DF5;&#x6765;&#x63D0;&#x9AD8;&#x6027;&#x80FD;&#x3002;</p>
+<h2 id="&#x63A8;&#x8350;"><a href="#&#x63A8;&#x8350;" class="headerlink" title="&#x63A8;&#x8350;"></a>&#x63A8;&#x8350;</h2><p><a href="https://github.com/idisfkj/android-startup" target="_blank" rel="noopener">android_startup</a>: &#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x5728;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65F6;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x3001;&#x9AD8;&#x6548;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521D;&#x59CB;&#x5316;&#x7EC4;&#x4EF6;&#xFF0C;&#x4F18;&#x5316;&#x542F;&#x52A8;&#x901F;&#x5EA6;&#x3002;&#x4E0D;&#x4EC5;&#x652F;&#x6301;Jetpack App Startup&#x7684;&#x5168;&#x90E8;&#x529F;&#x80FD;&#xFF0C;&#x8FD8;&#x63D0;&#x4F9B;&#x989D;&#x5916;&#x7684;&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#x7B49;&#x5F85;&#x3001;&#x7EBF;&#x7A0B;&#x63A7;&#x5236;&#x4E0E;&#x591A;&#x8FDB;&#x7A0B;&#x652F;&#x6301;&#x7B49;&#x529F;&#x80FD;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="noopener">AwesomeGithub</a>: &#x57FA;&#x4E8E;Github&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7EAF;&#x7EC3;&#x4E60;&#x9879;&#x76EE;&#xFF0C;&#x652F;&#x6301;&#x7EC4;&#x4EF6;&#x5316;&#x5F00;&#x53D1;&#xFF0C;&#x652F;&#x6301;&#x8D26;&#x6237;&#x5BC6;&#x7801;&#x4E0E;&#x8BA4;&#x8BC1;&#x767B;&#x9646;&#x3002;&#x4F7F;&#x7528;Kotlin&#x8BED;&#x8A00;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#xFF0C;&#x9879;&#x76EE;&#x67B6;&#x6784;&#x662F;&#x57FA;&#x4E8E;JetPack\&amp;DataBinding&#x7684;MVVM&#xFF1B;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;Arouter&#x3001;Retrofit&#x3001;Coroutine&#x3001;Glide&#x3001;Dagger&#x4E0E;Hilt&#x7B49;&#x6D41;&#x884C;&#x5F00;&#x6E90;&#x6280;&#x672F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="noopener">flutter_github</a>: &#x57FA;&#x4E8E;Flutter&#x7684;&#x8DE8;&#x5E73;&#x53F0;&#x7248;&#x672C;Github&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x4E0E;AwesomeGithub&#x76F8;&#x5BF9;&#x5E94;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="noopener">android-api-analysis</a>: &#x7ED3;&#x5408;&#x8BE6;&#x7EC6;&#x7684;Demo&#x6765;&#x5168;&#x9762;&#x89E3;&#x6790;Android&#x76F8;&#x5173;&#x7684;&#x77E5;&#x8BC6;&#x70B9;, &#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x5FEB;&#x7684;&#x638C;&#x63E1;&#x4E0E;&#x7406;&#x89E3;&#x6240;&#x9610;&#x8FF0;&#x7684;&#x8981;&#x70B9;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/daily_algorithm" target="_blank" rel="noopener">daily_algorithm</a>: &#x6BCF;&#x65E5;&#x4E00;&#x7B97;&#x6CD5;&#xFF0C;&#x7531;&#x6D45;&#x5165;&#x6DF1;&#xFF0C;&#x6B22;&#x8FCE;&#x52A0;&#x5165;&#x4E00;&#x8D77;&#x5171;&#x52C9;&#x3002;</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">赞赏是一门艺术</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/rouse_wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/rouse_alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2023/05/27/Android-自定义-View-独家技巧/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="fexo-comments comments-post">
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>
+  <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+  <script src="https://jjeejj.github.io/js/gitment.js"></script>
+  <script>
+    (function () {
+      var gitment = new Gitment({
+        owner: 'idisfkj',
+        repo: 'idisfkj.github.io',
+        id: 'Mon May 29 2023 21:09:20 GMT+0800',
+        oauth: {
+          client_id: 'dafb1df02ea9f875bb78',
+          client_secret: 'e9873d78aa5eaed5ce61d1d865a5af501dae377a'
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      })
+      gitment.render('gitment-comments')
+    })()
+  </script>
+
+  
+  
+</div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
