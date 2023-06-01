@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>揭开Android视图绘制的神秘面纱 | Rouse</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="view,">
+  
+
+  <meta name="description" content="&amp;#x5728;Android&amp;#x7684;UI&amp;#x4E2D;&amp;#xFF0C;View&amp;#x662F;&amp;#x81F3;&amp;#x5173;&amp;#x91CD;&amp;#x8981;&amp;#x7684;&amp;#x4E00;&amp;#x4E2A;&amp;#x7EC4;&amp;#x4EF6;&amp;#xFF0C;&amp;#x5B83;&amp;#x662F;&amp;#x7528;&amp;#x6237;&amp;#x754C;&amp;#x9762;&amp;#x7684;&amp;#x57FA;&amp;#x">
+<meta name="keywords" content="view">
+<meta property="og:type" content="article">
+<meta property="og:title" content="揭开Android视图绘制的神秘面纱">
+<meta property="og:url" content="https://www.rousetime.com/2023/06/01/揭开Android视图绘制的神秘面纱/index.html">
+<meta property="og:site_name" content="Rouse">
+<meta property="og:description" content="&amp;#x5728;Android&amp;#x7684;UI&amp;#x4E2D;&amp;#xFF0C;View&amp;#x662F;&amp;#x81F3;&amp;#x5173;&amp;#x91CD;&amp;#x8981;&amp;#x7684;&amp;#x4E00;&amp;#x4E2A;&amp;#x7EC4;&amp;#x4EF6;&amp;#xFF0C;&amp;#x5B83;&amp;#x662F;&amp;#x7528;&amp;#x6237;&amp;#x754C;&amp;#x9762;&amp;#x7684;&amp;#x57FA;&amp;#x">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2023-06-01T14:27:11.069Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="揭开Android视图绘制的神秘面纱">
+<meta name="twitter:description" content="&amp;#x5728;Android&amp;#x7684;UI&amp;#x4E2D;&amp;#xFF0C;View&amp;#x662F;&amp;#x81F3;&amp;#x5173;&amp;#x91CD;&amp;#x8981;&amp;#x7684;&amp;#x4E00;&amp;#x4E2A;&amp;#x7EC4;&amp;#x4EF6;&amp;#xFF0C;&amp;#x5B83;&amp;#x662F;&amp;#x7528;&amp;#x6237;&amp;#x754C;&amp;#x9762;&amp;#x7684;&amp;#x57FA;&amp;#x">
+
+  
+
+  
+  <!-- <link href="/favicon.ico" rel="icon" type="image/x-icon"> -->
+    <link rel="icon" href="/favicon.ico">
+    <!-- <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?bd7ea96a22c9c7b90353962460fa0b8e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是View？"><span class="toc-text">什么是View？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#View的绘制过程"><span class="toc-text">View的绘制过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#测量阶段（Measure）"><span class="toc-text">测量阶段（Measure）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#布局阶段（Layout）"><span class="toc-text">布局阶段（Layout）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#绘制阶段（Draw）"><span class="toc-text">绘制阶段（Draw）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#View的绘制流程"><span class="toc-text">View的绘制流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Step-1：创建View"><span class="toc-text">Step 1：创建View</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Step-2：测量View"><span class="toc-text">Step 2：测量View</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Step-3：布局View"><span class="toc-text">Step 3：布局View</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Step-4：绘制背景"><span class="toc-text">Step 4：绘制背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Step-5：绘制内容"><span class="toc-text">Step 5：绘制内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Step-6：绘制前景"><span class="toc-text">Step 6：绘制前景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Step-7：绘制子View"><span class="toc-text">Step 7：绘制子View</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Step-8：完成绘制"><span class="toc-text">Step 8：完成绘制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐"><span class="toc-text">推荐</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-揭开Android视图绘制的神秘面纱" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">揭开Android视图绘制的神秘面纱</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2023.06.01</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Rouse</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>&#x5728;Android&#x7684;UI&#x4E2D;&#xFF0C;View&#x662F;&#x81F3;&#x5173;&#x91CD;&#x8981;&#x7684;&#x4E00;&#x4E2A;&#x7EC4;&#x4EF6;&#xFF0C;&#x5B83;&#x662F;&#x7528;&#x6237;&#x754C;&#x9762;&#x7684;&#x57FA;&#x672C;&#x6784;&#x5EFA;&#x5757;&#x3002;&#x5728;View&#x7684;&#x7ED8;&#x5236;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6D89;&#x53CA;&#x5230;&#x5F88;&#x591A;&#x91CD;&#x8981;&#x7684;&#x6982;&#x5FF5;&#x548C;&#x6280;&#x672F;&#x3002;&#x672C;&#x6587;&#x5C06;&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;Android View&#x7684;&#x7ED8;&#x5236;&#x8FC7;&#x7A0B;&#xFF0C;&#x8BA9;&#x4F60;&#x80FD;&#x591F;&#x66F4;&#x597D;&#x5730;&#x7406;&#x89E3;&#x548C;&#x638C;&#x63E1;Android&#x7684;UI&#x5F00;&#x53D1;&#x3002;</p>
+<h2 id="&#x4EC0;&#x4E48;&#x662F;View&#xFF1F;"><a href="#&#x4EC0;&#x4E48;&#x662F;View&#xFF1F;" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F;View&#xFF1F;"></a>&#x4EC0;&#x4E48;&#x662F;View&#xFF1F;</h2><p>View&#x662F;Android&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x57FA;&#x672C;&#x7EC4;&#x4EF6;&#xFF0C;&#x5B83;&#x662F;&#x7528;&#x6237;&#x754C;&#x9762;&#x4E0A;&#x7684;&#x4E00;&#x4E2A;&#x77E9;&#x5F62;&#x533A;&#x57DF;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x5C55;&#x793A;&#x6587;&#x672C;&#x3001;&#x56FE;&#x7247;&#x3001;&#x6309;&#x94AE;&#x7B49;&#x7B49;&#x3002;View&#x53EF;&#x4EE5;&#x54CD;&#x5E94;&#x7528;&#x6237;&#x7684;&#x4EA4;&#x4E92;&#x4E8B;&#x4EF6;&#xFF0C;&#x6BD4;&#x5982;&#x70B9;&#x51FB;&#x3001;&#x6ED1;&#x52A8;&#x7B49;&#x7B49;&#x3002;&#x5728;Android&#x4E2D;&#xFF0C;&#x6240;&#x6709;&#x7684;UI&#x7EC4;&#x4EF6;&#x90FD;&#x662F;&#x7EE7;&#x627F;&#x81EA;View&#x7C7B;&#x3002;</p>
+<h2 id="View&#x7684;&#x7ED8;&#x5236;&#x8FC7;&#x7A0B;"><a href="#View&#x7684;&#x7ED8;&#x5236;&#x8FC7;&#x7A0B;" class="headerlink" title="View&#x7684;&#x7ED8;&#x5236;&#x8FC7;&#x7A0B;"></a>View&#x7684;&#x7ED8;&#x5236;&#x8FC7;&#x7A0B;</h2><p>View&#x7684;&#x7ED8;&#x5236;&#x8FC7;&#x7A0B;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x4E09;&#x4E2A;&#x9636;&#x6BB5;&#xFF1A;&#x6D4B;&#x91CF;&#x3001;&#x5E03;&#x5C40;&#x548C;&#x7ED8;&#x5236;&#x3002;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x5C06;&#x9010;&#x4E00;&#x4ECB;&#x7ECD;&#x8FD9;&#x4E09;&#x4E2A;&#x9636;&#x6BB5;&#x3002;</p>
+<h3 id="&#x6D4B;&#x91CF;&#x9636;&#x6BB5;&#xFF08;Measure&#xFF09;"><a href="#&#x6D4B;&#x91CF;&#x9636;&#x6BB5;&#xFF08;Measure&#xFF09;" class="headerlink" title="&#x6D4B;&#x91CF;&#x9636;&#x6BB5;&#xFF08;Measure&#xFF09;"></a>&#x6D4B;&#x91CF;&#x9636;&#x6BB5;&#xFF08;Measure&#xFF09;</h3><p>&#x6D4B;&#x91CF;&#x9636;&#x6BB5;&#x662F;View&#x7ED8;&#x5236;&#x8FC7;&#x7A0B;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x91CD;&#x8981;&#x9636;&#x6BB5;&#x3002;&#x5728;&#x6D4B;&#x91CF;&#x9636;&#x6BB5;&#xFF0C;&#x7CFB;&#x7EDF;&#x4F1A;&#x8C03;&#x7528;View&#x7684;<code>onMeasure</code>&#x65B9;&#x6CD5;&#xFF0C;&#x6D4B;&#x91CF;View&#x7684;&#x5BBD;&#x5EA6;&#x548C;&#x9AD8;&#x5EA6;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x7CFB;&#x7EDF;&#x4F1A;&#x6839;&#x636E;View&#x7684;LayoutParams&#x548C;&#x7236;&#x5BB9;&#x5668;&#x7684;&#x5927;&#x5C0F;&#x6765;&#x8BA1;&#x7B97;&#x51FA;View&#x7684;&#x5927;&#x5C0F;&#x3002;</p>
+<p>&#x4F8B;&#xFF1A;&#x4E0B;&#x9762;&#x4EE3;&#x7801;&#x662F;&#x4E00;&#x4E2A;&#x81EA;&#x5B9A;&#x4E49;View&#x7684;onMeasure&#x65B9;&#x6CD5;&#x4F8B;&#x7A0B;&#x3002;&#x5728;&#x6D4B;&#x91CF;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x8BBE;&#x5B9A;&#x4E86;View&#x7684;&#x5927;&#x5C0F;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>{</span><br><span class="line">    <span class="comment">// &#x83B7;&#x53D6;&#x5BBD;&#x5EA6;&#x7684;Size&#x548C;Mode</span></span><br><span class="line">    <span class="keyword">int</span> widthSize = MeasureSpec.getSize(widthMeasureSpec);</span><br><span class="line">    <span class="keyword">int</span> widthMode = MeasureSpec.getMode(widthMeasureSpec);</span><br><span class="line">    <span class="comment">// &#x5982;&#x679C;Mode&#x662F;&#x7CBE;&#x786E;&#x7684;&#xFF0C;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;</span></span><br><span class="line">    <span class="keyword">if</span> (widthMode == MeasureSpec.EXACTLY) {</span><br><span class="line">        setMeasuredDimension(widthSize, heightMeasureSpec);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// &#x8BA1;&#x7B97;View&#x7684;&#x5BBD;&#x5EA6;</span></span><br><span class="line">    <span class="keyword">int</span> desiredWidth = getPaddingLeft() + getPaddingRight() + defaultWidth;</span><br><span class="line">    <span class="keyword">int</span> measuredWidth;</span><br><span class="line">    <span class="keyword">if</span> (desiredWidth &lt; widthSize) {</span><br><span class="line">        measuredWidth = desiredWidth;</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        measuredWidth = widthSize;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// &#x8BBE;&#x7F6E;&#x5BBD;&#x5EA6;&#x548C;&#x9AD8;&#x5EA6;&#x7684;Size&#x548C;Mode</span></span><br><span class="line">    <span class="keyword">int</span> heightSize = MeasureSpec.getSize(heightMeasureSpec);</span><br><span class="line">    <span class="keyword">int</span> heightMode = MeasureSpec.getMode(heightMeasureSpec);</span><br><span class="line">    <span class="keyword">int</span> measuredHeight = defaultHeight;</span><br><span class="line">    <span class="keyword">if</span> (heightMode == MeasureSpec.EXACTLY) {</span><br><span class="line">        measuredHeight = heightSize;</span><br><span class="line">    } <span class="keyword">else</span> <span class="keyword">if</span> (heightMode == MeasureSpec.AT_MOST) {</span><br><span class="line">        measuredHeight = Math.min(defaultHeight, heightSize);</span><br><span class="line">    }</span><br><span class="line">    setMeasuredDimension(measuredWidth, measuredHeight);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x6D4B;&#x91CF;&#x9636;&#x6BB5;&#x7ED3;&#x675F;&#x540E;&#xFF0C;&#x7CFB;&#x7EDF;&#x4F1A;&#x5C06;&#x8BA1;&#x7B97;&#x597D;&#x7684;&#x5BBD;&#x5EA6;&#x548C;&#x9AD8;&#x5EA6;&#x4F20;&#x9012;&#x7ED9;&#x5E03;&#x5C40;&#x9636;&#x6BB5;&#x3002;</p>
+<h3 id="&#x5E03;&#x5C40;&#x9636;&#x6BB5;&#xFF08;Layout&#xFF09;"><a href="#&#x5E03;&#x5C40;&#x9636;&#x6BB5;&#xFF08;Layout&#xFF09;" class="headerlink" title="&#x5E03;&#x5C40;&#x9636;&#x6BB5;&#xFF08;Layout&#xFF09;"></a>&#x5E03;&#x5C40;&#x9636;&#x6BB5;&#xFF08;Layout&#xFF09;</h3><p>&#x5E03;&#x5C40;&#x9636;&#x6BB5;&#x662F;View&#x7ED8;&#x5236;&#x8FC7;&#x7A0B;&#x7684;&#x7B2C;&#x4E8C;&#x4E2A;&#x91CD;&#x8981;&#x9636;&#x6BB5;&#x3002;&#x5728;&#x5E03;&#x5C40;&#x9636;&#x6BB5;&#xFF0C;&#x7CFB;&#x7EDF;&#x4F1A;&#x8C03;&#x7528;View&#x7684;<code>onLayout</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5C06;View&#x653E;&#x7F6E;&#x5728;&#x7236;&#x5BB9;&#x5668;&#x4E2D;&#x7684;&#x6B63;&#x786E;&#x4F4D;&#x7F6E;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x7CFB;&#x7EDF;&#x4F1A;&#x6839;&#x636E;View&#x7684;LayoutParams&#x548C;&#x7236;&#x5BB9;&#x5668;&#x7684;&#x4F4D;&#x7F6E;&#x6765;&#x786E;&#x5B9A;View&#x7684;&#x4F4D;&#x7F6E;&#x3002;</p>
+<p>&#x4F8B;&#xFF1A;&#x4E0B;&#x9762;&#x4EE3;&#x7801;&#x662F;&#x4E00;&#x4E2A;&#x81EA;&#x5B9A;&#x4E49;ViewGroup&#x7684;onLayout&#x65B9;&#x6CD5;&#x4F8B;&#x7A0B;&#x3002;&#x5728;&#x5E03;&#x5C40;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x904D;&#x5386;&#x5B50;View&#xFF0C;&#x5E76;&#x6839;&#x636E;LayoutParams&#x786E;&#x5B9A;&#x5B50;View&#x7684;&#x4F4D;&#x7F6E;&#x548C;&#x5927;&#x5C0F;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onLayout</span><span class="params">(<span class="keyword">boolean</span> changed, <span class="keyword">int</span> l, <span class="keyword">int</span> t, <span class="keyword">int</span> r, <span class="keyword">int</span> b)</span> </span>{</span><br><span class="line">    <span class="keyword">int</span> count = getChildCount();</span><br><span class="line">    <span class="keyword">int</span> left = getPaddingLeft();</span><br><span class="line">    <span class="keyword">int</span> top = getPaddingTop();</span><br><span class="line">    <span class="keyword">int</span> right = getMeasuredWidth() - getPaddingRight();</span><br><span class="line">    <span class="keyword">int</span> bottom = getMeasuredHeight() - getPaddingBottom();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) {</span><br><span class="line">        View child = getChildAt(i);</span><br><span class="line">        <span class="keyword">if</span> (child.getVisibility() == GONE) {</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        LayoutParams lp = (LayoutParams) child.getLayoutParams();</span><br><span class="line">        <span class="keyword">int</span> childLeft = left + lp.leftMargin;</span><br><span class="line">        <span class="keyword">int</span> childTop = top + lp.topMargin;</span><br><span class="line">        <span class="keyword">int</span> childRight = right - lp.rightMargin;</span><br><span class="line">        <span class="keyword">int</span> childBottom = bottom - lp.bottomMargin;</span><br><span class="line">        child.layout(childLeft, childTop, childRight, childBottom);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h3 id="&#x7ED8;&#x5236;&#x9636;&#x6BB5;&#xFF08;Draw&#xFF09;"><a href="#&#x7ED8;&#x5236;&#x9636;&#x6BB5;&#xFF08;Draw&#xFF09;" class="headerlink" title="&#x7ED8;&#x5236;&#x9636;&#x6BB5;&#xFF08;Draw&#xFF09;"></a>&#x7ED8;&#x5236;&#x9636;&#x6BB5;&#xFF08;Draw&#xFF09;</h3><p>&#x7ED8;&#x5236;&#x9636;&#x6BB5;&#x662F;View&#x7ED8;&#x5236;&#x8FC7;&#x7A0B;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x91CD;&#x8981;&#x9636;&#x6BB5;&#x3002;&#x5728;&#x7ED8;&#x5236;&#x9636;&#x6BB5;&#xFF0C;&#x7CFB;&#x7EDF;&#x4F1A;&#x8C03;&#x7528;View&#x7684;<code>onDraw</code>&#x65B9;&#x6CD5;&#xFF0C;&#x7ED8;&#x5236;View&#x7684;&#x5185;&#x5BB9;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;Canvas&#x5BF9;&#x8C61;&#x6765;&#x7ED8;&#x5236;&#x5404;&#x79CD;&#x5F62;&#x72B6;&#x3001;&#x6587;&#x672C;&#x548C;&#x56FE;&#x7247;&#x7B49;&#x7B49;&#x3002;</p>
+<p>&#x4F8B;&#xFF1A;&#x4E0B;&#x9762;&#x4EE3;&#x7801;&#x662F;&#x4E00;&#x4E2A;&#x81EA;&#x5B9A;&#x4E49;View&#x7684;onDraw&#x65B9;&#x6CD5;&#x4F8B;&#x7A0B;&#x3002;&#x5728;&#x7ED8;&#x5236;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;Paint&#x5BF9;&#x8C61;&#x7ED8;&#x5236;&#x4E86;&#x4E00;&#x6BB5;&#x6587;&#x672C;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>{</span><br><span class="line">    <span class="keyword">super</span>.onDraw(canvas);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//&#x7ED8;&#x5236;&#x6587;&#x672C;</span></span><br><span class="line">    String text = <span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line">    Paint paint = <span class="keyword">new</span> Paint();</span><br><span class="line">    paint.setTextSize(<span class="number">50</span>);</span><br><span class="line">    paint.setColor(Color.RED);</span><br><span class="line">    paint.setAntiAlias(<span class="keyword">true</span>);</span><br><span class="line">    canvas.drawText(text, <span class="number">0</span>, getHeight() / <span class="number">2</span>, paint);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x9664;&#x4E86;&#x7ED8;&#x5236;&#x5185;&#x5BB9;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x53EF;&#x4EE5;&#x5728;&#x7ED8;&#x5236;&#x9636;&#x6BB5;&#x7ED8;&#x5236;View&#x7684;&#x80CC;&#x666F;&#x548C;&#x524D;&#x666F;&#x3002;&#x7CFB;&#x7EDF;&#x4F1A;&#x8C03;&#x7528;<code>drawBackground</code>&#x548C;<code>drawForeground</code>&#x65B9;&#x6CD5;&#x6765;&#x7ED8;&#x5236;&#x80CC;&#x666F;&#x548C;&#x524D;&#x666F;&#x3002;&#x503C;&#x5F97;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;View&#x7684;&#x7ED8;&#x5236;&#x987A;&#x5E8F;&#x662F;&#xFF1A;&#x5148;&#x7ED8;&#x5236;&#x80CC;&#x666F;&#xFF0C;&#x518D;&#x7ED8;&#x5236;&#x5185;&#x5BB9;&#xFF0C;&#x6700;&#x540E;&#x7ED8;&#x5236;&#x524D;&#x666F;&#x3002;</p>
+<h3 id="View&#x7684;&#x7ED8;&#x5236;&#x6D41;&#x7A0B;"><a href="#View&#x7684;&#x7ED8;&#x5236;&#x6D41;&#x7A0B;" class="headerlink" title="View&#x7684;&#x7ED8;&#x5236;&#x6D41;&#x7A0B;"></a>View&#x7684;&#x7ED8;&#x5236;&#x6D41;&#x7A0B;</h3><p>View&#x7684;&#x7ED8;&#x5236;&#x6D41;&#x7A0B;&#x53EF;&#x4EE5;&#x770B;&#x4F5C;&#x662F;&#x4E00;&#x4E2A;&#x9012;&#x5F52;&#x8C03;&#x7528;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x5C06;&#x5177;&#x4F53;&#x4ECB;&#x7ECD;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x3002;</p>
+<h4 id="Step-1&#xFF1A;&#x521B;&#x5EFA;View"><a href="#Step-1&#xFF1A;&#x521B;&#x5EFA;View" class="headerlink" title="Step 1&#xFF1A;&#x521B;&#x5EFA;View"></a>Step 1&#xFF1A;&#x521B;&#x5EFA;View</h4><p>&#x5728;View&#x7ED8;&#x5236;&#x8FC7;&#x7A0B;&#x7684;&#x5F00;&#x59CB;&#x9636;&#x6BB5;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;View&#x5BF9;&#x8C61;&#xFF0C;&#x5E76;&#x5C06;&#x5B83;&#x6DFB;&#x52A0;&#x5230;&#x7236;&#x5BB9;&#x5668;&#x4E2D;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x7CFB;&#x7EDF;&#x4F1A;&#x8C03;&#x7528;View&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;&#xFF0C;&#x5E76;&#x5C06;View&#x7684;LayoutParams&#x4F20;&#x9012;&#x7ED9;&#x5B83;&#x3002;</p>
+<h4 id="Step-2&#xFF1A;&#x6D4B;&#x91CF;View"><a href="#Step-2&#xFF1A;&#x6D4B;&#x91CF;View" class="headerlink" title="Step 2&#xFF1A;&#x6D4B;&#x91CF;View"></a>Step 2&#xFF1A;&#x6D4B;&#x91CF;View</h4><p>&#x63A5;&#x4E0B;&#x6765;&#xFF0C;&#x7CFB;&#x7EDF;&#x4F1A;&#x8C03;&#x7528;View&#x7684;<code>measure</code>&#x65B9;&#x6CD5;&#xFF0C;&#x6D4B;&#x91CF;View&#x7684;&#x5BBD;&#x5EA6;&#x548C;&#x9AD8;&#x5EA6;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;View&#x4F1A;&#x6839;&#x636E;&#x81EA;&#x8EAB;&#x7684;LayoutParams&#x548C;&#x7236;&#x5BB9;&#x5668;&#x7684;&#x5927;&#x5C0F;&#x6765;&#x8BA1;&#x7B97;&#x51FA;&#x81EA;&#x5DF1;&#x7684;&#x5BBD;&#x5EA6;&#x548C;&#x9AD8;&#x5EA6;&#x3002;</p>
+<h4 id="Step-3&#xFF1A;&#x5E03;&#x5C40;View"><a href="#Step-3&#xFF1A;&#x5E03;&#x5C40;View" class="headerlink" title="Step 3&#xFF1A;&#x5E03;&#x5C40;View"></a>Step 3&#xFF1A;&#x5E03;&#x5C40;View</h4><p>&#x5728;&#x6D4B;&#x91CF;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x7CFB;&#x7EDF;&#x4F1A;&#x8C03;&#x7528;View&#x7684;<code>layout</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5C06;View&#x653E;&#x7F6E;&#x5728;&#x7236;&#x5BB9;&#x5668;&#x4E2D;&#x7684;&#x6B63;&#x786E;&#x4F4D;&#x7F6E;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;View&#x4F1A;&#x6839;&#x636E;&#x81EA;&#x8EAB;&#x7684;LayoutParams&#x548C;&#x7236;&#x5BB9;&#x5668;&#x7684;&#x4F4D;&#x7F6E;&#x6765;&#x786E;&#x5B9A;&#x81EA;&#x5DF1;&#x7684;&#x4F4D;&#x7F6E;&#x3002;</p>
+<h4 id="Step-4&#xFF1A;&#x7ED8;&#x5236;&#x80CC;&#x666F;"><a href="#Step-4&#xFF1A;&#x7ED8;&#x5236;&#x80CC;&#x666F;" class="headerlink" title="Step 4&#xFF1A;&#x7ED8;&#x5236;&#x80CC;&#x666F;"></a>Step 4&#xFF1A;&#x7ED8;&#x5236;&#x80CC;&#x666F;</h4><p>&#x5728;&#x5E03;&#x5C40;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x7CFB;&#x7EDF;&#x4F1A;&#x8C03;&#x7528;View&#x7684;<code>drawBackground</code>&#x65B9;&#x6CD5;&#xFF0C;&#x7ED8;&#x5236;View&#x7684;&#x80CC;&#x666F;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;Canvas&#x5BF9;&#x8C61;&#x6765;&#x7ED8;&#x5236;&#x5404;&#x79CD;&#x5F62;&#x72B6;&#x3001;&#x6587;&#x672C;&#x548C;&#x56FE;&#x7247;&#x7B49;&#x7B49;&#x3002;</p>
+<h4 id="Step-5&#xFF1A;&#x7ED8;&#x5236;&#x5185;&#x5BB9;"><a href="#Step-5&#xFF1A;&#x7ED8;&#x5236;&#x5185;&#x5BB9;" class="headerlink" title="Step 5&#xFF1A;&#x7ED8;&#x5236;&#x5185;&#x5BB9;"></a>Step 5&#xFF1A;&#x7ED8;&#x5236;&#x5185;&#x5BB9;</h4><p>&#x63A5;&#x4E0B;&#x6765;&#xFF0C;&#x7CFB;&#x7EDF;&#x4F1A;&#x8C03;&#x7528;View&#x7684;<code>onDraw</code>&#x65B9;&#x6CD5;&#xFF0C;&#x7ED8;&#x5236;View&#x7684;&#x5185;&#x5BB9;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;Canvas&#x5BF9;&#x8C61;&#x6765;&#x7ED8;&#x5236;&#x5404;&#x79CD;&#x5F62;&#x72B6;&#x3001;&#x6587;&#x672C;&#x548C;&#x56FE;&#x7247;&#x7B49;&#x7B49;&#x3002;</p>
+<h4 id="Step-6&#xFF1A;&#x7ED8;&#x5236;&#x524D;&#x666F;"><a href="#Step-6&#xFF1A;&#x7ED8;&#x5236;&#x524D;&#x666F;" class="headerlink" title="Step 6&#xFF1A;&#x7ED8;&#x5236;&#x524D;&#x666F;"></a>Step 6&#xFF1A;&#x7ED8;&#x5236;&#x524D;&#x666F;</h4><p>&#x5728;&#x7ED8;&#x5236;&#x5185;&#x5BB9;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x7CFB;&#x7EDF;&#x4F1A;&#x8C03;&#x7528;View&#x7684;<code>drawForeground</code>&#x65B9;&#x6CD5;&#xFF0C;&#x7ED8;&#x5236;View&#x7684;&#x524D;&#x666F;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x540C;&#x6837;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;Canvas&#x5BF9;&#x8C61;&#x6765;&#x7ED8;&#x5236;&#x5404;&#x79CD;&#x5F62;&#x72B6;&#x3001;&#x6587;&#x672C;&#x548C;&#x56FE;&#x7247;&#x7B49;&#x7B49;&#x3002;</p>
+<h4 id="Step-7&#xFF1A;&#x7ED8;&#x5236;&#x5B50;View"><a href="#Step-7&#xFF1A;&#x7ED8;&#x5236;&#x5B50;View" class="headerlink" title="Step 7&#xFF1A;&#x7ED8;&#x5236;&#x5B50;View"></a>Step 7&#xFF1A;&#x7ED8;&#x5236;&#x5B50;View</h4><p>&#x63A5;&#x7740;&#xFF0C;&#x7CFB;&#x7EDF;&#x4F1A;&#x9012;&#x5F52;&#x8C03;&#x7528;ViewGroup&#x7684;<code>dispatchDraw</code>&#x65B9;&#x6CD5;&#xFF0C;&#x7ED8;&#x5236;&#x6240;&#x6709;&#x5B50;View&#x7684;&#x5185;&#x5BB9;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;Canvas&#x5BF9;&#x8C61;&#x6765;&#x7ED8;&#x5236;&#x5404;&#x79CD;&#x5F62;&#x72B6;&#x3001;&#x6587;&#x672C;&#x548C;&#x56FE;&#x7247;&#x7B49;&#x7B49;&#x3002;</p>
+<h4 id="Step-8&#xFF1A;&#x5B8C;&#x6210;&#x7ED8;&#x5236;"><a href="#Step-8&#xFF1A;&#x5B8C;&#x6210;&#x7ED8;&#x5236;" class="headerlink" title="Step 8&#xFF1A;&#x5B8C;&#x6210;&#x7ED8;&#x5236;"></a>Step 8&#xFF1A;&#x5B8C;&#x6210;&#x7ED8;&#x5236;</h4><p>&#x6700;&#x540E;&#xFF0C;&#x6240;&#x6709;&#x7684;View&#x7ED8;&#x5236;&#x5B8C;&#x6210;&#xFF0C;&#x6574;&#x4E2A;View&#x6811;&#x4E5F;&#x5C31;&#x7ED8;&#x5236;&#x5B8C;&#x6210;&#x3002;</p>
+<p>&#x4F8B;&#xFF1A;&#x4E0B;&#x9762;&#x4EE3;&#x7801;&#x662F;&#x4E00;&#x4E2A;&#x81EA;&#x5B9A;&#x4E49;ViewGroup&#x7684;&#x7ED8;&#x5236;&#x6D41;&#x7A0B;&#x4F8B;&#x7A0B;&#x3002;&#x5728;&#x7ED8;&#x5236;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x753B;&#x80CC;&#x666F;&#xFF0C;&#x518D;&#x7ED8;&#x5236;&#x6BCF;&#x4E2A;&#x5B50;View&#x7684;&#x5185;&#x5BB9;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyViewGroup</span> <span class="keyword">extends</span> <span class="title">ViewGroup</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyViewGroup</span><span class="params">(Context context)</span> </span>{</span><br><span class="line">        <span class="keyword">super</span>(context);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyViewGroup</span><span class="params">(Context context, AttributeSet attrs)</span> </span>{</span><br><span class="line">        <span class="keyword">super</span>(context, attrs);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>{</span><br><span class="line">        <span class="comment">// &#x6D4B;&#x91CF;&#x5B50;View&#x7684;&#x5BBD;&#x9AD8;</span></span><br><span class="line">        measureChildren(widthMeasureSpec, heightMeasureSpec);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// &#x83B7;&#x53D6;ViewGroup&#x7684;&#x5BBD;&#x9AD8;&#x5927;&#x5C0F;</span></span><br><span class="line">        <span class="keyword">int</span> widthSize = MeasureSpec.getSize(widthMeasureSpec);</span><br><span class="line">        <span class="keyword">int</span> heightSize = MeasureSpec.getSize(heightMeasureSpec);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// &#x8BBE;&#x7F6E;ViewGroup&#x7684;&#x5BBD;&#x9AD8;</span></span><br><span class="line">        setMeasuredDimension(widthSize, heightSize);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onLayout</span><span class="params">(<span class="keyword">boolean</span> changed, <span class="keyword">int</span> l, <span class="keyword">int</span> t, <span class="keyword">int</span> r, <span class="keyword">int</span> b)</span> </span>{</span><br><span class="line">        <span class="comment">// &#x904D;&#x5386;&#x6240;&#x6709;&#x5B50;View&#xFF0C;&#x8BBE;&#x7F6E;&#x5B83;&#x4EEC;&#x7684;&#x4F4D;&#x7F6E;&#x548C;&#x5927;&#x5C0F;</span></span><br><span class="line">        <span class="keyword">int</span> childCount = getChildCount();</span><br><span class="line">        <span class="keyword">int</span> left, top, right, bottom;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; childCount; i++) {</span><br><span class="line">            View childView = getChildAt(i);</span><br><span class="line">            left = childView.getLeft();</span><br><span class="line">            top = childView.getTop();</span><br><span class="line">            right = childView.getRight();</span><br><span class="line">            bottom = childView.getBottom();</span><br><span class="line">            childView.layout(left, top, right, bottom);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>{</span><br><span class="line">        <span class="keyword">super</span>.onDraw(canvas);</span><br><span class="line">        <span class="comment">// &#x753B;&#x80CC;&#x666F;</span></span><br><span class="line">        canvas.drawColor(Color.WHITE);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">dispatchDraw</span><span class="params">(Canvas canvas)</span> </span>{</span><br><span class="line">        <span class="keyword">super</span>.dispatchDraw(canvas);</span><br><span class="line">        <span class="comment">// &#x7ED8;&#x5236;&#x6BCF;&#x4E2A;&#x5B50;View&#x7684;&#x5185;&#x5BB9;</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; getChildCount(); i++) {</span><br><span class="line">            View childView = getChildAt(i);</span><br><span class="line">            childView.draw(canvas);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;ViewGroup&#x7684;&#x7ED8;&#x5236;&#x6D41;&#x7A0B;&#x4E2D;&#xFF0C;&#x7CFB;&#x7EDF;&#x4F1A;&#x5148;&#x8C03;&#x7528;ViewGroup&#x7684;<code>draw</code>&#x65B9;&#x6CD5;&#xFF0C;&#x7136;&#x540E;&#x4F9D;&#x6B21;&#x8C03;&#x7528;<code>dispatchDraw</code>&#x65B9;&#x6CD5;&#x548C;&#x7ED8;&#x5236;&#x6BCF;&#x4E2A;&#x5B50;View&#x7684;<code>draw</code>&#x65B9;&#x6CD5;&#x3002;ViewGroup&#x7684;&#x7ED8;&#x5236;&#x987A;&#x5E8F;&#x662F;&#x5148;&#x7ED8;&#x5236;&#x81EA;&#x5DF1;&#x7684;&#x80CC;&#x666F;&#xFF0C;&#x518D;&#x7ED8;&#x5236;&#x6BCF;&#x4E2A;&#x5B50;View&#x7684;&#x5185;&#x5BB9;&#x548C;&#x80CC;&#x666F;&#xFF0C;&#x6700;&#x540E;&#x7ED8;&#x5236;&#x81EA;&#x5DF1;&#x7684;&#x524D;&#x666F;&#x3002;</p>
+<h2 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h2><p>&#x672C;&#x6587;&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;&#x4E86;Android View&#x7684;&#x7ED8;&#x5236;&#x8FC7;&#x7A0B;&#xFF0C;&#x5305;&#x62EC;&#x6D4B;&#x91CF;&#x9636;&#x6BB5;&#x3001;&#x5E03;&#x5C40;&#x9636;&#x6BB5;&#x548C;&#x7ED8;&#x5236;&#x9636;&#x6BB5;&#x3002;&#x540C;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x5728;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#x7684;&#x89D2;&#x5EA6;&#xFF0C;&#x8BE6;&#x7EC6;&#x8BF4;&#x660E;&#x4E86;Android ViewGroup&#x7684;&#x7ED8;&#x5236;&#x6D41;&#x7A0B;&#xFF0C;&#x5E2E;&#x52A9;&#x4F60;&#x66F4;&#x597D;&#x5730;&#x7406;&#x89E3;&#x548C;&#x638C;&#x63E1;Android&#x7684;UI&#x5F00;&#x53D1;&#x3002;</p>
+<h2 id="&#x63A8;&#x8350;"><a href="#&#x63A8;&#x8350;" class="headerlink" title="&#x63A8;&#x8350;"></a>&#x63A8;&#x8350;</h2><p><a href="https://github.com/idisfkj/android-startup" target="_blank" rel="noopener">android_startup</a>: &#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x5728;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65F6;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x3001;&#x9AD8;&#x6548;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521D;&#x59CB;&#x5316;&#x7EC4;&#x4EF6;&#xFF0C;&#x4F18;&#x5316;&#x542F;&#x52A8;&#x901F;&#x5EA6;&#x3002;&#x4E0D;&#x4EC5;&#x652F;&#x6301;Jetpack App Startup&#x7684;&#x5168;&#x90E8;&#x529F;&#x80FD;&#xFF0C;&#x8FD8;&#x63D0;&#x4F9B;&#x989D;&#x5916;&#x7684;&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#x7B49;&#x5F85;&#x3001;&#x7EBF;&#x7A0B;&#x63A7;&#x5236;&#x4E0E;&#x591A;&#x8FDB;&#x7A0B;&#x652F;&#x6301;&#x7B49;&#x529F;&#x80FD;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="noopener">AwesomeGithub</a>: &#x57FA;&#x4E8E;Github&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7EAF;&#x7EC3;&#x4E60;&#x9879;&#x76EE;&#xFF0C;&#x652F;&#x6301;&#x7EC4;&#x4EF6;&#x5316;&#x5F00;&#x53D1;&#xFF0C;&#x652F;&#x6301;&#x8D26;&#x6237;&#x5BC6;&#x7801;&#x4E0E;&#x8BA4;&#x8BC1;&#x767B;&#x9646;&#x3002;&#x4F7F;&#x7528;Kotlin&#x8BED;&#x8A00;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#xFF0C;&#x9879;&#x76EE;&#x67B6;&#x6784;&#x662F;&#x57FA;&#x4E8E;JetPack\&amp;DataBinding&#x7684;MVVM&#xFF1B;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;Arouter&#x3001;Retrofit&#x3001;Coroutine&#x3001;Glide&#x3001;Dagger&#x4E0E;Hilt&#x7B49;&#x6D41;&#x884C;&#x5F00;&#x6E90;&#x6280;&#x672F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="noopener">flutter_github</a>: &#x57FA;&#x4E8E;Flutter&#x7684;&#x8DE8;&#x5E73;&#x53F0;&#x7248;&#x672C;Github&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x4E0E;AwesomeGithub&#x76F8;&#x5BF9;&#x5E94;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="noopener">android-api-analysis</a>: &#x7ED3;&#x5408;&#x8BE6;&#x7EC6;&#x7684;Demo&#x6765;&#x5168;&#x9762;&#x89E3;&#x6790;Android&#x76F8;&#x5173;&#x7684;&#x77E5;&#x8BC6;&#x70B9;, &#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x5FEB;&#x7684;&#x638C;&#x63E1;&#x4E0E;&#x7406;&#x89E3;&#x6240;&#x9610;&#x8FF0;&#x7684;&#x8981;&#x70B9;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/daily_algorithm" target="_blank" rel="noopener">daily_algorithm</a>: &#x6BCF;&#x65E5;&#x4E00;&#x7B97;&#x6CD5;&#xFF0C;&#x7531;&#x6D45;&#x5165;&#x6DF1;&#xFF0C;&#x6B22;&#x8FCE;&#x52A0;&#x5165;&#x4E00;&#x8D77;&#x5171;&#x52C9;&#x3002;</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">赞赏是一门艺术</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/rouse_wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/rouse_alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2023/05/31/探秘Android手势事件机制与优化技巧/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="fexo-comments comments-post">
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>
+  <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+  <script src="https://jjeejj.github.io/js/gitment.js"></script>
+  <script>
+    (function () {
+      var gitment = new Gitment({
+        owner: 'idisfkj',
+        repo: 'idisfkj.github.io',
+        id: 'Thu Jun 01 2023 22:25:51 GMT+0800',
+        oauth: {
+          client_id: 'dafb1df02ea9f875bb78',
+          client_secret: 'e9873d78aa5eaed5ce61d1d865a5af501dae377a'
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      })
+      gitment.render('gitment-comments')
+    })()
+  </script>
+
+  
+  
+</div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
