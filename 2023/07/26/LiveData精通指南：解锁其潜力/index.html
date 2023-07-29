@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>LiveData精通指南：解锁其潜力 | Rouse</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="jetpack,">
+  
+
+  <meta name="description" content="&amp;#x5728;Android&amp;#x5F00;&amp;#x53D1;&amp;#x4E2D;&amp;#xFF0C;LiveData&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x975E;&amp;#x5E38;&amp;#x6709;&amp;#x7528;&amp;#x7684;&amp;#x5DE5;&amp;#x5177;&amp;#x3002;&amp;#x5B83;&amp;#x53EF;&amp;#x4EE5;&amp;#x5E2E;&amp;#x52A9;&amp;#x6211;&amp;#x4EEC;&amp;">
+<meta name="keywords" content="jetpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LiveData精通指南：解锁其潜力">
+<meta property="og:url" content="https://www.rousetime.com/2023/07/26/LiveData精通指南：解锁其潜力/index.html">
+<meta property="og:site_name" content="Rouse">
+<meta property="og:description" content="&amp;#x5728;Android&amp;#x5F00;&amp;#x53D1;&amp;#x4E2D;&amp;#xFF0C;LiveData&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x975E;&amp;#x5E38;&amp;#x6709;&amp;#x7528;&amp;#x7684;&amp;#x5DE5;&amp;#x5177;&amp;#x3002;&amp;#x5B83;&amp;#x53EF;&amp;#x4EE5;&amp;#x5E2E;&amp;#x52A9;&amp;#x6211;&amp;#x4EEC;&amp;">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2023-07-26T02:37:48.627Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LiveData精通指南：解锁其潜力">
+<meta name="twitter:description" content="&amp;#x5728;Android&amp;#x5F00;&amp;#x53D1;&amp;#x4E2D;&amp;#xFF0C;LiveData&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x975E;&amp;#x5E38;&amp;#x6709;&amp;#x7528;&amp;#x7684;&amp;#x5DE5;&amp;#x5177;&amp;#x3002;&amp;#x5B83;&amp;#x53EF;&amp;#x4EE5;&amp;#x5E2E;&amp;#x52A9;&amp;#x6211;&amp;#x4EEC;&amp;">
+
+  
+
+  
+  <!-- <link href="/favicon.ico" rel="icon" type="image/x-icon"> -->
+    <link rel="icon" href="/favicon.ico">
+    <!-- <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?bd7ea96a22c9c7b90353962460fa0b8e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LiveData是什么？"><span class="toc-text">LiveData是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LiveData的使用"><span class="toc-text">LiveData的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LiveData的高阶使用"><span class="toc-text">LiveData的高阶使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#转换LiveData"><span class="toc-text">转换LiveData</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#合并LiveData"><span class="toc-text">合并LiveData</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组合LiveData"><span class="toc-text">组合LiveData</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在ViewModel中使用LiveData"><span class="toc-text">在ViewModel中使用LiveData</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LiveData的原理"><span class="toc-text">LiveData的原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#与生命周期组件的配合使用"><span class="toc-text">与生命周期组件的配合使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见错误及解决方法"><span class="toc-text">常见错误及解决方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐"><span class="toc-text">推荐</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-LiveData精通指南：解锁其潜力" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">LiveData精通指南：解锁其潜力</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2023.07.26</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Rouse</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>&#x5728;Android&#x5F00;&#x53D1;&#x4E2D;&#xFF0C;LiveData&#x662F;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x6709;&#x7528;&#x7684;&#x5DE5;&#x5177;&#x3002;&#x5B83;&#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x5728;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E2D;&#x5B9E;&#x73B0;&#x54CD;&#x5E94;&#x5F0F;&#x7F16;&#x7A0B;&#xFF0C;&#x5E76;&#x4E14;&#x8FD8;&#x5177;&#x6709;&#x751F;&#x547D;&#x5468;&#x671F;&#x611F;&#x77E5;&#x80FD;&#x529B;&#xFF0C;&#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x907F;&#x514D;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x3002;&#x672C;&#x6587;&#x5C06;&#x63A2;&#x8BA8;LiveData&#x7684;&#x9AD8;&#x9636;&#x4F7F;&#x7528;&#x548C;&#x539F;&#x7406;&#xFF0C;&#x5E76;&#x63D0;&#x4F9B;&#x4E00;&#x4E9B;&#x5E38;&#x89C1;&#x9519;&#x8BEF;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#x3002;&#x6B64;&#x5916;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x5C06;&#x4ECB;&#x7ECD;&#x4E00;&#x4E9B;&#x66F4;&#x9AD8;&#x7EA7;&#x7684;&#x4F7F;&#x7528;&#x573A;&#x666F;&#xFF0C;&#x4EE5;&#x5E2E;&#x52A9;&#x4F60;&#x66F4;&#x597D;&#x5730;&#x4F7F;&#x7528;LiveData&#x3002;</p>
+<h2 id="LiveData&#x662F;&#x4EC0;&#x4E48;&#xFF1F;"><a href="#LiveData&#x662F;&#x4EC0;&#x4E48;&#xFF1F;" class="headerlink" title="LiveData&#x662F;&#x4EC0;&#x4E48;&#xFF1F;"></a>LiveData&#x662F;&#x4EC0;&#x4E48;&#xFF1F;</h2><p>LiveData&#x662F;&#x4E00;&#x4E2A;&#x53EF;&#x89C2;&#x5BDF;&#x7684;&#x6570;&#x636E;&#x6301;&#x6709;&#x8005;&#x7C7B;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x5728;&#x6570;&#x636E;&#x53D1;&#x751F;&#x53D8;&#x5316;&#x65F6;&#x901A;&#x77E5;&#x89C2;&#x5BDF;&#x8005;&#x3002;LiveData&#x662F;Android Jetpack&#x7EC4;&#x4EF6;&#x4E4B;&#x4E00;&#xFF0C;&#x5B83;&#x5177;&#x6709;&#x751F;&#x547D;&#x5468;&#x671F;&#x611F;&#x77E5;&#x80FD;&#x529B;&#xFF0C;&#x53EF;&#x4EE5;&#x786E;&#x4FDD;&#x89C2;&#x5BDF;&#x8005;&#x53EA;&#x4F1A;&#x5728;&#x6D3B;&#x52A8;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x5185;&#x63A5;&#x6536;&#x6570;&#x636E;&#x66F4;&#x65B0;&#x3002;LiveData&#x8FD8;&#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x5B9E;&#x73B0;&#x54CD;&#x5E94;&#x5F0F;&#x7F16;&#x7A0B;&#xFF0C;&#x8FD9;&#x5BF9;&#x4E8E;&#x5B9E;&#x73B0;MVVM&#x67B6;&#x6784;&#x975E;&#x5E38;&#x6709;&#x7528;&#x3002;</p>
+<h2 id="LiveData&#x7684;&#x4F7F;&#x7528;"><a href="#LiveData&#x7684;&#x4F7F;&#x7528;" class="headerlink" title="LiveData&#x7684;&#x4F7F;&#x7528;"></a>LiveData&#x7684;&#x4F7F;&#x7528;</h2><p>LiveData&#x7684;&#x4F7F;&#x7528;&#x975E;&#x5E38;&#x7B80;&#x5355;&#x3002;&#x9996;&#x5148;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;LiveData&#x5BF9;&#x8C61;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LiveData&lt;String&gt; nameLiveData = <span class="keyword">new</span> MutableLiveData&lt;&gt;();</span><br></pre></td></tr></table></figure>
+<p>&#x7136;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;observe()&#x65B9;&#x6CD5;&#x6765;&#x89C2;&#x5BDF;LiveData&#x5BF9;&#x8C61;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nameLiveData.observe(<span class="keyword">this</span>, s -&gt; {</span><br><span class="line">    <span class="comment">// Do something with the updated data</span></span><br><span class="line">});</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x4E2A;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x5F53;&#x524D;&#x6D3B;&#x52A8;&#x4F5C;&#x4E3A;&#x89C2;&#x5BDF;&#x8005;&#xFF0C;&#x5E76;&#x5728;LiveData&#x5BF9;&#x8C61;&#x53D1;&#x751F;&#x66F4;&#x6539;&#x65F6;&#x66F4;&#x65B0;&#x6570;&#x636E;&#x3002;</p>
+<h2 id="LiveData&#x7684;&#x9AD8;&#x9636;&#x4F7F;&#x7528;"><a href="#LiveData&#x7684;&#x9AD8;&#x9636;&#x4F7F;&#x7528;" class="headerlink" title="LiveData&#x7684;&#x9AD8;&#x9636;&#x4F7F;&#x7528;"></a>LiveData&#x7684;&#x9AD8;&#x9636;&#x4F7F;&#x7528;</h2><p>&#x9664;&#x4E86;&#x57FA;&#x672C;&#x7684;LiveData&#x7528;&#x6CD5;&#x4E4B;&#x5916;&#xFF0C;&#x8FD8;&#x6709;&#x4E00;&#x4E9B;&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;&#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x66F4;&#x597D;&#x5730;&#x4F7F;&#x7528;LiveData&#x3002;</p>
+<h3 id="&#x8F6C;&#x6362;LiveData"><a href="#&#x8F6C;&#x6362;LiveData" class="headerlink" title="&#x8F6C;&#x6362;LiveData"></a>&#x8F6C;&#x6362;LiveData</h3><p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;Transformations&#x7C7B;&#x4E2D;&#x7684;&#x65B9;&#x6CD5;&#x5C06;LiveData&#x5BF9;&#x8C61;&#x8F6C;&#x6362;&#x4E3A;&#x53E6;&#x4E00;&#x79CD;&#x7C7B;&#x578B;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5C06;LiveData<string>&#x5BF9;&#x8C61;&#x8F6C;&#x6362;&#x4E3A;LiveData<integer>&#x5BF9;&#x8C61;&#xFF1A;</integer></string></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LiveData&lt;Integer&gt; lengthLiveData = Transformations.map(nameLiveData, s -&gt; s.length());</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x4E2A;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;map()&#x65B9;&#x6CD5;&#x5C06;LiveData&#x5BF9;&#x8C61;&#x8F6C;&#x6362;&#x4E3A;Integer&#x7C7B;&#x578B;&#xFF0C;&#x5E76;&#x4E14;&#x5728;LiveData&#x5BF9;&#x8C61;&#x53D1;&#x751F;&#x66F4;&#x6539;&#x65F6;&#x66F4;&#x65B0;&#x6570;&#x636E;&#x3002;</p>
+<h3 id="&#x5408;&#x5E76;LiveData"><a href="#&#x5408;&#x5E76;LiveData" class="headerlink" title="&#x5408;&#x5E76;LiveData"></a>&#x5408;&#x5E76;LiveData</h3><p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;MediatorLiveData&#x7C7B;&#x5C06;&#x591A;&#x4E2A;LiveData&#x5BF9;&#x8C61;&#x5408;&#x5E76;&#x4E3A;&#x4E00;&#x4E2A;LiveData&#x5BF9;&#x8C61;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5C06;LiveData<string>&#x548C;LiveData<integer>&#x5BF9;&#x8C61;&#x5408;&#x5E76;&#x4E3A;LiveData&lt;String, Integer&gt;&#x5BF9;&#x8C61;&#xFF1A;</integer></string></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MediatorLiveData&lt;Pair&lt;String, Integer&gt;&gt; dataLiveData = <span class="keyword">new</span> MediatorLiveData&lt;&gt;();</span><br><span class="line">dataLiveData.addSource(nameLiveData, s -&gt; {</span><br><span class="line">    Pair&lt;String, Integer&gt; pair = <span class="keyword">new</span> Pair&lt;&gt;(s, lengthLiveData.getValue());</span><br><span class="line">    dataLiveData.setValue(pair);</span><br><span class="line">});</span><br><span class="line">dataLiveData.addSource(lengthLiveData, integer -&gt; {</span><br><span class="line">    Pair&lt;String, Integer&gt; pair = <span class="keyword">new</span> Pair&lt;&gt;(nameLiveData.getValue(), integer);</span><br><span class="line">    dataLiveData.setValue(pair);</span><br><span class="line">});</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x4E2A;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;MediatorLiveData&#x7C7B;&#x5C06;LiveData&#x5BF9;&#x8C61;&#x5408;&#x5E76;&#x4E3A;&#x4E00;&#x4E2A;Pair&lt;String, Integer&gt;&#x5BF9;&#x8C61;&#xFF0C;&#x5E76;&#x5728;LiveData&#x5BF9;&#x8C61;&#x53D1;&#x751F;&#x66F4;&#x6539;&#x65F6;&#x66F4;&#x65B0;&#x6570;&#x636E;&#x3002;</p>
+<h3 id="&#x7EC4;&#x5408;LiveData"><a href="#&#x7EC4;&#x5408;LiveData" class="headerlink" title="&#x7EC4;&#x5408;LiveData"></a>&#x7EC4;&#x5408;LiveData</h3><p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;LiveDataReactiveStreams&#x7C7B;&#x5C06;RxJava Observables&#x8F6C;&#x6362;&#x4E3A;LiveData&#x5BF9;&#x8C61;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5C06;RxJava Observables&#x5BF9;&#x8C61;&#x8F6C;&#x6362;&#x4E3A;LiveData&#x5BF9;&#x8C61;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Observable&lt;String&gt; nameObservable = Observable.just(<span class="string">&quot;John&quot;</span>);</span><br><span class="line">LiveData&lt;String&gt; nameLiveData = LiveDataReactiveStreams.fromPublisher(nameObservable.toFlowable(BackpressureStrategy.BUFFER));</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x4E2A;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;fromPublisher()&#x65B9;&#x6CD5;&#x5C06;RxJava Observables&#x5BF9;&#x8C61;&#x8F6C;&#x6362;&#x4E3A;LiveData&#x5BF9;&#x8C61;&#xFF0C;&#x5E76;&#x4E14;&#x5728;LiveData&#x5BF9;&#x8C61;&#x53D1;&#x751F;&#x66F4;&#x6539;&#x65F6;&#x66F4;&#x65B0;&#x6570;&#x636E;&#x3002;</p>
+<h3 id="&#x5728;ViewModel&#x4E2D;&#x4F7F;&#x7528;LiveData"><a href="#&#x5728;ViewModel&#x4E2D;&#x4F7F;&#x7528;LiveData" class="headerlink" title="&#x5728;ViewModel&#x4E2D;&#x4F7F;&#x7528;LiveData"></a>&#x5728;ViewModel&#x4E2D;&#x4F7F;&#x7528;LiveData</h3><p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;ViewModel&#x4E2D;&#x4F7F;&#x7528;LiveData&#x6765;&#x7BA1;&#x7406;&#x6570;&#x636E;&#x72B6;&#x6001;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;ViewModel&#x4E2D;&#x7684;LiveData&#x5BF9;&#x8C61;&#x6765;&#x4FDD;&#x5B58;&#x6570;&#x636E;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyViewModel</span> <span class="keyword">extends</span> <span class="title">ViewModel</span> </span>{</span><br><span class="line">    <span class="keyword">private</span> MutableLiveData&lt;String&gt; nameLiveData = <span class="keyword">new</span> MutableLiveData&lt;&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>{</span><br><span class="line">        nameLiveData.setValue(name);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> LiveData&lt;String&gt; <span class="title">getName</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> nameLiveData;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x4E2A;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;ViewModel&#x4E2D;&#x7684;LiveData&#x5BF9;&#x8C61;&#x6765;&#x4FDD;&#x5B58;&#x6570;&#x636E;&#xFF0C;&#x5E76;&#x4E14;&#x5728;LiveData&#x5BF9;&#x8C61;&#x53D1;&#x751F;&#x66F4;&#x6539;&#x65F6;&#x66F4;&#x65B0;&#x6570;&#x636E;&#x3002;ViewModel&#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x5B9E;&#x73B0;&#x6570;&#x636E;&#x72B6;&#x6001;&#x7684;&#x7BA1;&#x7406;&#xFF0C;&#x907F;&#x514D;&#x4E86;&#x6570;&#x636E;&#x5728;&#x4E0D;&#x540C;Activity&#x6216;Fragment&#x4E4B;&#x95F4;&#x7684;&#x4F20;&#x9012;&#x3002;</p>
+<h2 id="LiveData&#x7684;&#x539F;&#x7406;"><a href="#LiveData&#x7684;&#x539F;&#x7406;" class="headerlink" title="LiveData&#x7684;&#x539F;&#x7406;"></a>LiveData&#x7684;&#x539F;&#x7406;</h2><p>LiveData&#x7684;&#x539F;&#x7406;&#x975E;&#x5E38;&#x7B80;&#x5355;&#x3002;&#x5B83;&#x4F7F;&#x7528;&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;&#x6765;&#x901A;&#x77E5;&#x89C2;&#x5BDF;&#x8005;&#x6570;&#x636E;&#x53D1;&#x751F;&#x4E86;&#x53D8;&#x5316;&#x3002;&#x5F53;LiveData&#x5BF9;&#x8C61;&#x88AB;&#x89C2;&#x5BDF;&#x65F6;&#xFF0C;&#x5B83;&#x4F1A;&#x5C06;&#x89C2;&#x5BDF;&#x8005;&#x6DFB;&#x52A0;&#x5230;&#x89C2;&#x5BDF;&#x8005;&#x5217;&#x8868;&#x4E2D;&#x3002;&#x5F53;LiveData&#x5BF9;&#x8C61;&#x53D1;&#x751F;&#x53D8;&#x5316;&#x65F6;&#xFF0C;&#x5B83;&#x4F1A;&#x901A;&#x77E5;&#x89C2;&#x5BDF;&#x8005;&#x3002;&#x4E3A;&#x4E86;&#x907F;&#x514D;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#xFF0C;LiveData&#x8FD8;&#x9700;&#x8981;&#x4E0E;&#x751F;&#x547D;&#x5468;&#x671F;&#x7EC4;&#x4EF6;&#x4E00;&#x8D77;&#x4F7F;&#x7528;&#xFF0C;&#x4EE5;&#x786E;&#x4FDD;&#x89C2;&#x5BDF;&#x8005;&#x53EA;&#x4F1A;&#x5728;&#x6D3B;&#x52A8;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x5185;&#x63A5;&#x6536;&#x6570;&#x636E;&#x66F4;&#x65B0;&#x3002;</p>
+<h2 id="&#x4E0E;&#x751F;&#x547D;&#x5468;&#x671F;&#x7EC4;&#x4EF6;&#x7684;&#x914D;&#x5408;&#x4F7F;&#x7528;"><a href="#&#x4E0E;&#x751F;&#x547D;&#x5468;&#x671F;&#x7EC4;&#x4EF6;&#x7684;&#x914D;&#x5408;&#x4F7F;&#x7528;" class="headerlink" title="&#x4E0E;&#x751F;&#x547D;&#x5468;&#x671F;&#x7EC4;&#x4EF6;&#x7684;&#x914D;&#x5408;&#x4F7F;&#x7528;"></a>&#x4E0E;&#x751F;&#x547D;&#x5468;&#x671F;&#x7EC4;&#x4EF6;&#x7684;&#x914D;&#x5408;&#x4F7F;&#x7528;</h2><p>LiveData&#x901A;&#x8FC7;&#x4E0E;Lifecycle&#x7EC4;&#x4EF6;&#x914D;&#x5408;&#x4F7F;&#x7528;&#xFF0C;&#x5B9E;&#x73B0;&#x4E86;&#x5BF9;&#x89C2;&#x5BDF;&#x8005;&#x7684;&#x81EA;&#x52A8;&#x6DFB;&#x52A0;&#x548C;&#x79FB;&#x9664;&#x3002;&#x5F53;Activity&#x6216;Fragment&#x5904;&#x4E8E;STARTED&#x6216;RESUMED&#x72B6;&#x6001;&#x65F6;&#xFF0C;LiveData&#x4F1A;&#x5C06;&#x89C2;&#x5BDF;&#x8005;&#x6DFB;&#x52A0;&#x5230;&#x89C2;&#x5BDF;&#x8005;&#x5217;&#x8868;&#x4E2D;&#xFF0C;&#x5E76;&#x5F00;&#x59CB;&#x5411;&#x89C2;&#x5BDF;&#x8005;&#x53D1;&#x9001;&#x6570;&#x636E;&#x66F4;&#x65B0;&#x901A;&#x77E5;&#x3002;&#x5F53;Activity&#x6216;Fragment&#x5904;&#x4E8E;STOPPED&#x6216;DESTROYED&#x72B6;&#x6001;&#x65F6;&#xFF0C;LiveData&#x4F1A;&#x81EA;&#x52A8;&#x5C06;&#x89C2;&#x5BDF;&#x8005;&#x4ECE;&#x89C2;&#x5BDF;&#x8005;&#x5217;&#x8868;&#x4E2D;&#x79FB;&#x9664;&#xFF0C;&#x505C;&#x6B62;&#x5411;&#x5176;&#x53D1;&#x9001;&#x6570;&#x636E;&#x66F4;&#x65B0;&#x901A;&#x77E5;&#x3002;&#x8FD9;&#x6837;&#x4E00;&#x6765;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x4E0D;&#x5FC5;&#x624B;&#x52A8;&#x7BA1;&#x7406;LiveData&#x7684;&#x89C2;&#x5BDF;&#x8005;&#x8BA2;&#x9605;&#x548C;&#x53D6;&#x6D88;&#x8BA2;&#x9605;&#xFF0C;&#x6781;&#x5927;&#x5730;&#x7B80;&#x5316;&#x4E86;&#x4EE3;&#x7801;&#x7684;&#x7F16;&#x5199;&#x548C;&#x7EF4;&#x62A4;&#x3002;</p>
+<p>&#x5728;&#x89C2;&#x5BDF;LiveData&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>observe()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5E76;&#x4F20;&#x5165;&#x4E00;&#x4E2A;LifecycleOwner&#x5BF9;&#x8C61;&#x4F5C;&#x4E3A;&#x89C2;&#x5BDF;&#x8005;&#x3002;&#x4F8B;&#x5982;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nameLiveData.observe(<span class="keyword">this</span>, s -&gt; {</span><br><span class="line">    <span class="comment">// Do something with the updated data</span></span><br><span class="line">});</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x4E2A;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x5F53;&#x524D;Activity&#x4F5C;&#x4E3A;&#x89C2;&#x5BDF;&#x8005;&#xFF0C;&#x5F53;Activity&#x5904;&#x4E8E;STARTED&#x6216;RESUMED&#x72B6;&#x6001;&#x65F6;&#xFF0C;LiveData&#x5C06;&#x5F00;&#x59CB;&#x901A;&#x77E5;&#x89C2;&#x5BDF;&#x8005;&#x6570;&#x636E;&#x66F4;&#x65B0;&#x3002;</p>
+<p>&#x9664;&#x4E86;<code>observe()</code>&#x65B9;&#x6CD5;&#x5916;&#xFF0C;LiveData&#x8FD8;&#x63D0;&#x4F9B;&#x4E86;<code>observeForever()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x8BE5;&#x65B9;&#x6CD5;&#x5141;&#x8BB8;&#x6211;&#x4EEC;&#x4F20;&#x5165;&#x4E00;&#x4E2A;&#x666E;&#x901A;&#x7684;&#x89C2;&#x5BDF;&#x8005;&#x5BF9;&#x8C61;&#xFF0C;&#x800C;&#x4E0D;&#x9700;&#x8981;&#x7ED1;&#x5B9A;&#x5230;&#x751F;&#x547D;&#x5468;&#x671F;&#x3002;&#x4F46;&#x8981;&#x6CE8;&#x610F;&#xFF0C;&#x4F7F;&#x7528;<code>observeForever()</code>&#x65B9;&#x6CD5;&#x9700;&#x8981;&#x624B;&#x52A8;&#x5728;&#x9002;&#x5F53;&#x7684;&#x65F6;&#x673A;&#x8C03;&#x7528;<code>removeObserver()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5426;&#x5219;&#x53EF;&#x80FD;&#x5BFC;&#x81F4;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nameLiveData.observeForever(s -&gt; {</span><br><span class="line">    <span class="comment">// Do something with the updated data</span></span><br><span class="line">});</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x5728;&#x9002;&#x5F53;&#x7684;&#x65F6;&#x673A;&#x8C03;&#x7528;removeObserver()&#xFF0C;&#x5982;&#x5728;onDestroy()&#x65B9;&#x6CD5;&#x4E2D;</span></span><br><span class="line">nameLiveData.removeObserver(observer);</span><br></pre></td></tr></table></figure>
+<p>&#x603B;&#x4F53;&#x800C;&#x8A00;&#xFF0C;LiveData&#x4E0E;&#x751F;&#x547D;&#x5468;&#x671F;&#x7EC4;&#x4EF6;&#x7684;&#x914D;&#x5408;&#x4F7F;&#x7528;&#xFF0C;&#x4F7F;&#x5F97;&#x6570;&#x636E;&#x89C2;&#x5BDF;&#x53D8;&#x5F97;&#x66F4;&#x52A0;&#x5B89;&#x5168;&#x548C;&#x9AD8;&#x6548;&#xFF0C;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x907F;&#x514D;&#x5E38;&#x89C1;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x95EE;&#x9898;&#xFF0C;&#x540C;&#x65F6;&#x7B80;&#x5316;&#x4E86;&#x4EE3;&#x7801;&#x7684;&#x7BA1;&#x7406;&#x548C;&#x7EF4;&#x62A4;&#x3002;</p>
+<p>&#x5728;&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5E94;&#x8BE5;&#x5145;&#x5206;&#x5229;&#x7528;LiveData&#x4E0E;&#x751F;&#x547D;&#x5468;&#x671F;&#x7EC4;&#x4EF6;&#x7684;&#x7279;&#x6027;&#xFF0C;&#x907F;&#x514D;&#x5728;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x6301;&#x7EED;&#x89C2;&#x5BDF;LiveData&#xFF0C;&#x4EE5;&#x786E;&#x4FDD;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x6027;&#x80FD;&#x548C;&#x7A33;&#x5B9A;&#x6027;&#x3002;</p>
+<h2 id="&#x5E38;&#x89C1;&#x9519;&#x8BEF;&#x53CA;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;"><a href="#&#x5E38;&#x89C1;&#x9519;&#x8BEF;&#x53CA;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;" class="headerlink" title="&#x5E38;&#x89C1;&#x9519;&#x8BEF;&#x53CA;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;"></a>&#x5E38;&#x89C1;&#x9519;&#x8BEF;&#x53CA;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;</h2><p>&#x5728;&#x4F7F;&#x7528;LiveData&#x65F6;&#xFF0C;&#x7ECF;&#x5E38;&#x4F1A;&#x9047;&#x5230;&#x4E00;&#x4E9B;&#x5E38;&#x89C1;&#x9519;&#x8BEF;&#x3002;&#x4E0B;&#x9762;&#x662F;&#x4E00;&#x4E9B;&#x5E38;&#x89C1;&#x9519;&#x8BEF;&#x53CA;&#x5176;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<ul>
+<li><p><strong>NullPointerException</strong>&#xFF1A;&#x5F53;LiveData&#x5BF9;&#x8C61;&#x6CA1;&#x6709;&#x521D;&#x59CB;&#x5316;&#x65F6;&#xFF0C;&#x4F1A;&#x53D1;&#x751F;NullPointerException&#x9519;&#x8BEF;&#x3002;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#x662F;&#x5728;&#x4F7F;&#x7528;LiveData&#x5BF9;&#x8C61;&#x4E4B;&#x524D;&#xFF0C;&#x5148;&#x8FDB;&#x884C;&#x521D;&#x59CB;&#x5316;&#x3002;</p>
+</li>
+<li><p><strong>IllegalStateException</strong>&#xFF1A;&#x5F53;&#x5728;&#x975E;&#x6D3B;&#x52A8;&#x72B6;&#x6001;&#x4E0B;&#x89C2;&#x5BDF;LiveData&#x5BF9;&#x8C61;&#x65F6;&#xFF0C;&#x4F1A;&#x53D1;&#x751F;IllegalStateException&#x9519;&#x8BEF;&#x3002;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#x662F;&#x5728;&#x6D3B;&#x52A8;&#x72B6;&#x6001;&#x4E0B;&#x89C2;&#x5BDF;LiveData&#x5BF9;&#x8C61;&#xFF0C;&#x6216;&#x4F7F;&#x7528;Lifecycle&#x7EC4;&#x4EF6;&#x6765;&#x7BA1;&#x7406;LiveData&#x5BF9;&#x8C61;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x3002;</p>
+</li>
+<li><p><strong>&#x6570;&#x636E;&#x66F4;&#x65B0;&#x4E0D;&#x53CA;&#x65F6;</strong>&#xFF1A;&#x5F53;LiveData&#x5BF9;&#x8C61;&#x53D1;&#x751F;&#x66F4;&#x6539;&#x65F6;&#xFF0C;&#x89C2;&#x5BDF;&#x8005;&#x6CA1;&#x6709;&#x53CA;&#x65F6;&#x63A5;&#x6536;&#x5230;&#x66F4;&#x65B0;&#x3002;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#x662F;&#x786E;&#x4FDD;LiveData&#x5BF9;&#x8C61;&#x548C;&#x89C2;&#x5BDF;&#x8005;&#x90FD;&#x5728;&#x540C;&#x4E00;&#x7EBF;&#x7A0B;&#x4E2D;&#x8FD0;&#x884C;&#xFF0C;&#x6216;&#x4F7F;&#x7528;postValue()&#x65B9;&#x6CD5;&#x6765;&#x66F4;&#x65B0;LiveData&#x5BF9;&#x8C61;&#x3002;</p>
+</li>
+</ul>
+<h2 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h2><p>&#x5728;&#x672C;&#x6587;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x4ECB;&#x7ECD;&#x4E86;LiveData&#x7684;&#x57FA;&#x672C;&#x7528;&#x6CD5;&#x548C;&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;&#x3002;&#x6211;&#x4EEC;&#x8FD8;&#x63A2;&#x8BA8;&#x4E86;LiveData&#x7684;&#x539F;&#x7406;&#xFF0C;&#x5E76;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E9B;&#x5E38;&#x89C1;&#x9519;&#x8BEF;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#x3002;&#x6B64;&#x5916;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x4ECB;&#x7ECD;&#x4E86;&#x4E00;&#x4E9B;&#x66F4;&#x9AD8;&#x7EA7;&#x7684;&#x4F7F;&#x7528;&#x573A;&#x666F;&#xFF0C;&#x4EE5;&#x5E2E;&#x52A9;&#x4F60;&#x66F4;&#x597D;&#x5730;&#x4F7F;&#x7528;LiveData&#x3002;LiveData&#x662F;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x6709;&#x7528;&#x7684;&#x5DE5;&#x5177;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x5B9E;&#x73B0;&#x54CD;&#x5E94;&#x5F0F;&#x7F16;&#x7A0B;&#xFF0C;&#x5E76;&#x4E14;&#x5177;&#x6709;&#x751F;&#x547D;&#x5468;&#x671F;&#x611F;&#x77E5;&#x80FD;&#x529B;&#xFF0C;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x3002;&#x5E0C;&#x671B;&#x672C;&#x6587;&#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x4F60;&#x66F4;&#x597D;&#x5730;&#x7406;&#x89E3;LiveData&#xFF0C;&#x5E76;&#x5728;&#x4F60;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E2D;&#x4F7F;&#x7528;&#x5B83;&#x3002;</p>
+<h2 id="&#x63A8;&#x8350;"><a href="#&#x63A8;&#x8350;" class="headerlink" title="&#x63A8;&#x8350;"></a>&#x63A8;&#x8350;</h2><p><a href="https://github.com/idisfkj/android-startup" target="_blank" rel="noopener">android_startup</a>: &#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x5728;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65F6;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x3001;&#x9AD8;&#x6548;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521D;&#x59CB;&#x5316;&#x7EC4;&#x4EF6;&#xFF0C;&#x4F18;&#x5316;&#x542F;&#x52A8;&#x901F;&#x5EA6;&#x3002;&#x4E0D;&#x4EC5;&#x652F;&#x6301;Jetpack App Startup&#x7684;&#x5168;&#x90E8;&#x529F;&#x80FD;&#xFF0C;&#x8FD8;&#x63D0;&#x4F9B;&#x989D;&#x5916;&#x7684;&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#x7B49;&#x5F85;&#x3001;&#x7EBF;&#x7A0B;&#x63A7;&#x5236;&#x4E0E;&#x591A;&#x8FDB;&#x7A0B;&#x652F;&#x6301;&#x7B49;&#x529F;&#x80FD;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="noopener">AwesomeGithub</a>: &#x57FA;&#x4E8E;Github&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7EAF;&#x7EC3;&#x4E60;&#x9879;&#x76EE;&#xFF0C;&#x652F;&#x6301;&#x7EC4;&#x4EF6;&#x5316;&#x5F00;&#x53D1;&#xFF0C;&#x652F;&#x6301;&#x8D26;&#x6237;&#x5BC6;&#x7801;&#x4E0E;&#x8BA4;&#x8BC1;&#x767B;&#x9646;&#x3002;&#x4F7F;&#x7528;Kotlin&#x8BED;&#x8A00;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#xFF0C;&#x9879;&#x76EE;&#x67B6;&#x6784;&#x662F;&#x57FA;&#x4E8E;JetPack\&amp;DataBinding&#x7684;MVVM&#xFF1B;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;Arouter&#x3001;Retrofit&#x3001;Coroutine&#x3001;Glide&#x3001;Dagger&#x4E0E;Hilt&#x7B49;&#x6D41;&#x884C;&#x5F00;&#x6E90;&#x6280;&#x672F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="noopener">flutter_github</a>: &#x57FA;&#x4E8E;Flutter&#x7684;&#x8DE8;&#x5E73;&#x53F0;&#x7248;&#x672C;Github&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x4E0E;AwesomeGithub&#x76F8;&#x5BF9;&#x5E94;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="noopener">android-api-analysis</a>: &#x7ED3;&#x5408;&#x8BE6;&#x7EC6;&#x7684;Demo&#x6765;&#x5168;&#x9762;&#x89E3;&#x6790;Android&#x76F8;&#x5173;&#x7684;&#x77E5;&#x8BC6;&#x70B9;, &#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x5FEB;&#x7684;&#x638C;&#x63E1;&#x4E0E;&#x7406;&#x89E3;&#x6240;&#x9610;&#x8FF0;&#x7684;&#x8981;&#x70B9;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/daily_algorithm" target="_blank" rel="noopener">daily_algorithm</a>: &#x6BCF;&#x65E5;&#x4E00;&#x7B97;&#x6CD5;&#xFF0C;&#x7531;&#x6D45;&#x5165;&#x6DF1;&#xFF0C;&#x6B22;&#x8FCE;&#x52A0;&#x5165;&#x4E00;&#x8D77;&#x5171;&#x52C9;&#x3002;</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">赞赏是一门艺术</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/rouse_wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/rouse_alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2023/07/26/突破传统动画：探索MotionLayout的独特优势/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2023/07/29/深入理解与运用Android-Jetpack-Lifecycle/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="fexo-comments comments-post">
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>
+  <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+  <script src="https://jjeejj.github.io/js/gitment.js"></script>
+  <script>
+    (function () {
+      var gitment = new Gitment({
+        owner: 'idisfkj',
+        repo: 'idisfkj.github.io',
+        id: 'Wed Jul 26 2023 10:37:00 GMT+0800',
+        oauth: {
+          client_id: 'dafb1df02ea9f875bb78',
+          client_secret: 'e9873d78aa5eaed5ce61d1d865a5af501dae377a'
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      })
+      gitment.render('gitment-comments')
+    })()
+  </script>
+
+  
+  
+</div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

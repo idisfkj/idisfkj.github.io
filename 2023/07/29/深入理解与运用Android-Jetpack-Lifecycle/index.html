@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>深入理解与运用Android Jetpack Lifecycle | Rouse</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="jetpack,">
+  
+
+  <meta name="description" content="&amp;#x524D;&amp;#x8A00;Android Jetpack &amp;#x662F; Google &amp;#x63A8;&amp;#x51FA;&amp;#x7684;&amp;#x4E00;&amp;#x5957;&amp;#x5F3A;&amp;#x5927;&amp;#x4E14;&amp;#x7075;&amp;#x6D3B;&amp;#x7684;&amp;#x5E93;&amp;#x96C6;&amp;#x5408;&amp;#xFF0C;&amp;#x65E8;&amp;#x5728;&amp;#x5E2E;&amp;#x52A9;">
+<meta name="keywords" content="jetpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解与运用Android Jetpack Lifecycle">
+<meta property="og:url" content="https://www.rousetime.com/2023/07/29/深入理解与运用Android-Jetpack-Lifecycle/index.html">
+<meta property="og:site_name" content="Rouse">
+<meta property="og:description" content="&amp;#x524D;&amp;#x8A00;Android Jetpack &amp;#x662F; Google &amp;#x63A8;&amp;#x51FA;&amp;#x7684;&amp;#x4E00;&amp;#x5957;&amp;#x5F3A;&amp;#x5927;&amp;#x4E14;&amp;#x7075;&amp;#x6D3B;&amp;#x7684;&amp;#x5E93;&amp;#x96C6;&amp;#x5408;&amp;#xFF0C;&amp;#x65E8;&amp;#x5728;&amp;#x5E2E;&amp;#x52A9;">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2023-07-29T03:24:17.491Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解与运用Android Jetpack Lifecycle">
+<meta name="twitter:description" content="&amp;#x524D;&amp;#x8A00;Android Jetpack &amp;#x662F; Google &amp;#x63A8;&amp;#x51FA;&amp;#x7684;&amp;#x4E00;&amp;#x5957;&amp;#x5F3A;&amp;#x5927;&amp;#x4E14;&amp;#x7075;&amp;#x6D3B;&amp;#x7684;&amp;#x5E93;&amp;#x96C6;&amp;#x5408;&amp;#xFF0C;&amp;#x65E8;&amp;#x5728;&amp;#x5E2E;&amp;#x52A9;">
+
+  
+
+  
+  <!-- <link href="/favicon.ico" rel="icon" type="image/x-icon"> -->
+    <link rel="icon" href="/favicon.ico">
+    <!-- <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?bd7ea96a22c9c7b90353962460fa0b8e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lifecycle-是什么？"><span class="toc-text">Lifecycle 是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lifecycle-原理解析"><span class="toc-text">Lifecycle 原理解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-LifecycleRegistry"><span class="toc-text">1. LifecycleRegistry</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-LifecycleOwner"><span class="toc-text">2. LifecycleOwner</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-LifecycleObserver"><span class="toc-text">3. LifecycleObserver</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-小结"><span class="toc-text">4. 小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#简单使用方式"><span class="toc-text">简单使用方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-LiveData-与-Lifecycle-集成"><span class="toc-text">1. LiveData 与 Lifecycle 集成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-ViewModel-与-Lifecycle-集成"><span class="toc-text">2. ViewModel 与 Lifecycle 集成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高级使用方式"><span class="toc-text">高级使用方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐"><span class="toc-text">推荐</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-深入理解与运用Android-Jetpack-Lifecycle" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">深入理解与运用Android Jetpack Lifecycle</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2023.07.29</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Rouse</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="&#x524D;&#x8A00;"><a href="#&#x524D;&#x8A00;" class="headerlink" title="&#x524D;&#x8A00;"></a>&#x524D;&#x8A00;</h2><p>Android Jetpack &#x662F; Google &#x63A8;&#x51FA;&#x7684;&#x4E00;&#x5957;&#x5F3A;&#x5927;&#x4E14;&#x7075;&#x6D3B;&#x7684;&#x5E93;&#x96C6;&#x5408;&#xFF0C;&#x65E8;&#x5728;&#x5E2E;&#x52A9; Android &#x5F00;&#x53D1;&#x8005;&#x6784;&#x5EFA;&#x9AD8;&#x8D28;&#x91CF;&#x3001;&#x7A33;&#x5B9A;&#x4E14;&#x6613;&#x4E8E;&#x7EF4;&#x62A4;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x3002;&#x5176;&#x4E2D;&#x6700;&#x91CD;&#x8981;&#x7684;&#x7EC4;&#x4EF6;&#x4E4B;&#x4E00;&#x662F; Lifecycle&#xFF0C;&#x5B83;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x79CD;&#x4FBF;&#x6377;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x7BA1;&#x7406; Android &#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7EC4;&#x4EF6;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x4F7F;&#x5F97;&#x5F00;&#x53D1;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x4E13;&#x6CE8;&#x4E8E;&#x5E94;&#x7528;&#x903B;&#x8F91;&#x7684;&#x5B9E;&#x73B0;&#x800C;&#x4E0D;&#x7528;&#x8FC7;&#x591A;&#x5173;&#x5FC3;&#x751F;&#x547D;&#x5468;&#x671F;&#x7BA1;&#x7406;&#x3002;&#x672C;&#x7BC7;&#x6587;&#x7AE0;&#x5C06;&#x6DF1;&#x5165;&#x6D45;&#x51FA;&#x5730;&#x4ECB;&#x7ECD; Android Jetpack Lifecycle &#x7684;&#x4F7F;&#x7528;&#x539F;&#x7406;&#xFF0C;&#x5E26;&#x4F60;&#x4E00;&#x6B65;&#x6B65;&#x8D70;&#x8FDB;&#x5B83;&#x7684;&#x6838;&#x5FC3;&#x673A;&#x5236;&#xFF0C;&#x540C;&#x65F6;&#x5C55;&#x793A;&#x4E00;&#x4E9B;&#x9AD8;&#x7EA7;&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;&#xFF0C;&#x52A9;&#x4F60;&#x5728; Android &#x5F00;&#x53D1;&#x7684;&#x8DEF;&#x4E0A;&#x66F4;&#x8FDB;&#x4E00;&#x6B65;&#x3002;</p>
+<h2 id="Lifecycle-&#x662F;&#x4EC0;&#x4E48;&#xFF1F;"><a href="#Lifecycle-&#x662F;&#x4EC0;&#x4E48;&#xFF1F;" class="headerlink" title="Lifecycle &#x662F;&#x4EC0;&#x4E48;&#xFF1F;"></a>Lifecycle &#x662F;&#x4EC0;&#x4E48;&#xFF1F;</h2><p>&#x5728;&#x6DF1;&#x5165;&#x7406;&#x89E3; Lifecycle &#x7684;&#x4F7F;&#x7528;&#x539F;&#x7406;&#x4E4B;&#x524D;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x6765;&#x4E86;&#x89E3;&#x4E00;&#x4E0B; Lifecycle &#x662F;&#x4EC0;&#x4E48;&#x3002;</p>
+<p>Lifecycle &#x662F; Android Jetpack &#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x7EC4;&#x4EF6;&#xFF0C;&#x7528;&#x4E8E;&#x7BA1;&#x7406; Android &#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7EC4;&#x4EF6;&#xFF08;&#x5982; Activity &#x548C; Fragment&#xFF09;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x3002;&#x5B83;&#x57FA;&#x4E8E;&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;&#xFF0C;&#x901A;&#x8FC7; LifecycleOwner &#x548C; LifecycleObserver &#x63A5;&#x53E3;&#x6765;&#x5B9E;&#x73B0;&#x3002;&#x5F53; LifecycleOwner &#x5BF9;&#x8C61;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E8B;&#x4EF6;&#x53D1;&#x751F;&#x65F6;&#xFF0C;&#x5B83;&#x4F1A;&#x901A;&#x77E5;&#x6240;&#x6709;&#x6CE8;&#x518C;&#x7684; LifecycleObserver &#x5BF9;&#x8C61;&#xFF0C;&#x8BA9;&#x5B83;&#x4EEC;&#x53EF;&#x4EE5;&#x54CD;&#x5E94;&#x76F8;&#x5E94;&#x7684;&#x4E8B;&#x4EF6;&#x3002;</p>
+<h2 id="Lifecycle-&#x539F;&#x7406;&#x89E3;&#x6790;"><a href="#Lifecycle-&#x539F;&#x7406;&#x89E3;&#x6790;" class="headerlink" title="Lifecycle &#x539F;&#x7406;&#x89E3;&#x6790;"></a>Lifecycle &#x539F;&#x7406;&#x89E3;&#x6790;</h2><h3 id="1-LifecycleRegistry"><a href="#1-LifecycleRegistry" class="headerlink" title="1. LifecycleRegistry"></a>1. LifecycleRegistry</h3><p>Lifecycle &#x7684;&#x6838;&#x5FC3;&#x662F; LifecycleRegistry &#x7C7B;&#x3002;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x5B9E;&#x73B0;&#x4E86; Lifecycle &#x63A5;&#x53E3;&#x7684;&#x7C7B;&#xFF0C;&#x5B83;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E9B;&#x65B9;&#x6CD5;&#x6765;&#x7BA1;&#x7406;&#x7EC4;&#x4EF6;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x3002;</p>
+<p>LifecycleRegistry &#x6709;&#x4E00;&#x4E2A; currentState &#x5C5E;&#x6027;&#xFF0C;&#x7528;&#x4E8E;&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x72B6;&#x6001;&#x3002;&#x5B83;&#x6709;&#x4E94;&#x4E2A;&#x72B6;&#x6001;&#xFF1A;</p>
+<ul>
+<li>INITIALIZED&#xFF1A;&#x521D;&#x59CB;&#x72B6;&#x6001;&#xFF0C;&#x8868;&#x793A;&#x7EC4;&#x4EF6;&#x5DF2;&#x88AB;&#x521B;&#x5EFA;&#x4F46;&#x5C1A;&#x672A;&#x542F;&#x52A8;&#x3002;</li>
+<li>CREATED&#xFF1A;&#x7EC4;&#x4EF6;&#x5DF2;&#x521B;&#x5EFA;&#x3002;</li>
+<li>STARTED&#xFF1A;&#x7EC4;&#x4EF6;&#x5DF2;&#x542F;&#x52A8;&#x3002;</li>
+<li>RESUMED&#xFF1A;&#x7EC4;&#x4EF6;&#x5DF2;&#x6062;&#x590D;&#xFF08;&#x5373;&#x5904;&#x4E8E;&#x524D;&#x53F0;&#xFF09;&#x3002;</li>
+<li>DESTROYED&#xFF1A;&#x7EC4;&#x4EF6;&#x5DF2;&#x9500;&#x6BC1;&#x3002;</li>
+</ul>
+<p>LifecycleRegistry &#x8FD8;&#x6709; addListener() &#x65B9;&#x6CD5;&#xFF0C;&#x7528;&#x4E8E;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A; LifecycleObserver &#x5BF9;&#x8C61;&#x5230;&#x89C2;&#x5BDF;&#x8005;&#x5217;&#x8868;&#xFF0C;&#x5E76;&#x5728;&#x7EC4;&#x4EF6;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E8B;&#x4EF6;&#x53D1;&#x751F;&#x65F6;&#x901A;&#x77E5;&#x5B83;&#x3002;</p>
+<h3 id="2-LifecycleOwner"><a href="#2-LifecycleOwner" class="headerlink" title="2. LifecycleOwner"></a>2. LifecycleOwner</h3><p>LifecycleOwner &#x662F;&#x4E00;&#x4E2A;&#x6807;&#x8BB0;&#x63A5;&#x53E3;&#xFF0C;&#x7528;&#x4E8E;&#x6807;&#x8BC6;&#x5177;&#x6709;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x7EC4;&#x4EF6;&#x3002;&#x5E38;&#x89C1;&#x7684; LifecycleOwner &#x662F; Activity &#x548C; Fragment&#xFF0C;&#x5B83;&#x4EEC;&#x901A;&#x8FC7;&#x5B9E;&#x73B0;&#x8BE5;&#x63A5;&#x53E3;&#x8868;&#x660E;&#x5177;&#x6709;&#x751F;&#x547D;&#x5468;&#x671F;&#x3002;</p>
+<p>LifecycleOwner &#x6709;&#x4E00;&#x4E2A; getLifecycle() &#x65B9;&#x6CD5;&#xFF0C;&#x8FD4;&#x56DE;&#x5173;&#x8054;&#x7684; Lifecycle &#x5BF9;&#x8C61;&#xFF0C;&#x5373; LifecycleRegistry &#x7684;&#x5B9E;&#x4F8B;&#x3002;&#x8FD9;&#x6837;&#xFF0C;LifecycleOwner &#x5C31;&#x80FD;&#x901A;&#x8FC7; LifecycleRegistry &#x6765;&#x7BA1;&#x7406;&#x81EA;&#x5DF1;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x3002;</p>
+<h3 id="3-LifecycleObserver"><a href="#3-LifecycleObserver" class="headerlink" title="3. LifecycleObserver"></a>3. LifecycleObserver</h3><p>LifecycleObserver &#x662F;&#x4E00;&#x4E2A;&#x6807;&#x8BB0;&#x63A5;&#x53E3;&#xFF0C;&#x7528;&#x4E8E;&#x6807;&#x8BC6;&#x5B9E;&#x73B0;&#x4E86;&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;&#x7684;&#x7EC4;&#x4EF6;&#x3002;&#x8981;&#x6210;&#x4E3A; LifecycleObserver&#xFF0C;&#x4E00;&#x4E2A;&#x7C7B;&#x5FC5;&#x987B;&#x5B9E;&#x73B0;&#x8BE5;&#x63A5;&#x53E3;&#xFF0C;&#x5E76;&#x5728;&#x5176;&#x4E2D;&#x5B9A;&#x4E49;&#x9700;&#x8981;&#x54CD;&#x5E94;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E8B;&#x4EF6;&#x3002;</p>
+<p>LifecycleObserver &#x901A;&#x8FC7;&#x6CE8;&#x89E3; @OnLifecycleEvent &#x6765;&#x6807;&#x8BB0;&#x9700;&#x8981;&#x89C2;&#x5BDF;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E8B;&#x4EF6;&#x3002;&#x4F8B;&#x5982;&#xFF0C;@OnLifecycleEvent(Lifecycle.Event.ON_CREATE) &#x8868;&#x793A;&#x8BE5;&#x65B9;&#x6CD5;&#x9700;&#x8981;&#x5728;&#x7EC4;&#x4EF6;&#x7684; onCreate() &#x4E8B;&#x4EF6;&#x53D1;&#x751F;&#x65F6;&#x6267;&#x884C;&#x3002;</p>
+<h3 id="4-&#x5C0F;&#x7ED3;"><a href="#4-&#x5C0F;&#x7ED3;" class="headerlink" title="4. &#x5C0F;&#x7ED3;"></a>4. &#x5C0F;&#x7ED3;</h3><p>Lifecycle &#x7684;&#x539F;&#x7406;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x901A;&#x8FC7; LifecycleOwner &#x548C; LifecycleRegistry &#x4E4B;&#x95F4;&#x7684;&#x5173;&#x8054;&#xFF0C;&#x6765;&#x5B9E;&#x73B0;&#x5BF9;&#x7EC4;&#x4EF6;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x7BA1;&#x7406;&#x3002;&#x5F53; LifecycleOwner &#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E8B;&#x4EF6;&#x53D1;&#x751F;&#x65F6;&#xFF0C;LifecycleRegistry &#x4F1A;&#x901A;&#x77E5;&#x6240;&#x6709;&#x6CE8;&#x518C;&#x7684; LifecycleObserver &#x5BF9;&#x8C61;&#xFF0C;&#x8BA9;&#x5B83;&#x4EEC;&#x6267;&#x884C;&#x76F8;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x3002;&#x8FD9;&#x79CD;&#x57FA;&#x4E8E;&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;&#x7684;&#x8BBE;&#x8BA1;&#x4F7F;&#x5F97; Lifecycle &#x80FD;&#x591F;&#x4EE5;&#x975E;&#x4FB5;&#x5165;&#x5F0F;&#x7684;&#x65B9;&#x5F0F;&#x96C6;&#x6210;&#x5230;&#x73B0;&#x6709;&#x7684;&#x7EC4;&#x4EF6;&#x4E2D;&#xFF0C;&#x8BA9;&#x751F;&#x547D;&#x5468;&#x671F;&#x7BA1;&#x7406;&#x53D8;&#x5F97;&#x8F7B;&#x677E;&#x800C;&#x9AD8;&#x6548;&#x3002;</p>
+<h2 id="&#x7B80;&#x5355;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;"><a href="#&#x7B80;&#x5355;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;" class="headerlink" title="&#x7B80;&#x5355;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;"></a>&#x7B80;&#x5355;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;</h2><p>&#x73B0;&#x5728;&#x8BA9;&#x6211;&#x4EEC;&#x770B;&#x770B;&#x4E00;&#x4E9B;&#x7B80;&#x5355;&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;&#xFF0C;&#x4EE5;&#x66F4;&#x597D;&#x5730;&#x5229;&#x7528; Lifecycle &#x5728; Android &#x5F00;&#x53D1;&#x4E2D;&#xFF1A;</p>
+<h3 id="1-LiveData-&#x4E0E;-Lifecycle-&#x96C6;&#x6210;"><a href="#1-LiveData-&#x4E0E;-Lifecycle-&#x96C6;&#x6210;" class="headerlink" title="1. LiveData &#x4E0E; Lifecycle &#x96C6;&#x6210;"></a>1. LiveData &#x4E0E; Lifecycle &#x96C6;&#x6210;</h3><p>LiveData &#x662F;&#x7528;&#x4E8E;&#x5728;&#x7EC4;&#x4EF6;&#x4E4B;&#x95F4;&#x5171;&#x4EAB;&#x6570;&#x636E;&#x7684;&#x7EC4;&#x4EF6;&#xFF0C;&#x800C;&#x5B83;&#x7684;&#x6570;&#x636E;&#x53D8;&#x5316;&#x4E0E;&#x7EC4;&#x4EF6;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x7D27;&#x5BC6;&#x76F8;&#x8FDE;&#x3002;&#x901A;&#x8FC7;&#x5C06; LiveData &#x4E0E; Lifecycle &#x96C6;&#x6210;&#xFF0C;&#x53EF;&#x4EE5;&#x786E;&#x4FDD;&#x6570;&#x636E;&#x53EA;&#x5728;&#x7EC4;&#x4EF6;&#x5904;&#x4E8E;&#x6D3B;&#x52A8;&#x72B6;&#x6001;&#x65F6;&#x66F4;&#x65B0;&#xFF0C;&#x907F;&#x514D;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x548C;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x6570;&#x636E;&#x66F4;&#x65B0;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyActivity</span> : <span class="type">AppCompatActivity</span></span>() {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> myLiveData: LiveData&lt;String&gt;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> {</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        myLiveData = MyRepository.getData().observe(<span class="keyword">this</span>) { <span class="keyword">data</span> -&gt;</span><br><span class="line">            <span class="comment">// &#x5728; LiveData &#x6570;&#x636E;&#x66F4;&#x65B0;&#x65F6;&#x6267;&#x884C;&#x64CD;&#x4F5C;</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h3 id="2-ViewModel-&#x4E0E;-Lifecycle-&#x96C6;&#x6210;"><a href="#2-ViewModel-&#x4E0E;-Lifecycle-&#x96C6;&#x6210;" class="headerlink" title="2. ViewModel &#x4E0E; Lifecycle &#x96C6;&#x6210;"></a>2. ViewModel &#x4E0E; Lifecycle &#x96C6;&#x6210;</h3><p>ViewModel &#x662F;&#x7528;&#x4E8E;&#x5728;&#x7EC4;&#x4EF6;&#x914D;&#x7F6E;&#x53D8;&#x5316;&#xFF08;&#x5982;&#x5C4F;&#x5E55;&#x65CB;&#x8F6C;&#xFF09;&#x65F6;&#x4FDD;&#x6301;&#x6570;&#x636E;&#x7684;&#x7EC4;&#x4EF6;&#x3002;&#x901A;&#x8FC7;&#x5C06; ViewModel &#x4E0E; Lifecycle &#x96C6;&#x6210;&#xFF0C;&#x53EF;&#x4EE5;&#x786E;&#x4FDD; ViewModel &#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E0E;&#x5173;&#x8054;&#x7684; LifecycleOwner&#xFF08;&#x5982; Activity &#x6216; Fragment&#xFF09;&#x4E00;&#x81F4;&#xFF0C;&#x4ECE;&#x800C;&#x907F;&#x514D; ViewModel &#x6570;&#x636E;&#x7684;&#x91CD;&#x590D;&#x521B;&#x5EFA;&#x548C;&#x9500;&#x6BC1;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyActivity</span> : <span class="type">AppCompatActivity</span></span>() {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> myViewModel: MyViewModel</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> {</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        myViewModel = ViewModelProvider(<span class="keyword">this</span>).<span class="keyword">get</span>(MyViewModel::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">        myViewModel.getData().observe(<span class="keyword">this</span>) { <span class="keyword">data</span> -&gt;</span><br><span class="line">            <span class="comment">// &#x5728; ViewModel &#x6570;&#x636E;&#x66F4;&#x65B0;&#x65F6;&#x6267;&#x884C;&#x64CD;&#x4F5C;</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="&#x9AD8;&#x7EA7;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;"><a href="#&#x9AD8;&#x7EA7;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;" class="headerlink" title="&#x9AD8;&#x7EA7;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;"></a>&#x9AD8;&#x7EA7;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;</h2><p>&#x73B0;&#x5728;&#x8BA9;&#x6211;&#x4EEC;&#x770B;&#x770B;&#x4E00;&#x4E9B;&#x9AD8;&#x7EA7;&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;&#xFF0C;&#x4EE5;&#x66F4;&#x597D;&#x5730;&#x5229;&#x7528; Lifecycle &#x5728; Android &#x5F00;&#x53D1;&#x4E2D;&#xFF1A;</p>
+<p>&#x5F53;&#x4F60;&#x9700;&#x8981;&#x5728; Android &#x5E94;&#x7528;&#x4E2D;&#x5B9E;&#x73B0;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x5E76;&#x5E0C;&#x671B;&#x8131;&#x79BB; Activity &#x548C; Fragment &#x7684;&#x9650;&#x5236;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5B9E;&#x73B0; LifecycleOwner &#x63A5;&#x53E3;&#x548C;&#x81EA;&#x5B9A;&#x4E49; Lifecycle &#x7684;&#x65B9;&#x5F0F;&#x6765;&#x5B9E;&#x73B0;&#x3002;&#x8FD9;&#x6837;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x5C06;&#x751F;&#x547D;&#x5468;&#x671F;&#x611F;&#x77E5;&#x7684;&#x80FD;&#x529B;&#x8D4B;&#x4E88;&#x4EFB;&#x4F55;&#x7C7B;&#xFF0C;&#x5E76;&#x5728;&#x5176;&#x751F;&#x547D;&#x5468;&#x671F;&#x5185;&#x6267;&#x884C;&#x76F8;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x4E00;&#x4E2A;&#x793A;&#x4F8B;&#xFF0C;&#x5C55;&#x793A;&#x5982;&#x4F55;&#x81EA;&#x5B9A;&#x4E49;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684; Lifecycle &#x7C7B;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> androidx.lifecycle.Lifecycle</span><br><span class="line"><span class="keyword">import</span> androidx.lifecycle.LifecycleObserver</span><br><span class="line"><span class="keyword">import</span> androidx.lifecycle.OnLifecycleEvent</span><br><span class="line"><span class="keyword">import</span> androidx.lifecycle.LifecycleOwner</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyLifecycle</span> : <span class="type">Lifecycle {</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> lifecycleRegistry: MyLifecycleRegistry = MyLifecycleRegistry()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// &#x81EA;&#x5B9A;&#x4E49; LifecycleObserver</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> myObserver = <span class="keyword">object</span> : LifecycleObserver {</span><br><span class="line">        <span class="meta">@OnLifecycleEvent(Lifecycle.Event.ON_CREATE)</span></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">()</span></span> {</span><br><span class="line">            <span class="comment">// &#x5728;&#x81EA;&#x5B9A;&#x4E49;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E2D;&#x7684; onCreate() &#x4E8B;&#x4EF6;&#x4E2D;&#x6267;&#x884C;&#x64CD;&#x4F5C;</span></span><br><span class="line">            println(<span class="string">&quot;Custom Lifecycle - onCreate()&quot;</span>)</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="meta">@OnLifecycleEvent(Lifecycle.Event.ON_START)</span></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">onStart</span><span class="params">()</span></span> {</span><br><span class="line">            <span class="comment">// &#x5728;&#x81EA;&#x5B9A;&#x4E49;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E2D;&#x7684; onStart() &#x4E8B;&#x4EF6;&#x4E2D;&#x6267;&#x884C;&#x64CD;&#x4F5C;</span></span><br><span class="line">            println(<span class="string">&quot;Custom Lifecycle - onStart()&quot;</span>)</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="meta">@OnLifecycleEvent(Lifecycle.Event.ON_RESUME)</span></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">onResume</span><span class="params">()</span></span> {</span><br><span class="line">            <span class="comment">// &#x5728;&#x81EA;&#x5B9A;&#x4E49;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E2D;&#x7684; onResume() &#x4E8B;&#x4EF6;&#x4E2D;&#x6267;&#x884C;&#x64CD;&#x4F5C;</span></span><br><span class="line">            println(<span class="string">&quot;Custom Lifecycle - onResume()&quot;</span>)</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="meta">@OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)</span></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">onPause</span><span class="params">()</span></span> {</span><br><span class="line">            <span class="comment">// &#x5728;&#x81EA;&#x5B9A;&#x4E49;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E2D;&#x7684; onPause() &#x4E8B;&#x4EF6;&#x4E2D;&#x6267;&#x884C;&#x64CD;&#x4F5C;</span></span><br><span class="line">            println(<span class="string">&quot;Custom Lifecycle - onPause()&quot;</span>)</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="meta">@OnLifecycleEvent(Lifecycle.Event.ON_STOP)</span></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">onStop</span><span class="params">()</span></span> {</span><br><span class="line">            <span class="comment">// &#x5728;&#x81EA;&#x5B9A;&#x4E49;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E2D;&#x7684; onStop() &#x4E8B;&#x4EF6;&#x4E2D;&#x6267;&#x884C;&#x64CD;&#x4F5C;</span></span><br><span class="line">            println(<span class="string">&quot;Custom Lifecycle - onStop()&quot;</span>)</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="meta">@OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)</span></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">onDestroy</span><span class="params">()</span></span> {</span><br><span class="line">            <span class="comment">// &#x5728;&#x81EA;&#x5B9A;&#x4E49;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E2D;&#x7684; onDestroy() &#x4E8B;&#x4EF6;&#x4E2D;&#x6267;&#x884C;&#x64CD;&#x4F5C;</span></span><br><span class="line">            println(<span class="string">&quot;Custom Lifecycle - onDestroy()&quot;</span>)</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">addObserver</span><span class="params">(observer: <span class="type">LifecycleObserver</span>)</span></span> {</span><br><span class="line">        lifecycleRegistry.addObserver(observer)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">removeObserver</span><span class="params">(observer: <span class="type">LifecycleObserver</span>)</span></span> {</span><br><span class="line">        lifecycleRegistry.removeObserver(observer)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getCurrentState</span><span class="params">()</span></span>: State {</span><br><span class="line">        <span class="keyword">return</span> lifecycleRegistry.currentState</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// &#x5728;&#x9002;&#x5F53;&#x7684;&#x65F6;&#x673A;&#x8C03;&#x7528;&#x76F8;&#x5E94;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x65B9;&#x6CD5;&#xFF0C;&#x4F8B;&#x5982;&#x5728;&#x521B;&#x5EFA;&#x81EA;&#x5B9A;&#x4E49; Lifecycle &#x7684;&#x5B9E;&#x4F8B;&#x65F6;&#x8C03;&#x7528;</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">()</span></span> {</span><br><span class="line">        lifecycleRegistry.currentState = State.CREATED</span><br><span class="line">        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">onStart</span><span class="params">()</span></span> {</span><br><span class="line">        lifecycleRegistry.currentState = State.STARTED</span><br><span class="line">        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">onResume</span><span class="params">()</span></span> {</span><br><span class="line">        lifecycleRegistry.currentState = State.RESUMED</span><br><span class="line">        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">onPause</span><span class="params">()</span></span> {</span><br><span class="line">        lifecycleRegistry.currentState = State.STARTED</span><br><span class="line">        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">onStop</span><span class="params">()</span></span> {</span><br><span class="line">        lifecycleRegistry.currentState = State.CREATED</span><br><span class="line">        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">onDestroy</span><span class="params">()</span></span> {</span><br><span class="line">        lifecycleRegistry.currentState = State.DESTROYED</span><br><span class="line">        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)</span><br><span class="line">        lifecycleRegistry.clear()</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// &#x81EA;&#x5B9A;&#x4E49; LifecycleRegistry&#xFF0C;&#x7528;&#x4E8E;&#x7BA1;&#x7406; LifecycleObserver</span></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">MyLifecycleRegistry</span> : <span class="type">LifecycleRegistry</span></span>() {</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">addObserver</span><span class="params">(observer: <span class="type">LifecycleObserver</span>)</span></span> {</span><br><span class="line">            <span class="keyword">super</span>.addObserver(observer)</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">removeObserver</span><span class="params">(observer: <span class="type">LifecycleObserver</span>)</span></span> {</span><br><span class="line">            <span class="keyword">super</span>.removeObserver(observer)</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x540D;&#x4E3A; MyLifecycle &#x7684;&#x81EA;&#x5B9A;&#x4E49; Lifecycle &#x7C7B;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x7C7B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5B9E;&#x73B0;&#x4E86; Lifecycle &#x63A5;&#x53E3;&#xFF0C;&#x5E76;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x5185;&#x90E8;&#x7684; LifecycleRegistry &#x5BF9;&#x8C61;&#x6765;&#x7BA1;&#x7406; LifecycleObserver&#x3002;&#x7136;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x7EC4;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x65B9;&#x6CD5;&#xFF0C;&#x5E76;&#x5728;&#x9002;&#x5F53;&#x7684;&#x65F6;&#x673A;&#x8C03;&#x7528;&#x76F8;&#x5E94;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E8B;&#x4EF6;&#xFF0C;&#x4ECE;&#x800C;&#x89E6;&#x53D1;&#x6CE8;&#x518C;&#x7684; LifecycleObserver &#x6267;&#x884C;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x73B0;&#x5728;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x4EFB;&#x4F55;&#x7C7B;&#x4E2D;&#x4F7F;&#x7528; MyLifecycle &#x6765;&#x5177;&#x6709;&#x751F;&#x547D;&#x611F;&#x77E5;&#x7684;&#x80FD;&#x529B;&#xFF0C;&#x800C;&#x4E0D;&#x5C40;&#x9650;&#x4E8E; Activity &#x548C; Fragment&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyCustomClass</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> myLifecycle = MyLifecycle()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">doSomething</span><span class="params">()</span></span> {</span><br><span class="line">        <span class="comment">// &#x5728;&#x5408;&#x9002;&#x7684;&#x65F6;&#x673A;&#x8C03;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x751F;&#x547D;&#x5468;&#x671F;&#x65B9;&#x6CD5;</span></span><br><span class="line">        myLifecycle.onCreate()</span><br><span class="line">        myLifecycle.onStart()</span><br><span class="line"></span><br><span class="line">        <span class="comment">// &#x6267;&#x884C;&#x81EA;&#x5DF1;&#x7684;&#x64CD;&#x4F5C;</span></span><br><span class="line"></span><br><span class="line">        myLifecycle.onStop()</span><br><span class="line">        myLifecycle.onDestroy()</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x540D;&#x4E3A; MyCustomClass &#x7684;&#x666E;&#x901A;&#x7C7B;&#xFF0C;&#x5E76;&#x5728;&#x5176;&#x4E2D;&#x4F7F;&#x7528; MyLifecycle &#x5B9E;&#x4F8B;&#x6765;&#x5177;&#x6709;&#x751F;&#x547D;&#x611F;&#x77E5;&#x7684;&#x80FD;&#x529B;&#x3002;&#x901A;&#x8FC7;&#x8C03;&#x7528;&#x5408;&#x9002;&#x7684;&#x81EA;&#x5B9A;&#x4E49;&#x751F;&#x547D;&#x5468;&#x671F;&#x65B9;&#x6CD5;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728; MyCustomClass &#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x5185;&#x6267;&#x884C;&#x6240;&#x9700;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x4ECE;&#x800C;&#x66F4;&#x597D;&#x5730;&#x7BA1;&#x7406;&#x5176;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x5E76;&#x786E;&#x4FDD;&#x5728;&#x4E0D;&#x518D;&#x9700;&#x8981;&#x65F6;&#x8FDB;&#x884C;&#x8D44;&#x6E90;&#x6E05;&#x7406;&#x3002;</p>
+<p>&#x603B;&#x7ED3;&#x6765;&#x8BF4;&#xFF0C;&#x901A;&#x8FC7;&#x81EA;&#x5B9A;&#x4E49;&#x5B9E;&#x73B0; Lifecycle &#x548C; LifecycleObserver&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5C06;&#x751F;&#x547D;&#x5468;&#x671F;&#x611F;&#x77E5;&#x7684;&#x80FD;&#x529B;&#x8D4B;&#x4E88;&#x4EFB;&#x4F55;&#x7C7B;&#xFF0C;&#x5E76;&#x5728;&#x5176;&#x751F;&#x547D;&#x5468;&#x671F;&#x5185;&#x6267;&#x884C;&#x7279;&#x5B9A;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x4ECE;&#x800C;&#x5B9E;&#x73B0;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x7BA1;&#x7406;&#x3002;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x4E3A;&#x6211;&#x4EEC;&#x5E26;&#x6765;&#x4E86;&#x66F4;&#x5927;&#x7684;&#x7075;&#x6D3B;&#x6027;&#x548C;&#x63A7;&#x5236;&#x6743;&#xFF0C;&#x8BA9;&#x6211;&#x4EEC;&#x80FD;&#x591F;&#x5728; Android &#x5E94;&#x7528;&#x4E2D;&#x5B9E;&#x73B0;&#x66F4;&#x590D;&#x6742;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x903B;&#x8F91;&#x3002;</p>
+<h2 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h2><p>&#x5728;&#x672C;&#x6587;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x6DF1;&#x5165;&#x6D45;&#x51FA;&#x5730;&#x4ECB;&#x7ECD;&#x4E86; Android Jetpack Lifecycle &#x7684;&#x4F7F;&#x7528;&#x539F;&#x7406;&#x3002;Lifecycle &#x662F; Android Jetpack &#x7684;&#x6838;&#x5FC3;&#x7EC4;&#x4EF6;&#x4E4B;&#x4E00;&#xFF0C;&#x901A;&#x8FC7;&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;&#x5B9E;&#x73B0;&#x4E86;&#x7EC4;&#x4EF6;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x7BA1;&#x7406;&#x3002;&#x6211;&#x4EEC;&#x4E86;&#x89E3;&#x4E86; LifecycleRegistry&#x3001;LifecycleOwner &#x548C; LifecycleObserver &#x4E4B;&#x95F4;&#x7684;&#x5173;&#x7CFB;&#xFF0C;&#x4EE5;&#x53CA;&#x5982;&#x4F55;&#x9AD8;&#x7EA7;&#x4F7F;&#x7528; Lifecycle&#x3002;&#x901A;&#x8FC7;&#x5BF9; Lifecycle &#x539F;&#x7406;&#x7684;&#x6DF1;&#x5165;&#x7406;&#x89E3;&#xFF0C;&#x4F60;&#x5C06;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x7075;&#x6D3B;&#x5730;&#x7BA1;&#x7406; Android &#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7EC4;&#x4EF6;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x4F7F;&#x5F97;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x66F4;&#x52A0;&#x7A33;&#x5B9A;&#x548C;&#x9AD8;&#x6548;&#x3002;</p>
+<h2 id="&#x63A8;&#x8350;"><a href="#&#x63A8;&#x8350;" class="headerlink" title="&#x63A8;&#x8350;"></a>&#x63A8;&#x8350;</h2><p><a href="https://github.com/idisfkj/android-startup" target="_blank" rel="noopener">android_startup</a>: &#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x5728;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65F6;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x3001;&#x9AD8;&#x6548;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521D;&#x59CB;&#x5316;&#x7EC4;&#x4EF6;&#xFF0C;&#x4F18;&#x5316;&#x542F;&#x52A8;&#x901F;&#x5EA6;&#x3002;&#x4E0D;&#x4EC5;&#x652F;&#x6301;Jetpack App Startup&#x7684;&#x5168;&#x90E8;&#x529F;&#x80FD;&#xFF0C;&#x8FD8;&#x63D0;&#x4F9B;&#x989D;&#x5916;&#x7684;&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#x7B49;&#x5F85;&#x3001;&#x7EBF;&#x7A0B;&#x63A7;&#x5236;&#x4E0E;&#x591A;&#x8FDB;&#x7A0B;&#x652F;&#x6301;&#x7B49;&#x529F;&#x80FD;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="noopener">AwesomeGithub</a>: &#x57FA;&#x4E8E;Github&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7EAF;&#x7EC3;&#x4E60;&#x9879;&#x76EE;&#xFF0C;&#x652F;&#x6301;&#x7EC4;&#x4EF6;&#x5316;&#x5F00;&#x53D1;&#xFF0C;&#x652F;&#x6301;&#x8D26;&#x6237;&#x5BC6;&#x7801;&#x4E0E;&#x8BA4;&#x8BC1;&#x767B;&#x9646;&#x3002;&#x4F7F;&#x7528;Kotlin&#x8BED;&#x8A00;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#xFF0C;&#x9879;&#x76EE;&#x67B6;&#x6784;&#x662F;&#x57FA;&#x4E8E;JetPack\&amp;DataBinding&#x7684;MVVM&#xFF1B;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;Arouter&#x3001;Retrofit&#x3001;Coroutine&#x3001;Glide&#x3001;Dagger&#x4E0E;Hilt&#x7B49;&#x6D41;&#x884C;&#x5F00;&#x6E90;&#x6280;&#x672F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="noopener">flutter_github</a>: &#x57FA;&#x4E8E;Flutter&#x7684;&#x8DE8;&#x5E73;&#x53F0;&#x7248;&#x672C;Github&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x4E0E;AwesomeGithub&#x76F8;&#x5BF9;&#x5E94;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="noopener">android-api-analysis</a>: &#x7ED3;&#x5408;&#x8BE6;&#x7EC6;&#x7684;Demo&#x6765;&#x5168;&#x9762;&#x89E3;&#x6790;Android&#x76F8;&#x5173;&#x7684;&#x77E5;&#x8BC6;&#x70B9;, &#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x5FEB;&#x7684;&#x638C;&#x63E1;&#x4E0E;&#x7406;&#x89E3;&#x6240;&#x9610;&#x8FF0;&#x7684;&#x8981;&#x70B9;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/daily_algorithm" target="_blank" rel="noopener">daily_algorithm</a>: &#x6BCF;&#x65E5;&#x4E00;&#x7B97;&#x6CD5;&#xFF0C;&#x7531;&#x6D45;&#x5165;&#x6DF1;&#xFF0C;&#x6B22;&#x8FCE;&#x52A0;&#x5165;&#x4E00;&#x8D77;&#x5171;&#x52C9;&#x3002;</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">赞赏是一门艺术</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/rouse_wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/rouse_alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2023/07/26/LiveData精通指南：解锁其潜力/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="fexo-comments comments-post">
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>
+  <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+  <script src="https://jjeejj.github.io/js/gitment.js"></script>
+  <script>
+    (function () {
+      var gitment = new Gitment({
+        owner: 'idisfkj',
+        repo: 'idisfkj.github.io',
+        id: 'Sat Jul 29 2023 11:23:41 GMT+0800',
+        oauth: {
+          client_id: 'dafb1df02ea9f875bb78',
+          client_secret: 'e9873d78aa5eaed5ce61d1d865a5af501dae377a'
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      })
+      gitment.render('gitment-comments')
+    })()
+  </script>
+
+  
+  
+</div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
