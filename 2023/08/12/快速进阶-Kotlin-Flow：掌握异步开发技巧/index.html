@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>快速进阶 Kotlin Flow：掌握异步开发技巧 | Rouse</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="coroutine,">
+  
+
+  <meta name="description" content="&amp;#x5728; Android &amp;#x5E94;&amp;#x7528;&amp;#x5F00;&amp;#x53D1;&amp;#x4E2D;&amp;#xFF0C;&amp;#x5F02;&amp;#x6B65;&amp;#x7F16;&amp;#x7A0B;&amp;#x662F;&amp;#x4E0D;&amp;#x53EF;&amp;#x907F;&amp;#x514D;&amp;#x7684;&amp;#xFF0C;&amp;#x800C; Kotlin Flow &amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#">
+<meta name="keywords" content="coroutine">
+<meta property="og:type" content="article">
+<meta property="og:title" content="快速进阶 Kotlin Flow：掌握异步开发技巧">
+<meta property="og:url" content="https://www.rousetime.com/2023/08/12/快速进阶-Kotlin-Flow：掌握异步开发技巧/index.html">
+<meta property="og:site_name" content="Rouse">
+<meta property="og:description" content="&amp;#x5728; Android &amp;#x5E94;&amp;#x7528;&amp;#x5F00;&amp;#x53D1;&amp;#x4E2D;&amp;#xFF0C;&amp;#x5F02;&amp;#x6B65;&amp;#x7F16;&amp;#x7A0B;&amp;#x662F;&amp;#x4E0D;&amp;#x53EF;&amp;#x907F;&amp;#x514D;&amp;#x7684;&amp;#xFF0C;&amp;#x800C; Kotlin Flow &amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2023-08-12T03:11:05.747Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="快速进阶 Kotlin Flow：掌握异步开发技巧">
+<meta name="twitter:description" content="&amp;#x5728; Android &amp;#x5E94;&amp;#x7528;&amp;#x5F00;&amp;#x53D1;&amp;#x4E2D;&amp;#xFF0C;&amp;#x5F02;&amp;#x6B65;&amp;#x7F16;&amp;#x7A0B;&amp;#x662F;&amp;#x4E0D;&amp;#x53EF;&amp;#x907F;&amp;#x514D;&amp;#x7684;&amp;#xFF0C;&amp;#x800C; Kotlin Flow &amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#">
+
+  
+
+  
+  <!-- <link href="/favicon.ico" rel="icon" type="image/x-icon"> -->
+    <link rel="icon" href="/favicon.ico">
+    <!-- <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?bd7ea96a22c9c7b90353962460fa0b8e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是-Kotlin-Flow？"><span class="toc-text">什么是 Kotlin Flow？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flow-的基本概念"><span class="toc-text">Flow 的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#发射器（Emitter）"><span class="toc-text">发射器（Emitter）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#收集器（Collector）"><span class="toc-text">收集器（Collector）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实际应用示例"><span class="toc-text">实际应用示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flow-的实现原理"><span class="toc-text">Flow 的实现原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#热流与冷流的区别"><span class="toc-text">热流与冷流的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#冷流"><span class="toc-text">冷流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#热流"><span class="toc-text">热流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#转换操作符"><span class="toc-text">转换操作符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#错误处理与异常处理"><span class="toc-text">错误处理与异常处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异步流的处理"><span class="toc-text">异步流的处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调度器和线程切换"><span class="toc-text">调度器和线程切换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#背压处理策略"><span class="toc-text">背压处理策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Buffer（缓冲）"><span class="toc-text">1. Buffer（缓冲）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Conflate（合并）"><span class="toc-text">2. Conflate（合并）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-CollectLatest"><span class="toc-text">3. CollectLatest</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#取消操作"><span class="toc-text">取消操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用协程作用域"><span class="toc-text">使用协程作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过-CancellationSignal-进行取消"><span class="toc-text">通过 CancellationSignal 进行取消</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#资源清理"><span class="toc-text">资源清理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-try-finally-进行资源清理"><span class="toc-text">使用 try-finally 进行资源清理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-channelFlow-进行资源清理"><span class="toc-text">使用 channelFlow 进行资源清理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结合取消和资源清理"><span class="toc-text">结合取消和资源清理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kotlin-Flow-vs-RxJava"><span class="toc-text">Kotlin Flow vs. RxJava</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异步编程范式"><span class="toc-text">异步编程范式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#协程集成"><span class="toc-text">协程集成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#冷流与热流"><span class="toc-text">冷流与热流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程调度"><span class="toc-text">线程调度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#背压处理"><span class="toc-text">背压处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#适用场景"><span class="toc-text">适用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐"><span class="toc-text">推荐</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-快速进阶-Kotlin-Flow：掌握异步开发技巧" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">快速进阶 Kotlin Flow：掌握异步开发技巧</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2023.08.12</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Rouse</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>&#x5728; Android &#x5E94;&#x7528;&#x5F00;&#x53D1;&#x4E2D;&#xFF0C;&#x5F02;&#x6B65;&#x7F16;&#x7A0B;&#x662F;&#x4E0D;&#x53EF;&#x907F;&#x514D;&#x7684;&#xFF0C;&#x800C; Kotlin Flow &#x662F;&#x4E00;&#x4E2A;&#x5F3A;&#x5927;&#x7684;&#x5E93;&#xFF0C;&#x80FD;&#x591F;&#x4F7F;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x66F4;&#x52A0;&#x4F18;&#x96C5;&#x548C;&#x6613;&#x4E8E;&#x7BA1;&#x7406;&#x3002;&#x672C;&#x6587;&#x5C06;&#x6DF1;&#x5165;&#x63A2;&#x8BA8; Kotlin Flow &#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#xFF0C;&#x540C;&#x65F6;&#x4E5F;&#x4F1A;&#x89E3;&#x6790;&#x5176;&#x80CC;&#x540E;&#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;&#xFF0C;&#x5E2E;&#x52A9;&#x4F60;&#x66F4;&#x597D;&#x5730;&#x7406;&#x89E3;&#x8FD9;&#x4E00;&#x6280;&#x672F;&#x3002;</p>
+<h2 id="&#x4EC0;&#x4E48;&#x662F;-Kotlin-Flow&#xFF1F;"><a href="#&#x4EC0;&#x4E48;&#x662F;-Kotlin-Flow&#xFF1F;" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F; Kotlin Flow&#xFF1F;"></a>&#x4EC0;&#x4E48;&#x662F; Kotlin Flow&#xFF1F;</h2><p>Kotlin Flow &#x662F;&#x57FA;&#x4E8E; Kotlin &#x534F;&#x7A0B;&#x7684;&#x5E93;&#xFF0C;&#x4E13;&#x95E8;&#x7528;&#x4E8E;&#x5904;&#x7406;&#x5F02;&#x6B65;&#x6570;&#x636E;&#x6D41;&#x3002;&#x5B83;&#x7684;&#x8BBE;&#x8BA1;&#x7075;&#x611F;&#x6765;&#x81EA;&#x4E8E;&#x54CD;&#x5E94;&#x5F0F;&#x7F16;&#x7A0B;&#xFF0C;&#x901A;&#x8FC7;&#x63D0;&#x4F9B;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x64CD;&#x4F5C;&#x7B26;&#xFF0C;&#x53EF;&#x4EE5;&#x8BA9;&#x5F00;&#x53D1;&#x8005;&#x4EE5;&#x7C7B;&#x4F3C;&#x4E8E;&#x96C6;&#x5408;&#x64CD;&#x4F5C;&#x7684;&#x65B9;&#x5F0F;&#x5904;&#x7406;&#x8FDE;&#x7EED;&#x7684;&#x5F02;&#x6B65;&#x4E8B;&#x4EF6;&#x6D41;&#x3002;</p>
+<h2 id="Flow-&#x7684;&#x57FA;&#x672C;&#x6982;&#x5FF5;"><a href="#Flow-&#x7684;&#x57FA;&#x672C;&#x6982;&#x5FF5;" class="headerlink" title="Flow &#x7684;&#x57FA;&#x672C;&#x6982;&#x5FF5;"></a>Flow &#x7684;&#x57FA;&#x672C;&#x6982;&#x5FF5;</h2><h3 id="&#x53D1;&#x5C04;&#x5668;&#xFF08;Emitter&#xFF09;"><a href="#&#x53D1;&#x5C04;&#x5668;&#xFF08;Emitter&#xFF09;" class="headerlink" title="&#x53D1;&#x5C04;&#x5668;&#xFF08;Emitter&#xFF09;"></a>&#x53D1;&#x5C04;&#x5668;&#xFF08;Emitter&#xFF09;</h3><p>&#x5728; Kotlin Flow &#x4E2D;&#xFF0C;&#x6570;&#x636E;&#x7684;&#x4EA7;&#x751F;&#x8005;&#x88AB;&#x79F0;&#x4E3A;&#x53D1;&#x5C04;&#x5668;&#xFF08;Emitter&#xFF09;&#x3002;&#x901A;&#x8FC7;&#x8C03;&#x7528; <code>flow { ... }</code>&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x53D1;&#x5C04;&#x5668;&#xFF0C;&#x5E76;&#x4F7F;&#x7528; <code>emit()</code> &#x51FD;&#x6570;&#x6765;&#x53D1;&#x5C04;&#x6570;&#x636E;&#x3002;&#x4F8B;&#x5982;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">simpleFlow</span><span class="params">()</span></span>: Flow&lt;<span class="built_in">Int</span>&gt; = flow {</span><br><span class="line">    <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>..<span class="number">5</span>) {</span><br><span class="line">        emit(i)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h3 id="&#x6536;&#x96C6;&#x5668;&#xFF08;Collector&#xFF09;"><a href="#&#x6536;&#x96C6;&#x5668;&#xFF08;Collector&#xFF09;" class="headerlink" title="&#x6536;&#x96C6;&#x5668;&#xFF08;Collector&#xFF09;"></a>&#x6536;&#x96C6;&#x5668;&#xFF08;Collector&#xFF09;</h3><p>&#x6536;&#x96C6;&#x5668;&#xFF08;Collector&#xFF09;&#x7528;&#x4E8E;&#x63A5;&#x6536;&#x53D1;&#x5C04;&#x5668;&#x53D1;&#x5C04;&#x7684;&#x6570;&#x636E;&#x3002;&#x901A;&#x8FC7;&#x8C03;&#x7528; <code>collect</code> &#x51FD;&#x6570;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x8BA2;&#x9605;&#x5E76;&#x5904;&#x7406;&#x53D1;&#x5C04;&#x7684;&#x6570;&#x636E;&#x3002;&#x4F8B;&#x5982;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> flow = simpleFlow()</span><br><span class="line">flow.collect { value -&gt;</span><br><span class="line">    println(value)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="&#x5B9E;&#x9645;&#x5E94;&#x7528;&#x793A;&#x4F8B;"><a href="#&#x5B9E;&#x9645;&#x5E94;&#x7528;&#x793A;&#x4F8B;" class="headerlink" title="&#x5B9E;&#x9645;&#x5E94;&#x7528;&#x793A;&#x4F8B;"></a>&#x5B9E;&#x9645;&#x5E94;&#x7528;&#x793A;&#x4F8B;</h2><p>&#x8BA9;&#x6211;&#x4EEC;&#x770B;&#x4E00;&#x4E0B;&#x5982;&#x4F55;&#x5728;&#x5B9E;&#x9645;&#x573A;&#x666F;&#x4E2D;&#x5E94;&#x7528; Kotlin Flow&#x3002;&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4ECE;&#x7F51;&#x7EDC;&#x83B7;&#x53D6;&#x7528;&#x6237;&#x5217;&#x8868;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x5176;&#x5B58;&#x50A8;&#x5230; Room &#x6570;&#x636E;&#x5E93;&#x4E2D;&#xFF0C;&#x6700;&#x540E;&#x901A;&#x8FC7; ViewModel &#x5C06;&#x6570;&#x636E;&#x5C55;&#x793A;&#x5728;&#x754C;&#x9762;&#x4E0A;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x4ECE;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x83B7;&#x53D6;&#x7528;&#x6237;&#x5217;&#x8868;&#x7684;&#x51FD;&#x6570;</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">fetchUsers</span><span class="params">()</span></span>: List&lt;User&gt; {</span><br><span class="line">    <span class="comment">// ... &#x53D1;&#x8D77;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x5E76;&#x83B7;&#x53D6;&#x6570;&#x636E;</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x4FDD;&#x5B58;&#x7528;&#x6237;&#x5217;&#x8868;&#x5230; Room &#x6570;&#x636E;&#x5E93;&#x7684;&#x51FD;&#x6570;</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">saveUsersToDatabase</span><span class="params">(users: <span class="type">List</span>&lt;<span class="type">User</span>&gt;)</span></span> {</span><br><span class="line">    <span class="comment">// ... &#x5C06;&#x6570;&#x636E;&#x4FDD;&#x5B58;&#x5230;&#x6570;&#x636E;&#x5E93;</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x5728; ViewModel &#x4E2D;&#x4F7F;&#x7528; Kotlin Flow</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserViewModel</span> : <span class="type">ViewModel</span></span>() {</span><br><span class="line">    <span class="keyword">val</span> usersFlow: Flow&lt;List&lt;User&gt;&gt; = flow {</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            <span class="keyword">val</span> users = fetchUsers() <span class="comment">// &#x4ECE;&#x7F51;&#x7EDC;&#x83B7;&#x53D6;&#x7528;&#x6237;&#x5217;&#x8868;</span></span><br><span class="line">            saveUsersToDatabase(users) <span class="comment">// &#x4FDD;&#x5B58;&#x5230;&#x6570;&#x636E;&#x5E93;</span></span><br><span class="line">            emit(users) <span class="comment">// &#x53D1;&#x5C04;&#x6570;&#x636E;</span></span><br><span class="line">        } <span class="keyword">catch</span> (e: Exception) {</span><br><span class="line">            <span class="comment">// &#x5904;&#x7406;&#x5F02;&#x5E38;&#xFF0C;&#x4F8B;&#x5982;&#x53D1;&#x5C04;&#x4E00;&#x4E2A;&#x7A7A;&#x5217;&#x8868;&#x6216;&#x9519;&#x8BEF;&#x4FE1;&#x606F;</span></span><br><span class="line">            emit(emptyList())</span><br><span class="line">            <span class="comment">// &#x6216;&#x8005;&#x4F7F;&#x7528;&#x9519;&#x8BEF;&#x72B6;&#x6001;&#x6D41;</span></span><br><span class="line">            <span class="comment">// errorFlow.emit(e)</span></span><br><span class="line">        }</span><br><span class="line">    }.flowOn(Dispatchers.IO)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="Flow-&#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;"><a href="#Flow-&#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;" class="headerlink" title="Flow &#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;"></a>Flow &#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;</h2><p>Kotlin Flow &#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;&#x57FA;&#x4E8E; Kotlin &#x534F;&#x7A0B;&#x7684;&#x57FA;&#x7840;&#x8BBE;&#x65BD;&#x3002;&#x534F;&#x7A0B;&#x5141;&#x8BB8;&#x5728;&#x51FD;&#x6570;&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;&#x6302;&#x8D77;&#xFF0C;&#x7B49;&#x5F85;&#x67D0;&#x4E9B;&#x6761;&#x4EF6;&#x6EE1;&#x8DB3;&#x540E;&#x6062;&#x590D;&#x6267;&#x884C;&#x3002;Flow &#x5229;&#x7528;&#x4E86;&#x8FD9;&#x4E00;&#x7279;&#x6027;&#x6765;&#x5B9E;&#x73B0;&#x6570;&#x636E;&#x6D41;&#x7684;&#x5904;&#x7406;&#x3002;</p>
+<p>&#x5728; Flow &#x5185;&#x90E8;&#xFF0C;&#x6570;&#x636E;&#x6D41;&#x88AB;&#x5EFA;&#x6A21;&#x4E3A;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x60AC;&#x6302;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x3002;&#x6BCF;&#x6B21;&#x53D1;&#x5C04;&#x6570;&#x636E;&#x65F6;&#xFF0C;&#x53D1;&#x5C04;&#x5668;&#x4F1A;&#x6682;&#x505C;&#x5E76;&#x5C06;&#x6570;&#x636E;&#x4F20;&#x9012;&#x7ED9;&#x8BA2;&#x9605;&#x8005;&#x3002;&#x800C;&#x8BA2;&#x9605;&#x8005;&#x5728;&#x6536;&#x96C6;&#x6570;&#x636E;&#x65F6;&#x4F1A;&#x6302;&#x8D77;&#xFF0C;&#x5E76;&#x7B49;&#x5F85;&#x6570;&#x636E;&#x4F20;&#x9012;&#x3002;&#x8FD9;&#x6837;&#xFF0C;&#x901A;&#x8FC7;&#x534F;&#x7A0B;&#x7684;&#x6302;&#x8D77;&#x548C;&#x6062;&#x590D;&#x673A;&#x5236;&#xFF0C;Flow &#x5B9E;&#x73B0;&#x4E86;&#x6570;&#x636E;&#x7684;&#x5F02;&#x6B65;&#x4F20;&#x9012;&#x548C;&#x5904;&#x7406;&#x3002;</p>
+<p>&#x6B64;&#x5916;&#xFF0C;Flow &#x8FD8;&#x652F;&#x6301;&#x51B7;&#x6D41;&#x7684;&#x7279;&#x6027;&#x3002;&#x53EA;&#x6709;&#x5728;&#x6709;&#x8BA2;&#x9605;&#x8005;&#x65F6;&#xFF0C;&#x53D1;&#x5C04;&#x5668;&#x624D;&#x4F1A;&#x5F00;&#x59CB;&#x6267;&#x884C;&#x3002;&#x8FD9;&#x6709;&#x52A9;&#x4E8E;&#x907F;&#x514D;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x8BA1;&#x7B97;&#x548C;&#x8D44;&#x6E90;&#x6D6A;&#x8D39;&#x3002;</p>
+<h2 id="&#x70ED;&#x6D41;&#x4E0E;&#x51B7;&#x6D41;&#x7684;&#x533A;&#x522B;"><a href="#&#x70ED;&#x6D41;&#x4E0E;&#x51B7;&#x6D41;&#x7684;&#x533A;&#x522B;" class="headerlink" title="&#x70ED;&#x6D41;&#x4E0E;&#x51B7;&#x6D41;&#x7684;&#x533A;&#x522B;"></a>&#x70ED;&#x6D41;&#x4E0E;&#x51B7;&#x6D41;&#x7684;&#x533A;&#x522B;</h2><p>Kotlin Flow &#x4E2D;&#x7684;&#x70ED;&#x6D41;&#x548C;&#x51B7;&#x6D41;&#x662F;&#x6709;&#x5173;&#x6570;&#x636E;&#x6D41;&#x4F20;&#x9012;&#x65B9;&#x5F0F;&#x7684;&#x4E24;&#x79CD;&#x4E0D;&#x540C;&#x6A21;&#x5F0F;&#x3002;</p>
+<h3 id="&#x51B7;&#x6D41;"><a href="#&#x51B7;&#x6D41;" class="headerlink" title="&#x51B7;&#x6D41;"></a>&#x51B7;&#x6D41;</h3><p>&#x51B7;&#x6D41;&#x662F;&#x6307;&#x6BCF;&#x4E2A;&#x8BA2;&#x9605;&#x8005;&#x90FD;&#x6709;&#x81EA;&#x5DF1;&#x7684;&#x6570;&#x636E;&#x6D41;&#x3002;&#x5728;&#x51B7;&#x6D41;&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;&#x6BCF;&#x5F53;&#x6709;&#x65B0;&#x7684;&#x8BA2;&#x9605;&#x8005;&#x8BA2;&#x9605;&#x6570;&#x636E;&#x6D41;&#x65F6;&#xFF0C;&#x6570;&#x636E;&#x6D41;&#x7684;&#x53D1;&#x5C04;&#x8FC7;&#x7A0B;&#x4F1A;&#x91CD;&#x65B0;&#x5F00;&#x59CB;&#x3002;&#x8BA2;&#x9605;&#x8005;&#x4E4B;&#x95F4;&#x4E0D;&#x4F1A;&#x5171;&#x4EAB;&#x6570;&#x636E;&#x3002;</p>
+<h3 id="&#x70ED;&#x6D41;"><a href="#&#x70ED;&#x6D41;" class="headerlink" title="&#x70ED;&#x6D41;"></a>&#x70ED;&#x6D41;</h3><p>&#x70ED;&#x6D41;&#x662F;&#x6307;&#x6570;&#x636E;&#x6E90;&#x5F00;&#x59CB;&#x4EA7;&#x751F;&#x6570;&#x636E;&#x540E;&#xFF0C;&#x8FD9;&#x4E9B;&#x6570;&#x636E;&#x4F1A;&#x7ACB;&#x5373;&#x4F20;&#x9012;&#x7ED9;&#x6240;&#x6709;&#x5DF2;&#x7ECF;&#x8BA2;&#x9605;&#x7684;&#x8BA2;&#x9605;&#x8005;&#x3002;&#x8BA2;&#x9605;&#x8005;&#x65E0;&#x8BBA;&#x4F55;&#x65F6;&#x8BA2;&#x9605;&#xFF0C;&#x90FD;&#x4F1A;&#x4ECE;&#x5F53;&#x524D;&#x6570;&#x636E;&#x5F00;&#x59CB;&#x63A5;&#x6536;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x793A;&#x4F8B;&#x5C55;&#x793A;&#x4E86;&#x51B7;&#x6D41;&#x548C;&#x70ED;&#x6D41;&#x7684;&#x533A;&#x522B;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlinx.coroutines.*</span><br><span class="line"><span class="keyword">import</span> kotlinx.coroutines.flow.*</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> = runBlocking {</span><br><span class="line">    <span class="keyword">val</span> coldFlow = flow {</span><br><span class="line">        emit(<span class="string">&quot;A&quot;</span>)</span><br><span class="line">        emit(<span class="string">&quot;B&quot;</span>)</span><br><span class="line">        emit(<span class="string">&quot;C&quot;</span>)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// &#x51B7;&#x6D41;&#x793A;&#x4F8B;</span></span><br><span class="line">    launch {</span><br><span class="line">        println(<span class="string">&quot;Cold Flow Subscription 1:&quot;</span>)</span><br><span class="line">        coldFlow.collect {</span><br><span class="line">            println(it)</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    delay(<span class="number">1000</span>) <span class="comment">// &#x7B49;&#x5F85;&#x4E00;&#x79D2;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// &#x540C;&#x4E00;&#x4E2A;&#x51B7;&#x6D41;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x8BA2;&#x9605;&#x8005;</span></span><br><span class="line">    launch {</span><br><span class="line">        println(<span class="string">&quot;Cold Flow Subscription 2:&quot;</span>)</span><br><span class="line">        coldFlow.collect {</span><br><span class="line">            println(it)</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    delay(<span class="number">3000</span>) <span class="comment">// &#x7B49;&#x5F85;&#x4E09;&#x79D2;&#xFF0C;&#x4EE5;&#x6F14;&#x793A;&#x533A;&#x522B;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> hotFlow = MutableSharedFlow&lt;String&gt;()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// &#x70ED;&#x6D41;&#x793A;&#x4F8B;</span></span><br><span class="line">    launch {</span><br><span class="line">        println(<span class="string">&quot;Hot Flow Subscription 1:&quot;</span>)</span><br><span class="line">        hotFlow.collect {</span><br><span class="line">            println(it)</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    delay(<span class="number">1000</span>) <span class="comment">// &#x7B49;&#x5F85;&#x4E00;&#x79D2;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// &#x540C;&#x4E00;&#x4E2A;&#x70ED;&#x6D41;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x8BA2;&#x9605;&#x8005;</span></span><br><span class="line">    launch {</span><br><span class="line">        println(<span class="string">&quot;Hot Flow Subscription 2:&quot;</span>)</span><br><span class="line">        hotFlow.collect {</span><br><span class="line">            println(it)</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// &#x6570;&#x636E;&#x6E90;&#x5F00;&#x59CB;&#x4EA7;&#x751F;&#x6570;&#x636E;</span></span><br><span class="line">    hotFlow.emit(<span class="string">&quot;X&quot;</span>)</span><br><span class="line">    hotFlow.emit(<span class="string">&quot;Y&quot;</span>)</span><br><span class="line">    hotFlow.emit(<span class="string">&quot;Z&quot;</span>)</span><br><span class="line"></span><br><span class="line">    delay(<span class="number">1000</span>) <span class="comment">// &#x7B49;&#x5F85;&#x4E00;&#x79D2;</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x4E2A;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;<code>coldFlow</code> &#x662F;&#x4E00;&#x4E2A;&#x51B7;&#x6D41;&#xFF0C;&#x800C; <code>hotFlow</code> &#x662F;&#x4E00;&#x4E2A;&#x70ED;&#x6D41;&#x3002;&#x4F60;&#x4F1A;&#x6CE8;&#x610F;&#x5230;&#xFF0C;&#x5728;&#x51B7;&#x6D41;&#x4E2D;&#xFF0C;&#x6BCF;&#x4E2A;&#x8BA2;&#x9605;&#x8005;&#x90FD;&#x4F1A;&#x4ECE;&#x5934;&#x5F00;&#x59CB;&#x63A5;&#x6536;&#x6570;&#x636E;&#xFF0C;&#x800C;&#x5728;&#x70ED;&#x6D41;&#x4E2D;&#xFF0C;&#x6240;&#x6709;&#x5DF2;&#x8BA2;&#x9605;&#x7684;&#x8BA2;&#x9605;&#x8005;&#x4F1A;&#x7ACB;&#x5373;&#x63A5;&#x6536;&#x5230;&#x6700;&#x65B0;&#x7684;&#x6570;&#x636E;&#x3002;</p>
+<p>&#x8BF7;&#x6CE8;&#x610F;&#xFF0C;&#x7531;&#x4E8E; Kotlin Flow &#x672C;&#x8EAB;&#x662F;&#x51B7;&#x6D41;&#xFF0C;&#x8981;&#x5B9E;&#x73B0;&#x771F;&#x6B63;&#x7684;&#x70ED;&#x6D41;&#xFF0C;&#x4F60;&#x9700;&#x8981;&#x4F7F;&#x7528; <code>SharedFlow</code> &#x6216;&#x7C7B;&#x4F3C;&#x7684;&#x6280;&#x672F;&#x3002;</p>
+<h3 id="&#x8F6C;&#x6362;&#x64CD;&#x4F5C;&#x7B26;"><a href="#&#x8F6C;&#x6362;&#x64CD;&#x4F5C;&#x7B26;" class="headerlink" title="&#x8F6C;&#x6362;&#x64CD;&#x4F5C;&#x7B26;"></a>&#x8F6C;&#x6362;&#x64CD;&#x4F5C;&#x7B26;</h3><p>Flow &#x63D0;&#x4F9B;&#x4E86;&#x591A;&#x79CD;&#x8F6C;&#x6362;&#x64CD;&#x4F5C;&#x7B26;&#xFF0C;&#x7528;&#x4E8E;&#x5BF9;&#x6570;&#x636E;&#x6D41;&#x8FDB;&#x884C;&#x53D8;&#x6362;&#x3001;&#x8FC7;&#x6EE4;&#x548C;&#x5408;&#x5E76;&#x7B49;&#x64CD;&#x4F5C;&#x3002;&#x5E38;&#x89C1;&#x7684;&#x64CD;&#x4F5C;&#x7B26;&#x5305;&#x62EC; <code>map</code>&#x3001;<code>filter</code>&#x3001;<code>transform</code> &#x7B49;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">flow.map { user -&gt;</span><br><span class="line">    <span class="string">&quot;<span class="subst">${user.firstName}</span> <span class="subst">${user.lastName}</span>&quot;</span></span><br><span class="line">}</span><br><span class="line">    .filter { fullName -&gt; fullName.length &gt; <span class="number">10</span> }</span><br><span class="line">    .collect { value -&gt;</span><br><span class="line">        println(value)</span><br><span class="line">    }</span><br></pre></td></tr></table></figure>
+<h2 id="&#x9519;&#x8BEF;&#x5904;&#x7406;&#x4E0E;&#x5F02;&#x5E38;&#x5904;&#x7406;"><a href="#&#x9519;&#x8BEF;&#x5904;&#x7406;&#x4E0E;&#x5F02;&#x5E38;&#x5904;&#x7406;" class="headerlink" title="&#x9519;&#x8BEF;&#x5904;&#x7406;&#x4E0E;&#x5F02;&#x5E38;&#x5904;&#x7406;"></a>&#x9519;&#x8BEF;&#x5904;&#x7406;&#x4E0E;&#x5F02;&#x5E38;&#x5904;&#x7406;</h2><p>&#x5728;&#x5B9E;&#x9645;&#x5E94;&#x7528;&#x4E2D;&#xFF0C;&#x5904;&#x7406;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x65F6;&#x5FC5;&#x987B;&#x8003;&#x8651;&#x9519;&#x8BEF;&#x548C;&#x5F02;&#x5E38;&#x60C5;&#x51B5;&#x3002;&#x5728; Kotlin Flow &#x4E2D;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>catch</code> &#x64CD;&#x4F5C;&#x7B26;&#x6765;&#x6355;&#x83B7;&#x548C;&#x5904;&#x7406;&#x5F02;&#x5E38;&#xFF0C;&#x786E;&#x4FDD;&#x5E94;&#x7528;&#x7684;&#x7A33;&#x5B9A;&#x6027;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">flow</span><br><span class="line">    .<span class="keyword">catch</span> { e -&gt;</span><br><span class="line">        println(<span class="string">&quot;Exception caught: <span class="variable">$e</span>&quot;</span>)</span><br><span class="line">        <span class="comment">// &#x53EF;&#x4EE5;&#x5728;&#x6B64;&#x5904;&#x8FDB;&#x884C;&#x9002;&#x5F53;&#x7684;&#x9519;&#x8BEF;&#x5904;&#x7406;&#xFF0C;&#x4F8B;&#x5982;&#x53D1;&#x5C04;&#x4E00;&#x4E2A;&#x9ED8;&#x8BA4;&#x503C;</span></span><br><span class="line">        <span class="comment">// emit(defaultValue)</span></span><br><span class="line">    }</span><br><span class="line">    .collect { value -&gt;</span><br><span class="line">        println(value)</span><br><span class="line">    }</span><br></pre></td></tr></table></figure>
+<h2 id="&#x5F02;&#x6B65;&#x6D41;&#x7684;&#x5904;&#x7406;"><a href="#&#x5F02;&#x6B65;&#x6D41;&#x7684;&#x5904;&#x7406;" class="headerlink" title="&#x5F02;&#x6B65;&#x6D41;&#x7684;&#x5904;&#x7406;"></a>&#x5F02;&#x6B65;&#x6D41;&#x7684;&#x5904;&#x7406;</h2><p>Kotlin Flow &#x975E;&#x5E38;&#x9002;&#x5408;&#x5904;&#x7406;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x3002;&#x901A;&#x8FC7;&#x4F7F;&#x7528; <code>flowOn</code> &#x64CD;&#x4F5C;&#x7B26;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x6570;&#x636E;&#x6D41;&#x5207;&#x6362;&#x5230;&#x6307;&#x5B9A;&#x7684;&#x8C03;&#x5EA6;&#x5668;&#x4E0A;&#xFF0C;&#x5B9E;&#x73B0;&#x5728;&#x4E0D;&#x540C;&#x7EBF;&#x7A0B;&#x4E2D;&#x6267;&#x884C;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flow</span><br><span class="line">    .flowOn(Dispatchers.IO)</span><br><span class="line">    .collect { value -&gt;</span><br><span class="line">        println(&quot;Value: $value on thread: ${Thread.currentThread().name}&quot;)</span><br><span class="line">    }</span><br></pre></td></tr></table></figure>
+<h2 id="&#x8C03;&#x5EA6;&#x5668;&#x548C;&#x7EBF;&#x7A0B;&#x5207;&#x6362;"><a href="#&#x8C03;&#x5EA6;&#x5668;&#x548C;&#x7EBF;&#x7A0B;&#x5207;&#x6362;" class="headerlink" title="&#x8C03;&#x5EA6;&#x5668;&#x548C;&#x7EBF;&#x7A0B;&#x5207;&#x6362;"></a>&#x8C03;&#x5EA6;&#x5668;&#x548C;&#x7EBF;&#x7A0B;&#x5207;&#x6362;</h2><p>&#x8C03;&#x5EA6;&#x5668;&#x548C;&#x7EBF;&#x7A0B;&#x5207;&#x6362;&#x662F;&#x5B9E;&#x73B0;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x7684;&#x91CD;&#x8981;&#x90E8;&#x5206;&#x3002;Kotlin Flow &#x5141;&#x8BB8;&#x4F60;&#x4F7F;&#x7528; <code>flowOn</code> &#x64CD;&#x4F5C;&#x7B26;&#x6765;&#x5207;&#x6362;&#x6570;&#x636E;&#x6D41;&#x7684;&#x6267;&#x884C;&#x7EBF;&#x7A0B;&#x3002;</p>
+<p>&#x5728; Android &#x5F00;&#x53D1;&#x4E2D;&#xFF0C;&#x901A;&#x5E38;&#x4F7F;&#x7528; <code>Dispatchers.IO</code> &#x8C03;&#x5EA6;&#x5668;&#x6765;&#x6267;&#x884C;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x7B49;&#x8017;&#x65F6;&#x64CD;&#x4F5C;&#xFF0C;&#x4F7F;&#x7528; <code>Dispatchers.Main</code> &#x8C03;&#x5EA6;&#x5668;&#x5728;&#x4E3B;&#x7EBF;&#x7A0B;&#x4E2D;&#x66F4;&#x65B0;&#x754C;&#x9762;&#x3002;&#x4F60;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x4E0D;&#x540C;&#x7684;&#x9700;&#x6C42;&#x548C;&#x573A;&#x666F;&#x9009;&#x62E9;&#x5408;&#x9002;&#x7684;&#x8C03;&#x5EA6;&#x5668;&#x3002;&#x4F8B;&#x5982;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">flow</span><br><span class="line">    .flowOn(Dispatchers.IO) // &#x5C06;&#x6D41;&#x7684;&#x6267;&#x884C;&#x5207;&#x6362;&#x5230; IO &#x7EBF;&#x7A0B;</span><br><span class="line">    .collect { value -&gt;</span><br><span class="line">        // &#x5728;&#x4E3B;&#x7EBF;&#x7A0B;&#x66F4;&#x65B0; UI</span><br><span class="line">        updateUI(value)</span><br><span class="line">    }</span><br></pre></td></tr></table></figure>
+<h2 id="&#x80CC;&#x538B;&#x5904;&#x7406;&#x7B56;&#x7565;"><a href="#&#x80CC;&#x538B;&#x5904;&#x7406;&#x7B56;&#x7565;" class="headerlink" title="&#x80CC;&#x538B;&#x5904;&#x7406;&#x7B56;&#x7565;"></a>&#x80CC;&#x538B;&#x5904;&#x7406;&#x7B56;&#x7565;</h2><p>&#x80CC;&#x538B;&#x5904;&#x7406;&#x7B56;&#x7565;&#x662F;&#x6307;&#x5728;&#x6570;&#x636E;&#x4EA7;&#x751F;&#x901F;&#x7387;&#x8D85;&#x8FC7;&#x6D88;&#x8D39;&#x901F;&#x7387;&#x65F6;&#x7684;&#x4E00;&#x79CD;&#x5904;&#x7406;&#x673A;&#x5236;&#x3002;Kotlin Flow &#x63D0;&#x4F9B;&#x4E86;&#x51E0;&#x79CD;&#x4E0D;&#x540C;&#x7684;&#x80CC;&#x538B;&#x5904;&#x7406;&#x7B56;&#x7565;&#xFF0C;&#x4EE5;&#x9002;&#x5E94;&#x4E0D;&#x540C;&#x7684;&#x60C5;&#x51B5;&#x3002;</p>
+<h3 id="1-Buffer&#xFF08;&#x7F13;&#x51B2;&#xFF09;"><a href="#1-Buffer&#xFF08;&#x7F13;&#x51B2;&#xFF09;" class="headerlink" title="1. Buffer&#xFF08;&#x7F13;&#x51B2;&#xFF09;"></a>1. Buffer&#xFF08;&#x7F13;&#x51B2;&#xFF09;</h3><p><code>buffer</code> &#x7B56;&#x7565;&#x4F1A;&#x5728;&#x6570;&#x636E;&#x6D41;&#x4E2D;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x7F13;&#x51B2;&#x533A;&#x6765;&#x5B58;&#x50A8;&#x6570;&#x636E;&#xFF0C;&#x5F53;&#x6570;&#x636E;&#x4EA7;&#x751F;&#x901F;&#x7387;&#x8D85;&#x8FC7;&#x6D88;&#x8D39;&#x901F;&#x7387;&#x65F6;&#xFF0C;&#x6570;&#x636E;&#x4F1A;&#x6682;&#x65F6;&#x5B58;&#x50A8;&#x5728;&#x7F13;&#x51B2;&#x533A;&#x4E2D;&#xFF0C;&#x76F4;&#x5230;&#x6709;&#x8DB3;&#x591F;&#x7684;&#x7A7A;&#x95F4;&#x5C06;&#x5176;&#x4F20;&#x9012;&#x7ED9;&#x8BA2;&#x9605;&#x8005;&#x3002;&#x8FD9;&#x53EF;&#x4EE5;&#x786E;&#x4FDD;&#x6570;&#x636E;&#x4E0D;&#x4F1A;&#x4E22;&#x5931;&#xFF0C;&#x4F46;&#x53EF;&#x80FD;&#x4F1A;&#x5360;&#x7528;&#x66F4;&#x591A;&#x7684;&#x5185;&#x5B58;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flow</span><br><span class="line">    .buffer()</span><br><span class="line">    .collect { value -&gt;</span><br><span class="line">        println(value)</span><br><span class="line">    }</span><br></pre></td></tr></table></figure>
+<h3 id="2-Conflate&#xFF08;&#x5408;&#x5E76;&#xFF09;"><a href="#2-Conflate&#xFF08;&#x5408;&#x5E76;&#xFF09;" class="headerlink" title="2. Conflate&#xFF08;&#x5408;&#x5E76;&#xFF09;"></a>2. Conflate&#xFF08;&#x5408;&#x5E76;&#xFF09;</h3><p><code>conflate</code> &#x7B56;&#x7565;&#x4F1A;&#x5728;&#x6570;&#x636E;&#x4EA7;&#x751F;&#x901F;&#x7387;&#x8D85;&#x8FC7;&#x6D88;&#x8D39;&#x901F;&#x7387;&#x65F6;&#xFF0C;&#x8DF3;&#x8FC7;&#x4E00;&#x4E9B;&#x6570;&#x636E;&#xFF0C;&#x53EA;&#x4FDD;&#x7559;&#x6700;&#x65B0;&#x7684;&#x6570;&#x636E;&#x3002;&#x8FD9;&#x6837;&#x53EF;&#x4EE5;&#x51CF;&#x5C11;&#x5185;&#x5B58;&#x5360;&#x7528;&#xFF0C;&#x4F46;&#x4F1A;&#x4E22;&#x5931;&#x4E00;&#x90E8;&#x5206;&#x6570;&#x636E;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flow</span><br><span class="line">    .conflate()</span><br><span class="line">    .collect { value -&gt;</span><br><span class="line">        println(value)</span><br><span class="line">    }</span><br></pre></td></tr></table></figure>
+<h3 id="3-CollectLatest"><a href="#3-CollectLatest" class="headerlink" title="3. CollectLatest"></a>3. CollectLatest</h3><p><code>collectLatest</code> &#x7B56;&#x7565;&#x4F1A;&#x5728;&#x65B0;&#x7684;&#x6570;&#x636E;&#x5230;&#x8FBE;&#x65F6;&#x53D6;&#x6D88;&#x4E4B;&#x524D;&#x7684;&#x6570;&#x636E;&#x5904;&#x7406;&#xFF0C;&#x5E76;&#x53EA;&#x5904;&#x7406;&#x6700;&#x65B0;&#x7684;&#x6570;&#x636E;&#x3002;&#x8FD9;&#x5728;&#x5904;&#x7406;&#x7528;&#x6237;&#x8F93;&#x5165;&#x7B49;&#x8FDE;&#x7EED;&#x4E8B;&#x4EF6;&#x65F6;&#x7279;&#x522B;&#x6709;&#x7528;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">flow</span><br><span class="line">    .collectLatest { value -&gt;</span><br><span class="line">        println(value)</span><br><span class="line">    }</span><br></pre></td></tr></table></figure>
+<p>&#x9009;&#x62E9;&#x5408;&#x9002;&#x7684;&#x80CC;&#x538B;&#x5904;&#x7406;&#x7B56;&#x7565;&#x53D6;&#x51B3;&#x4E8E;&#x4F60;&#x7684;&#x5E94;&#x7528;&#x9700;&#x6C42;&#x3002;&#x5982;&#x679C;&#x9700;&#x8981;&#x4FDD;&#x7559;&#x6240;&#x6709;&#x6570;&#x636E;&#x5E76;&#x786E;&#x4FDD;&#x4E0D;&#x4E22;&#x5931;&#xFF0C;&#x53EF;&#x4EE5;&#x9009;&#x62E9; <code>buffer</code> &#x7B56;&#x7565;&#x3002;&#x5982;&#x679C;&#x5185;&#x5B58;&#x5360;&#x7528;&#x662F;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x53EF;&#x4EE5;&#x9009;&#x62E9; <code>conflate</code> &#x7B56;&#x7565;&#x3002;&#x5982;&#x679C;&#x53EA;&#x5173;&#x5FC3;&#x6700;&#x65B0;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x53EF;&#x4EE5;&#x9009;&#x62E9; <code>collectLatest</code> &#x7B56;&#x7565;&#x3002;</p>
+<h2 id="&#x53D6;&#x6D88;&#x64CD;&#x4F5C;"><a href="#&#x53D6;&#x6D88;&#x64CD;&#x4F5C;" class="headerlink" title="&#x53D6;&#x6D88;&#x64CD;&#x4F5C;"></a>&#x53D6;&#x6D88;&#x64CD;&#x4F5C;</h2><p>&#x5728;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x4E2D;&#xFF0C;&#x53D6;&#x6D88;&#x662F;&#x4E00;&#x4E2A;&#x91CD;&#x8981;&#x7684;&#x8003;&#x8651;&#x56E0;&#x7D20;&#x3002;Kotlin Flow &#x96C6;&#x6210;&#x4E86; Kotlin &#x534F;&#x7A0B;&#x7684;&#x53D6;&#x6D88;&#x673A;&#x5236;&#xFF0C;&#x4F7F;&#x5F97;&#x53D6;&#x6D88;&#x64CD;&#x4F5C;&#x53D8;&#x5F97;&#x7B80;&#x5355;&#x800C;&#x9AD8;&#x6548;&#x3002;</p>
+<h3 id="&#x4F7F;&#x7528;&#x534F;&#x7A0B;&#x4F5C;&#x7528;&#x57DF;"><a href="#&#x4F7F;&#x7528;&#x534F;&#x7A0B;&#x4F5C;&#x7528;&#x57DF;" class="headerlink" title="&#x4F7F;&#x7528;&#x534F;&#x7A0B;&#x4F5C;&#x7528;&#x57DF;"></a>&#x4F7F;&#x7528;&#x534F;&#x7A0B;&#x4F5C;&#x7528;&#x57DF;</h3><p>&#x5728; Flow &#x4E2D;&#x8FDB;&#x884C;&#x53D6;&#x6D88;&#x64CD;&#x4F5C;&#x65F6;&#xFF0C;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x534F;&#x7A0B;&#x4F5C;&#x7528;&#x57DF;&#x6765;&#x786E;&#x4FDD;&#x64CD;&#x4F5C;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x3002;&#x901A;&#x8FC7; <code>coroutineScope</code> &#x51FD;&#x6570;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x534F;&#x7A0B;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;&#x7136;&#x540E;&#x5728;&#x4F5C;&#x7528;&#x57DF;&#x5185;&#x542F;&#x52A8; Flow &#x64CD;&#x4F5C;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">viewModelScope.launch {</span><br><span class="line">    flow.collect { value -&gt;</span><br><span class="line">        <span class="keyword">if</span> (shouldCancel) {</span><br><span class="line">            <span class="comment">// &#x53D6;&#x6D88;&#x64CD;&#x4F5C;</span></span><br><span class="line">            cancel()</span><br><span class="line">        }</span><br><span class="line">        println(value)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h3 id="&#x901A;&#x8FC7;-CancellationSignal-&#x8FDB;&#x884C;&#x53D6;&#x6D88;"><a href="#&#x901A;&#x8FC7;-CancellationSignal-&#x8FDB;&#x884C;&#x53D6;&#x6D88;" class="headerlink" title="&#x901A;&#x8FC7; CancellationSignal &#x8FDB;&#x884C;&#x53D6;&#x6D88;"></a>&#x901A;&#x8FC7; CancellationSignal &#x8FDB;&#x884C;&#x53D6;&#x6D88;</h3><p>Kotlin Flow &#x8FD8;&#x63D0;&#x4F9B;&#x4E86; <code>onEach</code> &#x64CD;&#x4F5C;&#x7B26;&#xFF0C;&#x5141;&#x8BB8;&#x4F60;&#x5728;&#x6BCF;&#x6B21;&#x53D1;&#x5C04;&#x6570;&#x636E;&#x65F6;&#x68C0;&#x67E5;&#x53D6;&#x6D88;&#x72B6;&#x6001;&#x3002;&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>CancellableContinuation</code> &#x6765;&#x68C0;&#x67E5;&#x53D6;&#x6D88;&#x72B6;&#x6001;&#xFF0C;&#x5E76;&#x5728;&#x9700;&#x8981;&#x65F6;&#x629B;&#x51FA;&#x53D6;&#x6D88;&#x5F02;&#x5E38;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">flow</span><br><span class="line">    .onEach { value -&gt;</span><br><span class="line">        <span class="keyword">if</span> (isCancelled) {</span><br><span class="line">            <span class="keyword">throw</span> CancellationException(<span class="string">&quot;Flow was cancelled&quot;</span>)</span><br><span class="line">        }</span><br><span class="line">        println(value)</span><br><span class="line">    }</span><br><span class="line">    .collect { value -&gt;</span><br><span class="line">        println(value)</span><br><span class="line">    }</span><br></pre></td></tr></table></figure>
+<h2 id="&#x8D44;&#x6E90;&#x6E05;&#x7406;"><a href="#&#x8D44;&#x6E90;&#x6E05;&#x7406;" class="headerlink" title="&#x8D44;&#x6E90;&#x6E05;&#x7406;"></a>&#x8D44;&#x6E90;&#x6E05;&#x7406;</h2><p>&#x5728;&#x5904;&#x7406;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x65F6;&#xFF0C;&#x8FD8;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x53CA;&#x65F6;&#x6E05;&#x7406;&#x8D44;&#x6E90;&#xFF0C;&#x4EE5;&#x907F;&#x514D;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x6216;&#x5176;&#x4ED6;&#x95EE;&#x9898;&#x3002;</p>
+<h3 id="&#x4F7F;&#x7528;-try-finally-&#x8FDB;&#x884C;&#x8D44;&#x6E90;&#x6E05;&#x7406;"><a href="#&#x4F7F;&#x7528;-try-finally-&#x8FDB;&#x884C;&#x8D44;&#x6E90;&#x6E05;&#x7406;" class="headerlink" title="&#x4F7F;&#x7528; try-finally &#x8FDB;&#x884C;&#x8D44;&#x6E90;&#x6E05;&#x7406;"></a>&#x4F7F;&#x7528; <code>try-finally</code> &#x8FDB;&#x884C;&#x8D44;&#x6E90;&#x6E05;&#x7406;</h3><p>&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>try-finally</code> &#x5757;&#x6765;&#x786E;&#x4FDD;&#x8D44;&#x6E90;&#x5F97;&#x5230;&#x6B63;&#x786E;&#x7684;&#x91CA;&#x653E;&#xFF0C;&#x5373;&#x4F7F;&#x53D1;&#x751F;&#x5F02;&#x5E38;&#x6216;&#x53D6;&#x6D88;&#x64CD;&#x4F5C;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">viewModelScope.launch {</span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">        flow.collect { value -&gt;</span><br><span class="line">            <span class="comment">// &#x5904;&#x7406;&#x6570;&#x636E;</span></span><br><span class="line">        }</span><br><span class="line">    } <span class="keyword">finally</span> {</span><br><span class="line">        <span class="comment">// &#x8FDB;&#x884C;&#x8D44;&#x6E90;&#x6E05;&#x7406;&#xFF0C;&#x5982;&#x5173;&#x95ED;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x3001;&#x53D6;&#x6D88;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x7B49;</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h3 id="&#x4F7F;&#x7528;-channelFlow-&#x8FDB;&#x884C;&#x8D44;&#x6E90;&#x6E05;&#x7406;"><a href="#&#x4F7F;&#x7528;-channelFlow-&#x8FDB;&#x884C;&#x8D44;&#x6E90;&#x6E05;&#x7406;" class="headerlink" title="&#x4F7F;&#x7528; channelFlow &#x8FDB;&#x884C;&#x8D44;&#x6E90;&#x6E05;&#x7406;"></a>&#x4F7F;&#x7528; <code>channelFlow</code> &#x8FDB;&#x884C;&#x8D44;&#x6E90;&#x6E05;&#x7406;</h3><p>&#x5BF9;&#x4E8E;&#x9700;&#x8981;&#x624B;&#x52A8;&#x91CA;&#x653E;&#x8D44;&#x6E90;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>channelFlow</code> &#x51FD;&#x6570;&#xFF0C;&#x5B83;&#x5141;&#x8BB8;&#x4F60;&#x5728; Flow &#x4E2D;&#x6267;&#x884C;&#x4E00;&#x4E9B;&#x989D;&#x5916;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x5982;&#x8D44;&#x6E90;&#x6E05;&#x7406;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> flow = channelFlow {</span><br><span class="line">    <span class="comment">// &#x53D1;&#x5C04;&#x6570;&#x636E;</span></span><br><span class="line">    send(<span class="keyword">data</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// &#x6267;&#x884C;&#x8D44;&#x6E90;&#x6E05;&#x7406;&#x64CD;&#x4F5C;</span></span><br><span class="line">    awaitClose {</span><br><span class="line">        <span class="comment">// &#x5728;&#x5173;&#x95ED;&#x901A;&#x9053;&#x4E4B;&#x524D;&#x8FDB;&#x884C;&#x8D44;&#x6E90;&#x6E05;&#x7406;&#xFF0C;&#x5982;&#x5173;&#x95ED;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x3001;&#x53D6;&#x6D88;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x7B49;</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="&#x7ED3;&#x5408;&#x53D6;&#x6D88;&#x548C;&#x8D44;&#x6E90;&#x6E05;&#x7406;"><a href="#&#x7ED3;&#x5408;&#x53D6;&#x6D88;&#x548C;&#x8D44;&#x6E90;&#x6E05;&#x7406;" class="headerlink" title="&#x7ED3;&#x5408;&#x53D6;&#x6D88;&#x548C;&#x8D44;&#x6E90;&#x6E05;&#x7406;"></a>&#x7ED3;&#x5408;&#x53D6;&#x6D88;&#x548C;&#x8D44;&#x6E90;&#x6E05;&#x7406;</h2><p>&#x5F53;&#x53D6;&#x6D88;&#x64CD;&#x4F5C;&#x548C;&#x8D44;&#x6E90;&#x6E05;&#x7406;&#x540C;&#x65F6;&#x5B58;&#x5728;&#x65F6;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x5C06;&#x5B83;&#x4EEC;&#x7ED3;&#x5408;&#x8D77;&#x6765;&#xFF0C;&#x4EE5;&#x786E;&#x4FDD;&#x5728;&#x53D6;&#x6D88;&#x64CD;&#x4F5C;&#x53D1;&#x751F;&#x65F6;&#x8FDB;&#x884C;&#x8D44;&#x6E90;&#x6E05;&#x7406;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">viewModelScope.launch {</span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">        flow.collect { value -&gt;</span><br><span class="line">            <span class="keyword">if</span> (isCancelled) {</span><br><span class="line">                <span class="keyword">throw</span> CancellationException(<span class="string">&quot;Flow was cancelled&quot;</span>)</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">// &#x5904;&#x7406;&#x6570;&#x636E;</span></span><br><span class="line">        }</span><br><span class="line">    } <span class="keyword">finally</span> {</span><br><span class="line">        <span class="comment">// &#x8FDB;&#x884C;&#x8D44;&#x6E90;&#x6E05;&#x7406;&#xFF0C;&#x5982;&#x5173;&#x95ED;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x3001;&#x53D6;&#x6D88;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x7B49;</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="Kotlin-Flow-vs-RxJava"><a href="#Kotlin-Flow-vs-RxJava" class="headerlink" title="Kotlin Flow vs. RxJava"></a>Kotlin Flow vs. RxJava</h2><h3 id="&#x5F02;&#x6B65;&#x7F16;&#x7A0B;&#x8303;&#x5F0F;"><a href="#&#x5F02;&#x6B65;&#x7F16;&#x7A0B;&#x8303;&#x5F0F;" class="headerlink" title="&#x5F02;&#x6B65;&#x7F16;&#x7A0B;&#x8303;&#x5F0F;"></a>&#x5F02;&#x6B65;&#x7F16;&#x7A0B;&#x8303;&#x5F0F;</h3><p>Kotlin Flow &#x548C; RxJava &#x90FD;&#x662F;&#x7528;&#x4E8E;&#x5B9E;&#x73B0;&#x5F02;&#x6B65;&#x7F16;&#x7A0B;&#x7684;&#x5E93;&#xFF0C;&#x4F46;&#x5B83;&#x4EEC;&#x5728;&#x7F16;&#x7A0B;&#x8303;&#x5F0F;&#x4E0A;&#x6709;&#x6240;&#x4E0D;&#x540C;&#x3002;RxJava &#x57FA;&#x4E8E;&#x54CD;&#x5E94;&#x5F0F;&#x7F16;&#x7A0B;&#x8303;&#x5F0F;&#xFF0C;&#x4F7F;&#x7528; Observables &#x548C; Observers &#x6765;&#x5904;&#x7406;&#x5F02;&#x6B65;&#x4E8B;&#x4EF6;&#x6D41;&#x3002;&#x800C; Kotlin Flow &#x57FA;&#x4E8E; Kotlin &#x534F;&#x7A0B;&#xFF0C;&#x901A;&#x8FC7; Flow &#x548C;&#x6536;&#x96C6;&#x5668;&#xFF08;Collectors&#xFF09;&#x6765;&#x5B9E;&#x73B0;&#x5F02;&#x6B65;&#x6570;&#x636E;&#x6D41;&#x7684;&#x5904;&#x7406;&#x3002;&#x8FD9;&#x4E24;&#x79CD;&#x8303;&#x5F0F;&#x5404;&#x6709;&#x4F18;&#x52BF;&#xFF0C;&#x5F00;&#x53D1;&#x8005;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x4E2A;&#x4EBA;&#x504F;&#x597D;&#x548C;&#x9879;&#x76EE;&#x9700;&#x6C42;&#x8FDB;&#x884C;&#x9009;&#x62E9;&#x3002;</p>
+<h3 id="&#x534F;&#x7A0B;&#x96C6;&#x6210;"><a href="#&#x534F;&#x7A0B;&#x96C6;&#x6210;" class="headerlink" title="&#x534F;&#x7A0B;&#x96C6;&#x6210;"></a>&#x534F;&#x7A0B;&#x96C6;&#x6210;</h3><p>Kotlin Flow &#x662F; Kotlin &#x534F;&#x7A0B;&#x7684;&#x4E00;&#x90E8;&#x5206;&#xFF0C;&#x56E0;&#x6B64;&#x5B83;&#x5929;&#x751F;&#x4E0E; Kotlin &#x534F;&#x7A0B;&#x65E0;&#x7F1D;&#x96C6;&#x6210;&#x3002;&#x8FD9;&#x610F;&#x5473;&#x7740;&#x4F60;&#x53EF;&#x4EE5;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x4EE3;&#x7801;&#x5757;&#x4E2D;&#x4F7F;&#x7528;&#x534F;&#x7A0B;&#x548C; Flow&#xFF0C;&#x5B9E;&#x73B0;&#x66F4;&#x52A0;&#x4E00;&#x81F4;&#x548C;&#x6E05;&#x6670;&#x7684;&#x5F02;&#x6B65;&#x7F16;&#x7A0B;&#x3002;RxJava &#x4E5F;&#x63D0;&#x4F9B;&#x4E86;&#x4E0E;&#x534F;&#x7A0B;&#x96C6;&#x6210;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x4F46;&#x4E0E; Kotlin Flow &#x76F8;&#x6BD4;&#xFF0C;&#x53EF;&#x80FD;&#x9700;&#x8981;&#x66F4;&#x591A;&#x7684;&#x9002;&#x914D;&#x548C;&#x914D;&#x7F6E;&#x3002;</p>
+<h3 id="&#x51B7;&#x6D41;&#x4E0E;&#x70ED;&#x6D41;"><a href="#&#x51B7;&#x6D41;&#x4E0E;&#x70ED;&#x6D41;" class="headerlink" title="&#x51B7;&#x6D41;&#x4E0E;&#x70ED;&#x6D41;"></a>&#x51B7;&#x6D41;&#x4E0E;&#x70ED;&#x6D41;</h3><p>Kotlin Flow &#x652F;&#x6301;&#x51B7;&#x6D41;&#x548C;&#x70ED;&#x6D41;&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x8FD9;&#x6709;&#x52A9;&#x4E8E;&#x60F0;&#x6027;&#x8BA1;&#x7B97;&#x548C;&#x8D44;&#x6E90;&#x4F18;&#x5316;&#x3002;&#x51B7;&#x6D41;&#x4FDD;&#x8BC1;&#x6BCF;&#x4E2A;&#x8BA2;&#x9605;&#x8005;&#x90FD;&#x6709;&#x81EA;&#x5DF1;&#x7684;&#x6570;&#x636E;&#x6D41;&#xFF0C;&#x4E0D;&#x4F1A;&#x5171;&#x4EAB;&#x6570;&#x636E;&#x3002;&#x70ED;&#x6D41;&#x5728;&#x6570;&#x636E;&#x4EA7;&#x751F;&#x540E;&#x4F20;&#x9012;&#x7ED9;&#x6240;&#x6709;&#x8BA2;&#x9605;&#x8005;&#xFF0C;&#x5373;&#x4F7F;&#x5728;&#x8BA2;&#x9605;&#x4E4B;&#x540E;&#x4E5F;&#x53EF;&#x4EE5;&#x63A5;&#x6536;&#x4E4B;&#x524D;&#x7684;&#x6570;&#x636E;&#x3002;RxJava &#x4E5F;&#x6709;&#x7C7B;&#x4F3C;&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x4F46;&#x5728;&#x4F7F;&#x7528;&#x65F6;&#x9700;&#x8981;&#x7279;&#x522B;&#x6CE8;&#x610F;&#x907F;&#x514D;&#x6F5C;&#x5728;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x548C;&#x8D44;&#x6E90;&#x6D6A;&#x8D39;&#x3002;</p>
+<h3 id="&#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;"><a href="#&#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;" class="headerlink" title="&#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;"></a>&#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;</h3><p>RxJava &#x548C; Kotlin Flow &#x90FD;&#x63D0;&#x4F9B;&#x4E86;&#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;&#x7684;&#x673A;&#x5236;&#xFF0C;&#x5141;&#x8BB8;&#x5728;&#x4E0D;&#x540C;&#x7EBF;&#x7A0B;&#x4E2D;&#x6267;&#x884C;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x3002;&#x5728; RxJava &#x4E2D;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>observeOn</code> &#x548C; <code>subscribeOn</code> &#x6765;&#x5207;&#x6362;&#x7EBF;&#x7A0B;&#x3002;&#x800C;&#x5728; Kotlin Flow &#x4E2D;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>flowOn</code> &#x64CD;&#x4F5C;&#x7B26;&#x6765;&#x5B9E;&#x73B0;&#x7EBF;&#x7A0B;&#x5207;&#x6362;&#x3002;&#x4E24;&#x8005;&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;&#x76F8;&#x4F3C;&#xFF0C;&#x4F46; Kotlin Flow &#x53EF;&#x4EE5;&#x66F4;&#x52A0;&#x81EA;&#x7136;&#x5730;&#x4E0E;&#x534F;&#x7A0B;&#x96C6;&#x6210;&#xFF0C;&#x907F;&#x514D;&#x4E86;&#x989D;&#x5916;&#x7684;&#x914D;&#x7F6E;&#x3002;</p>
+<h3 id="&#x80CC;&#x538B;&#x5904;&#x7406;"><a href="#&#x80CC;&#x538B;&#x5904;&#x7406;" class="headerlink" title="&#x80CC;&#x538B;&#x5904;&#x7406;"></a>&#x80CC;&#x538B;&#x5904;&#x7406;</h3><p>RxJava &#x63D0;&#x4F9B;&#x4E86;&#x4E30;&#x5BCC;&#x7684;&#x80CC;&#x538B;&#x5904;&#x7406;&#x7B56;&#x7565;&#xFF0C;&#x4F8B;&#x5982;&#x7F13;&#x5B58;&#x3001;&#x4E22;&#x5F03;&#x3001;&#x6700;&#x65B0;&#x503C;&#x7B49;&#x3002;&#x5728;&#x5904;&#x7406;&#x9AD8;&#x9891;&#x7387;&#x4E8B;&#x4EF6;&#x6D41;&#x65F6;&#xFF0C;&#x8FD9;&#x4E9B;&#x7B56;&#x7565;&#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x63A7;&#x5236;&#x6570;&#x636E;&#x6D41;&#x7684;&#x6D41;&#x91CF;&#x3002;Kotlin Flow &#x4E5F;&#x63D0;&#x4F9B;&#x4E86;&#x7C7B;&#x4F3C;&#x7684;&#x80CC;&#x538B;&#x5904;&#x7406;&#x7B56;&#x7565;&#xFF0C;&#x5982; <code>buffer</code>&#x3001;<code>conflate</code> &#x548C; <code>collectLatest</code>&#x3002;&#x9009;&#x62E9;&#x54EA;&#x79CD;&#x5E93;&#x53D6;&#x51B3;&#x4E8E;&#x4F60;&#x5BF9;&#x80CC;&#x538B;&#x5904;&#x7406;&#x7684;&#x9700;&#x6C42;&#x548C;&#x719F;&#x6089;&#x7A0B;&#x5EA6;&#x3002;</p>
+<h3 id="&#x9002;&#x7528;&#x573A;&#x666F;"><a href="#&#x9002;&#x7528;&#x573A;&#x666F;" class="headerlink" title="&#x9002;&#x7528;&#x573A;&#x666F;"></a>&#x9002;&#x7528;&#x573A;&#x666F;</h3><p>&#x9009;&#x62E9;&#x4F7F;&#x7528; Kotlin Flow &#x8FD8;&#x662F; RxJava &#x53D6;&#x51B3;&#x4E8E;&#x4F60;&#x7684;&#x9879;&#x76EE;&#x9700;&#x6C42;&#x548C;&#x56E2;&#x961F;&#x7ECF;&#x9A8C;&#x3002;&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E9B;&#x9002;&#x7528;&#x573A;&#x666F;&#x7684;&#x793A;&#x4F8B;&#xFF1A;</p>
+<ul>
+<li><p><strong>Kotlin Flow &#x9002;&#x7528;&#x573A;&#x666F;&#xFF1A;</strong></p>
+<ul>
+<li>&#x5982;&#x679C;&#x4F60;&#x5DF2;&#x7ECF;&#x5728;&#x9879;&#x76EE;&#x4E2D;&#x5E7F;&#x6CDB;&#x4F7F;&#x7528;&#x4E86; Kotlin &#x534F;&#x7A0B;&#xFF0C;&#x90A3;&#x4E48;&#x4F7F;&#x7528; Kotlin Flow &#x53EF;&#x4EE5;&#x66F4;&#x52A0;&#x4E00;&#x81F4;&#x5730;&#x96C6;&#x6210;&#x5F02;&#x6B65;&#x5904;&#x7406;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x4F60;&#x559C;&#x6B22;&#x4F7F;&#x7528; Kotlin &#x8BED;&#x8A00;&#x7279;&#x6027;&#xFF0C;Kotlin Flow &#x63D0;&#x4F9B;&#x4E86;&#x66F4;&#x5177; Kotlin &#x98CE;&#x683C;&#x7684;&#x5F02;&#x6B65;&#x7F16;&#x7A0B;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x4F60;&#x5E0C;&#x671B;&#x7B80;&#x5316;&#x5F02;&#x6B65;&#x7F16;&#x7A0B;&#xFF0C;Kotlin Flow &#x7684;&#x54CD;&#x5E94;&#x5F0F;&#x64CD;&#x4F5C;&#x7B26;&#x4E0E;&#x96C6;&#x5408;&#x64CD;&#x4F5C;&#x7C7B;&#x4F3C;&#xFF0C;&#x6613;&#x4E8E;&#x7406;&#x89E3;&#x548C;&#x4F7F;&#x7528;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x4F60;&#x9700;&#x8981;&#x4F7F;&#x7528; Kotlin &#x534F;&#x7A0B;&#x7684;&#x5176;&#x4ED6;&#x7279;&#x6027;&#xFF0C;&#x5982;&#x53D6;&#x6D88;&#x3001;&#x8D85;&#x65F6;&#x548C;&#x5F02;&#x5E38;&#x5904;&#x7406;&#xFF0C;Kotlin Flow &#x53EF;&#x4EE5;&#x66F4;&#x52A0;&#x81EA;&#x7136;&#x5730;&#x4E0E;&#x4E4B;&#x96C6;&#x6210;&#x3002;</li>
+</ul>
+</li>
+<li><p><strong>RxJava &#x9002;&#x7528;&#x573A;&#x666F;&#xFF1A;</strong></p>
+<ul>
+<li>&#x5982;&#x679C;&#x4F60;&#x5DF2;&#x7ECF;&#x5728;&#x9879;&#x76EE;&#x4E2D;&#x5E7F;&#x6CDB;&#x4F7F;&#x7528;&#x4E86; RxJava&#xFF0C;&#x6216;&#x5BF9; RxJava &#x6709;&#x6DF1;&#x5165;&#x7684;&#x4E86;&#x89E3;&#xFF0C;&#x7EE7;&#x7EED;&#x4F7F;&#x7528;&#x5B83;&#x53EF;&#x80FD;&#x66F4;&#x52A0;&#x65B9;&#x4FBF;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x4F60;&#x9700;&#x8981;&#x4E30;&#x5BCC;&#x7684;&#x80CC;&#x538B;&#x5904;&#x7406;&#x7B56;&#x7565;&#x6765;&#x63A7;&#x5236;&#x9AD8;&#x9891;&#x7387;&#x4E8B;&#x4EF6;&#x6D41;&#x7684;&#x6D41;&#x91CF;&#xFF0C;RxJava &#x63D0;&#x4F9B;&#x4E86;&#x66F4;&#x591A;&#x7684;&#x9009;&#x62E9;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x4F60;&#x9700;&#x8981;&#x4E0E;&#x5176;&#x4ED6;&#x57FA;&#x4E8E; RxJava &#x7684;&#x5E93;&#x96C6;&#x6210;&#xFF0C;&#x7EE7;&#x7EED;&#x4F7F;&#x7528; RxJava &#x53EF;&#x80FD;&#x66F4;&#x52A0;&#x65B9;&#x4FBF;&#x3002;</li>
+</ul>
+</li>
+</ul>
+<h2 id="&#x7ED3;&#x8BBA;"><a href="#&#x7ED3;&#x8BBA;" class="headerlink" title="&#x7ED3;&#x8BBA;"></a>&#x7ED3;&#x8BBA;</h2><p>Kotlin Flow &#x662F;&#x4E00;&#x4E2A;&#x5F3A;&#x5927;&#x7684;&#x5E93;&#xFF0C;&#x7528;&#x4E8E;&#x5904;&#x7406;&#x5F02;&#x6B65;&#x6570;&#x636E;&#x6D41;&#x3002;&#x901A;&#x8FC7;&#x7406;&#x89E3;&#x5176;&#x57FA;&#x672C;&#x6982;&#x5FF5;&#x3001;&#x5B9E;&#x73B0;&#x539F;&#x7406;&#x4EE5;&#x53CA;&#x80CC;&#x538B;&#x5904;&#x7406;&#x7B56;&#x7565;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x66F4;&#x597D;&#x5730;&#x5229;&#x7528; Kotlin Flow &#x5B9E;&#x73B0;&#x54CD;&#x5E94;&#x5F0F;&#x5F02;&#x6B65;&#x7F16;&#x7A0B;&#xFF0C;&#x4EE5;&#x53CA;&#x5728;&#x4E0D;&#x540C;&#x573A;&#x666F;&#x4E0B;&#x9009;&#x62E9;&#x5408;&#x9002;&#x7684;&#x7B56;&#x7565;&#x6765;&#x5904;&#x7406;&#x6570;&#x636E;&#x6D41;&#x3002;&#x8FD9;&#x5C06;&#x5E2E;&#x52A9;&#x4F60;&#x6784;&#x5EFA;&#x66F4;&#x5065;&#x58EE;&#x3001;&#x9AD8;&#x6548;&#x7684; Android &#x5E94;&#x7528;&#x3002;</p>
+<h2 id="&#x63A8;&#x8350;"><a href="#&#x63A8;&#x8350;" class="headerlink" title="&#x63A8;&#x8350;"></a>&#x63A8;&#x8350;</h2><p><a href="https://github.com/idisfkj/android-startup" target="_blank" rel="noopener">android_startup</a>: &#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x5728;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65F6;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x3001;&#x9AD8;&#x6548;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521D;&#x59CB;&#x5316;&#x7EC4;&#x4EF6;&#xFF0C;&#x4F18;&#x5316;&#x542F;&#x52A8;&#x901F;&#x5EA6;&#x3002;&#x4E0D;&#x4EC5;&#x652F;&#x6301;Jetpack App Startup&#x7684;&#x5168;&#x90E8;&#x529F;&#x80FD;&#xFF0C;&#x8FD8;&#x63D0;&#x4F9B;&#x989D;&#x5916;&#x7684;&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#x7B49;&#x5F85;&#x3001;&#x7EBF;&#x7A0B;&#x63A7;&#x5236;&#x4E0E;&#x591A;&#x8FDB;&#x7A0B;&#x652F;&#x6301;&#x7B49;&#x529F;&#x80FD;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="noopener">AwesomeGithub</a>: &#x57FA;&#x4E8E;Github&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7EAF;&#x7EC3;&#x4E60;&#x9879;&#x76EE;&#xFF0C;&#x652F;&#x6301;&#x7EC4;&#x4EF6;&#x5316;&#x5F00;&#x53D1;&#xFF0C;&#x652F;&#x6301;&#x8D26;&#x6237;&#x5BC6;&#x7801;&#x4E0E;&#x8BA4;&#x8BC1;&#x767B;&#x9646;&#x3002;&#x4F7F;&#x7528;Kotlin&#x8BED;&#x8A00;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#xFF0C;&#x9879;&#x76EE;&#x67B6;&#x6784;&#x662F;&#x57FA;&#x4E8E;JetPack\&amp;DataBinding&#x7684;MVVM&#xFF1B;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;Arouter&#x3001;Retrofit&#x3001;Coroutine&#x3001;Glide&#x3001;Dagger&#x4E0E;Hilt&#x7B49;&#x6D41;&#x884C;&#x5F00;&#x6E90;&#x6280;&#x672F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="noopener">flutter_github</a>: &#x57FA;&#x4E8E;Flutter&#x7684;&#x8DE8;&#x5E73;&#x53F0;&#x7248;&#x672C;Github&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x4E0E;AwesomeGithub&#x76F8;&#x5BF9;&#x5E94;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="noopener">android-api-analysis</a>: &#x7ED3;&#x5408;&#x8BE6;&#x7EC6;&#x7684;Demo&#x6765;&#x5168;&#x9762;&#x89E3;&#x6790;Android&#x76F8;&#x5173;&#x7684;&#x77E5;&#x8BC6;&#x70B9;, &#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x5FEB;&#x7684;&#x638C;&#x63E1;&#x4E0E;&#x7406;&#x89E3;&#x6240;&#x9610;&#x8FF0;&#x7684;&#x8981;&#x70B9;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/daily_algorithm" target="_blank" rel="noopener">daily_algorithm</a>: &#x6BCF;&#x65E5;&#x4E00;&#x7B97;&#x6CD5;&#xFF0C;&#x7531;&#x6D45;&#x5165;&#x6DF1;&#xFF0C;&#x6B22;&#x8FCE;&#x52A0;&#x5165;&#x4E00;&#x8D77;&#x5171;&#x52C9;&#x3002;</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">赞赏是一门艺术</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/rouse_wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/rouse_alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2023/08/09/Android协程带你飞越传统异步枷锁/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="fexo-comments comments-post">
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>
+  <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+  <script src="https://jjeejj.github.io/js/gitment.js"></script>
+  <script>
+    (function () {
+      var gitment = new Gitment({
+        owner: 'idisfkj',
+        repo: 'idisfkj.github.io',
+        id: 'Sat Aug 12 2023 11:09:55 GMT+0800',
+        oauth: {
+          client_id: 'dafb1df02ea9f875bb78',
+          client_secret: 'e9873d78aa5eaed5ce61d1d865a5af501dae377a'
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      })
+      gitment.render('gitment-comments')
+    })()
+  </script>
+
+  
+  
+</div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
