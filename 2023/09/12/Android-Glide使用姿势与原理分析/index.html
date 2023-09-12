@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Android Glide使用姿势与原理分析 | Rouse</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="android,">
+  
+
+  <meta name="description" content="&amp;#x7B80;&amp;#x4ECB;Android Glide&amp;#x662F;&amp;#x4E00;&amp;#x6B3E;&amp;#x5F3A;&amp;#x5927;&amp;#x7684;&amp;#x56FE;&amp;#x7247;&amp;#x52A0;&amp;#x8F7D;&amp;#x5E93;&amp;#xFF0C;&amp;#x63D0;&amp;#x4F9B;&amp;#x4E86;&amp;#x4E30;&amp;#x5BCC;&amp;#x7684;&amp;#x529F;&amp;#x80FD;&amp;#x548C;&amp;#x">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Glide使用姿势与原理分析">
+<meta property="og:url" content="https://www.rousetime.com/2023/09/12/Android-Glide使用姿势与原理分析/index.html">
+<meta property="og:site_name" content="Rouse">
+<meta property="og:description" content="&amp;#x7B80;&amp;#x4ECB;Android Glide&amp;#x662F;&amp;#x4E00;&amp;#x6B3E;&amp;#x5F3A;&amp;#x5927;&amp;#x7684;&amp;#x56FE;&amp;#x7247;&amp;#x52A0;&amp;#x8F7D;&amp;#x5E93;&amp;#xFF0C;&amp;#x63D0;&amp;#x4F9B;&amp;#x4E86;&amp;#x4E30;&amp;#x5BCC;&amp;#x7684;&amp;#x529F;&amp;#x80FD;&amp;#x548C;&amp;#x">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2023-09-12T01:29:48.607Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Glide使用姿势与原理分析">
+<meta name="twitter:description" content="&amp;#x7B80;&amp;#x4ECB;Android Glide&amp;#x662F;&amp;#x4E00;&amp;#x6B3E;&amp;#x5F3A;&amp;#x5927;&amp;#x7684;&amp;#x56FE;&amp;#x7247;&amp;#x52A0;&amp;#x8F7D;&amp;#x5E93;&amp;#xFF0C;&amp;#x63D0;&amp;#x4F9B;&amp;#x4E86;&amp;#x4E30;&amp;#x5BCC;&amp;#x7684;&amp;#x529F;&amp;#x80FD;&amp;#x548C;&amp;#x">
+
+  
+
+  
+  <!-- <link href="/favicon.ico" rel="icon" type="image/x-icon"> -->
+    <link rel="icon" href="/favicon.ico">
+    <!-- <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?bd7ea96a22c9c7b90353962460fa0b8e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原理分析"><span class="toc-text">原理分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用姿势"><span class="toc-text">使用姿势</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加依赖"><span class="toc-text">添加依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加载图片"><span class="toc-text">加载图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置占位符和错误图片"><span class="toc-text">设置占位符和错误图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置缩略图"><span class="toc-text">设置缩略图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图片变换"><span class="toc-text">图片变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加载动画"><span class="toc-text">加载动画</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#图片压缩"><span class="toc-text">图片压缩</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义图片压缩策略"><span class="toc-text">自定义图片压缩策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#图片缓存"><span class="toc-text">图片缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#内存缓存"><span class="toc-text">内存缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#磁盘缓存"><span class="toc-text">磁盘缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缓存策略"><span class="toc-text">缓存策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#清除缓存"><span class="toc-text">清除缓存</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐"><span class="toc-text">推荐</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Android-Glide使用姿势与原理分析" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Android Glide使用姿势与原理分析</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2023.09.12</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Rouse</span>
+        </span>
+      
+
+      
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="&#x7B80;&#x4ECB;"><a href="#&#x7B80;&#x4ECB;" class="headerlink" title="&#x7B80;&#x4ECB;"></a>&#x7B80;&#x4ECB;</h2><p>Android Glide&#x662F;&#x4E00;&#x6B3E;&#x5F3A;&#x5927;&#x7684;&#x56FE;&#x7247;&#x52A0;&#x8F7D;&#x5E93;&#xFF0C;&#x63D0;&#x4F9B;&#x4E86;&#x4E30;&#x5BCC;&#x7684;&#x529F;&#x80FD;&#x548C;&#x7075;&#x6D3B;&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;&#x3002;&#x672C;&#x6587;&#x5C06;&#x6DF1;&#x5165;&#x5206;&#x6790;Glide&#x7684;&#x5DE5;&#x4F5C;&#x539F;&#x7406;&#xFF0C;&#x5E76;&#x4ECB;&#x7ECD;&#x4E00;&#x4E9B;&#x4F7F;&#x7528;&#x59FF;&#x52BF;&#xFF0C;&#x52A9;&#x4F60;&#x66F4;&#x597D;&#x5730;&#x8FD0;&#x7528;&#x8FD9;&#x4E2A;&#x4F18;&#x79C0;&#x7684;&#x5E93;&#x3002;</p>
+<h2 id="&#x539F;&#x7406;&#x5206;&#x6790;"><a href="#&#x539F;&#x7406;&#x5206;&#x6790;" class="headerlink" title="&#x539F;&#x7406;&#x5206;&#x6790;"></a>&#x539F;&#x7406;&#x5206;&#x6790;</h2><p>Glide&#x7684;&#x539F;&#x7406;&#x590D;&#x6742;&#x800C;&#x9AD8;&#x6548;&#x3002;&#x5B83;&#x9996;&#x5148;&#x57FA;&#x4E8E;&#x7ED9;&#x5B9A;&#x7684;&#x56FE;&#x7247;URL&#x6216;&#x8D44;&#x6E90;ID&#x8FDB;&#x884C;&#x52A0;&#x8F7D;&#xFF0C;&#x652F;&#x6301;&#x591A;&#x79CD;&#x6570;&#x636E;&#x6E90;&#xFF0C;&#x5305;&#x62EC;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x3001;&#x672C;&#x5730;&#x6587;&#x4EF6;&#x548C;ContentProvider&#x7B49;&#x3002;Glide&#x901A;&#x8FC7;&#x7F13;&#x5B58;&#x673A;&#x5236;&#x63D0;&#x9AD8;&#x52A0;&#x8F7D;&#x901F;&#x5EA6;&#xFF0C;&#x540C;&#x65F6;&#x8FD8;&#x4F1A;&#x5C06;&#x538B;&#x7F29;&#x540E;&#x7684;&#x56FE;&#x7247;&#x5B58;&#x50A8;&#x5728;&#x78C1;&#x76D8;&#x4E2D;&#xFF0C;&#x8282;&#x7701;&#x5185;&#x5B58;&#x548C;&#x6D41;&#x91CF;&#x3002;</p>
+<p>Glide&#x8BBE;&#x8BA1;&#x4E86;&#x4E00;&#x79CD;&#x79F0;&#x4E3A;<code>RequestBuilder</code>&#x7684;&#x6A21;&#x5F0F;&#xFF0C;&#x5141;&#x8BB8;&#x6211;&#x4EEC;&#x901A;&#x8FC7;&#x94FE;&#x5F0F;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x914D;&#x7F6E;&#x56FE;&#x7247;&#x52A0;&#x8F7D;&#x53C2;&#x6570;&#x3002;&#x8FD9;&#x79CD;&#x8BBE;&#x8BA1;&#x8BA9;&#x4EE3;&#x7801;&#x66F4;&#x7B80;&#x6D01;&#x6613;&#x8BFB;&#x3002;</p>
+<p>&#x6B64;&#x5916;&#xFF0C;Glide&#x652F;&#x6301;&#x56FE;&#x7247;&#x53D8;&#x6362;&#x548C;&#x52A0;&#x8F7D;&#x52A8;&#x753B;&#xFF0C;&#x53EF;&#x4EE5;&#x5E94;&#x7528;&#x5404;&#x79CD;&#x53D8;&#x6362;&#x6548;&#x679C;&#xFF0C;&#x5982;&#x5706;&#x5F62;&#x56FE;&#x7247;&#x3001;&#x5706;&#x89D2;&#x56FE;&#x7247;&#x548C;&#x7070;&#x5EA6;&#x56FE;&#x7247;&#x7B49;&#xFF0C;&#x540C;&#x65F6;&#x4E5F;&#x53EF;&#x4EE5;&#x4E3A;&#x56FE;&#x7247;&#x52A0;&#x8F7D;&#x8FC7;&#x7A0B;&#x6DFB;&#x52A0;&#x52A8;&#x753B;&#x6548;&#x679C;&#xFF0C;&#x63D0;&#x5347;&#x7528;&#x6237;&#x4F53;&#x9A8C;&#x3002;</p>
+<h2 id="&#x4F7F;&#x7528;&#x59FF;&#x52BF;"><a href="#&#x4F7F;&#x7528;&#x59FF;&#x52BF;" class="headerlink" title="&#x4F7F;&#x7528;&#x59FF;&#x52BF;"></a>&#x4F7F;&#x7528;&#x59FF;&#x52BF;</h2><p>&#x4EE5;&#x4E0B;&#x662F;&#x4F18;&#x5316;&#x540E;&#x7684;&#x4E00;&#x4E9B;Glide&#x4F7F;&#x7528;&#x59FF;&#x52BF;&#xFF0C;&#x5E2E;&#x52A9;&#x4F60;&#x66F4;&#x5145;&#x5206;&#x5730;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x5E93;&#xFF1A;</p>
+<h3 id="&#x6DFB;&#x52A0;&#x4F9D;&#x8D56;"><a href="#&#x6DFB;&#x52A0;&#x4F9D;&#x8D56;" class="headerlink" title="&#x6DFB;&#x52A0;&#x4F9D;&#x8D56;"></a>&#x6DFB;&#x52A0;&#x4F9D;&#x8D56;</h3><p>&#x9996;&#x5148;&#xFF0C;&#x5728;&#x9879;&#x76EE;&#x4E2D;&#x6DFB;&#x52A0;Glide&#x7684;&#x4F9D;&#x8D56;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">&apos;com.github.bumptech.glide:glide:4.12.0&apos;</span></span><br><span class="line">kapt <span class="string">&apos;com.github.bumptech.glide:compiler:4.12.0&apos;</span></span><br></pre></td></tr></table></figure>
+<h3 id="&#x52A0;&#x8F7D;&#x56FE;&#x7247;"><a href="#&#x52A0;&#x8F7D;&#x56FE;&#x7247;" class="headerlink" title="&#x52A0;&#x8F7D;&#x56FE;&#x7247;"></a>&#x52A0;&#x8F7D;&#x56FE;&#x7247;</h3><p>&#x4F7F;&#x7528;Glide&#x52A0;&#x8F7D;&#x56FE;&#x7247;&#x975E;&#x5E38;&#x7B80;&#x5355;&#xFF0C;&#x53EA;&#x9700;&#x4EE5;&#x4E0B;&#x51E0;&#x884C;&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Glide.with(context)</span><br><span class="line">     .load(url)</span><br><span class="line">     .into(imageView)</span><br></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x91CC;&#x7684;<code>context</code>&#x662F;&#x4E0A;&#x4E0B;&#x6587;&#x5BF9;&#x8C61;&#xFF0C;<code>url</code>&#x662F;&#x56FE;&#x7247;&#x7684;URL&#xFF0C;<code>imageView</code>&#x662F;&#x663E;&#x793A;&#x56FE;&#x7247;&#x7684;ImageView&#x3002;</p>
+<h3 id="&#x8BBE;&#x7F6E;&#x5360;&#x4F4D;&#x7B26;&#x548C;&#x9519;&#x8BEF;&#x56FE;&#x7247;"><a href="#&#x8BBE;&#x7F6E;&#x5360;&#x4F4D;&#x7B26;&#x548C;&#x9519;&#x8BEF;&#x56FE;&#x7247;" class="headerlink" title="&#x8BBE;&#x7F6E;&#x5360;&#x4F4D;&#x7B26;&#x548C;&#x9519;&#x8BEF;&#x56FE;&#x7247;"></a>&#x8BBE;&#x7F6E;&#x5360;&#x4F4D;&#x7B26;&#x548C;&#x9519;&#x8BEF;&#x56FE;&#x7247;</h3><p>&#x4F60;&#x53EF;&#x4EE5;&#x5229;&#x7528;<code>placeholder()</code>&#x65B9;&#x6CD5;&#x8BBE;&#x7F6E;&#x52A0;&#x8F7D;&#x8FC7;&#x7A0B;&#x4E2D;&#x663E;&#x793A;&#x7684;&#x5360;&#x4F4D;&#x7B26;&#x56FE;&#x7247;&#xFF0C;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;<code>error()</code>&#x65B9;&#x6CD5;&#x8BBE;&#x7F6E;&#x52A0;&#x8F7D;&#x5931;&#x8D25;&#x65F6;&#x663E;&#x793A;&#x7684;&#x56FE;&#x7247;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Glide.with(context)</span><br><span class="line">     .load(url)</span><br><span class="line">     .placeholder(R.drawable.placeholder)</span><br><span class="line">     .error(R.drawable.error)</span><br><span class="line">     .into(imageView)</span><br></pre></td></tr></table></figure>
+<h3 id="&#x8BBE;&#x7F6E;&#x7F29;&#x7565;&#x56FE;"><a href="#&#x8BBE;&#x7F6E;&#x7F29;&#x7565;&#x56FE;" class="headerlink" title="&#x8BBE;&#x7F6E;&#x7F29;&#x7565;&#x56FE;"></a>&#x8BBE;&#x7F6E;&#x7F29;&#x7565;&#x56FE;</h3><p>Glide&#x652F;&#x6301;&#x8BBE;&#x7F6E;&#x7F29;&#x7565;&#x56FE;&#xFF0C;&#x4EE5;&#x63D0;&#x9AD8;&#x52A0;&#x8F7D;&#x901F;&#x5EA6;&#x3002;&#x901A;&#x8FC7;<code>thumbnail()</code>&#x65B9;&#x6CD5;&#x8BBE;&#x7F6E;&#x7F29;&#x7565;&#x56FE;&#x7684;URL&#x6216;&#x8D44;&#x6E90;ID&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Glide.with(context)</span><br><span class="line">     .load(url)</span><br><span class="line">     .thumbnail(<span class="number">0.1f</span>)</span><br><span class="line">     .into(imageView)</span><br></pre></td></tr></table></figure>
+<h3 id="&#x56FE;&#x7247;&#x53D8;&#x6362;"><a href="#&#x56FE;&#x7247;&#x53D8;&#x6362;" class="headerlink" title="&#x56FE;&#x7247;&#x53D8;&#x6362;"></a>&#x56FE;&#x7247;&#x53D8;&#x6362;</h3><p>&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>transform()</code>&#x65B9;&#x6CD5;&#x4E3A;&#x56FE;&#x7247;&#x6DFB;&#x52A0;&#x53D8;&#x6362;&#x6548;&#x679C;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x4F7F;&#x7528;<code>circleCrop()</code>&#x65B9;&#x6CD5;&#x53EF;&#x5C06;&#x56FE;&#x7247;&#x88C1;&#x526A;&#x6210;&#x5706;&#x5F62;&#xFF0C;<code>roundedCorners()</code>&#x65B9;&#x6CD5;&#x53EF;&#x5C06;&#x56FE;&#x7247;&#x89D2;&#x53D8;&#x4E3A;&#x5706;&#x89D2;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Glide.with(context)</span><br><span class="line">     .load(url)</span><br><span class="line">     .transform(CircleCrop())</span><br><span class="line">     .into(imageView)</span><br></pre></td></tr></table></figure>
+<h3 id="&#x52A0;&#x8F7D;&#x52A8;&#x753B;"><a href="#&#x52A0;&#x8F7D;&#x52A8;&#x753B;" class="headerlink" title="&#x52A0;&#x8F7D;&#x52A8;&#x753B;"></a>&#x52A0;&#x8F7D;&#x52A8;&#x753B;</h3><p>&#x901A;&#x8FC7;<code>animate()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x4E3A;&#x56FE;&#x7247;&#x52A0;&#x8F7D;&#x8FC7;&#x7A0B;&#x6DFB;&#x52A0;&#x52A8;&#x753B;&#x6548;&#x679C;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x4F7F;&#x7528;<code>crossFade()</code>&#x65B9;&#x6CD5;&#x6DFB;&#x52A0;&#x6DE1;&#x5165;&#x6DE1;&#x51FA;&#x6548;&#x679C;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Glide.with(context)</span><br><span class="line">     .load(url)</span><br><span class="line">     .animate(R.anim.fade_in)</span><br><span class="line">     .into(imageView)</span><br></pre></td></tr></table></figure>
+<h2 id="&#x56FE;&#x7247;&#x538B;&#x7F29;"><a href="#&#x56FE;&#x7247;&#x538B;&#x7F29;" class="headerlink" title="&#x56FE;&#x7247;&#x538B;&#x7F29;"></a>&#x56FE;&#x7247;&#x538B;&#x7F29;</h2><p>Glide&#x901A;&#x8FC7;&#x6839;&#x636E;&#x76EE;&#x6807;ImageView&#x7684;&#x5927;&#x5C0F;&#x548C;ScaleType&#x6765;&#x8BA1;&#x7B97;&#x56FE;&#x7247;&#x7684;&#x5B9E;&#x9645;&#x5927;&#x5C0F;&#xFF0C;&#x5E76;&#x8FDB;&#x884C;&#x538B;&#x7F29;&#x3002;</p>
+<p>&#x5728;&#x52A0;&#x8F7D;&#x56FE;&#x7247;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x6307;&#x5B9A;&#x76EE;&#x6807;ImageView&#x7684;&#x5BBD;&#x9AD8;&#x548C;ScaleType&#x3002;Glide&#x4F1A;&#x6839;&#x636E;&#x8FD9;&#x4E9B;&#x4FE1;&#x606F;&#x51B3;&#x5B9A;&#x56FE;&#x7247;&#x7684;&#x538B;&#x7F29;&#x65B9;&#x5F0F;&#x3002;</p>
+<p>&#x82E5;&#x76EE;&#x6807;ImageView&#x7684;&#x5BBD;&#x9AD8;&#x6BD4;&#x4F8B;&#x4E0E;&#x56FE;&#x7247;&#x7684;&#x6BD4;&#x4F8B;&#x4E0D;&#x4E00;&#x81F4;&#xFF0C;Glide&#x4F1A;&#x6839;&#x636E;ScaleType&#x8BA1;&#x7B97;&#x7F29;&#x653E;&#x6BD4;&#x4F8B;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x56FE;&#x7247;&#x6309;&#x6BD4;&#x4F8B;&#x538B;&#x7F29;&#xFF0C;&#x4EE5;&#x9002;&#x5E94;ImageView&#x5927;&#x5C0F;&#x3002;</p>
+<p>&#x82E5;&#x76EE;&#x6807;ImageView&#x7684;&#x5BBD;&#x9AD8;&#x6BD4;&#x4F8B;&#x4E0E;&#x56FE;&#x7247;&#x7684;&#x6BD4;&#x4F8B;&#x4E00;&#x81F4;&#xFF0C;Glide&#x4F1A;&#x76F4;&#x63A5;&#x52A0;&#x8F7D;&#x539F;&#x59CB;&#x56FE;&#x7247;&#xFF0C;&#x4E0D;&#x8FDB;&#x884C;&#x538B;&#x7F29;&#x3002;</p>
+<p>&#x901A;&#x8FC7;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#xFF0C;Glide&#x6839;&#x636E;&#x76EE;&#x6807;ImageView&#x6765;&#x81EA;&#x52A8;&#x8FDB;&#x884C;&#x56FE;&#x7247;&#x538B;&#x7F29;&#xFF0C;&#x4EE5;&#x63D0;&#x9AD8;&#x52A0;&#x8F7D;&#x901F;&#x5EA6;&#x548C;&#x8282;&#x7701;&#x5185;&#x5B58;&#x3002;</p>
+<p>&#x53E6;&#x5916;&#xFF0C;Glide&#x4E5F;&#x652F;&#x6301;&#x81EA;&#x5B9A;&#x4E49;&#x56FE;&#x7247;&#x538B;&#x7F29;&#x7B56;&#x7565;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;<code>Transformation</code>&#x63A5;&#x53E3;&#x6765;&#x5B9A;&#x4E49;&#x81EA;&#x5DF1;&#x7684;&#x538B;&#x7F29;&#x7B97;&#x6CD5;&#x3002;</p>
+<h3 id="&#x81EA;&#x5B9A;&#x4E49;&#x56FE;&#x7247;&#x538B;&#x7F29;&#x7B56;&#x7565;"><a href="#&#x81EA;&#x5B9A;&#x4E49;&#x56FE;&#x7247;&#x538B;&#x7F29;&#x7B56;&#x7565;" class="headerlink" title="&#x81EA;&#x5B9A;&#x4E49;&#x56FE;&#x7247;&#x538B;&#x7F29;&#x7B56;&#x7565;"></a>&#x81EA;&#x5B9A;&#x4E49;&#x56FE;&#x7247;&#x538B;&#x7F29;&#x7B56;&#x7565;</h3><p>&#x81EA;&#x5B9A;&#x4E49;&#x56FE;&#x7247;&#x538B;&#x7F29;&#x7B56;&#x7565;&#x901A;&#x8FC7;&#x5B9E;&#x73B0;<code>Transformation</code>&#x63A5;&#x53E3;&#x5B9E;&#x73B0;&#x3002;&#x8BE5;&#x63A5;&#x53E3;&#x5305;&#x542B;<code>transform()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x5176;&#x4E2D;&#x5B9A;&#x4E49;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x538B;&#x7F29;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E2A;&#x793A;&#x4F8B;&#xFF0C;&#x5C55;&#x793A;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x56FE;&#x7247;&#x538B;&#x7F29;&#x7B56;&#x7565;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomTransformation</span> : <span class="type">Transformation</span>&lt;<span class="type">Bitmap</span>&gt; </span>{</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">transform</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">        context: <span class="type">Context</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">        resource: <span class="type">Resource</span>&lt;<span class="type">Bitmap</span>&gt;,</span></span></span><br><span class="line"><span class="function"><span class="params">        outWidth: <span class="type">Int</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">        outHeight: <span class="type">Int</span></span></span></span><br><span class="line"><span class="function"><span class="params">    )</span></span>: Resource&lt;Bitmap&gt; {</span><br><span class="line">        <span class="keyword">val</span> originalBitmap = resource.<span class="keyword">get</span>()</span><br><span class="line">        <span class="comment">// &#x81EA;&#x5B9A;&#x4E49;&#x538B;&#x7F29;&#x7B97;&#x6CD5;</span></span><br><span class="line">        <span class="keyword">val</span> compressedBitmap = customCompress(originalBitmap)</span><br><span class="line">        <span class="keyword">return</span> BitmapResource(compressedBitmap, Glide.<span class="keyword">get</span>(context).bitmapPool)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getId</span><span class="params">()</span></span>: String {</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;customTransformation&quot;</span> <span class="comment">// &#x8FD4;&#x56DE;&#x552F;&#x4E00;&#x6807;&#x8BC6;&#x7B26;&#xFF0C;&#x7528;&#x4E8E;&#x7F13;&#x5B58;</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">customCompress</span><span class="params">(bitmap: <span class="type">Bitmap</span>)</span></span>: Bitmap {</span><br><span class="line">        <span class="comment">// &#x81EA;&#x5B9A;&#x4E49;&#x538B;&#x7F29;&#x7B97;&#x6CD5;&#x5B9E;&#x73B0;</span></span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        <span class="keyword">return</span> compressedBitmap</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x56FE;&#x7247;&#x538B;&#x7F29;&#x7B56;&#x7565;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;Glide&#x7684;&#x94FE;&#x5F0F;&#x8C03;&#x7528;&#x4E2D;&#x5E94;&#x7528;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Glide.with(context)</span><br><span class="line">     .load(url)</span><br><span class="line">     .transform(CustomTransformation())</span><br><span class="line">     .into(imageView)</span><br></pre></td></tr></table></figure>
+<p>&#x901A;&#x8FC7;&#x5B9E;&#x73B0;<code>Transformation</code>&#x63A5;&#x53E3;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x9700;&#x6C42;&#x5236;&#x5B9A;&#x4E0D;&#x540C;&#x7684;&#x538B;&#x7F29;&#x7B97;&#x6CD5;&#xFF0C;&#x4EE5;&#x6EE1;&#x8DB3;&#x7279;&#x5B9A;&#x7684;&#x56FE;&#x7247;&#x538B;&#x7F29;&#x9700;&#x6C42;&#x3002;</p>
+<h2 id="&#x56FE;&#x7247;&#x7F13;&#x5B58;"><a href="#&#x56FE;&#x7247;&#x7F13;&#x5B58;" class="headerlink" title="&#x56FE;&#x7247;&#x7F13;&#x5B58;"></a>&#x56FE;&#x7247;&#x7F13;&#x5B58;</h2><p>Glide&#x4F7F;&#x7528;&#x53CC;&#x7F13;&#x5B58;&#x7B56;&#x7565;&#x6765;&#x7BA1;&#x7406;&#x56FE;&#x7247;&#x7F13;&#x5B58;&#x3002;&#x5B83;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#x7F13;&#x5B58;&#x672A;&#x7ECF;&#x538B;&#x7F29;&#x7684;&#x539F;&#x59CB;&#x56FE;&#x7247;&#xFF0C;&#x63D0;&#x5347;&#x52A0;&#x8F7D;&#x901F;&#x5EA6;&#xFF0C;&#x540C;&#x65F6;&#x8FD8;&#x4F1A;&#x5C06;&#x538B;&#x7F29;&#x540E;&#x7684;&#x56FE;&#x7247;&#x5B58;&#x50A8;&#x5728;&#x78C1;&#x76D8;&#x4E2D;&#xFF0C;&#x8282;&#x7701;&#x5185;&#x5B58;&#x548C;&#x6D41;&#x91CF;&#x3002;</p>
+<p>Glide&#x7684;&#x7F13;&#x5B58;&#x673A;&#x5236;&#x975E;&#x5E38;&#x667A;&#x80FD;&#x3002;&#x5B83;&#x6839;&#x636E;&#x56FE;&#x7247;&#x7684;URL&#x6216;&#x8D44;&#x6E90;ID&#x751F;&#x6210;&#x552F;&#x4E00;&#x7684;&#x7F13;&#x5B58;&#x952E;&#xFF0C;&#x4EE5;&#x786E;&#x4FDD;&#x4E0D;&#x540C;&#x7684;&#x56FE;&#x7247;&#x4E0D;&#x4F1A;&#x6DF7;&#x6DC6;&#x3002;&#x6B64;&#x5916;&#xFF0C;Glide&#x652F;&#x6301;&#x81EA;&#x5B9A;&#x4E49;&#x7F13;&#x5B58;&#x7684;&#x5927;&#x5C0F;&#x548C;&#x6709;&#x6548;&#x671F;</p>
+<p>&#xFF0C;&#x4EE5;&#x9002;&#x5E94;&#x4E0D;&#x540C;&#x9700;&#x6C42;&#x3002;</p>
+<p>Glide&#x7684;&#x7F13;&#x5B58;&#x673A;&#x5236;&#x662F;&#x5176;&#x4F18;&#x79C0;&#x6027;&#x80FD;&#x7684;&#x5173;&#x952E;&#x4E4B;&#x4E00;&#x3002;&#x901A;&#x8FC7;&#x5185;&#x5B58;&#x7F13;&#x5B58;&#x548C;&#x78C1;&#x76D8;&#x7F13;&#x5B58;&#x7684;&#x7EC4;&#x5408;&#xFF0C;&#x5B83;&#x80FD;&#x591F;&#x9AD8;&#x6548;&#x5730;&#x7BA1;&#x7406;&#x5DF2;&#x52A0;&#x8F7D;&#x7684;&#x56FE;&#x50CF;&#x6570;&#x636E;&#xFF0C;&#x4ECE;&#x800C;&#x63D0;&#x9AD8;&#x540E;&#x7EED;&#x52A0;&#x8F7D;&#x7684;&#x901F;&#x5EA6;&#x3002;</p>
+<h3 id="&#x5185;&#x5B58;&#x7F13;&#x5B58;"><a href="#&#x5185;&#x5B58;&#x7F13;&#x5B58;" class="headerlink" title="&#x5185;&#x5B58;&#x7F13;&#x5B58;"></a>&#x5185;&#x5B58;&#x7F13;&#x5B58;</h3><p>Glide&#x4F7F;&#x7528;&#x5185;&#x5B58;&#x7F13;&#x5B58;&#x6765;&#x5B58;&#x50A8;&#x6700;&#x8FD1;&#x4F7F;&#x7528;&#x7684;&#x56FE;&#x50CF;&#x6570;&#x636E;&#xFF0C;&#x4EE5;&#x4FBF;&#x5FEB;&#x901F;&#x8BBF;&#x95EE;&#x3002;&#x5185;&#x5B58;&#x7F13;&#x5B58;&#x57FA;&#x4E8E;LRU&#xFF08;Least Recently Used&#xFF0C;&#x6700;&#x8FD1;&#x6700;&#x5C11;&#x4F7F;&#x7528;&#xFF09;&#x7B97;&#x6CD5;&#xFF0C;&#x4FDD;&#x7559;&#x6700;&#x8FD1;&#x52A0;&#x8F7D;&#x7684;&#x56FE;&#x50CF;&#x6570;&#x636E;&#x3002;&#x5F53;&#x5E94;&#x7528;&#x9700;&#x8981;&#x518D;&#x6B21;&#x8BBF;&#x95EE;&#x8FD9;&#x4E9B;&#x56FE;&#x50CF;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x63D0;&#x4F9B;&#xFF0C;&#x4ECE;&#x800C;&#x907F;&#x514D;&#x9891;&#x7E41;&#x7684;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x548C;&#x78C1;&#x76D8;&#x8BFB;&#x53D6;&#x3002;</p>
+<h3 id="&#x78C1;&#x76D8;&#x7F13;&#x5B58;"><a href="#&#x78C1;&#x76D8;&#x7F13;&#x5B58;" class="headerlink" title="&#x78C1;&#x76D8;&#x7F13;&#x5B58;"></a>&#x78C1;&#x76D8;&#x7F13;&#x5B58;</h3><p>&#x78C1;&#x76D8;&#x7F13;&#x5B58;&#x5206;&#x4E3A;&#x6D3B;&#x52A8;&#x8D44;&#x6E90;&#x7F13;&#x5B58;&#x548C;&#x975E;&#x6D3B;&#x52A8;&#x8D44;&#x6E90;&#x7F13;&#x5B58;&#x3002;</p>
+<ul>
+<li><p><strong>&#x6D3B;&#x52A8;&#x8D44;&#x6E90;&#x7F13;&#x5B58;&#xFF08;Active Resources Cache&#xFF09;&#xFF1A;</strong> &#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x5C0F;&#x578B;&#x3001;&#x53EF;&#x5199;&#x7684;&#x78C1;&#x76D8;&#x7F13;&#x5B58;&#xFF0C;&#x5B58;&#x50A8;&#x5F53;&#x524D;&#x6B63;&#x5728;&#x4F7F;&#x7528;&#x7684;&#x56FE;&#x50CF;&#x6570;&#x636E;&#x3002;&#x5B83;&#x6709;&#x52A9;&#x4E8E;&#x51CF;&#x5C11;&#x9891;&#x7E41;&#x52A0;&#x8F7D;&#x7684;&#x56FE;&#x7247;&#x7684;&#x91CD;&#x590D;&#x78C1;&#x76D8;&#x8BFB;&#x53D6;&#x3002;</p>
+</li>
+<li><p><strong>&#x672A;&#x6D3B;&#x52A8;&#x8D44;&#x6E90;&#x7F13;&#x5B58;&#xFF08;Inactive Resources Cache&#xFF09;&#xFF1A;</strong> &#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x66F4;&#x5927;&#x3001;&#x53EA;&#x8BFB;&#x7684;&#x78C1;&#x76D8;&#x7F13;&#x5B58;&#xFF0C;&#x7528;&#x4E8E;&#x957F;&#x671F;&#x5B58;&#x50A8;&#x5DF2;&#x52A0;&#x8F7D;&#x7684;&#x56FE;&#x50CF;&#x6570;&#x636E;&#x3002;&#x5F53;&#x6D3B;&#x52A8;&#x8D44;&#x6E90;&#x7F13;&#x5B58;&#x5DF2;&#x6EE1;&#x65F6;&#xFF0C;Glide&#x4F1A;&#x5C06;&#x4E0D;&#x518D;&#x6D3B;&#x8DC3;&#x7684;&#x56FE;&#x7247;&#x4ECE;&#x6D3B;&#x52A8;&#x7F13;&#x5B58;&#x4E2D;&#x79FB;&#x81F3;&#x672A;&#x6D3B;&#x52A8;&#x8D44;&#x6E90;&#x7F13;&#x5B58;&#xFF0C;&#x4EE5;&#x817E;&#x51FA;&#x7A7A;&#x95F4;&#x4F9B;&#x65B0;&#x56FE;&#x7247;&#x4F7F;&#x7528;&#x3002;</p>
+</li>
+</ul>
+<h3 id="&#x7F13;&#x5B58;&#x7B56;&#x7565;"><a href="#&#x7F13;&#x5B58;&#x7B56;&#x7565;" class="headerlink" title="&#x7F13;&#x5B58;&#x7B56;&#x7565;"></a>&#x7F13;&#x5B58;&#x7B56;&#x7565;</h3><p>Glide&#x5141;&#x8BB8;&#x5F00;&#x53D1;&#x8005;&#x6839;&#x636E;&#x9700;&#x6C42;&#x8BBE;&#x7F6E;&#x4E0D;&#x540C;&#x7684;&#x7F13;&#x5B58;&#x7B56;&#x7565;&#x3002;&#x4F8B;&#x5982;&#xFF1A;</p>
+<ul>
+<li><code>DiskCacheStrategy.ALL</code>: &#x5728;&#x5185;&#x5B58;&#x548C;&#x78C1;&#x76D8;&#x4E0A;&#x90FD;&#x7F13;&#x5B58;&#x3002;</li>
+<li><code>DiskCacheStrategy.NONE</code>: &#x4E0D;&#x4F7F;&#x7528;&#x78C1;&#x76D8;&#x7F13;&#x5B58;&#x3002;</li>
+<li><code>DiskCacheStrategy.DATA</code>: &#x53EA;&#x7F13;&#x5B58;&#x539F;&#x59CB;&#x6570;&#x636E;&#x3002;</li>
+<li><code>DiskCacheStrategy.RESOURCE</code>: &#x53EA;&#x7F13;&#x5B58;&#x8F6C;&#x6362;&#x540E;&#x7684;&#x8D44;&#x6E90;&#x3002;</li>
+<li><code>DiskCacheStrategy.AUTOMATIC</code>: &#x6839;&#x636E;&#x56FE;&#x7247;&#x6570;&#x636E;&#x6E90;&#x81EA;&#x52A8;&#x9009;&#x62E9;&#x7F13;&#x5B58;&#x7B56;&#x7565;&#x3002;</li>
+</ul>
+<h3 id="&#x6E05;&#x9664;&#x7F13;&#x5B58;"><a href="#&#x6E05;&#x9664;&#x7F13;&#x5B58;" class="headerlink" title="&#x6E05;&#x9664;&#x7F13;&#x5B58;"></a>&#x6E05;&#x9664;&#x7F13;&#x5B58;</h3><p>&#x82E5;&#x56FE;&#x7247;&#x53D1;&#x751F;&#x53D8;&#x5316;&#x6216;&#x9700;&#x8981;&#x91CA;&#x653E;&#x5B58;&#x50A8;&#x7A7A;&#x95F4;&#xFF0C;&#x53EF;&#x624B;&#x52A8;&#x6E05;&#x9664;Glide&#x7F13;&#x5B58;&#x3002;&#x4F7F;&#x7528;&#x4EE5;&#x4E0B;&#x4EE3;&#x7801;&#x53EF;&#x6E05;&#x9664;&#x78C1;&#x76D8;&#x7F13;&#x5B58;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Glide.<span class="keyword">get</span>(context).clearDiskCache()</span><br></pre></td></tr></table></figure>
+<p>&#x6E05;&#x9664;&#x5185;&#x5B58;&#x7F13;&#x5B58;&#x53EF;&#x4F7F;&#x7528;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Glide.<span class="keyword">get</span>(context).clearMemory()</span><br></pre></td></tr></table></figure>
+<p>&#x7EFC;&#x4E0A;&#x6240;&#x8FF0;&#xFF0C;Glide&#x7684;&#x7F13;&#x5B58;&#x673A;&#x5236;&#x901A;&#x8FC7;&#x5185;&#x5B58;&#x548C;&#x78C1;&#x76D8;&#x7F13;&#x5B58;&#x7684;&#x7EC4;&#x5408;&#xFF0C;&#x9AD8;&#x6548;&#x5730;&#x63D0;&#x9AD8;&#x4E86;&#x56FE;&#x50CF;&#x52A0;&#x8F7D;&#x6027;&#x80FD;&#x3002;&#x8FD9;&#x79CD;&#x673A;&#x5236;&#x4F7F;&#x5F97;&#x76F8;&#x540C;&#x56FE;&#x50CF;&#x80FD;&#x591F;&#x66F4;&#x5FEB;&#x5730;&#x52A0;&#x8F7D;&#xFF0C;&#x8282;&#x7701;&#x4E86;&#x7528;&#x6237;&#x6D41;&#x91CF;&#xFF0C;&#x5E76;&#x5728;&#x79BB;&#x7EBF;&#x6216;&#x7F51;&#x7EDC;&#x4E0D;&#x7A33;&#x5B9A;&#x65F6;&#x4E5F;&#x80FD;&#x6B63;&#x5E38;&#x663E;&#x793A;&#x56FE;&#x50CF;&#x3002;</p>
+<h2 id="&#x7ED3;&#x8BBA;"><a href="#&#x7ED3;&#x8BBA;" class="headerlink" title="&#x7ED3;&#x8BBA;"></a>&#x7ED3;&#x8BBA;</h2><p>Android Glide&#x662F;&#x4E00;&#x6B3E;&#x529F;&#x80FD;&#x5F3A;&#x5927;&#x4E14;&#x7075;&#x6D3B;&#x7684;&#x56FE;&#x7247;&#x52A0;&#x8F7D;&#x5E93;&#x3002;&#x901A;&#x8FC7;&#x6DF1;&#x5165;&#x4E86;&#x89E3;&#x5176;&#x5DE5;&#x4F5C;&#x539F;&#x7406;&#x548C;&#x5E94;&#x7528;&#x65B9;&#x6CD5;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x66F4;&#x52A0;&#x81EA;&#x5982;&#x5730;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x4F18;&#x79C0;&#x7684;&#x5E93;&#xFF0C;&#x63D0;&#x5347;&#x5E94;&#x7528;&#x7684;&#x56FE;&#x7247;&#x52A0;&#x8F7D;&#x4F53;&#x9A8C;&#x3002;</p>
+<h2 id="&#x63A8;&#x8350;"><a href="#&#x63A8;&#x8350;" class="headerlink" title="&#x63A8;&#x8350;"></a>&#x63A8;&#x8350;</h2><p><a href="https://github.com/idisfkj/android-startup" target="_blank" rel="noopener">android_startup</a>: &#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x5728;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65F6;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x3001;&#x9AD8;&#x6548;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521D;&#x59CB;&#x5316;&#x7EC4;&#x4EF6;&#xFF0C;&#x4F18;&#x5316;&#x542F;&#x52A8;&#x901F;&#x5EA6;&#x3002;&#x4E0D;&#x4EC5;&#x652F;&#x6301;Jetpack App Startup&#x7684;&#x5168;&#x90E8;&#x529F;&#x80FD;&#xFF0C;&#x8FD8;&#x63D0;&#x4F9B;&#x989D;&#x5916;&#x7684;&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#x7B49;&#x5F85;&#x3001;&#x7EBF;&#x7A0B;&#x63A7;&#x5236;&#x4E0E;&#x591A;&#x8FDB;&#x7A0B;&#x652F;&#x6301;&#x7B49;&#x529F;&#x80FD;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="noopener">AwesomeGithub</a>: &#x57FA;&#x4E8E;Github&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7EAF;&#x7EC3;&#x4E60;&#x9879;&#x76EE;&#xFF0C;&#x652F;&#x6301;&#x7EC4;&#x4EF6;&#x5316;&#x5F00;&#x53D1;&#xFF0C;&#x652F;&#x6301;&#x8D26;&#x6237;&#x5BC6;&#x7801;&#x4E0E;&#x8BA4;&#x8BC1;&#x767B;&#x9646;&#x3002;&#x4F7F;&#x7528;Kotlin&#x8BED;&#x8A00;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#xFF0C;&#x9879;&#x76EE;&#x67B6;&#x6784;&#x662F;&#x57FA;&#x4E8E;JetPack\&amp;DataBinding&#x7684;MVVM&#xFF1B;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;Arouter&#x3001;Retrofit&#x3001;Coroutine&#x3001;Glide&#x3001;Dagger&#x4E0E;Hilt&#x7B49;&#x6D41;&#x884C;&#x5F00;&#x6E90;&#x6280;&#x672F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="noopener">flutter_github</a>: &#x57FA;&#x4E8E;Flutter&#x7684;&#x8DE8;&#x5E73;&#x53F0;&#x7248;&#x672C;Github&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x4E0E;AwesomeGithub&#x76F8;&#x5BF9;&#x5E94;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="noopener">android-api-analysis</a>: &#x7ED3;&#x5408;&#x8BE6;&#x7EC6;&#x7684;Demo&#x6765;&#x5168;&#x9762;&#x89E3;&#x6790;Android&#x76F8;&#x5173;&#x7684;&#x77E5;&#x8BC6;&#x70B9;, &#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x5FEB;&#x7684;&#x638C;&#x63E1;&#x4E0E;&#x7406;&#x89E3;&#x6240;&#x9610;&#x8FF0;&#x7684;&#x8981;&#x70B9;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/daily_algorithm" target="_blank" rel="noopener">daily_algorithm</a>: &#x6BCF;&#x65E5;&#x4E00;&#x7B97;&#x6CD5;&#xFF0C;&#x7531;&#x6D45;&#x5165;&#x6DF1;&#xFF0C;&#x6B22;&#x8FCE;&#x52A0;&#x5165;&#x4E00;&#x8D77;&#x5171;&#x52C9;&#x3002;</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">赞赏是一门艺术</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/rouse_wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/rouse_alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2023/09/07/深入探讨Android启动优化策略/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="fexo-comments comments-post">
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>
+  <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+  <script src="https://jjeejj.github.io/js/gitment.js"></script>
+  <script>
+    (function () {
+      var gitment = new Gitment({
+        owner: 'idisfkj',
+        repo: 'idisfkj.github.io',
+        id: 'Tue Sep 12 2023 09:28:34 GMT+0800',
+        oauth: {
+          client_id: 'dafb1df02ea9f875bb78',
+          client_secret: 'e9873d78aa5eaed5ce61d1d865a5af501dae377a'
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      })
+      gitment.render('gitment-comments')
+    })()
+  </script>
+
+  
+  
+</div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
