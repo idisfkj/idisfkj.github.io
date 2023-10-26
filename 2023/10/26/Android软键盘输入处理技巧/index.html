@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Android软键盘输入处理技巧 | Rouse</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="android,">
+  
+
+  <meta name="description" content="&amp;#x4ECA;&amp;#x5929;&amp;#x6211;&amp;#x4EEC;&amp;#x6765;&amp;#x8BA8;&amp;#x8BBA;&amp;#x4E00;&amp;#x4E0B;Android&amp;#x4E2D;&amp;#x76D1;&amp;#x542C;&amp;#x8F6F;&amp;#x952E;&amp;#x76D8;&amp;#x8F93;&amp;#x5165;&amp;#x7684;&amp;#x4F7F;&amp;#x7528;&amp;#x65B9;&amp;#x5F0F;&amp;#x3002;&amp;#x5B83;&amp;">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android软键盘输入处理技巧">
+<meta property="og:url" content="https://www.rousetime.com/2023/10/26/Android软键盘输入处理技巧/index.html">
+<meta property="og:site_name" content="Rouse">
+<meta property="og:description" content="&amp;#x4ECA;&amp;#x5929;&amp;#x6211;&amp;#x4EEC;&amp;#x6765;&amp;#x8BA8;&amp;#x8BBA;&amp;#x4E00;&amp;#x4E0B;Android&amp;#x4E2D;&amp;#x76D1;&amp;#x542C;&amp;#x8F6F;&amp;#x952E;&amp;#x76D8;&amp;#x8F93;&amp;#x5165;&amp;#x7684;&amp;#x4F7F;&amp;#x7528;&amp;#x65B9;&amp;#x5F0F;&amp;#x3002;&amp;#x5B83;&amp;">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2023-10-26T02:14:02.001Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android软键盘输入处理技巧">
+<meta name="twitter:description" content="&amp;#x4ECA;&amp;#x5929;&amp;#x6211;&amp;#x4EEC;&amp;#x6765;&amp;#x8BA8;&amp;#x8BBA;&amp;#x4E00;&amp;#x4E0B;Android&amp;#x4E2D;&amp;#x76D1;&amp;#x542C;&amp;#x8F6F;&amp;#x952E;&amp;#x76D8;&amp;#x8F93;&amp;#x5165;&amp;#x7684;&amp;#x4F7F;&amp;#x7528;&amp;#x65B9;&amp;#x5F0F;&amp;#x3002;&amp;#x5B83;&amp;">
+
+  
+
+  
+  <!-- <link href="/favicon.ico" rel="icon" type="image/x-icon"> -->
+    <link rel="icon" href="/favicon.ico">
+    <!-- <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?bd7ea96a22c9c7b90353962460fa0b8e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何监听软键盘输入"><span class="toc-text">如何监听软键盘输入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实时验证输入内容"><span class="toc-text">实时验证输入内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#限制输入字符的类型"><span class="toc-text">限制输入字符的类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#InputConnection"><span class="toc-text">InputConnection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#如何监听用户的输入事件"><span class="toc-text">如何监听用户的输入事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#监听软键盘输入"><span class="toc-text">监听软键盘输入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐"><span class="toc-text">推荐</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Android软键盘输入处理技巧" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Android软键盘输入处理技巧</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2023.10.26</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Rouse</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>&#x4ECA;&#x5929;&#x6211;&#x4EEC;&#x6765;&#x8BA8;&#x8BBA;&#x4E00;&#x4E0B;Android&#x4E2D;&#x76D1;&#x542C;&#x8F6F;&#x952E;&#x76D8;&#x8F93;&#x5165;&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;&#x3002;&#x5B83;&#x5141;&#x8BB8;&#x7528;&#x6237;&#x8F93;&#x5165;&#x6587;&#x672C;&#x548C;&#x6267;&#x884C;&#x5176;&#x4ED6;&#x64CD;&#x4F5C;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x6709;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5728;&#x7528;&#x6237;&#x8F93;&#x5165;&#x6587;&#x672C;&#x65F6;&#x8FDB;&#x884C;&#x4E00;&#x4E9B;&#x7279;&#x6B8A;&#x7684;&#x5904;&#x7406;&#xFF0C;&#x6BD4;&#x5982;&#x5B9E;&#x65F6;&#x9A8C;&#x8BC1;&#x8F93;&#x5165;&#x5185;&#x5BB9;&#x3001;&#x9650;&#x5236;&#x8F93;&#x5165;&#x5B57;&#x7B26;&#x7684;&#x7C7B;&#x578B;&#x7B49;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x4E86;&#x89E3;&#x5982;&#x4F55;&#x76D1;&#x542C;&#x8F6F;&#x952E;&#x76D8;&#x8F93;&#x5165;&#x662F;&#x975E;&#x5E38;&#x91CD;&#x8981;&#x7684;&#x3002;</p>
+<h2 id="&#x5982;&#x4F55;&#x76D1;&#x542C;&#x8F6F;&#x952E;&#x76D8;&#x8F93;&#x5165;"><a href="#&#x5982;&#x4F55;&#x76D1;&#x542C;&#x8F6F;&#x952E;&#x76D8;&#x8F93;&#x5165;" class="headerlink" title="&#x5982;&#x4F55;&#x76D1;&#x542C;&#x8F6F;&#x952E;&#x76D8;&#x8F93;&#x5165;"></a>&#x5982;&#x4F55;&#x76D1;&#x542C;&#x8F6F;&#x952E;&#x76D8;&#x8F93;&#x5165;</h2><p>&#x5728;Android&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;EditText&#x7684;TextWatcher&#x63A5;&#x53E3;&#x6765;&#x76D1;&#x542C;&#x8F6F;&#x952E;&#x76D8;&#x8F93;&#x5165;&#x3002;TextWatcher&#x63A5;&#x53E3;&#x63D0;&#x4F9B;&#x4E86;&#x4E09;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x5206;&#x522B;&#x662F;beforeTextChanged&#x3001;onTextChanged&#x548C;afterTextChanged&#x3002;&#x8FD9;&#x4E9B;&#x65B9;&#x6CD5;&#x5141;&#x8BB8;&#x6211;&#x4EEC;&#x5728;&#x7528;&#x6237;&#x8F93;&#x5165;&#x6587;&#x672C;&#x4E4B;&#x524D;&#x3001;&#x6587;&#x672C;&#x6539;&#x53D8;&#x65F6;&#x4EE5;&#x53CA;&#x6587;&#x672C;&#x6539;&#x53D8;&#x540E;&#x6267;&#x884C;&#x76F8;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">EditText editText = findViewById(R.id.editText);</span><br><span class="line"></span><br><span class="line">editText.addTextChangedListener(new TextWatcher() {</span><br><span class="line">    @Override</span><br><span class="line">    public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {</span><br><span class="line">        // &#x5728;&#x6587;&#x672C;&#x6539;&#x53D8;&#x4E4B;&#x524D;&#x6267;&#x884C;&#x7684;&#x64CD;&#x4F5C;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onTextChanged(CharSequence charSequence, int start, int before, int count) {</span><br><span class="line">        // &#x5728;&#x6587;&#x672C;&#x6539;&#x53D8;&#x65F6;&#x6267;&#x884C;&#x7684;&#x64CD;&#x4F5C;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void afterTextChanged(Editable editable) {</span><br><span class="line">        // &#x5728;&#x6587;&#x672C;&#x6539;&#x53D8;&#x540E;&#x6267;&#x884C;&#x7684;&#x64CD;&#x4F5C;</span><br><span class="line">    }</span><br><span class="line">});</span><br></pre></td></tr></table></figure>
+<h3 id="&#x5B9E;&#x65F6;&#x9A8C;&#x8BC1;&#x8F93;&#x5165;&#x5185;&#x5BB9;"><a href="#&#x5B9E;&#x65F6;&#x9A8C;&#x8BC1;&#x8F93;&#x5165;&#x5185;&#x5BB9;" class="headerlink" title="&#x5B9E;&#x65F6;&#x9A8C;&#x8BC1;&#x8F93;&#x5165;&#x5185;&#x5BB9;"></a>&#x5B9E;&#x65F6;&#x9A8C;&#x8BC1;&#x8F93;&#x5165;&#x5185;&#x5BB9;</h3><p>&#x901A;&#x8FC7;&#x76D1;&#x542C;&#x8F6F;&#x952E;&#x76D8;&#x8F93;&#x5165;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5B9E;&#x65F6;&#x9A8C;&#x8BC1;&#x7528;&#x6237;&#x8F93;&#x5165;&#x7684;&#x5185;&#x5BB9;&#x3002;&#x6BD4;&#x5982;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x68C0;&#x67E5;&#x7528;&#x6237;&#x8F93;&#x5165;&#x7684;&#x90AE;&#x7BB1;&#x5730;&#x5740;&#x662F;&#x5426;&#x5408;&#x6CD5;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x5408;&#x6CD5;&#xFF0C;&#x53EF;&#x4EE5;&#x663E;&#x793A;&#x9519;&#x8BEF;&#x63D0;&#x793A;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">editText.addTextChangedListener(new TextWatcher() {</span><br><span class="line">    @Override</span><br><span class="line">    public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {</span><br><span class="line">        // &#x5728;&#x6587;&#x672C;&#x6539;&#x53D8;&#x4E4B;&#x524D;&#x6267;&#x884C;&#x7684;&#x64CD;&#x4F5C;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onTextChanged(CharSequence charSequence, int start, int before, int count) {</span><br><span class="line">        // &#x5728;&#x6587;&#x672C;&#x6539;&#x53D8;&#x65F6;&#x6267;&#x884C;&#x7684;&#x64CD;&#x4F5C;</span><br><span class="line">        String input = charSequence.toString();</span><br><span class="line">        if (!isValidEmail(input)) {</span><br><span class="line">            editText.setError(&quot;Invalid email&quot;);</span><br><span class="line">        } else {</span><br><span class="line">            editText.setError(null);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void afterTextChanged(Editable editable) {</span><br><span class="line">        // &#x5728;&#x6587;&#x672C;&#x6539;&#x53D8;&#x540E;&#x6267;&#x884C;&#x7684;&#x64CD;&#x4F5C;</span><br><span class="line">    }</span><br><span class="line">});</span><br></pre></td></tr></table></figure>
+<h3 id="&#x9650;&#x5236;&#x8F93;&#x5165;&#x5B57;&#x7B26;&#x7684;&#x7C7B;&#x578B;"><a href="#&#x9650;&#x5236;&#x8F93;&#x5165;&#x5B57;&#x7B26;&#x7684;&#x7C7B;&#x578B;" class="headerlink" title="&#x9650;&#x5236;&#x8F93;&#x5165;&#x5B57;&#x7B26;&#x7684;&#x7C7B;&#x578B;"></a>&#x9650;&#x5236;&#x8F93;&#x5165;&#x5B57;&#x7B26;&#x7684;&#x7C7B;&#x578B;</h3><p>&#x9664;&#x4E86;&#x5B9E;&#x65F6;&#x9A8C;&#x8BC1;&#x8F93;&#x5165;&#x5185;&#x5BB9;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x53EF;&#x4EE5;&#x9650;&#x5236;&#x8F93;&#x5165;&#x5B57;&#x7B26;&#x7684;&#x7C7B;&#x578B;&#x3002;&#x6BD4;&#x5982;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x53EA;&#x5141;&#x8BB8;&#x7528;&#x6237;&#x8F93;&#x5165;&#x6570;&#x5B57;&#xFF0C;&#x6216;&#x8005;&#x53EA;&#x5141;&#x8BB8;&#x7528;&#x6237;&#x8F93;&#x5165;&#x5B57;&#x6BCD;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">editText.addTextChangedListener(new TextWatcher() {</span><br><span class="line">    @Override</span><br><span class="line">    public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {</span><br><span class="line">        // &#x5728;&#x6587;&#x672C;&#x6539;&#x53D8;&#x4E4B;&#x524D;&#x6267;&#x884C;&#x7684;&#x64CD;&#x4F5C;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onTextChanged(CharSequence charSequence, int start, int before, int count) {</span><br><span class="line">        // &#x5728;&#x6587;&#x672C;&#x6539;&#x53D8;&#x65F6;&#x6267;&#x884C;&#x7684;&#x64CD;&#x4F5C;</span><br><span class="line">        String input = charSequence.toString();</span><br><span class="line">        if (!input.matches(&quot;[0-9]+&quot;)) {</span><br><span class="line">            editText.setError(&quot;Only numbers allowed&quot;);</span><br><span class="line">        } else {</span><br><span class="line">            editText.setError(null);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void afterTextChanged(Editable editable) {</span><br><span class="line">        // &#x5728;&#x6587;&#x672C;&#x6539;&#x53D8;&#x540E;&#x6267;&#x884C;&#x7684;&#x64CD;&#x4F5C;</span><br><span class="line">    }</span><br><span class="line">});</span><br></pre></td></tr></table></figure>
+<p>&#x901A;&#x8FC7;TextWatcher&#x63A5;&#x53E3;&#xFF0C;&#x6211;&#x4EEC;&#x80FD;&#x663E;&#x793A;&#x5C42;&#x8FDB;&#x884C;&#x8F93;&#x5165;&#x76D1;&#x542C;&#xFF0C;&#x4F46;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5728;&#x8F6F;&#x952E;&#x76D8;&#x64CD;&#x4F5C;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x5C31;&#x76D1;&#x542C;&#x7528;&#x6237;&#x7684;&#x8F93;&#x5165;&#x884C;&#x4E3A;&#xFF0C;&#x53C8;&#x8BE5;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x5462;&#xFF1F;<br>&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x5C31;&#x6765;&#x8BF4;&#x8BF4;&#x8FD9;&#x4E2A;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;&#x3002;</p>
+<h2 id="InputConnection"><a href="#InputConnection" class="headerlink" title="InputConnection"></a>InputConnection</h2><p>&#x5728;Android&#x5F00;&#x53D1;&#x4E2D;&#xFF0C;InputConnection&#x662F;&#x4E00;&#x4E2A;&#x7528;&#x4E8E;&#x4E0E;&#x8F6F;&#x952E;&#x76D8;&#x4EA4;&#x4E92;&#x7684;&#x63A5;&#x53E3;&#x3002;&#x5B83;&#x5141;&#x8BB8;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E0E;&#x7528;&#x6237;&#x8F93;&#x5165;&#x8FDB;&#x884C;&#x4EA4;&#x4E92;&#xFF0C;&#x5E76;&#x5904;&#x7406;&#x8F93;&#x5165;&#x6587;&#x672C;&#x7684;&#x5404;&#x79CD;&#x64CD;&#x4F5C;&#xFF0C;&#x5982;&#x63D2;&#x5165;&#x3001;&#x5220;&#x9664;&#x548C;&#x66FF;&#x6362;&#x6587;&#x672C;&#x3002;</p>
+<p><code>InputConnection</code> &#x662F; Android &#x8F6F;&#x952E;&#x76D8;&#x7CFB;&#x7EDF;&#x548C; <code>EditText</code> &#x63A7;&#x4EF6;&#x4E4B;&#x95F4;&#x7684;&#x6865;&#x6881;&#x3002;&#x5B83;&#x5141;&#x8BB8;&#x60A8;&#xFF1A;</p>
+<ul>
+<li>&#x76D1;&#x542C;&#x7528;&#x6237;&#x7684;&#x8F93;&#x5165;&#x64CD;&#x4F5C;&#xFF0C;&#x5982;&#x6309;&#x952E;&#x3001;&#x5220;&#x9664;&#x7B49;&#x3002;</li>
+<li>&#x62E6;&#x622A;&#x5E76;&#x81EA;&#x5B9A;&#x4E49;&#x6587;&#x672C;&#x8F93;&#x5165;&#x3002;</li>
+<li>&#x5B9E;&#x73B0;&#x64A4;&#x9500;&#x3001;&#x91CD;&#x505A;&#x548C;&#x81EA;&#x52A8;&#x4FEE;&#x590D;&#x7B49;&#x529F;&#x80FD;&#x3002;</li>
+<li>&#x4E0E; <code>EditText</code> &#x63A7;&#x4EF6;&#x8FDB;&#x884C;&#x901A;&#x4FE1;&#xFF0C;&#x4EE5;&#x63A7;&#x5236;&#x5149;&#x6807;&#x4F4D;&#x7F6E;&#x3001;&#x6587;&#x672C;&#x9009;&#x62E9;&#x548C;&#x5176;&#x4ED6;&#x7F16;&#x8F91;&#x64CD;&#x4F5C;&#x3002;</li>
+</ul>
+<h3 id="&#x5982;&#x4F55;&#x76D1;&#x542C;&#x7528;&#x6237;&#x7684;&#x8F93;&#x5165;&#x4E8B;&#x4EF6;"><a href="#&#x5982;&#x4F55;&#x76D1;&#x542C;&#x7528;&#x6237;&#x7684;&#x8F93;&#x5165;&#x4E8B;&#x4EF6;" class="headerlink" title="&#x5982;&#x4F55;&#x76D1;&#x542C;&#x7528;&#x6237;&#x7684;&#x8F93;&#x5165;&#x4E8B;&#x4EF6;"></a>&#x5982;&#x4F55;&#x76D1;&#x542C;&#x7528;&#x6237;&#x7684;&#x8F93;&#x5165;&#x4E8B;&#x4EF6;</h3><p>&#x8981;&#x76D1;&#x542C;&#x7528;&#x6237;&#x7684;&#x8F93;&#x5165;&#x4E8B;&#x4EF6;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5B9E;&#x73B0;InputConnection&#x7684;&#x65B9;&#x6CD5;&#x6765;&#x5B9E;&#x73B0;&#x3002;&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E9B;&#x5E38;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<p>commitText(CharSequence text, int newCursorPosition)&#xFF1A;&#x5728;&#x7528;&#x6237;&#x8F93;&#x5165;&#x6587;&#x5B57;&#x540E;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x6B64;&#x65B9;&#x6CD5;&#x4E2D;&#x6267;&#x884C;&#x76F8;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>deleteSurroundingText(int beforeLength, int afterLength)&#xFF1A;&#x5728;&#x7528;&#x6237;&#x5220;&#x9664;&#x6587;&#x672C;&#x65F6;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x6B64;&#x65B9;&#x6CD5;&#x4E2D;&#x5904;&#x7406;&#x5220;&#x9664;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>setComposingText(CharSequence text, int newCursorPosition)&#xFF1A;&#x5728;&#x7528;&#x6237;&#x6B63;&#x5728;&#x8F93;&#x5165;&#x6587;&#x672C;&#x65F6;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x6B64;&#x65B9;&#x6CD5;&#x4E2D;&#x5904;&#x7406;&#x6B63;&#x5728;&#x8F93;&#x5165;&#x7684;&#x6587;&#x672C;&#x3002;</p>
+<p>finishComposingText()&#xFF1A;&#x5728;&#x7528;&#x6237;&#x5B8C;&#x6210;&#x6587;&#x672C;&#x8F93;&#x5165;&#x540E;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x6B64;&#x65B9;&#x6CD5;&#x4E2D;&#x5904;&#x7406;&#x8F93;&#x5165;&#x5B8C;&#x6210;&#x540E;&#x7684;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x901A;&#x8FC7;&#x5B9E;&#x73B0;&#x8FD9;&#x4E9B;&#x65B9;&#x6CD5;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x76D1;&#x542C;&#x7528;&#x6237;&#x7684;&#x8F93;&#x5165;&#x4E8B;&#x4EF6;&#xFF0C;&#x5E76;&#x5728;&#x76F8;&#x5E94;&#x7684;&#x65F6;&#x673A;&#x6267;&#x884C;&#x76F8;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x3002;</p>
+<h3 id="&#x76D1;&#x542C;&#x8F6F;&#x952E;&#x76D8;&#x8F93;&#x5165;"><a href="#&#x76D1;&#x542C;&#x8F6F;&#x952E;&#x76D8;&#x8F93;&#x5165;" class="headerlink" title="&#x76D1;&#x542C;&#x8F6F;&#x952E;&#x76D8;&#x8F93;&#x5165;"></a>&#x76D1;&#x542C;&#x8F6F;&#x952E;&#x76D8;&#x8F93;&#x5165;</h3><p>&#x8981;&#x76D1;&#x542C;&#x8F6F;&#x952E;&#x76D8;&#x8F93;&#x5165;&#xFF0C;&#x9996;&#x5148;&#x9700;&#x8981;&#x83B7;&#x53D6; <code>InputConnection</code> &#x5BF9;&#x8C61;&#xFF0C;&#x901A;&#x5E38;&#x5728; <code>EditText</code> &#x63A7;&#x4EF6;&#x4E0A;&#x8C03;&#x7528; <code>onCreateInputConnection</code> &#x65B9;&#x6CD5;&#x3002;&#x7136;&#x540E;&#xFF0C;&#x60A8;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8BE5;&#x5BF9;&#x8C61;&#x76D1;&#x542C;&#x6587;&#x672C;&#x8F93;&#x5165;&#x4E8B;&#x4EF6;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E2A;&#x793A;&#x4F8B;&#xFF0C;&#x6F14;&#x793A;&#x5982;&#x4F55;&#x4F7F;&#x7528; <code>InputConnection</code> &#x76D1;&#x542C;&#x548C;&#x8BB0;&#x5F55;&#x7528;&#x6237;&#x7684;&#x6587;&#x672C;&#x8F93;&#x5165;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyInputConnection</span> <span class="keyword">extends</span> <span class="title">InputConnectionWrapper</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyInputConnection</span><span class="params">(InputConnection target, <span class="keyword">boolean</span> mutable)</span> </span>{</span><br><span class="line">        <span class="keyword">super</span>(target, mutable);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">commitText</span><span class="params">(CharSequence text, <span class="keyword">int</span> newCursorPosition)</span> </span>{</span><br><span class="line">        <span class="comment">// &#x5728;&#x6B64;&#x5904;&#x8BB0;&#x5F55;&#x7528;&#x6237;&#x7684;&#x6587;&#x672C;&#x8F93;&#x5165;</span></span><br><span class="line">        Log.d(<span class="string">&quot;SoftKeyboard&quot;</span>, <span class="string">&quot;&#x7528;&#x6237;&#x8F93;&#x5165;&#x4E86;: &quot;</span> + text);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.commitText(text, newCursorPosition);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x4E2A;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x540D;&#x4E3A; <code>MyInputConnection</code> &#x7684;&#x81EA;&#x5B9A;&#x4E49; <code>InputConnection</code> &#x5305;&#x88C5;&#x5668;&#xFF0C;&#x5B83;&#x4F1A;&#x8BB0;&#x5F55;&#x7528;&#x6237;&#x7684;&#x6587;&#x672C;&#x8F93;&#x5165;&#x3002;&#x5728; <code>commitText</code> &#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5728;&#x63A7;&#x5236;&#x53F0;&#x4E0A;&#x8BB0;&#x5F55;&#x7528;&#x6237;&#x8F93;&#x5165;&#x7684;&#x6587;&#x672C;&#xFF0C;&#x7136;&#x540E;&#x8C03;&#x7528; <code>super.commitText</code> &#x4EE5;&#x7EE7;&#x7EED;&#x6587;&#x672C;&#x7684;&#x6B63;&#x5E38;&#x5904;&#x7406;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x5C06; <code>MyInputConnection</code> &#x4E0E; <code>EditText</code> &#x63A7;&#x4EF6;&#x5173;&#x8054;&#x7684;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.view.inputmethod.EditorInfo;</span><br><span class="line"><span class="keyword">import</span> android.view.inputmethod.InputConnection;</span><br><span class="line"><span class="keyword">import</span> android.widget.EditText;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomEditText</span> <span class="keyword">extends</span> <span class="title">EditText</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CustomEditText</span><span class="params">(Context context)</span> </span>{</span><br><span class="line">        <span class="keyword">super</span>(context);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> InputConnection <span class="title">onCreateInputConnection</span><span class="params">(EditorInfo outAttrs)</span> </span>{</span><br><span class="line">        InputConnection inputConnection = <span class="keyword">super</span>.onCreateInputConnection(outAttrs);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (inputConnection != <span class="keyword">null</span>) {</span><br><span class="line">            <span class="comment">// &#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x7684;InputConnectionWrapper</span></span><br><span class="line">            inputConnection = <span class="keyword">new</span> MyInputConnection(inputConnection, <span class="keyword">true</span>);</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> inputConnection;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x4E2A;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x9996;&#x5148;&#x83B7;&#x53D6; <code>EditText</code> &#x63A7;&#x4EF6;&#x7684; <code>InputConnection</code>&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x5176;&#x66FF;&#x6362;&#x4E3A;&#x6211;&#x4EEC;&#x7684;&#x81EA;&#x5B9A;&#x4E49; <code>MyInputConnection</code>&#x3002;&#x73B0;&#x5728;&#xFF0C;&#x8F6F;&#x952E;&#x76D8;&#x8F93;&#x5165;&#x5C06;&#x901A;&#x8FC7; <code>MyInputConnection</code> &#x8FDB;&#x884C;&#x76D1;&#x542C;&#x548C;&#x8BB0;&#x5F55;&#x3002;</p>
+<h2 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h2><p>&#x901A;&#x8FC7;&#x4F7F;&#x7528;TextWatcher&#x63A5;&#x53E3;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8F7B;&#x677E;&#x5730;&#x76D1;&#x542C;&#x8F6F;&#x952E;&#x76D8;&#x8F93;&#x5165;&#xFF0C;&#x5E76;&#x5728;&#x7528;&#x6237;&#x8F93;&#x5165;&#x6587;&#x672C;&#x65F6;&#x6267;&#x884C;&#x76F8;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x3002;&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;InputConnection&#x63A5;&#x53E3;&#x6765;&#x76F4;&#x63A5;&#x76D1;&#x63A7;&#x7528;&#x6237;&#x7684;&#x8F93;&#x5165;&#x884C;&#x4E3A;&#xFF0C;&#x76F4;&#x63A5;&#x5728;&#x7528;&#x6237;&#x4EA4;&#x4E92;&#x4E0A;&#x8FDB;&#x884C;&#x9650;&#x5236;&#x3002;&#x8FD9;&#x4E9B;&#x529F;&#x80FD;&#x5BF9;&#x4E8E;&#x5F00;&#x53D1;Android&#x5E94;&#x7528;&#x975E;&#x5E38;&#x6709;&#x7528;&#x3002;&#x5E0C;&#x671B;&#x672C;&#x7BC7;&#x6587;&#x7AE0;&#x5BF9;&#x4F60;&#x6709;&#x6240;&#x5E2E;&#x52A9;&#xFF01;</p>
+<h2 id="&#x63A8;&#x8350;"><a href="#&#x63A8;&#x8350;" class="headerlink" title="&#x63A8;&#x8350;"></a>&#x63A8;&#x8350;</h2><p><a href="https://github.com/idisfkj/android-startup" target="_blank" rel="noopener">android_startup</a>: &#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x5728;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65F6;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x3001;&#x9AD8;&#x6548;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521D;&#x59CB;&#x5316;&#x7EC4;&#x4EF6;&#xFF0C;&#x4F18;&#x5316;&#x542F;&#x52A8;&#x901F;&#x5EA6;&#x3002;&#x4E0D;&#x4EC5;&#x652F;&#x6301;Jetpack App Startup&#x7684;&#x5168;&#x90E8;&#x529F;&#x80FD;&#xFF0C;&#x8FD8;&#x63D0;&#x4F9B;&#x989D;&#x5916;&#x7684;&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#x7B49;&#x5F85;&#x3001;&#x7EBF;&#x7A0B;&#x63A7;&#x5236;&#x4E0E;&#x591A;&#x8FDB;&#x7A0B;&#x652F;&#x6301;&#x7B49;&#x529F;&#x80FD;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="noopener">AwesomeGithub</a>: &#x57FA;&#x4E8E;Github&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7EAF;&#x7EC3;&#x4E60;&#x9879;&#x76EE;&#xFF0C;&#x652F;&#x6301;&#x7EC4;&#x4EF6;&#x5316;&#x5F00;&#x53D1;&#xFF0C;&#x652F;&#x6301;&#x8D26;&#x6237;&#x5BC6;&#x7801;&#x4E0E;&#x8BA4;&#x8BC1;&#x767B;&#x9646;&#x3002;&#x4F7F;&#x7528;Kotlin&#x8BED;&#x8A00;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#xFF0C;&#x9879;&#x76EE;&#x67B6;&#x6784;&#x662F;&#x57FA;&#x4E8E;JetPack\&amp;DataBinding&#x7684;MVVM&#xFF1B;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;Arouter&#x3001;Retrofit&#x3001;Coroutine&#x3001;Glide&#x3001;Dagger&#x4E0E;Hilt&#x7B49;&#x6D41;&#x884C;&#x5F00;&#x6E90;&#x6280;&#x672F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="noopener">flutter_github</a>: &#x57FA;&#x4E8E;Flutter&#x7684;&#x8DE8;&#x5E73;&#x53F0;&#x7248;&#x672C;Github&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x4E0E;AwesomeGithub&#x76F8;&#x5BF9;&#x5E94;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="noopener">android-api-analysis</a>: &#x7ED3;&#x5408;&#x8BE6;&#x7EC6;&#x7684;Demo&#x6765;&#x5168;&#x9762;&#x89E3;&#x6790;Android&#x76F8;&#x5173;&#x7684;&#x77E5;&#x8BC6;&#x70B9;, &#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x5FEB;&#x7684;&#x638C;&#x63E1;&#x4E0E;&#x7406;&#x89E3;&#x6240;&#x9610;&#x8FF0;&#x7684;&#x8981;&#x70B9;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/daily_algorithm" target="_blank" rel="noopener">daily_algorithm</a>: &#x6BCF;&#x65E5;&#x4E00;&#x7B97;&#x6CD5;&#xFF0C;&#x7531;&#x6D45;&#x5165;&#x6DF1;&#xFF0C;&#x6B22;&#x8FCE;&#x52A0;&#x5165;&#x4E00;&#x8D77;&#x5171;&#x52C9;&#x3002;</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">赞赏是一门艺术</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/rouse_wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/rouse_alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2023/10/26/深入理解-Android-Window系统/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2023/10/26/Android启动原理解析/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="fexo-comments comments-post">
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>
+  <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+  <script src="https://jjeejj.github.io/js/gitment.js"></script>
+  <script>
+    (function () {
+      var gitment = new Gitment({
+        owner: 'idisfkj',
+        repo: 'idisfkj.github.io',
+        id: 'Thu Oct 26 2023 10:13:37 GMT+0800',
+        oauth: {
+          client_id: 'dafb1df02ea9f875bb78',
+          client_secret: 'e9873d78aa5eaed5ce61d1d865a5af501dae377a'
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      })
+      gitment.render('gitment-comments')
+    })()
+  </script>
+
+  
+  
+</div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
