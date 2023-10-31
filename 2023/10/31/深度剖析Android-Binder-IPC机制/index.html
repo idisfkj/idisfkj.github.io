@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>深度剖析Android Binder IPC机制 | Rouse</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="android,">
+  
+
+  <meta name="description" content="Android&amp;#x7CFB;&amp;#x7EDF;&amp;#x7684;&amp;#x6210;&amp;#x529F;&amp;#x79BB;&amp;#x4E0D;&amp;#x5F00;&amp;#x5176;&amp;#x5F3A;&amp;#x5927;&amp;#x7684;IPC&amp;#xFF08;Inter-Process Communication&amp;#xFF09;&amp;#x673A;&amp;#x5236;&amp;#xFF0C;&amp;#x5176;&amp;#x4E2D;&amp;#x6700;&amp;#x">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度剖析Android Binder IPC机制">
+<meta property="og:url" content="https://www.rousetime.com/2023/10/31/深度剖析Android-Binder-IPC机制/index.html">
+<meta property="og:site_name" content="Rouse">
+<meta property="og:description" content="Android&amp;#x7CFB;&amp;#x7EDF;&amp;#x7684;&amp;#x6210;&amp;#x529F;&amp;#x79BB;&amp;#x4E0D;&amp;#x5F00;&amp;#x5176;&amp;#x5F3A;&amp;#x5927;&amp;#x7684;IPC&amp;#xFF08;Inter-Process Communication&amp;#xFF09;&amp;#x673A;&amp;#x5236;&amp;#xFF0C;&amp;#x5176;&amp;#x4E2D;&amp;#x6700;&amp;#x">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2023-10-31T02:06:30.859Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深度剖析Android Binder IPC机制">
+<meta name="twitter:description" content="Android&amp;#x7CFB;&amp;#x7EDF;&amp;#x7684;&amp;#x6210;&amp;#x529F;&amp;#x79BB;&amp;#x4E0D;&amp;#x5F00;&amp;#x5176;&amp;#x5F3A;&amp;#x5927;&amp;#x7684;IPC&amp;#xFF08;Inter-Process Communication&amp;#xFF09;&amp;#x673A;&amp;#x5236;&amp;#xFF0C;&amp;#x5176;&amp;#x4E2D;&amp;#x6700;&amp;#x">
+
+  
+
+  
+  <!-- <link href="/favicon.ico" rel="icon" type="image/x-icon"> -->
+    <link rel="icon" href="/favicon.ico">
+    <!-- <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?bd7ea96a22c9c7b90353962460fa0b8e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是Binder"><span class="toc-text">什么是Binder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Binder服务的注册和使用"><span class="toc-text">Binder服务的注册和使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#服务提供者"><span class="toc-text">服务提供者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#客户端"><span class="toc-text">客户端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Binder的内部工作原理"><span class="toc-text">Binder的内部工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Binder池"><span class="toc-text">Binder池</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐"><span class="toc-text">推荐</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-深度剖析Android-Binder-IPC机制" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">深度剖析Android Binder IPC机制</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2023.10.31</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Rouse</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>Android&#x7CFB;&#x7EDF;&#x7684;&#x6210;&#x529F;&#x79BB;&#x4E0D;&#x5F00;&#x5176;&#x5F3A;&#x5927;&#x7684;IPC&#xFF08;Inter-Process Communication&#xFF09;&#x673A;&#x5236;&#xFF0C;&#x5176;&#x4E2D;&#x6700;&#x5F15;&#x4EBA;&#x6CE8;&#x76EE;&#x7684;&#x5C31;&#x662F;Binder&#x3002;&#x672C;&#x6587;&#x5C06;&#x6DF1;&#x5165;&#x63A2;&#x8BA8;Binder&#x7684;&#x6280;&#x672F;&#x539F;&#x7406;&#xFF0C;&#x89E3;&#x91CA;&#x5176;&#x5DE5;&#x4F5C;&#x65B9;&#x5F0F;&#x4EE5;&#x53CA;&#x76F8;&#x5173;&#x7684;&#x5173;&#x952E;&#x6982;&#x5FF5;&#x3002;</p>
+<h2 id="&#x4EC0;&#x4E48;&#x662F;Binder"><a href="#&#x4EC0;&#x4E48;&#x662F;Binder" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F;Binder"></a>&#x4EC0;&#x4E48;&#x662F;Binder</h2><p>Binder&#x662F;Android&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;IPC&#x673A;&#x5236;&#xFF0C;&#x5B83;&#x5141;&#x8BB8;&#x4E0D;&#x540C;&#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;&#x8FDB;&#x884C;&#x9AD8;&#x6548;&#x3001;&#x5B89;&#x5168;&#x7684;&#x901A;&#x4FE1;&#x3002;Binder&#x57FA;&#x4E8E;&#x5BA2;&#x6237;&#x7AEF;-&#x670D;&#x52A1;&#x5668;&#x6A21;&#x578B;&#xFF0C;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5145;&#x5F53;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5145;&#x5F53;&#x5BA2;&#x6237;&#x7AEF;&#x3002;&#x5BA2;&#x6237;&#x7AEF;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x7A0B;&#x63D0;&#x4F9B;&#x7684;Binder&#x5BF9;&#x8C61;&#x5F15;&#x7528;&#xFF0C;&#x901A;&#x8FC7;&#x8BE5;&#x5F15;&#x7528;&#x8C03;&#x7528;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x7A0B;&#x7684;&#x65B9;&#x6CD5;&#x3002;&#x4E0B;&#x9762;&#x662F;Binder&#x7684;&#x57FA;&#x672C;&#x5DE5;&#x4F5C;&#x539F;&#x7406;&#xFF1A;</p>
+<ol>
+<li><p><strong>Binder&#x5BF9;&#x8C61;</strong>&#xFF1A;Binder&#x901A;&#x4FE1;&#x7684;&#x57FA;&#x672C;&#x5355;&#x5143;&#x662F;<code>IBinder</code>&#x63A5;&#x53E3;&#xFF0C;&#x6240;&#x6709;Binder&#x5BF9;&#x8C61;&#x90FD;&#x5B9E;&#x73B0;&#x4E86;&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#x3002;&#x5728;&#x7CFB;&#x7EDF;&#x5185;&#x6838;&#x5C42;&#xFF0C;Binder&#x5BF9;&#x8C61;&#x662F;&#x4EE5;C/C++&#x7ED3;&#x6784;&#x4F53;&#x7684;&#x5F62;&#x5F0F;&#x5B58;&#x5728;&#x7684;&#xFF0C;&#x5176;&#x4E2D;&#x5305;&#x62EC;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x548C;&#x6807;&#x8BC6;&#x7B26;&#x7B49;&#x4FE1;&#x606F;&#x3002;</p>
+</li>
+<li><p><strong>Binder&#x670D;&#x52A1;</strong>&#xFF1A;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x7A0B;&#x901A;&#x8FC7;Binder&#x5BF9;&#x8C61;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x7A0B;&#x901A;&#x5E38;&#x662F;&#x4E00;&#x4E2A;Android&#x670D;&#x52A1;&#x6216;&#x7CFB;&#x7EDF;&#x7EC4;&#x4EF6;&#x3002;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x7A0B;&#x5C06;Binder&#x5BF9;&#x8C61;&#x6CE8;&#x518C;&#x5230;Binder&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x4E2D;&#xFF0C;&#x4EE5;&#x4FBF;&#x5BA2;&#x6237;&#x7AEF;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x5F15;&#x7528;&#x3002;</p>
+</li>
+<li><p><strong>Binder&#x5BA2;&#x6237;&#x7AEF;</strong>&#xFF1A;&#x5BA2;&#x6237;&#x7AEF;&#x8FDB;&#x7A0B;&#x83B7;&#x53D6;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x7A0B;&#x7684;Binder&#x5BF9;&#x8C61;&#x5F15;&#x7528;&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7;Binder&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x5B9E;&#x73B0;&#x7684;IPC&#x673A;&#x5236;&#x8C03;&#x7528;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x7A0B;&#x7684;&#x65B9;&#x6CD5;&#x3002;</p>
+</li>
+<li><p><strong>Binder&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;</strong>&#xFF1A;Binder IPC&#x673A;&#x5236;&#x5728;Linux&#x5185;&#x6838;&#x4E2D;&#x5B9E;&#x73B0;&#xFF0C;&#x5B83;&#x8D1F;&#x8D23;&#x7BA1;&#x7406;Binder&#x5BF9;&#x8C61;&#x7684;&#x6CE8;&#x518C;&#x3001;&#x67E5;&#x627E;&#x3001;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x3001;&#x7EBF;&#x7A0B;&#x540C;&#x6B65;&#x7B49;&#x3002;&#x8FD9;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x5728;Linux&#x5185;&#x6838;&#x6E90;&#x7801;&#x4E2D;&#x3002;</p>
+</li>
+</ol>
+<h2 id="Binder&#x670D;&#x52A1;&#x7684;&#x6CE8;&#x518C;&#x548C;&#x4F7F;&#x7528;"><a href="#Binder&#x670D;&#x52A1;&#x7684;&#x6CE8;&#x518C;&#x548C;&#x4F7F;&#x7528;" class="headerlink" title="Binder&#x670D;&#x52A1;&#x7684;&#x6CE8;&#x518C;&#x548C;&#x4F7F;&#x7528;"></a>Binder&#x670D;&#x52A1;&#x7684;&#x6CE8;&#x518C;&#x548C;&#x4F7F;&#x7528;</h2><p>&#x4E3A;&#x4E86;&#x66F4;&#x597D;&#x5730;&#x7406;&#x89E3;Binder&#x7684;&#x5DE5;&#x4F5C;&#x65B9;&#x5F0F;&#xFF0C;&#x8BA9;&#x6211;&#x4EEC;&#x770B;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x793A;&#x4F8B;&#xFF0C;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x670D;&#x52A1;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x901A;&#x8FC7;Binder&#x4E0E;&#x8BE5;&#x670D;&#x52A1;&#x8FDB;&#x884C;&#x901A;&#x4FE1;&#x3002;</p>
+<h3 id="&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x8005;"><a href="#&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x8005;" class="headerlink" title="&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x8005;"></a>&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x8005;</h3><p>&#x9996;&#x5148;&#xFF0C;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x8005;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x3002;&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x8005;&#x9700;&#x8981;&#x4EE5;&#x4E0B;&#x6B65;&#x9AA4;&#xFF1A;</p>
+<ol>
+<li><p><strong>&#x5B9A;&#x4E49;AIDL&#x63A5;&#x53E3;</strong>&#xFF1A;&#x4F7F;&#x7528;AIDL&#xFF08;Android Interface Definition Language&#xFF09;&#x6765;&#x5B9A;&#x4E49;&#x670D;&#x52A1;&#x63A5;&#x53E3;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;<code>IMyService.aidl</code>&#x6587;&#x4EF6;&#xFF0C;&#x5B9A;&#x4E49;&#x670D;&#x52A1;&#x7684;&#x65B9;&#x6CD5;&#x548C;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">interface IMyService {</span><br><span class="line">    int add(int a, int b);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>&#x5B9E;&#x73B0;&#x670D;&#x52A1;</strong>&#xFF1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;Service&#x7C7B;&#xFF0C;&#x5B9E;&#x73B0;AIDL&#x63A5;&#x53E3;&#x4E2D;&#x5B9A;&#x4E49;&#x7684;&#x65B9;&#x6CD5;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyService</span> <span class="keyword">extends</span> <span class="title">Service</span> </span>{</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> IMyService.Stub mBinder = <span class="keyword">new</span> IMyService.Stub() {</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>{</span><br><span class="line">            <span class="keyword">return</span> a + b;</span><br><span class="line">        }</span><br><span class="line">    };</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IBinder <span class="title">onBind</span><span class="params">(Intent intent)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> mBinder;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>&#x6CE8;&#x518C;&#x670D;&#x52A1;</strong>&#xFF1A;&#x5728;&#x6E05;&#x5355;&#x6587;&#x4EF6;&#x4E2D;&#x6CE8;&#x518C;&#x670D;&#x52A1;&#x3002;</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">service</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">&quot;.MyService&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:exported</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">&quot;com.example.IMyService&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="&#x5BA2;&#x6237;&#x7AEF;"><a href="#&#x5BA2;&#x6237;&#x7AEF;" class="headerlink" title="&#x5BA2;&#x6237;&#x7AEF;"></a>&#x5BA2;&#x6237;&#x7AEF;</h3><p>&#x5BA2;&#x6237;&#x7AEF;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x9700;&#x8981;&#x4EE5;&#x4E0B;&#x6B65;&#x9AA4;&#xFF1A;</p>
+<ol>
+<li><p><strong>&#x83B7;&#x53D6;&#x670D;&#x52A1;&#x5F15;&#x7528;</strong>&#xFF1A;&#x5BA2;&#x6237;&#x7AEF;&#x9700;&#x8981;&#x83B7;&#x53D6;&#x670D;&#x52A1;&#x7684;Binder&#x5BF9;&#x8C61;&#x5F15;&#x7528;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent(<span class="string">&quot;com.example.IMyService&quot;</span>);</span><br><span class="line">intent.setPackage(<span class="string">&quot;com.example.provider&quot;</span>);</span><br><span class="line">bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>&#x8C03;&#x7528;&#x670D;&#x52A1;&#x65B9;&#x6CD5;</strong>&#xFF1A;&#x901A;&#x8FC7;Binder&#x5F15;&#x7528;&#x8C03;&#x7528;&#x670D;&#x52A1;&#x65B9;&#x6CD5;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (myService != <span class="keyword">null</span>) {</span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">        <span class="keyword">int</span> result = myService.add(<span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">        Log.d(TAG, <span class="string">&quot;Result: &quot;</span> + result);</span><br><span class="line">    } <span class="keyword">catch</span> (RemoteException e) {</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="Binder&#x7684;&#x5185;&#x90E8;&#x5DE5;&#x4F5C;&#x539F;&#x7406;"><a href="#Binder&#x7684;&#x5185;&#x90E8;&#x5DE5;&#x4F5C;&#x539F;&#x7406;" class="headerlink" title="Binder&#x7684;&#x5185;&#x90E8;&#x5DE5;&#x4F5C;&#x539F;&#x7406;"></a>Binder&#x7684;&#x5185;&#x90E8;&#x5DE5;&#x4F5C;&#x539F;&#x7406;</h2><p>Android Binder IPC&#x673A;&#x5236;&#x7684;&#x5185;&#x90E8;&#x5B9E;&#x73B0;&#x6D89;&#x53CA;&#x4EE5;&#x4E0B;&#x91CD;&#x8981;&#x7EC4;&#x4EF6;&#x548C;&#x5DE5;&#x4F5C;&#x6D41;&#x7A0B;&#xFF1A;</p>
+<ol>
+<li><p><strong>Binder&#x5BF9;&#x8C61;&#x6CE8;&#x518C;</strong>&#xFF1A;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x7A0B;&#x5C06;&#x5176;Binder&#x5BF9;&#x8C61;&#x6CE8;&#x518C;&#x5230;Binder&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x4E2D;&#x3002;Binder&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x4F1A;&#x4E3A;&#x6BCF;&#x4E2A;Binder&#x5BF9;&#x8C61;&#x5206;&#x914D;&#x4E00;&#x4E2A;&#x552F;&#x4E00;&#x7684;&#x6807;&#x8BC6;&#x7B26;&#xFF0C;&#x4EE5;&#x4FBF;&#x5BA2;&#x6237;&#x7AEF;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6807;&#x8BC6;&#x7B26;&#x67E5;&#x627E;&#x5BF9;&#x8C61;&#x3002;</p>
+</li>
+<li><p><strong>Binder&#x5F15;&#x7528;&#x8BA1;&#x6570;</strong>&#xFF1A;Binder&#x5BF9;&#x8C61;&#x5177;&#x6709;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#xFF0C;&#x786E;&#x4FDD;&#x53EA;&#x6709;&#x5728;&#x4E0D;&#x518D;&#x9700;&#x8981;&#x65F6;&#x624D;&#x4F1A;&#x88AB;&#x56DE;&#x6536;&#x3002;</p>
+</li>
+<li><p><strong>&#x7EBF;&#x7A0B;&#x540C;&#x6B65;</strong>&#xFF1A;Binder&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x5904;&#x7406;&#x591A;&#x7EBF;&#x7A0B;&#x540C;&#x6B65;&#xFF0C;&#x4EE5;&#x786E;&#x4FDD;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x53EF;&#x4EE5;&#x5B89;&#x5168;&#x5730;&#x8BBF;&#x95EE;Binder&#x5BF9;&#x8C61;&#x3002;</p>
+</li>
+<li><p><strong>&#x5BA2;&#x6237;&#x7AEF;&#x67E5;&#x8BE2;</strong>&#xFF1A;&#x5BA2;&#x6237;&#x7AEF;&#x4F7F;&#x7528;&#x6807;&#x8BC6;&#x7B26;&#x67E5;&#x8BE2;Binder&#x5BF9;&#x8C61;&#xFF0C;&#x83B7;&#x5F97;&#x5BF9;&#x5176;&#x7684;&#x5F15;&#x7528;&#x3002;&#x8FD9;&#x662F;&#x901A;&#x8FC7;<code>android.os.ServiceManager</code>&#x548C;<code>android.os.BinderProxy</code>&#x6765;&#x5B9E;&#x73B0;&#x7684;&#x3002;</p>
+</li>
+<li><p><strong>IPC&#x8C03;&#x7528;</strong>&#xFF1A;&#x5BA2;&#x6237;&#x7AEF;&#x901A;&#x8FC7;Binder&#x5F15;&#x7528;&#x8C03;&#x7528;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x7A0B;&#x7684;&#x65B9;&#x6CD5;&#x3002;IPC&#x8C03;&#x7528;&#x4F1A;&#x89E6;&#x53D1;&#x5185;&#x6838;&#x6A21;&#x5F0F;&#x5207;&#x6362;&#xFF0C;&#x5C06;&#x63A7;&#x5236;&#x6743;&#x4EA4;&#x7ED9;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x7A0B;&#x3002;</p>
+</li>
+<li><p><strong>Binder&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x5904;&#x7406;</strong>&#xFF1A;Binder&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x5728;&#x5185;&#x6838;&#x4E2D;&#x5904;&#x7406;IPC&#x8BF7;&#x6C42;&#xFF0C;&#x5305;&#x62EC;&#x6570;&#x636E;&#x4F20;&#x8F93;&#x548C;&#x7EBF;&#x7A0B;&#x540C;&#x6B65;&#x3002;</p>
+</li>
+<li><p><strong>&#x670D;&#x52A1;&#x54CD;&#x5E94;</strong>&#xFF1A;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x7A0B;&#x6267;&#x884C;&#x65B9;&#x6CD5;&#xFF0C;&#x5E76;&#x5C06;&#x7ED3;&#x679C;&#x8FD4;&#x56DE;&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x518D;&#x6B21;&#x901A;&#x8FC7;Binder IPC&#x673A;&#x5236;&#x3002;</p>
+</li>
+</ol>
+<h2 id="Binder&#x6C60;"><a href="#Binder&#x6C60;" class="headerlink" title="Binder&#x6C60;"></a>Binder&#x6C60;</h2><p>Binder&#x6C60;&#x662F;&#x4E00;&#x79CD;&#x673A;&#x5236;&#xFF0C;&#x7528;&#x4E8E;&#x91CD;&#x590D;&#x4F7F;&#x7528;Binder&#x5BF9;&#x8C61;&#xFF0C;&#x4EE5;&#x63D0;&#x9AD8;&#x6027;&#x80FD;&#x3002;&#x8FD9;&#x5BF9;&#x4E8E;&#x51CF;&#x5C11;&#x521B;&#x5EFA;&#x548C;&#x9500;&#x6BC1;Binder&#x5BF9;&#x8C61;&#x7684;&#x5F00;&#x9500;&#x975E;&#x5E38;&#x6709;&#x5E2E;&#x52A9;&#x3002;</p>
+<p>&#x5728;&#x5178;&#x578B;&#x7684;Android&#x5E94;&#x7528;&#x4E2D;&#xFF0C;&#x521B;&#x5EFA;&#x548C;&#x9500;&#x6BC1;Binder&#x5BF9;&#x8C61;&#x662F;&#x4E00;&#x9879;&#x8D44;&#x6E90;&#x5BC6;&#x96C6;&#x578B;&#x4EFB;&#x52A1;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x989D;&#x5916;&#x7684;&#x5F00;&#x9500;&#x3002;&#x4E3A;&#x4E86;&#x51CF;&#x8F7B;&#x8FD9;&#x79CD;&#x5F00;&#x9500;&#xFF0C;Android&#x5F15;&#x5165;&#x4E86;Binder&#x6C60;&#x7684;&#x6982;&#x5FF5;&#x3002;</p>
+<p>Binder&#x6C60;&#x7684;&#x5DE5;&#x4F5C;&#x65B9;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ol>
+<li><p><strong>Binder&#x5BF9;&#x8C61;&#x521B;&#x5EFA;</strong>&#xFF1A;&#x5728;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x542F;&#x52A8;&#x65F6;&#xFF0C;&#x4E00;&#x7EC4;Binder&#x5BF9;&#x8C61;&#x88AB;&#x521B;&#x5EFA;&#x5E76;&#x6CE8;&#x518C;&#x5230;Binder&#x6C60;&#x4E2D;&#x3002;</p>
+</li>
+<li><p><strong>&#x5BA2;&#x6237;&#x7AEF;&#x4F7F;&#x7528;</strong>&#xFF1A;&#x5F53;&#x5BA2;&#x6237;&#x7AEF;&#x9700;&#x8981;&#x4E0E;&#x4E00;&#x4E2A;Binder&#x5BF9;&#x8C61;&#x901A;&#x4FE1;&#x65F6;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x4ECE;Binder&#x6C60;&#x4E2D;&#x83B7;&#x53D6;&#x4E00;&#x4E2A;&#x53EF;&#x7528;&#x7684;Binder&#x5BF9;&#x8C61;&#x5F15;&#x7528;&#x3002;</p>
+</li>
+<li><p><strong>&#x901A;&#x4FE1;&#x5B8C;&#x6210;&#x540E;&#x5F52;&#x8FD8;</strong>&#xFF1A;&#x901A;&#x4FE1;&#x7ED3;&#x675F;&#x540E;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x5C06;Binder&#x5BF9;&#x8C61;&#x5F52;&#x8FD8;&#x7ED9;Binder&#x6C60;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x9500;&#x6BC1;&#x5B83;&#x3002;</p>
+</li>
+<li><p><strong>&#x91CD;&#x7528;</strong>&#xFF1A;&#x4E0B;&#x4E00;&#x4E2A;&#x5BA2;&#x6237;&#x7AEF;&#x53EF;&#x4EE5;&#x518D;&#x6B21;&#x83B7;&#x53D6;&#x76F8;&#x540C;&#x7684;Binder&#x5BF9;&#x8C61;&#x5F15;&#x7528;&#xFF0C;&#x800C;&#x4E0D;&#x5FC5;&#x518D;&#x6B21;&#x521B;&#x5EFA;&#x65B0;&#x7684;Binder&#x5BF9;&#x8C61;&#x3002;</p>
+</li>
+</ol>
+<p>&#x8FD9;&#x79CD;&#x91CD;&#x7528;&#x673A;&#x5236;&#x51CF;&#x5C11;&#x4E86;&#x8D44;&#x6E90;&#x5206;&#x914D;&#x548C;&#x9500;&#x6BC1;&#x7684;&#x5F00;&#x9500;&#xFF0C;&#x4ECE;&#x800C;&#x63D0;&#x9AD8;&#x4E86;&#x6027;&#x80FD;&#x3002;&#x5728;&#x9AD8;&#x5E76;&#x53D1;&#x5E94;&#x7528;&#x4E2D;&#xFF0C;Binder&#x6C60;&#x5C24;&#x4E3A;&#x6709;&#x7528;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x53EF;&#x4EE5;&#x51CF;&#x5C11;&#x7ADE;&#x4E89;&#x548C;&#x8D44;&#x6E90;&#x4E89;&#x593A;&#x3002;</p>
+<h2 id="&#x7ED3;&#x8BBA;"><a href="#&#x7ED3;&#x8BBA;" class="headerlink" title="&#x7ED3;&#x8BBA;"></a>&#x7ED3;&#x8BBA;</h2><p>Binder&#x662F;Android&#x7CFB;&#x7EDF;&#x4E2D;&#x5B9E;&#x73B0;IPC&#x901A;&#x4FE1;&#x7684;&#x6838;&#x5FC3;&#x6280;&#x672F;&#x4E4B;&#x4E00;&#x3002;&#x901A;&#x8FC7;&#x6DF1;&#x5165;&#x4E86;&#x89E3;&#x5176;&#x5DE5;&#x4F5C;&#x539F;&#x7406;&#x548C;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#xFF0C;&#x5F00;&#x53D1;&#x8005;&#x53EF;&#x4EE5;&#x66F4;&#x597D;&#x5730;&#x7406;&#x89E3;Android&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E4B;&#x95F4;&#x7684;&#x901A;&#x4FE1;&#x65B9;&#x5F0F;&#xFF0C;&#x5E76;&#x521B;&#x5EFA;&#x529F;&#x80FD;&#x5F3A;&#x5927;&#x7684;&#x8DE8;&#x8FDB;&#x7A0B;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x3002;</p>
+<h2 id="&#x63A8;&#x8350;"><a href="#&#x63A8;&#x8350;" class="headerlink" title="&#x63A8;&#x8350;"></a>&#x63A8;&#x8350;</h2><p><a href="https://github.com/idisfkj/android-startup" target="_blank" rel="noopener">android_startup</a>: &#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x5728;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65F6;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x3001;&#x9AD8;&#x6548;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521D;&#x59CB;&#x5316;&#x7EC4;&#x4EF6;&#xFF0C;&#x4F18;&#x5316;&#x542F;&#x52A8;&#x901F;&#x5EA6;&#x3002;&#x4E0D;&#x4EC5;&#x652F;&#x6301;Jetpack App Startup&#x7684;&#x5168;&#x90E8;&#x529F;&#x80FD;&#xFF0C;&#x8FD8;&#x63D0;&#x4F9B;&#x989D;&#x5916;&#x7684;&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#x7B49;&#x5F85;&#x3001;&#x7EBF;&#x7A0B;&#x63A7;&#x5236;&#x4E0E;&#x591A;&#x8FDB;&#x7A0B;&#x652F;&#x6301;&#x7B49;&#x529F;&#x80FD;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="noopener">AwesomeGithub</a>: &#x57FA;&#x4E8E;Github&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7EAF;&#x7EC3;&#x4E60;&#x9879;&#x76EE;&#xFF0C;&#x652F;&#x6301;&#x7EC4;&#x4EF6;&#x5316;&#x5F00;&#x53D1;&#xFF0C;&#x652F;&#x6301;&#x8D26;&#x6237;&#x5BC6;&#x7801;&#x4E0E;&#x8BA4;&#x8BC1;&#x767B;&#x9646;&#x3002;&#x4F7F;&#x7528;Kotlin&#x8BED;&#x8A00;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#xFF0C;&#x9879;&#x76EE;&#x67B6;&#x6784;&#x662F;&#x57FA;&#x4E8E;JetPack\&amp;DataBinding&#x7684;MVVM&#xFF1B;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;Arouter&#x3001;Retrofit&#x3001;Coroutine&#x3001;Glide&#x3001;Dagger&#x4E0E;Hilt&#x7B49;&#x6D41;&#x884C;&#x5F00;&#x6E90;&#x6280;&#x672F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="noopener">flutter_github</a>: &#x57FA;&#x4E8E;Flutter&#x7684;&#x8DE8;&#x5E73;&#x53F0;&#x7248;&#x672C;Github&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x4E0E;AwesomeGithub&#x76F8;&#x5BF9;&#x5E94;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="noopener">android-api-analysis</a>: &#x7ED3;&#x5408;&#x8BE6;&#x7EC6;&#x7684;Demo&#x6765;&#x5168;&#x9762;&#x89E3;&#x6790;Android&#x76F8;&#x5173;&#x7684;&#x77E5;&#x8BC6;&#x70B9;, &#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x5FEB;&#x7684;&#x638C;&#x63E1;&#x4E0E;&#x7406;&#x89E3;&#x6240;&#x9610;&#x8FF0;&#x7684;&#x8981;&#x70B9;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/daily_algorithm" target="_blank" rel="noopener">daily_algorithm</a>: &#x6BCF;&#x65E5;&#x4E00;&#x7B97;&#x6CD5;&#xFF0C;&#x7531;&#x6D45;&#x5165;&#x6DF1;&#xFF0C;&#x6B22;&#x8FCE;&#x52A0;&#x5165;&#x4E00;&#x8D77;&#x5171;&#x52C9;&#x3002;</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">赞赏是一门艺术</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/rouse_wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/rouse_alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2023/10/26/Android启动原理解析/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2023/10/31/Kotlin-内联函数和Reified类型参数的原理与运用/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="fexo-comments comments-post">
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>
+  <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+  <script src="https://jjeejj.github.io/js/gitment.js"></script>
+  <script>
+    (function () {
+      var gitment = new Gitment({
+        owner: 'idisfkj',
+        repo: 'idisfkj.github.io',
+        id: 'Tue Oct 31 2023 10:05:34 GMT+0800',
+        oauth: {
+          client_id: 'dafb1df02ea9f875bb78',
+          client_secret: 'e9873d78aa5eaed5ce61d1d865a5af501dae377a'
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      })
+      gitment.render('gitment-comments')
+    })()
+  </script>
+
+  
+  
+</div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
