@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>精通协程的必会十一个高级技巧 | Rouse</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="android,">
+  
+
+  <meta name="description" content="&amp;#x5728;Android&amp;#x5E94;&amp;#x7528;&amp;#x5F00;&amp;#x53D1;&amp;#x4E2D;&amp;#xFF0C;&amp;#x534F;&amp;#x7A0B;&amp;#x5DF2;&amp;#x7ECF;&amp;#x6210;&amp;#x4E3A;&amp;#x5F02;&amp;#x6B65;&amp;#x7F16;&amp;#x7A0B;&amp;#x7684;&amp;#x9996;&amp;#x9009;&amp;#x5DE5;&amp;#x5177;&amp;#x4E4B;&amp;#x4E00;">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="精通协程的必会十一个高级技巧">
+<meta property="og:url" content="https://www.rousetime.com/2023/11/06/精通协程的必会十一个高级技巧/index.html">
+<meta property="og:site_name" content="Rouse">
+<meta property="og:description" content="&amp;#x5728;Android&amp;#x5E94;&amp;#x7528;&amp;#x5F00;&amp;#x53D1;&amp;#x4E2D;&amp;#xFF0C;&amp;#x534F;&amp;#x7A0B;&amp;#x5DF2;&amp;#x7ECF;&amp;#x6210;&amp;#x4E3A;&amp;#x5F02;&amp;#x6B65;&amp;#x7F16;&amp;#x7A0B;&amp;#x7684;&amp;#x9996;&amp;#x9009;&amp;#x5DE5;&amp;#x5177;&amp;#x4E4B;&amp;#x4E00;">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2023-11-06T13:38:20.206Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="精通协程的必会十一个高级技巧">
+<meta name="twitter:description" content="&amp;#x5728;Android&amp;#x5E94;&amp;#x7528;&amp;#x5F00;&amp;#x53D1;&amp;#x4E2D;&amp;#xFF0C;&amp;#x534F;&amp;#x7A0B;&amp;#x5DF2;&amp;#x7ECF;&amp;#x6210;&amp;#x4E3A;&amp;#x5F02;&amp;#x6B65;&amp;#x7F16;&amp;#x7A0B;&amp;#x7684;&amp;#x9996;&amp;#x9009;&amp;#x5DE5;&amp;#x5177;&amp;#x4E4B;&amp;#x4E00;">
+
+  
+
+  
+  <!-- <link href="/favicon.ico" rel="icon" type="image/x-icon"> -->
+    <link rel="icon" href="/favicon.ico">
+    <!-- <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?bd7ea96a22c9c7b90353962460fa0b8e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#协程的并发限制"><span class="toc-text">协程的并发限制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体使用"><span class="toc-text">具体使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#协程的异常处理策略"><span class="toc-text">协程的异常处理策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-1"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体使用-1"><span class="toc-text">具体使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#协程的超时和取消策略"><span class="toc-text">协程的超时和取消策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-2"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体使用-2"><span class="toc-text">具体使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用SupervisorJob"><span class="toc-text">使用SupervisorJob</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-3"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体使用-3"><span class="toc-text">具体使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据流与协程的结合"><span class="toc-text">数据流与协程的结合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-4"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体使用-4"><span class="toc-text">具体使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#协程的扩展函数"><span class="toc-text">协程的扩展函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-5"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体使用-5"><span class="toc-text">具体使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#协程调度策略"><span class="toc-text">协程调度策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-6"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体使用-6"><span class="toc-text">具体使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用Channel"><span class="toc-text">使用Channel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-7"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体使用-7"><span class="toc-text">具体使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异步流程的状态机"><span class="toc-text">异步流程的状态机</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-8"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体使用-8"><span class="toc-text">具体使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#协程的测试"><span class="toc-text">协程的测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-9"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体使用-9"><span class="toc-text">具体使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#协程性能调优"><span class="toc-text">协程性能调优</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-10"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体使用-10"><span class="toc-text">具体使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐"><span class="toc-text">推荐</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-精通协程的必会十一个高级技巧" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">精通协程的必会十一个高级技巧</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2023.11.06</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Rouse</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p> &#x5728;Android&#x5E94;&#x7528;&#x5F00;&#x53D1;&#x4E2D;&#xFF0C;&#x534F;&#x7A0B;&#x5DF2;&#x7ECF;&#x6210;&#x4E3A;&#x5F02;&#x6B65;&#x7F16;&#x7A0B;&#x7684;&#x9996;&#x9009;&#x5DE5;&#x5177;&#x4E4B;&#x4E00;&#x3002;&#x5B83;&#x4F7F;&#x5E76;&#x53D1;&#x4EFB;&#x52A1;&#x7BA1;&#x7406;&#x53D8;&#x5F97;&#x66F4;&#x52A0;&#x5BB9;&#x6613;&#xFF0C;&#x4F46;&#x5B83;&#x7684;&#x5F3A;&#x5927;&#x529F;&#x80FD;&#x8FDC;&#x4E0D;&#x6B62;&#x4E8E;&#x6B64;&#x3002;&#x5728;&#x672C;&#x6587;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x63A2;&#x8BA8;&#x534F;&#x7A0B;&#x7684;&#x9AD8;&#x7EA7;&#x6280;&#x5DE7;&#xFF0C;&#x5E2E;&#x52A9;&#x60A8;&#x66F4;&#x597D;&#x5730;&#x5904;&#x7406;&#x590D;&#x6742;&#x7684;&#x5E76;&#x53D1;&#x9700;&#x6C42;&#xFF0C;&#x63D0;&#x9AD8;&#x6027;&#x80FD;&#x548C;&#x53EF;&#x7EF4;&#x62A4;&#x6027;&#x3002;</p>
+<h2 id="&#x4ECB;&#x7ECD;"><a href="#&#x4ECB;&#x7ECD;" class="headerlink" title="&#x4ECB;&#x7ECD;"></a>&#x4ECB;&#x7ECD;</h2><p>&#x534F;&#x7A0B;&#x662F;Kotlin&#x7684;&#x4E00;&#x9879;&#x5F3A;&#x5927;&#x7279;&#x6027;&#xFF0C;&#x5B83;&#x4F7F;&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x66F4;&#x52A0;&#x76F4;&#x89C2;&#x3001;&#x7B80;&#x5355;&#x3002;&#x5B83;&#x5141;&#x8BB8;&#x6211;&#x4EEC;&#x5C06;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x8868;&#x8FBE;&#x4E3A;&#x987A;&#x5E8F;&#x4EE3;&#x7801;&#xFF0C;&#x907F;&#x514D;&#x4E86;&#x56DE;&#x8C03;&#x5730;&#x72F1;&#x548C;&#x7EBF;&#x7A0B;&#x7BA1;&#x7406;&#x7684;&#x590D;&#x6742;&#x6027;&#x3002;&#x4F46;&#x534F;&#x7A0B;&#x4E0D;&#x4EC5;&#x4EC5;&#x662F;&#x4E00;&#x4E2A;&#x57FA;&#x672C;&#x7684;&#x5F02;&#x6B65;&#x5DE5;&#x5177;&#xFF0C;&#x5B83;&#x8FD8;&#x5177;&#x5907;&#x8BB8;&#x591A;&#x9AD8;&#x7EA7;&#x529F;&#x80FD;&#xFF0C;&#x53EF;&#x4EE5;&#x4F18;&#x5316;&#x60A8;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x6027;&#x80FD;&#x548C;&#x53EF;&#x7EF4;&#x62A4;&#x6027;&#x3002;</p>
+<p>&#x8BA9;&#x6211;&#x4EEC;&#x66F4;&#x8BE6;&#x7EC6;&#x5730;&#x63A2;&#x8BA8;&#x6BCF;&#x4E00;&#x4E2A;&#x77E5;&#x8BC6;&#x70B9;&#xFF0C;&#x5305;&#x62EC;&#x539F;&#x7406;&#x548C;&#x5177;&#x4F53;&#x7528;&#x6CD5;&#x3002;</p>
+<h2 id="&#x534F;&#x7A0B;&#x7684;&#x5E76;&#x53D1;&#x9650;&#x5236;"><a href="#&#x534F;&#x7A0B;&#x7684;&#x5E76;&#x53D1;&#x9650;&#x5236;" class="headerlink" title="&#x534F;&#x7A0B;&#x7684;&#x5E76;&#x53D1;&#x9650;&#x5236;"></a>&#x534F;&#x7A0B;&#x7684;&#x5E76;&#x53D1;&#x9650;&#x5236;</h2><h3 id="&#x539F;&#x7406;"><a href="#&#x539F;&#x7406;" class="headerlink" title="&#x539F;&#x7406;"></a>&#x539F;&#x7406;</h3><p>&#x5728;&#x67D0;&#x4E9B;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x9650;&#x5236;&#x540C;&#x65F6;&#x8FD0;&#x884C;&#x7684;&#x534F;&#x7A0B;&#x6570;&#x91CF;&#x662F;&#x5FC5;&#x8981;&#x7684;&#xFF0C;&#x4EE5;&#x63A7;&#x5236;&#x5E76;&#x53D1;&#x64CD;&#x4F5C;&#x3002;&#x8FD9;&#x6709;&#x52A9;&#x4E8E;&#x907F;&#x514D;&#x7CFB;&#x7EDF;&#x8D44;&#x6E90;&#x88AB;&#x8FC7;&#x5EA6;&#x6D88;&#x8017;&#xFF0C;&#x9632;&#x6B62;&#x8FC7;&#x591A;&#x7684;&#x4EFB;&#x52A1;&#x540C;&#x65F6;&#x6267;&#x884C;&#x3002;&#x8FD9;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4F7F;&#x7528; <code>Semaphore</code> &#x6765;&#x5B9E;&#x73B0;&#xFF0C;<code>Semaphore</code> &#x662F;&#x4E00;&#x79CD;&#x8BA1;&#x6570;&#x4FE1;&#x53F7;&#xFF0C;&#x5B83;&#x5141;&#x8BB8;&#x4E00;&#x5B9A;&#x6570;&#x91CF;&#x7684;&#x534F;&#x7A0B;&#x540C;&#x65F6;&#x8BBF;&#x95EE;&#x4E34;&#x754C;&#x533A;&#x3002;</p>
+<p><code>Semaphore</code> &#x7EF4;&#x62A4;&#x4E00;&#x4E2A;&#x5185;&#x90E8;&#x8BA1;&#x6570;&#x5668;&#xFF0C;&#x6BCF;&#x6B21;&#x534F;&#x7A0B;&#x8FDB;&#x5165;&#x4E34;&#x754C;&#x533A;&#x65F6;&#xFF0C;&#x8BA1;&#x6570;&#x5668;&#x51CF;&#x5C11;&#xFF0C;&#x6BCF;&#x6B21;&#x79BB;&#x5F00;&#x65F6;&#xFF0C;&#x8BA1;&#x6570;&#x5668;&#x589E;&#x52A0;&#x3002;&#x5982;&#x679C;&#x8BA1;&#x6570;&#x5668;&#x4E3A;&#x96F6;&#xFF0C;&#x540E;&#x7EED;&#x5C1D;&#x8BD5;&#x8FDB;&#x5165;&#x4E34;&#x754C;&#x533A;&#x7684;&#x534F;&#x7A0B;&#x5C06;&#x88AB;&#x963B;&#x585E;&#xFF0C;&#x76F4;&#x5230;&#x6709;&#x5176;&#x4ED6;&#x534F;&#x7A0B;&#x79BB;&#x5F00;&#x3002;</p>
+<h3 id="&#x5177;&#x4F53;&#x4F7F;&#x7528;"><a href="#&#x5177;&#x4F53;&#x4F7F;&#x7528;" class="headerlink" title="&#x5177;&#x4F53;&#x4F7F;&#x7528;"></a>&#x5177;&#x4F53;&#x4F7F;&#x7528;</h3><p>&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E2A;&#x4F7F;&#x7528; <code>Semaphore</code> &#x6765;&#x9650;&#x5236;&#x540C;&#x65F6;&#x8FD0;&#x884C;&#x7684;&#x534F;&#x7A0B;&#x6570;&#x91CF;&#x7684;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlinx.coroutines.*</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Semaphore</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> semaphore = Semaphore(<span class="number">3</span>) <span class="comment">// &#x5141;&#x8BB8;&#x540C;&#x65F6;&#x8FD0;&#x884C;&#x7684;&#x534F;&#x7A0B;&#x6570;</span></span><br><span class="line"></span><br><span class="line">runBlocking {</span><br><span class="line">    repeat(<span class="number">10</span>) {</span><br><span class="line">        launch {</span><br><span class="line">            semaphore.acquire() <span class="comment">// &#x83B7;&#x53D6;&#x4FE1;&#x53F7;</span></span><br><span class="line">            <span class="comment">// &#x6267;&#x884C;&#x9700;&#x8981;&#x9650;&#x5236;&#x5E76;&#x53D1;&#x7684;&#x64CD;&#x4F5C;</span></span><br><span class="line">            delay(<span class="number">1000</span>)</span><br><span class="line">            semaphore.release() <span class="comment">// &#x91CA;&#x653E;&#x4FE1;&#x53F7;</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A; <code>Semaphore</code>&#xFF0C;&#x5141;&#x8BB8;&#x540C;&#x65F6;&#x8FD0;&#x884C;&#x7684;&#x534F;&#x7A0B;&#x6570;&#x91CF;&#x4E3A;3&#x3002;&#x6BCF;&#x4E2A;&#x534F;&#x7A0B;&#x5728;&#x6267;&#x884C;&#x9700;&#x8981;&#x9650;&#x5236;&#x5E76;&#x53D1;&#x7684;&#x64CD;&#x4F5C;&#x4E4B;&#x524D;&#xFF0C;&#x4F7F;&#x7528; <code>semaphore.acquire()</code> &#x83B7;&#x53D6;&#x4FE1;&#x53F7;&#xFF0C;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x540E;&#x4F7F;&#x7528; <code>semaphore.release()</code> &#x91CA;&#x653E;&#x4FE1;&#x53F7;&#x3002;</p>
+<p>&#x8FD9;&#x6709;&#x52A9;&#x4E8E;&#x786E;&#x4FDD;&#x6700;&#x591A;&#x53EA;&#x6709;3&#x4E2A;&#x534F;&#x7A0B;&#x53EF;&#x4EE5;&#x540C;&#x65F6;&#x6267;&#x884C;&#x9700;&#x8981;&#x9650;&#x5236;&#x5E76;&#x53D1;&#x7684;&#x64CD;&#x4F5C;&#x3002;</p>
+<h2 id="&#x534F;&#x7A0B;&#x7684;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x7B56;&#x7565;"><a href="#&#x534F;&#x7A0B;&#x7684;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x7B56;&#x7565;" class="headerlink" title="&#x534F;&#x7A0B;&#x7684;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x7B56;&#x7565;"></a>&#x534F;&#x7A0B;&#x7684;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x7B56;&#x7565;</h2><h3 id="&#x539F;&#x7406;-1"><a href="#&#x539F;&#x7406;-1" class="headerlink" title="&#x539F;&#x7406;"></a>&#x539F;&#x7406;</h3><p>&#x5728;&#x534F;&#x7A0B;&#x4E2D;&#xFF0C;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x662F;&#x81F3;&#x5173;&#x91CD;&#x8981;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x53EF;&#x80FD;&#x4F1A;&#x5931;&#x8D25;&#x6216;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#x3002;&#x5408;&#x9002;&#x7684;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x7B56;&#x7565;&#x6709;&#x52A9;&#x4E8E;&#x5E94;&#x5BF9;&#x5404;&#x79CD;&#x9519;&#x8BEF;&#x60C5;&#x51B5;&#xFF0C;&#x5305;&#x62EC;&#x8BB0;&#x5F55;&#x9519;&#x8BEF;&#x3001;&#x91CD;&#x8BD5;&#x3001;&#x56DE;&#x9000;&#x7B49;&#x3002;&#x5728;&#x534F;&#x7A0B;&#x4E2D;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>try-catch</code> &#x5757;&#x6765;&#x6355;&#x83B7;&#x548C;&#x5904;&#x7406;&#x5F02;&#x5E38;&#x3002;</p>
+<h3 id="&#x5177;&#x4F53;&#x4F7F;&#x7528;-1"><a href="#&#x5177;&#x4F53;&#x4F7F;&#x7528;-1" class="headerlink" title="&#x5177;&#x4F53;&#x4F7F;&#x7528;"></a>&#x5177;&#x4F53;&#x4F7F;&#x7528;</h3><p>&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E2A;&#x793A;&#x4F8B;&#xFF0C;&#x6F14;&#x793A;&#x5982;&#x4F55;&#x4F7F;&#x7528; <code>try-catch</code> &#x5757;&#x6765;&#x5904;&#x7406;&#x534F;&#x7A0B;&#x4E2D;&#x7684;&#x5F02;&#x5E38;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlinx.coroutines.*</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> = runBlocking {</span><br><span class="line">    <span class="keyword">val</span> job = launch {</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            <span class="comment">// &#x53EF;&#x80FD;&#x4F1A;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#x7684;&#x64CD;&#x4F5C;</span></span><br><span class="line">            delay(<span class="number">1000</span>)</span><br><span class="line">            <span class="keyword">throw</span> Exception(<span class="string">&quot;Something went wrong&quot;</span>)</span><br><span class="line">        } <span class="keyword">catch</span> (e: Exception) {</span><br><span class="line">            <span class="comment">// &#x81EA;&#x5B9A;&#x4E49;&#x5F02;&#x5E38;&#x5904;&#x7406;</span></span><br><span class="line">            println(<span class="string">&quot;Exception handled: <span class="subst">${e.message}</span>&quot;</span>)</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    job.join()</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528; <code>try-catch</code> &#x5757;&#x6765;&#x6355;&#x83B7;&#x534F;&#x7A0B;&#x4E2D;&#x53EF;&#x80FD;&#x629B;&#x51FA;&#x7684;&#x5F02;&#x5E38;&#xFF0C;&#x5E76;&#x6267;&#x884C;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x64CD;&#x4F5C;&#x3002;&#x8FD9;&#x6709;&#x52A9;&#x4E8E;&#x786E;&#x4FDD;&#x5373;&#x4F7F;&#x534F;&#x7A0B;&#x4E2D;&#x53D1;&#x751F;&#x5F02;&#x5E38;&#xFF0C;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E5F;&#x80FD;&#x591F;&#x4EE5;&#x5408;&#x9002;&#x7684;&#x65B9;&#x5F0F;&#x5904;&#x7406;&#x5B83;&#x4EEC;&#x3002;</p>
+<h2 id="&#x534F;&#x7A0B;&#x7684;&#x8D85;&#x65F6;&#x548C;&#x53D6;&#x6D88;&#x7B56;&#x7565;"><a href="#&#x534F;&#x7A0B;&#x7684;&#x8D85;&#x65F6;&#x548C;&#x53D6;&#x6D88;&#x7B56;&#x7565;" class="headerlink" title="&#x534F;&#x7A0B;&#x7684;&#x8D85;&#x65F6;&#x548C;&#x53D6;&#x6D88;&#x7B56;&#x7565;"></a>&#x534F;&#x7A0B;&#x7684;&#x8D85;&#x65F6;&#x548C;&#x53D6;&#x6D88;&#x7B56;&#x7565;</h2><h3 id="&#x539F;&#x7406;-2"><a href="#&#x539F;&#x7406;-2" class="headerlink" title="&#x539F;&#x7406;"></a>&#x539F;&#x7406;</h3><p>&#x5728;&#x534F;&#x7A0B;&#x4E2D;&#xFF0C;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x8D85;&#x65F6;&#x64CD;&#x4F5C;&#xFF0C;&#x4EE5;&#x786E;&#x4FDD;&#x67D0;&#x4E9B;&#x64CD;&#x4F5C;&#x4E0D;&#x4F1A;&#x65E0;&#x9650;&#x671F;&#x5730;&#x6267;&#x884C;&#x3002;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x5173;&#x952E;&#x7684;&#x7279;&#x6027;&#xFF0C;&#x4EE5;&#x9632;&#x6B62;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x56E0;&#x4E3A;&#x7B49;&#x5F85;&#x67D0;&#x4E9B;&#x64CD;&#x4F5C;&#x800C;&#x53D8;&#x5F97;&#x4E0D;&#x54CD;&#x5E94;&#x3002;<code>kotlinx.coroutines</code> &#x63D0;&#x4F9B;&#x4E86; <code>withTimeout</code> &#x51FD;&#x6570;&#x6765;&#x8BBE;&#x7F6E;&#x64CD;&#x4F5C;&#x7684;&#x8D85;&#x65F6;&#x9650;&#x5236;&#x3002;&#x5982;&#x679C;&#x64CD;&#x4F5C;&#x5728;&#x89C4;&#x5B9A;&#x65F6;&#x95F4;&#x5185;&#x672A;&#x5B8C;&#x6210;&#xFF0C;&#x5C06;&#x4F1A;&#x629B;&#x51FA; <code>TimeoutCancellationException</code>&#x3002;</p>
+<h3 id="&#x5177;&#x4F53;&#x4F7F;&#x7528;-2"><a href="#&#x5177;&#x4F53;&#x4F7F;&#x7528;-2" class="headerlink" title="&#x5177;&#x4F53;&#x4F7F;&#x7528;"></a>&#x5177;&#x4F53;&#x4F7F;&#x7528;</h3><p>&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E2A;&#x793A;&#x4F8B;&#xFF0C;&#x6F14;&#x793A;&#x5982;&#x4F55;&#x4F7F;&#x7528; <code>withTimeout</code> &#x51FD;&#x6570;&#x6765;&#x8BBE;&#x7F6E;&#x64CD;&#x4F5C;&#x7684;&#x8D85;&#x65F6;&#x9650;&#x5236;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlinx.coroutines.*</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> = runBlocking {</span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">        withTimeout(<span class="number">1000</span>) {</span><br><span class="line">            <span class="comment">// &#x53EF;&#x80FD;&#x8017;&#x65F6;&#x8F83;&#x957F;&#x7684;&#x64CD;&#x4F5C;</span></span><br><span class="line">            delay(<span class="number">2000</span>)</span><br><span class="line">        }</span><br><span class="line">    } <span class="keyword">catch</span> (e: TimeoutCancellationException) {</span><br><span class="line">        println(<span class="string">&quot;Operation timed out&quot;</span>)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528; <code>withTimeout</code> &#x51FD;&#x6570;&#x6765;&#x9650;&#x5236;&#x64CD;&#x4F5C;&#x7684;&#x6267;&#x884C;&#x65F6;&#x95F4;&#x4E3A;1&#x79D2;&#xFF0C;&#x5982;&#x679C;&#x64CD;&#x4F5C;&#x5728;&#x89C4;&#x5B9A;&#x65F6;&#x95F4;&#x5185;&#x672A;&#x5B8C;&#x6210;&#xFF0C;&#x5C06;&#x4F1A;&#x629B;&#x51FA;&#x8D85;&#x65F6;&#x5F02;&#x5E38;&#x3002;&#x8FD9;&#x6709;&#x52A9;&#x4E8E;&#x786E;&#x4FDD;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E0D;&#x4F1A;&#x56E0;&#x4E3A;&#x957F;&#x65F6;&#x95F4;&#x7B49;&#x5F85;&#x800C;&#x53D8;&#x5F97;&#x4E0D;&#x54CD;&#x5E94;&#x3002;</p>
+<h2 id="&#x4F7F;&#x7528;SupervisorJob"><a href="#&#x4F7F;&#x7528;SupervisorJob" class="headerlink" title="&#x4F7F;&#x7528;SupervisorJob"></a>&#x4F7F;&#x7528;SupervisorJob</h2><h3 id="&#x539F;&#x7406;-3"><a href="#&#x539F;&#x7406;-3" class="headerlink" title="&#x539F;&#x7406;"></a>&#x539F;&#x7406;</h3><p>&#x5728;&#x534F;&#x7A0B;&#x4E2D;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x534F;&#x7A0B;&#x5931;&#x8D25;&#xFF0C;&#x901A;&#x5E38;&#x4F1A;&#x5BFC;&#x81F4;&#x6574;&#x4E2A;&#x7236;&#x534F;&#x7A0B;&#x53CA;&#x5176;&#x5B50;&#x534F;&#x7A0B;&#x90FD;&#x88AB;&#x53D6;&#x6D88;&#x3002;&#x4F46;&#x6709;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x5E0C;&#x671B;&#x4E00;&#x4E2A;&#x534F;&#x7A0B;&#x7684;&#x5931;&#x8D25;&#x4E0D;&#x4F1A;&#x5F71;&#x54CD;&#x5176;&#x4ED6;&#x534F;&#x7A0B;&#x7684;&#x6267;&#x884C;&#xFF0C;&#x8FD9;&#x65F6;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>SupervisorJob</code>&#x3002;</p>
+<p><code>SupervisorJob</code> &#x662F;&#x4E00;&#x79CD;&#x7279;&#x6B8A;&#x7684; <code>Job</code>&#xFF0C;&#x5B83;&#x5141;&#x8BB8;&#x5B50;&#x534F;&#x7A0B;&#x5931;&#x8D25;&#x65F6;&#x53EA;&#x53D6;&#x6D88;&#x8BE5;&#x5B50;&#x534F;&#x7A0B;&#xFF0C;&#x800C;&#x4E0D;&#x5F71;&#x54CD;&#x5176;&#x4ED6;&#x5B50;&#x534F;&#x7A0B;&#x6216;&#x7236;&#x534F;&#x7A0B;&#x3002;</p>
+<h3 id="&#x5177;&#x4F53;&#x4F7F;&#x7528;-3"><a href="#&#x5177;&#x4F53;&#x4F7F;&#x7528;-3" class="headerlink" title="&#x5177;&#x4F53;&#x4F7F;&#x7528;"></a>&#x5177;&#x4F53;&#x4F7F;&#x7528;</h3><p>&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E2A;&#x793A;&#x4F8B;&#xFF0C;&#x6F14;&#x793A;&#x5982;&#x4F55;&#x4F7F;&#x7528; <code>SupervisorJob</code>&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlinx.coroutines.*</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> = runBlocking {</span><br><span class="line">    <span class="keyword">val</span> supervisorJob = SupervisorJob()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> parentJob = launch(supervisorJob) {</span><br><span class="line">        <span class="keyword">val</span> childJob1 = launch {</span><br><span class="line">            <span class="comment">// &#x5B50;&#x534F;&#x7A0B;1&#x7684;&#x64CD;&#x4F5C;</span></span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> childJob2 = launch {</span><br><span class="line">            <span class="comment">// &#x5B50;&#x534F;&#x7A0B;2&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x5931;&#x8D25;</span></span><br><span class="line">            <span class="keyword">throw</span> Exception(<span class="string">&quot;Child job 2 failed&quot;</span>)</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    parentJob.join()</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A; <code>SupervisorJob</code> &#x4F5C;&#x4E3A;&#x7236;&#x534F;&#x7A0B;&#x7684; <code>Job</code>&#xFF0C;&#x7136;&#x540E;&#x542F;&#x52A8;&#x4E24;&#x4E2A;&#x5B50;&#x534F;&#x7A0B;&#x3002;&#x5982;&#x679C;&#x5B50;&#x534F;&#x7A0B;2&#x5931;&#x8D25;&#xFF0C;&#x53EA;&#x6709;&#x8BE5;&#x5B50;&#x534F;&#x7A0B;&#x4F1A;&#x88AB;&#x53D6;&#x6D88;&#xFF0C;&#x800C;&#x5176;&#x4ED6;&#x534F;&#x7A0B;&#x4ECD;&#x7136;&#x53EF;&#x4EE5;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#x3002;&#x8FD9;&#x6709;&#x52A9;&#x4E8E;&#x6784;&#x5EFA;&#x5065;&#x58EE;&#x7684;&#x5E76;&#x53D1;&#x7CFB;&#x7EDF;&#xFF0C;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x5B50;&#x534F;&#x7A0B;&#x7684;&#x5931;&#x8D25;&#x4E0D;&#x4F1A;&#x5F71;&#x54CD;&#x5176;&#x4ED6;&#x5B50;&#x534F;&#x7A0B;&#x3002;</p>
+<h2 id="&#x6570;&#x636E;&#x6D41;&#x4E0E;&#x534F;&#x7A0B;&#x7684;&#x7ED3;&#x5408;"><a href="#&#x6570;&#x636E;&#x6D41;&#x4E0E;&#x534F;&#x7A0B;&#x7684;&#x7ED3;&#x5408;" class="headerlink" title="&#x6570;&#x636E;&#x6D41;&#x4E0E;&#x534F;&#x7A0B;&#x7684;&#x7ED3;&#x5408;"></a>&#x6570;&#x636E;&#x6D41;&#x4E0E;&#x534F;&#x7A0B;&#x7684;&#x7ED3;&#x5408;</h2><h3 id="&#x539F;&#x7406;-4"><a href="#&#x539F;&#x7406;-4" class="headerlink" title="&#x539F;&#x7406;"></a>&#x539F;&#x7406;</h3><p>&#x534F;&#x7A0B;&#x53EF;&#x4EE5;&#x4E0E; <code>Flow</code> &#x7ED3;&#x5408;&#xFF0C;&#x6784;&#x5EFA;&#x54CD;&#x5E94;&#x5F0F;&#x6570;&#x636E;&#x6D41;&#xFF0C;&#x7528;&#x4E8E;&#x5904;&#x7406;&#x6570;&#x636E;&#x6D41;&#x3001;&#x5B9E;&#x65F6;UI&#x66F4;&#x65B0;&#x548C;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x3002;<code>Flow</code> &#x662F;&#x4E00;&#x79CD;&#x51B7;&#x6D41;&#xFF08;Cold Stream&#xFF09;&#x7684;&#x6570;&#x636E;&#x6D41;&#xFF0C;&#x5B83;&#x5141;&#x8BB8;&#x60A8;&#x4EE5;&#x5F02;&#x6B65;&#x7684;&#x65B9;&#x5F0F;&#x751F;&#x6210;&#x548C;&#x6D88;&#x8D39;&#x6570;&#x636E;&#x3002;</p>
+<h3 id="&#x5177;&#x4F53;&#x4F7F;&#x7528;-4"><a href="#&#x5177;&#x4F53;&#x4F7F;&#x7528;-4" class="headerlink" title="&#x5177;&#x4F53;&#x4F7F;&#x7528;"></a>&#x5177;&#x4F53;&#x4F7F;&#x7528;</h3><p>&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E2A;&#x793A;&#x4F8B;&#xFF0C;&#x6F14;&#x793A;&#x5982;&#x4F55;&#x4F7F;&#x7528; <code>Flow</code> &#x6784;&#x5EFA;&#x6570;&#x636E;&#x6D41;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlinx.coroutines.*</span><br><span class="line"><span class="keyword">import</span> kotlinx.coroutines.flow.*</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> = runBlocking {</span><br><span class="line">    <span class="keyword">val</span> flow = flow {</span><br><span class="line">        <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>..<span class="number">5</span>) {</span><br><span class="line">            delay(<span class="number">1000</span>)</span><br><span class="line">            emit(i)</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    flow.collect { value -&gt;</span><br><span class="line">        println(value)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A; <code>Flow</code>&#xFF0C;&#x5B83;&#x4F1A;&#x6BCF;&#x9694;1&#x79D2;&#x53D1;&#x5C04;&#x4E00;&#x4E2A;&#x503C;&#x3002;&#x901A;&#x8FC7; <code>collect</code> &#x51FD;&#x6570;&#xFF0C;&#x6211;&#x4EEC;&#x8BA2;&#x9605;&#x5E76;&#x6D88;&#x8D39; <code>Flow</code> &#x4E2D;&#x7684;&#x503C;&#x3002;&#x8FD9;&#x53EF;&#x7528;&#x4E8E;&#x6784;&#x5EFA;&#x5B9E;&#x65F6;&#x6570;&#x636E;&#x6D41;&#x3001;&#x5904;&#x7406;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x54CD;&#x5E94;&#x4EE5;&#x53CA;&#x5728;&#x7528;&#x6237;&#x754C;&#x9762;&#x4E0A;&#x5B9E;&#x65F6;&#x66F4;&#x65B0;&#x6570;&#x636E;&#x3002;</p>
+<h2 id="&#x534F;&#x7A0B;&#x7684;&#x6269;&#x5C55;&#x51FD;&#x6570;"><a href="#&#x534F;&#x7A0B;&#x7684;&#x6269;&#x5C55;&#x51FD;&#x6570;" class="headerlink" title="&#x534F;&#x7A0B;&#x7684;&#x6269;&#x5C55;&#x51FD;&#x6570;"></a>&#x534F;&#x7A0B;&#x7684;&#x6269;&#x5C55;&#x51FD;&#x6570;</h2><h3 id="&#x539F;&#x7406;-5"><a href="#&#x539F;&#x7406;-5" class="headerlink" title="&#x539F;&#x7406;"></a>&#x539F;&#x7406;</h3><p>&#x6269;&#x5C55;&#x51FD;&#x6570;&#x662F;&#x5B9A;&#x4E49;&#x5728;&#x9876;&#x5C42;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x5B83;&#x4EEC;&#x91C7;&#x7528;&#x63A5;&#x6536;&#x8005;&#x7C7B;&#x578B;&#xFF08;&#x901A;&#x5E38;&#x662F;&#x7C7B;&#x7C7B;&#x578B;&#xFF09;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#xFF0C;&#x5141;&#x8BB8;&#x60A8;&#x5728;&#x4E0D;&#x4FEE;&#x6539;&#x539F;&#x59CB;&#x7C7B;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x6DFB;&#x52A0;&#x65B0;&#x7684;&#x51FD;&#x6570;&#x3002;&#x5728;&#x534F;&#x7A0B;&#x4E2D;&#xFF0C;&#x60A8;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6269;&#x5C55;&#x51FD;&#x6570;&#x4E3A;&#x534F;&#x7A0B;&#x76F8;&#x5173;&#x7684;&#x7C7B;&#x548C;&#x63A5;&#x53E3;&#x6DFB;&#x52A0;&#x989D;&#x5916;&#x7684;&#x64CD;&#x4F5C;&#x3002;&#x5728;&#x534F;&#x7A0B;&#x4E2D;&#xFF0C;&#x63A5;&#x6536;&#x8005;&#x7C7B;&#x578B;&#x901A;&#x5E38;&#x662F;CoroutineScope&#x3001;Job&#x3001;Deferred&#x7B49;&#x3002;</p>
+<h3 id="&#x5177;&#x4F53;&#x4F7F;&#x7528;-5"><a href="#&#x5177;&#x4F53;&#x4F7F;&#x7528;-5" class="headerlink" title="&#x5177;&#x4F53;&#x4F7F;&#x7528;"></a>&#x5177;&#x4F53;&#x4F7F;&#x7528;</h3><p>&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E2A;&#x793A;&#x4F8B;&#xFF0C;&#x6F14;&#x793A;&#x5982;&#x4F55;&#x7F16;&#x5199;&#x534F;&#x7A0B;&#x6269;&#x5C55;&#x51FD;&#x6570;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> Job.<span class="title">myOnCancellation</span><span class="params">(callback: () -&gt; <span class="type">Unit</span>)</span></span> {</span><br><span class="line">    <span class="keyword">this</span>.invokeOnCancellation {</span><br><span class="line">        callback()</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x6269;&#x5C55;&#x51FD;&#x6570;</span></span><br><span class="line"><span class="keyword">val</span> job = CoroutineScope(Dispatchers.Default).launch {</span><br><span class="line">    <span class="comment">// &#x534F;&#x7A0B;&#x4EE3;&#x7801;</span></span><br><span class="line">}</span><br><span class="line">job.myOnCancellation {</span><br><span class="line">    <span class="comment">// &#x5728;&#x534F;&#x7A0B;&#x53D6;&#x6D88;&#x65F6;&#x6267;&#x884C;&#x7684;&#x64CD;&#x4F5C;</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x8FD9;&#x4E2A;&#x6269;&#x5C55;&#x51FD;&#x6570;&#x4E3A;<code>Job</code>&#x6DFB;&#x52A0;&#x4E86;<code>myOnCancellation</code>&#x51FD;&#x6570;&#xFF0C;&#x5141;&#x8BB8;&#x60A8;&#x5728;&#x534F;&#x7A0B;&#x53D6;&#x6D88;&#x65F6;&#x6267;&#x884C;&#x81EA;&#x5B9A;&#x4E49;&#x64CD;&#x4F5C;&#x3002;</p>
+<h2 id="&#x534F;&#x7A0B;&#x8C03;&#x5EA6;&#x7B56;&#x7565;"><a href="#&#x534F;&#x7A0B;&#x8C03;&#x5EA6;&#x7B56;&#x7565;" class="headerlink" title="&#x534F;&#x7A0B;&#x8C03;&#x5EA6;&#x7B56;&#x7565;"></a>&#x534F;&#x7A0B;&#x8C03;&#x5EA6;&#x7B56;&#x7565;</h2><h3 id="&#x539F;&#x7406;-6"><a href="#&#x539F;&#x7406;-6" class="headerlink" title="&#x539F;&#x7406;"></a>&#x539F;&#x7406;</h3><p>&#x534F;&#x7A0B;&#x7684;&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#x51B3;&#x5B9A;&#x4E86;&#x534F;&#x7A0B;&#x5728;&#x54EA;&#x4E2A;&#x7EBF;&#x7A0B;&#x4E0A;&#x6267;&#x884C;&#x3002;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x534F;&#x7A0B;&#x8FD0;&#x884C;&#x5728;&#x8C03;&#x7528;&#x5B83;&#x4EEC;&#x7684;&#x7EBF;&#x7A0B;&#x4E0A;&#x3002;&#x4F46;&#x60A8;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>Dispatchers</code> &#x5BF9;&#x8C61;&#x6765;&#x5207;&#x6362;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x8C03;&#x5EA6;&#x5668;&#xFF0C;&#x4EE5;&#x6EE1;&#x8DB3;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x9700;&#x6C42;&#x3002;&#x4F8B;&#x5982;&#xFF0C;<code>Dispatchers.Main</code> &#x7528;&#x4E8E;&#x4E3B;&#x7EBF;&#x7A0B;&#xFF0C;<code>Dispatchers.IO</code> &#x7528;&#x4E8E;I/O&#x64CD;&#x4F5C;&#x3002;</p>
+<h3 id="&#x5177;&#x4F53;&#x4F7F;&#x7528;-6"><a href="#&#x5177;&#x4F53;&#x4F7F;&#x7528;-6" class="headerlink" title="&#x5177;&#x4F53;&#x4F7F;&#x7528;"></a>&#x5177;&#x4F53;&#x4F7F;&#x7528;</h3><p>&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E2A;&#x793A;&#x4F8B;&#xFF0C;&#x6F14;&#x793A;&#x5982;&#x4F55;&#x4F7F;&#x7528; <code>Dispatchers</code> &#x6765;&#x5207;&#x6362;&#x534F;&#x7A0B;&#x7684;&#x8C03;&#x5EA6;&#x5668;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlinx.coroutines.*</span><br><span class="line"><span class="keyword">import</span> kotlinx.coroutines.Dispatchers.IO</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> = runBlocking {</span><br><span class="line">    launch(IO) {</span><br><span class="line">        <span class="comment">// &#x5728;IO&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#x64CD;&#x4F5C;</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528; <code>launch</code> &#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x6307;&#x5B9A;&#x4E86;&#x534F;&#x7A0B;&#x7684;&#x8C03;&#x5EA6;&#x5668;&#x4E3A; <code>Dispatchers.IO</code>&#xFF0C;&#x4EE5;&#x4FBF;&#x5728;IO&#x7EBF;&#x7A0B;&#x4E0A;&#x6267;&#x884C;&#x64CD;&#x4F5C;&#x3002;&#x8FD9;&#x6709;&#x52A9;&#x4E8E;&#x5C06;&#x8BA1;&#x7B97;&#x5BC6;&#x96C6;&#x578B;&#x64CD;&#x4F5C;&#x548C;I/O&#x64CD;&#x4F5C;&#x5206;&#x522B;&#x5206;&#x914D;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x7EBF;&#x7A0B;&#x4E0A;&#xFF0C;&#x63D0;&#x9AD8;&#x4E86;&#x6027;&#x80FD;&#x3002;</p>
+<h2 id="&#x4F7F;&#x7528;Channel"><a href="#&#x4F7F;&#x7528;Channel" class="headerlink" title="&#x4F7F;&#x7528;Channel"></a>&#x4F7F;&#x7528;Channel</h2><h3 id="&#x539F;&#x7406;-7"><a href="#&#x539F;&#x7406;-7" class="headerlink" title="&#x539F;&#x7406;"></a>&#x539F;&#x7406;</h3><p><code>Channel</code> &#x662F;&#x4E00;&#x79CD;&#x7528;&#x4E8E;&#x534F;&#x7A0B;&#x4E4B;&#x95F4;&#x901A;&#x4FE1;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x5B83;&#x5141;&#x8BB8;&#x5728;&#x4E0D;&#x540C;&#x534F;&#x7A0B;&#x4E4B;&#x95F4;&#x53D1;&#x9001;&#x548C;&#x63A5;&#x6536;&#x6570;&#x636E;&#x3002;<code>Channel</code> &#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x5F0F;&#xFF0C;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x534F;&#x7A0B;&#x751F;&#x6210;&#x6570;&#x636E;&#x5E76;&#x5C06;&#x5176;&#x53D1;&#x9001;&#x5230;&#x901A;&#x9053;&#xFF0C;&#x800C;&#x53E6;&#x4E00;&#x4E2A;&#x534F;&#x7A0B;&#x63A5;&#x6536;&#x5E76;&#x5904;&#x7406;&#x8FD9;&#x4E9B;&#x6570;&#x636E;&#x3002;</p>
+<h3 id="&#x5177;&#x4F53;&#x4F7F;&#x7528;-7"><a href="#&#x5177;&#x4F53;&#x4F7F;&#x7528;-7" class="headerlink" title="&#x5177;&#x4F53;&#x4F7F;&#x7528;"></a>&#x5177;&#x4F53;&#x4F7F;&#x7528;</h3><p>&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E2A;&#x793A;&#x4F8B;&#xFF0C;&#x6F14;&#x793A;&#x5982;&#x4F55;&#x4F7F;&#x7528; <code>Channel</code> &#x8FDB;&#x884C;&#x534F;&#x7A0B;&#x4E4B;&#x95F4;&#x7684;&#x901A;&#x4FE1;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlinx.coroutines.*</span><br><span class="line"><span class="keyword">import</span> kotlinx.coroutines.channels.*</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> = runBlocking {</span><br><span class="line">    <span class="keyword">val</span> channel = Channel&lt;<span class="built_in">Int</span>&gt;()</span><br><span class="line"></span><br><span class="line">    launch {</span><br><span class="line">        <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>..<span class="number">5</span>) {</span><br><span class="line">            delay(<span class="number">1000</span>)</span><br><span class="line">            channel.send(i)</span><br><span class="line">        }</span><br><span class="line">        channel.close()</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    launch {</span><br><span class="line">        <span class="keyword">for</span> (value <span class="keyword">in</span> channel) {</span><br><span class="line">            println(value)</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A; <code>Channel</code>&#xFF0C;&#x4E00;&#x4E2A;&#x534F;&#x7A0B;&#x7528;&#x4E8E;&#x53D1;&#x9001;&#x6570;&#x636E;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x534F;&#x7A0B;&#x7528;&#x4E8E;&#x63A5;&#x6536;&#x6570;&#x636E;&#x3002;&#x8FD9;&#x6709;&#x52A9;&#x4E8E;&#x5B9E;&#x73B0;&#x534F;&#x7A0B;&#x4E4B;&#x95F4;&#x7684;&#x5F02;&#x6B65;&#x901A;&#x4FE1;&#xFF0C;&#x4F8B;&#x5982;&#x5728;&#x751F;&#x4EA7;&#x8005;&#x534F;&#x7A0B;&#x751F;&#x6210;&#x6570;&#x636E;&#x5E76;&#x53D1;&#x9001;&#x7ED9;&#x6D88;&#x8D39;&#x8005;&#x534F;&#x7A0B;&#x5904;&#x7406;&#x3002;</p>
+<h2 id="&#x5F02;&#x6B65;&#x6D41;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#x673A;"><a href="#&#x5F02;&#x6B65;&#x6D41;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#x673A;" class="headerlink" title="&#x5F02;&#x6B65;&#x6D41;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#x673A;"></a>&#x5F02;&#x6B65;&#x6D41;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#x673A;</h2><h3 id="&#x539F;&#x7406;-8"><a href="#&#x539F;&#x7406;-8" class="headerlink" title="&#x539F;&#x7406;"></a>&#x539F;&#x7406;</h3><p>&#x5728;&#x590D;&#x6742;&#x7684;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x4E2D;&#xFF0C;&#x4F7F;&#x7528;&#x72B6;&#x6001;&#x673A;&#x6A21;&#x5F0F;&#x53EF;&#x4EE5;&#x7BA1;&#x7406;&#x534F;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#x548C;&#x6D41;&#x7A0B;&#xFF0C;&#x4EE5;&#x786E;&#x4FDD;&#x6B63;&#x786E;&#x7684;&#x64CD;&#x4F5C;&#x987A;&#x5E8F;&#x548C;&#x9519;&#x8BEF;&#x5904;&#x7406;&#x3002;&#x72B6;&#x6001;&#x673A;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>when</code> &#x8868;&#x8FBE;&#x5F0F;&#x6216; <code>sealed class</code> &#x6765;&#x5B9E;&#x73B0;&#x3002;</p>
+<h3 id="&#x5177;&#x4F53;&#x4F7F;&#x7528;-8"><a href="#&#x5177;&#x4F53;&#x4F7F;&#x7528;-8" class="headerlink" title="&#x5177;&#x4F53;&#x4F7F;&#x7528;"></a>&#x5177;&#x4F53;&#x4F7F;&#x7528;</h3><p>&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E2A;&#x793A;&#x4F8B;&#xFF0C;&#x6F14;&#x793A;&#x5982;&#x4F55;&#x4F7F;&#x7528; <code>sealed class</code> &#x6765;&#x5B9A;&#x4E49;&#x4E0D;&#x540C;&#x7684;&#x72B6;&#x6001;&#x5E76;&#x6784;&#x5EFA;&#x5F02;&#x6B65;&#x6D41;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#x673A;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlinx.coroutines.*</span><br><span class="line"><span class="keyword">import</span> kotlinx.coroutines.flow.Flow</span><br><span class="line"><span class="keyword">import</span> kotlinx.coroutines.flow.collect</span><br><span class="line"></span><br><span class="line"><span class="keyword">sealed</span> <span class="class"><span class="keyword">class</span> <span class="title">State</span> </span>{</span><br><span class="line">    <span class="keyword">object</span> Loading : State()</span><br><span class="line">    <span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">Success</span></span>(<span class="keyword">val</span> <span class="keyword">data</span>: List&lt;String&gt;) : State()</span><br><span class="line">    <span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">Error</span></span>(<span class="keyword">val</span> message: String) : State()</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">fetchData</span><span class="params">()</span></span>: Flow&lt;State&gt; {</span><br><span class="line">    <span class="keyword">return</span> flow {</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            emit(State.Loading)</span><br><span class="line">            <span class="comment">// &#x6267;&#x884C;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;</span></span><br><span class="line">            <span class="keyword">val</span> <span class="keyword">data</span> = fetchDataFromNetwork()</span><br><span class="line">            emit(State.Success(<span class="keyword">data</span>))</span><br><span class="line">        } <span class="keyword">catch</span> (e: Exception) {</span><br><span class="line">            emit(State.Error(e.message ?: <span class="string">&quot;Unknown error&quot;</span>))</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> = runBlocking {</span><br><span class="line">    <span class="keyword">val</span> stateMachine = fetchData()</span><br><span class="line">    stateMachine.collect { state -&gt;</span><br><span class="line">        <span class="keyword">when</span> (state) {</span><br><span class="line">            <span class="keyword">is</span> State.Loading -&gt; println(<span class="string">&quot;Loading data...&quot;</span>)</span><br><span class="line">            <span class="keyword">is</span> State.Success -&gt; println(<span class="string">&quot;Data loaded: <span class="subst">${state.data}</span>&quot;</span>)</span><br><span class="line">            <span class="keyword">is</span> State.Error -&gt; println(<span class="string">&quot;Error: <span class="subst">${state.message}</span>&quot;</span>)</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528; <code>sealed class</code> &#x6765;&#x5B9A;&#x4E49;&#x4E0D;&#x540C;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x7136;&#x540E;&#x4F7F;&#x7528; <code>when</code> &#x8868;&#x8FBE;&#x5F0F;&#x5904;&#x7406;&#x4E0D;&#x540C;&#x7684;&#x72B6;&#x6001;&#x3002;&#x8FD9;&#x6709;&#x52A9;&#x4E8E;&#x6784;&#x5EFA;&#x590D;&#x6742;&#x7684;&#x5F02;&#x6B65;&#x6D41;&#x7A0B;&#xFF0C;&#x4EE5;&#x786E;&#x4FDD;&#x6B63;&#x786E;&#x7684;&#x64CD;&#x4F5C;&#x987A;&#x5E8F;&#x548C;&#x9519;&#x8BEF;&#x5904;&#x7406;&#x3002;</p>
+<h2 id="&#x534F;&#x7A0B;&#x7684;&#x6D4B;&#x8BD5;"><a href="#&#x534F;&#x7A0B;&#x7684;&#x6D4B;&#x8BD5;" class="headerlink" title="&#x534F;&#x7A0B;&#x7684;&#x6D4B;&#x8BD5;"></a>&#x534F;&#x7A0B;&#x7684;&#x6D4B;&#x8BD5;</h2><h3 id="&#x539F;&#x7406;-9"><a href="#&#x539F;&#x7406;-9" class="headerlink" title="&#x539F;&#x7406;"></a>&#x539F;&#x7406;</h3><p>&#x534F;&#x7A0B;&#x7684;&#x6D4B;&#x8BD5;&#x662F;&#x786E;&#x4FDD;&#x534F;&#x7A0B;&#x7684;&#x884C;&#x4E3A;&#x548C;&#x9519;&#x8BEF;&#x5904;&#x7406;&#x6B63;&#x786E;&#x7684;&#x5173;&#x952E;&#x6B65;&#x9AA4;&#x3002;<code>kotlinx.coroutines.test</code> &#x5E93;&#x63D0;&#x4F9B;&#x4E86;&#x7528;&#x4E8E;&#x6D4B;&#x8BD5;&#x534F;&#x7A0B;&#x7684;&#x5DE5;&#x5177;&#xFF0C;&#x4F8B;&#x5982; <code>TestCoroutineDispatcher</code> &#x548C; <code>runBlockingTest</code> &#x51FD;&#x6570;&#x3002;</p>
+<h3 id="&#x5177;&#x4F53;&#x4F7F;&#x7528;-9"><a href="#&#x5177;&#x4F53;&#x4F7F;&#x7528;-9" class="headerlink" title="&#x5177;&#x4F53;&#x4F7F;&#x7528;"></a>&#x5177;&#x4F53;&#x4F7F;&#x7528;</h3><p>&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E2A;&#x793A;&#x4F8B;&#xFF0C;&#x6F14;&#x793A;&#x5982;&#x4F55;&#x4F7F;&#x7528; <code>runBlockingTest</code> &#x51FD;&#x6570;&#x6765;&#x6D4B;&#x8BD5;&#x534F;&#x7A0B;&#x4E2D;&#x7684;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x64CD;&#x4F5C;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlinx.coroutines.*</span><br><span class="line"><span class="keyword">import</span> kotlinx.coroutines.test.runBlockingTest</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">performNetworkRequest</span><span class="params">()</span></span>: String {</span><br><span class="line">    <span class="comment">// &#x6A21;&#x62DF;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;</span></span><br><span class="line">    delay(<span class="number">1000</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Response&quot;</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">fetchData</span><span class="params">()</span></span>: String {</span><br><span class="line">    <span class="keyword">return</span> withContext(Dispatchers.IO) {</span><br><span class="line">        performNetworkRequest()</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> = runBlockingTest {</span><br><span class="line">    <span class="keyword">val</span> result = fetchData()</span><br><span class="line">    assert(result == <span class="string">&quot;Response&quot;</span>)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;<code>runBlockingTest</code>&#x51FD;&#x6570;&#x6765;&#x6D4B;&#x8BD5;&#x534F;&#x7A0B;&#x4E2D;&#x7684;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x64CD;&#x4F5C;&#xFF0C;&#x4EE5;&#x786E;&#x4FDD;&#x5B83;&#x7684;&#x884C;&#x4E3A;&#x662F;&#x6B63;&#x786E;&#x7684;&#x3002;</p>
+<h2 id="&#x534F;&#x7A0B;&#x6027;&#x80FD;&#x8C03;&#x4F18;"><a href="#&#x534F;&#x7A0B;&#x6027;&#x80FD;&#x8C03;&#x4F18;" class="headerlink" title="&#x534F;&#x7A0B;&#x6027;&#x80FD;&#x8C03;&#x4F18;"></a>&#x534F;&#x7A0B;&#x6027;&#x80FD;&#x8C03;&#x4F18;</h2><h3 id="&#x539F;&#x7406;-10"><a href="#&#x539F;&#x7406;-10" class="headerlink" title="&#x539F;&#x7406;"></a>&#x539F;&#x7406;</h3><p>&#x6027;&#x80FD;&#x662F;&#x4EFB;&#x4F55;&#x5E94;&#x7528;&#x7684;&#x5173;&#x952E;&#x56E0;&#x7D20;&#xFF0C;&#x534F;&#x7A0B;&#x4E5F;&#x4E0D;&#x4F8B;&#x5916;&#x3002;<code>kotlinx.coroutines</code>&#x5E93;&#x63D0;&#x4F9B;&#x4E86;&#x6027;&#x80FD;&#x5206;&#x6790;&#x5DE5;&#x5177;&#xFF0C;&#x5E2E;&#x52A9;&#x60A8;&#x8BCA;&#x65AD;&#x6027;&#x80FD;&#x95EE;&#x9898;&#xFF0C;&#x627E;&#x51FA;&#x5E76;&#x53D1;&#x74F6;&#x9888;&#xFF0C;&#x5E76;&#x8FDB;&#x884C;&#x4F18;&#x5316;&#x3002;</p>
+<ol>
+<li><p>&#x4F7F;&#x7528;&#x6027;&#x80FD;&#x5206;&#x6790;&#x5DE5;&#x5177;: kotlinx.coroutines&#x5E93;&#x63D0;&#x4F9B;&#x4E86;&#x6027;&#x80FD;&#x5206;&#x6790;&#x5DE5;&#x5177;&#xFF0C;&#x5982;kotlinx-coroutines-debug&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x60A8;&#x8BCA;&#x65AD;&#x6027;&#x80FD;&#x95EE;&#x9898;&#x3002;&#x901A;&#x8FC7;&#x4F7F;&#x7528;kotlinx-coroutines-debug&#xFF0C;&#x60A8;&#x53EF;&#x4EE5;&#x67E5;&#x770B;&#x534F;&#x7A0B;&#x6267;&#x884C;&#x7684;&#x65F6;&#x95F4;&#x7EBF;&#xFF0C;&#x627E;&#x51FA;&#x6F5C;&#x5728;&#x7684;&#x6027;&#x80FD;&#x95EE;&#x9898;&#x3002;</p>
+</li>
+<li><p>&#x4F7F;&#x7528;measureTimeMillis: Kotlin&#x6807;&#x51C6;&#x5E93;&#x63D0;&#x4F9B;&#x4E86;measureTimeMillis&#x51FD;&#x6570;&#xFF0C;&#x7528;&#x4E8E;&#x6D4B;&#x91CF;&#x4EE3;&#x7801;&#x5757;&#x7684;&#x6267;&#x884C;&#x65F6;&#x95F4;&#x3002;&#x8FD9;&#x5BF9;&#x4E8E;&#x8BC6;&#x522B;&#x6027;&#x80FD;&#x74F6;&#x9888;&#x5F88;&#x6709;&#x7528;&#xFF0C;&#x60A8;&#x53EF;&#x4EE5;&#x7528;&#x5B83;&#x6765;&#x6D4B;&#x91CF;&#x534F;&#x7A0B;&#x4E2D;&#x7684;&#x5173;&#x952E;&#x90E8;&#x5206;&#x3002;</p>
+</li>
+</ol>
+<h3 id="&#x5177;&#x4F53;&#x4F7F;&#x7528;-10"><a href="#&#x5177;&#x4F53;&#x4F7F;&#x7528;-10" class="headerlink" title="&#x5177;&#x4F53;&#x4F7F;&#x7528;"></a>&#x5177;&#x4F53;&#x4F7F;&#x7528;</h3><p>&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E2A;&#x793A;&#x4F8B;&#xFF0C;&#x4F7F;&#x7528;measureTimeMillis&#xFF0C;&#x6765;&#x68C0;&#x6D4B;&#x4EE3;&#x7801;&#x5757;&#x7684;&#x6267;&#x884C;&#x65F6;&#x95F4;&#xFF1A;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> executionTime = measureTimeMillis {</span><br><span class="line">    <span class="comment">// Your code here</span></span><br><span class="line">}</span><br><span class="line">println(<span class="string">&quot;Execution time: <span class="variable">$executionTime</span> ms&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="&#x7ED3;&#x8BBA;"><a href="#&#x7ED3;&#x8BBA;" class="headerlink" title="&#x7ED3;&#x8BBA;"></a>&#x7ED3;&#x8BBA;</h2><p>&#x534F;&#x7A0B;&#x662F;&#x4E00;&#x4E2A;&#x5F3A;&#x5927;&#x7684;&#x5DE5;&#x5177;&#xFF0C;&#x5B83;&#x5728;Android&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x4E2D;&#x53D1;&#x6325;&#x4E86;&#x5173;&#x952E;&#x4F5C;&#x7528;&#x3002;&#x901A;&#x8FC7;&#x638C;&#x63E1;&#x534F;&#x7A0B;&#x7684;&#x9AD8;&#x7EA7;&#x6280;&#x5DE7;&#xFF0C;&#x60A8;&#x53EF;&#x4EE5;&#x66F4;&#x597D;&#x5730;&#x5904;&#x7406;&#x590D;&#x6742;&#x7684;&#x5E76;&#x53D1;&#x9700;&#x6C42;&#xFF0C;&#x63D0;&#x9AD8;&#x6027;&#x80FD;&#x548C;&#x53EF;&#x7EF4;&#x62A4;&#x6027;&#x3002;&#x5E0C;&#x671B;&#x672C;&#x6587;&#x4E2D;&#x7684;&#x793A;&#x4F8B;&#x548C;&#x6280;&#x5DE7;&#x80FD;&#x5E2E;&#x52A9;&#x60A8;&#x4F18;&#x5316;Android&#x5E94;&#x7528;&#x7684;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#xFF0C;&#x63D0;&#x4F9B;&#x66F4;&#x597D;&#x7684;&#x7528;&#x6237;&#x4F53;&#x9A8C;&#x3002;</p>
+<h2 id="&#x63A8;&#x8350;"><a href="#&#x63A8;&#x8350;" class="headerlink" title="&#x63A8;&#x8350;"></a>&#x63A8;&#x8350;</h2><p><a href="https://github.com/idisfkj/android-startup" target="_blank" rel="noopener">android_startup</a>: &#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x5728;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65F6;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x3001;&#x9AD8;&#x6548;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521D;&#x59CB;&#x5316;&#x7EC4;&#x4EF6;&#xFF0C;&#x4F18;&#x5316;&#x542F;&#x52A8;&#x901F;&#x5EA6;&#x3002;&#x4E0D;&#x4EC5;&#x652F;&#x6301;Jetpack App Startup&#x7684;&#x5168;&#x90E8;&#x529F;&#x80FD;&#xFF0C;&#x8FD8;&#x63D0;&#x4F9B;&#x989D;&#x5916;&#x7684;&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#x7B49;&#x5F85;&#x3001;&#x7EBF;&#x7A0B;&#x63A7;&#x5236;&#x4E0E;&#x591A;&#x8FDB;&#x7A0B;&#x652F;&#x6301;&#x7B49;&#x529F;&#x80FD;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="noopener">AwesomeGithub</a>: &#x57FA;&#x4E8E;Github&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7EAF;&#x7EC3;&#x4E60;&#x9879;&#x76EE;&#xFF0C;&#x652F;&#x6301;&#x7EC4;&#x4EF6;&#x5316;&#x5F00;&#x53D1;&#xFF0C;&#x652F;&#x6301;&#x8D26;&#x6237;&#x5BC6;&#x7801;&#x4E0E;&#x8BA4;&#x8BC1;&#x767B;&#x9646;&#x3002;&#x4F7F;&#x7528;Kotlin&#x8BED;&#x8A00;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#xFF0C;&#x9879;&#x76EE;&#x67B6;&#x6784;&#x662F;&#x57FA;&#x4E8E;JetPack\&amp;DataBinding&#x7684;MVVM&#xFF1B;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;Arouter&#x3001;Retrofit&#x3001;Coroutine&#x3001;Glide&#x3001;Dagger&#x4E0E;Hilt&#x7B49;&#x6D41;&#x884C;&#x5F00;&#x6E90;&#x6280;&#x672F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="noopener">flutter_github</a>: &#x57FA;&#x4E8E;Flutter&#x7684;&#x8DE8;&#x5E73;&#x53F0;&#x7248;&#x672C;Github&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x4E0E;AwesomeGithub&#x76F8;&#x5BF9;&#x5E94;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="noopener">android-api-analysis</a>: &#x7ED3;&#x5408;&#x8BE6;&#x7EC6;&#x7684;Demo&#x6765;&#x5168;&#x9762;&#x89E3;&#x6790;Android&#x76F8;&#x5173;&#x7684;&#x77E5;&#x8BC6;&#x70B9;, &#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x5FEB;&#x7684;&#x638C;&#x63E1;&#x4E0E;&#x7406;&#x89E3;&#x6240;&#x9610;&#x8FF0;&#x7684;&#x8981;&#x70B9;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/daily_algorithm" target="_blank" rel="noopener">daily_algorithm</a>: &#x6BCF;&#x65E5;&#x4E00;&#x7B97;&#x6CD5;&#xFF0C;&#x7531;&#x6D45;&#x5165;&#x6DF1;&#xFF0C;&#x6B22;&#x8FCE;&#x52A0;&#x5165;&#x4E00;&#x8D77;&#x5171;&#x52C9;&#x3002;</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">赞赏是一门艺术</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/rouse_wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/rouse_alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2023/11/03/触摸Android的心脏跳动/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="fexo-comments comments-post">
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>
+  <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+  <script src="https://jjeejj.github.io/js/gitment.js"></script>
+  <script>
+    (function () {
+      var gitment = new Gitment({
+        owner: 'idisfkj',
+        repo: 'idisfkj.github.io',
+        id: 'Mon Nov 06 2023 21:37:38 GMT+0800',
+        oauth: {
+          client_id: 'dafb1df02ea9f875bb78',
+          client_secret: 'e9873d78aa5eaed5ce61d1d865a5af501dae377a'
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      })
+      gitment.render('gitment-comments')
+    })()
+  </script>
+
+  
+  
+</div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
