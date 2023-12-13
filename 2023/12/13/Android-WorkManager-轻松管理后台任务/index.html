@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Android WorkManager: 轻松管理后台任务 | Rouse</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="android,">
+  
+
+  <meta name="description" content="&amp;#x4ECB;&amp;#x7ECD;&amp;#x5728;Android&amp;#x5E94;&amp;#x7528;&amp;#x5F00;&amp;#x53D1;&amp;#x4E2D;&amp;#xFF0C;&amp;#x6709;&amp;#x6548;&amp;#x5730;&amp;#x7BA1;&amp;#x7406;&amp;#x540E;&amp;#x53F0;&amp;#x4EFB;&amp;#x52A1;&amp;#x662F;&amp;#x81F3;&amp;#x5173;&amp;#x91CD;&amp;#x8981;&amp;#x7684;&amp;">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android WorkManager: 轻松管理后台任务">
+<meta property="og:url" content="https://www.rousetime.com/2023/12/13/Android-WorkManager-轻松管理后台任务/index.html">
+<meta property="og:site_name" content="Rouse">
+<meta property="og:description" content="&amp;#x4ECB;&amp;#x7ECD;&amp;#x5728;Android&amp;#x5E94;&amp;#x7528;&amp;#x5F00;&amp;#x53D1;&amp;#x4E2D;&amp;#xFF0C;&amp;#x6709;&amp;#x6548;&amp;#x5730;&amp;#x7BA1;&amp;#x7406;&amp;#x540E;&amp;#x53F0;&amp;#x4EFB;&amp;#x52A1;&amp;#x662F;&amp;#x81F3;&amp;#x5173;&amp;#x91CD;&amp;#x8981;&amp;#x7684;&amp;">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2023-12-13T01:41:55.184Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android WorkManager: 轻松管理后台任务">
+<meta name="twitter:description" content="&amp;#x4ECB;&amp;#x7ECD;&amp;#x5728;Android&amp;#x5E94;&amp;#x7528;&amp;#x5F00;&amp;#x53D1;&amp;#x4E2D;&amp;#xFF0C;&amp;#x6709;&amp;#x6548;&amp;#x5730;&amp;#x7BA1;&amp;#x7406;&amp;#x540E;&amp;#x53F0;&amp;#x4EFB;&amp;#x52A1;&amp;#x662F;&amp;#x81F3;&amp;#x5173;&amp;#x91CD;&amp;#x8981;&amp;#x7684;&amp;">
+
+  
+
+  
+  <!-- <link href="/favicon.ico" rel="icon" type="image/x-icon"> -->
+    <link rel="icon" href="/favicon.ico">
+    <!-- <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?bd7ea96a22c9c7b90353962460fa0b8e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工作原理"><span class="toc-text">工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#架构概述"><span class="toc-text">架构概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调度流程"><span class="toc-text">调度流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#智能约束处理"><span class="toc-text">智能约束处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具体使用"><span class="toc-text">具体使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加依赖"><span class="toc-text">添加依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建任务"><span class="toc-text">创建任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置约束和触发条件"><span class="toc-text">设置约束和触发条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提交任务"><span class="toc-text">提交任务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高级使用方式"><span class="toc-text">高级使用方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义重试策略"><span class="toc-text">自定义重试策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#链式任务"><span class="toc-text">链式任务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意事项"><span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐"><span class="toc-text">推荐</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Android-WorkManager-轻松管理后台任务" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Android WorkManager: 轻松管理后台任务</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2023.12.13</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Rouse</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="&#x4ECB;&#x7ECD;"><a href="#&#x4ECB;&#x7ECD;" class="headerlink" title="&#x4ECB;&#x7ECD;"></a>&#x4ECB;&#x7ECD;</h2><p>&#x5728;Android&#x5E94;&#x7528;&#x5F00;&#x53D1;&#x4E2D;&#xFF0C;&#x6709;&#x6548;&#x5730;&#x7BA1;&#x7406;&#x540E;&#x53F0;&#x4EFB;&#x52A1;&#x662F;&#x81F3;&#x5173;&#x91CD;&#x8981;&#x7684;&#x3002;Android WorkManager&#x662F;&#x4E00;&#x4E2A;&#x5F3A;&#x5927;&#x7684;&#x5E93;&#xFF0C;&#x65E8;&#x5728;&#x7B80;&#x5316;&#x4EFB;&#x52A1;&#x8C03;&#x5EA6;&#x548C;&#x540E;&#x53F0;&#x5DE5;&#x4F5C;&#x7BA1;&#x7406;&#x3002;&#x672C;&#x6587;&#x5C06;&#x6DF1;&#x5165;&#x63A2;&#x8BA8;WorkManager&#x7684;&#x5185;&#x90E8;&#x5B9E;&#x73B0;&#x7EC6;&#x8282;&#x3001;&#x539F;&#x7406;&#x548C;&#x5177;&#x4F53;&#x4F7F;&#x7528;&#x3002;</p>
+<h2 id="&#x5DE5;&#x4F5C;&#x539F;&#x7406;"><a href="#&#x5DE5;&#x4F5C;&#x539F;&#x7406;" class="headerlink" title="&#x5DE5;&#x4F5C;&#x539F;&#x7406;"></a>&#x5DE5;&#x4F5C;&#x539F;&#x7406;</h2><h3 id="&#x67B6;&#x6784;&#x6982;&#x8FF0;"><a href="#&#x67B6;&#x6784;&#x6982;&#x8FF0;" class="headerlink" title="&#x67B6;&#x6784;&#x6982;&#x8FF0;"></a>&#x67B6;&#x6784;&#x6982;&#x8FF0;</h3><p>WorkManager&#x7684;&#x5185;&#x90E8;&#x5B9E;&#x73B0;&#x91C7;&#x7528;&#x4E86;&#x73B0;&#x4EE3;&#x5316;&#x7684;&#x4EFB;&#x52A1;&#x8C03;&#x5EA6;&#x67B6;&#x6784;&#xFF0C;&#x5206;&#x4E3A;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x6838;&#x5FC3;&#x7EC4;&#x4EF6;&#xFF1A;</p>
+<ul>
+<li><p><strong>WorkManager:</strong> &#x63D0;&#x4F9B;&#x4EFB;&#x52A1;&#x8C03;&#x5EA6;&#x548C;&#x7BA1;&#x7406;&#x7684;&#x4E3B;&#x8981;&#x63A5;&#x53E3;&#xFF0C;&#x8D1F;&#x8D23;&#x534F;&#x8C03;&#x4EFB;&#x52A1;&#x7684;&#x6267;&#x884C;&#x3002;</p>
+</li>
+<li><p><strong>Worker:</strong> &#x5F00;&#x53D1;&#x8005;&#x5B9A;&#x4E49;&#x7684;&#x6267;&#x884C;&#x5B9E;&#x9645;&#x4EFB;&#x52A1;&#x7684;&#x5DE5;&#x4F5C;&#x5355;&#x5143;&#x3002;&#x6BCF;&#x4E2A;Worker&#x90FD;&#x8FD0;&#x884C;&#x5728;&#x72EC;&#x7ACB;&#x7684;&#x540E;&#x53F0;&#x7EBF;&#x7A0B;&#x4E2D;&#x3002;</p>
+</li>
+<li><p><strong>WorkRequest:</strong> &#x5B9A;&#x4E49;&#x4E86;&#x4EFB;&#x52A1;&#x7684;&#x76F8;&#x5173;&#x53C2;&#x6570;&#xFF0C;&#x5982;&#x7EA6;&#x675F;&#x6761;&#x4EF6;&#x3001;&#x91CD;&#x8BD5;&#x7B56;&#x7565;&#x7B49;&#x3002;&#x5206;&#x4E3A;OneTimeWorkRequest&#x548C;PeriodicWorkRequest&#x4E24;&#x79CD;&#x3002;</p>
+</li>
+<li><p><strong>WorkDatabase:</strong> &#x7528;&#x4E8E;&#x6301;&#x4E45;&#x5316;&#x5B58;&#x50A8;&#x4EFB;&#x52A1;&#x7684;&#x72B6;&#x6001;&#x3001;&#x7EA6;&#x675F;&#x6761;&#x4EF6;&#x7B49;&#x4FE1;&#x606F;&#x3002;</p>
+</li>
+<li><p><strong>WorkPolicy:</strong> &#x5B9A;&#x4E49;&#x4E86;&#x4EFB;&#x52A1;&#x8C03;&#x5EA6;&#x7684;&#x7B56;&#x7565;&#xFF0C;&#x5305;&#x62EC;&#x7ACB;&#x5373;&#x6267;&#x884C;&#x3001;&#x4FDD;&#x7559;&#x6700;&#x65B0;&#x3001;&#x4FDD;&#x7559;&#x6700;&#x65E7;&#x7B49;&#x3002;</p>
+</li>
+</ul>
+<h3 id="&#x8C03;&#x5EA6;&#x6D41;&#x7A0B;"><a href="#&#x8C03;&#x5EA6;&#x6D41;&#x7A0B;" class="headerlink" title="&#x8C03;&#x5EA6;&#x6D41;&#x7A0B;"></a>&#x8C03;&#x5EA6;&#x6D41;&#x7A0B;</h3><p>&#x5F53;&#x5F00;&#x53D1;&#x8005;&#x63D0;&#x4EA4;&#x4EFB;&#x52A1;&#x65F6;&#xFF0C;WorkManager&#x9996;&#x5148;&#x4F1A;&#x5C06;&#x4EFB;&#x52A1;&#x4FE1;&#x606F;&#x5B58;&#x50A8;&#x5230;WorkDatabase&#x4E2D;&#xFF0C;&#x5305;&#x62EC;&#x4EFB;&#x52A1;&#x7684;&#x72B6;&#x6001;&#x3001;&#x7EA6;&#x675F;&#x6761;&#x4EF6;&#x7B49;&#x3002;&#x7136;&#x540E;&#xFF0C;WorkManager&#x4F1A;&#x6839;&#x636E;&#x8BBE;&#x5907;&#x7684;API&#x7EA7;&#x522B;&#x667A;&#x80FD;&#x5730;&#x9009;&#x62E9;&#x5408;&#x9002;&#x7684;&#x540E;&#x53F0;&#x8C03;&#x5EA6;&#x5668;&#xFF0C;&#x5982;JobScheduler&#x3001;Firebase JobDispatcher&#x548C;AlarmManager&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">@NonNull</span><br><span class="line">static Scheduler createBestAvailableBackgroundScheduler(</span><br><span class="line">        @NonNull Context context,</span><br><span class="line">        @NonNull WorkManagerImpl workManager) {</span><br><span class="line"></span><br><span class="line">    Scheduler scheduler;</span><br><span class="line"></span><br><span class="line">    if (Build.VERSION.SDK_INT &gt;= WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {</span><br><span class="line">        // use JobScheduler</span><br><span class="line">        scheduler = new SystemJobScheduler(context, workManager);</span><br><span class="line">        setComponentEnabled(context, SystemJobService.class, true);</span><br><span class="line">        Logger.get().debug(TAG, &quot;Created SystemJobScheduler and enabled SystemJobService&quot;);</span><br><span class="line">    } else {</span><br><span class="line">        // may use JobDispatcher</span><br><span class="line">        scheduler = tryCreateGcmBasedScheduler(context);</span><br><span class="line">        if (scheduler == null) {</span><br><span class="line">            // use Alarmanager</span><br><span class="line">            scheduler = new SystemAlarmScheduler(context);</span><br><span class="line">            setComponentEnabled(context, SystemAlarmService.class, true);</span><br><span class="line">            Logger.get().debug(TAG, &quot;Created SystemAlarmScheduler&quot;);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    return scheduler;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>JobScheduler (API 23+):</strong> &#x4F7F;&#x7528;JobScheduler&#x8FDB;&#x884C;&#x4EFB;&#x52A1;&#x8C03;&#x5EA6;&#xFF0C;&#x5141;&#x8BB8;&#x7CFB;&#x7EDF;&#x6700;&#x4F18;&#x5316;&#x5730;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#xFF0C;&#x4F8B;&#x5982;&#x5408;&#x5E76;&#x76F8;&#x90BB;&#x7684;&#x4EFB;&#x52A1;&#x4EE5;&#x51CF;&#x5C11;&#x8BBE;&#x5907;&#x5524;&#x9192;&#x6B21;&#x6570;&#x3002;</p>
+</li>
+<li><p><strong>Firebase JobDispatcher (API 14+):</strong> &#x5BF9;&#x4E8E;API&#x7EA7;&#x522B;&#x8F83;&#x4F4E;&#x7684;&#x8BBE;&#x5907;&#xFF0C;WorkManager&#x4F1A;&#x5229;&#x7528;Firebase JobDispatcher&#x6765;&#x5B9E;&#x73B0;&#x7C7B;&#x4F3C;&#x7684;&#x4EFB;&#x52A1;&#x8C03;&#x5EA6;&#x3002;</p>
+</li>
+<li><p><strong>AlarmManager:</strong> &#x5728;API&#x7EA7;&#x522B;&#x66F4;&#x4F4E;&#x7684;&#x8BBE;&#x5907;&#x4E0A;&#xFF0C;WorkManager&#x4F1A;&#x901A;&#x8FC7;AlarmManager&#x6765;&#x5B9E;&#x73B0;&#x4EFB;&#x52A1;&#x7684;&#x8C03;&#x5EA6;&#x548C;&#x5524;&#x9192;&#x3002;</p>
+</li>
+</ul>
+<h3 id="&#x667A;&#x80FD;&#x7EA6;&#x675F;&#x5904;&#x7406;"><a href="#&#x667A;&#x80FD;&#x7EA6;&#x675F;&#x5904;&#x7406;" class="headerlink" title="&#x667A;&#x80FD;&#x7EA6;&#x675F;&#x5904;&#x7406;"></a>&#x667A;&#x80FD;&#x7EA6;&#x675F;&#x5904;&#x7406;</h3><p>WorkManager&#x7684;&#x5F3A;&#x5927;&#x4E4B;&#x5904;&#x5728;&#x4E8E;&#x5176;&#x667A;&#x80FD;&#x7EA6;&#x675F;&#x5904;&#x7406;&#xFF0C;&#x786E;&#x4FDD;&#x4EFB;&#x52A1;&#x5728;&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x624D;&#x4F1A;&#x6267;&#x884C;&#x3002;<br>WorkManager&#x7684;&#x667A;&#x80FD;&#x7EA6;&#x675F;&#x5904;&#x7406;&#x901A;&#x8FC7;Constraints&#x6765;&#x5B9E;&#x73B0;&#x3002;</p>
+<p>&#x667A;&#x80FD;&#x7EA6;&#x675F;&#x5904;&#x7406;&#x57FA;&#x4E8E;&#x4E24;&#x4E2A;&#x6838;&#x5FC3;&#x6982;&#x5FF5;&#xFF1A;&#x786C;&#x7EA6;&#x675F;&#x548C;&#x8F6F;&#x7EA6;&#x675F;&#x3002;</p>
+<ul>
+<li>&#x786C;&#x7EA6;&#x675F;: &#x8FD9;&#x4E9B;&#x662F;&#x5FC5;&#x987B;&#x6EE1;&#x8DB3;&#x7684;&#x6761;&#x4EF6;&#xFF0C;&#x5982;&#x7F51;&#x7EDC;&#x8FDE;&#x63A5;&#x3001;&#x5145;&#x7535;&#x72B6;&#x6001;&#x7B49;&#x3002;&#x5982;&#x679C;&#x786C;&#x7EA6;&#x675F;&#x6761;&#x4EF6;&#x65E0;&#x6CD5;&#x6EE1;&#x8DB3;&#xFF0C;WorkManager&#x4F1A;&#x7B49;&#x5F85;&#x76F4;&#x5230;&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#x518D;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#x3002;</li>
+<li>&#x8F6F;&#x7EA6;&#x675F;: &#x8FD9;&#x4E9B;&#x662F;&#x53EF;&#x9009;&#x6761;&#x4EF6;&#xFF0C;&#x4F8B;&#x5982;&#x8BBE;&#x5907;&#x7A7A;&#x95F2;&#x3001;&#x5B58;&#x50A8;&#x7A7A;&#x95F4;&#x5145;&#x8DB3;&#x7B49;&#x3002;&#x5982;&#x679C;&#x8F6F;&#x7EA6;&#x675F;&#x6761;&#x4EF6;&#x65E0;&#x6CD5;&#x6EE1;&#x8DB3;&#xFF0C;WorkManager&#x4ECD;&#x7136;&#x4F1A;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#xFF0C;&#x4F46;&#x4F1A;&#x5C3D;&#x91CF;&#x5728;&#x6761;&#x4EF6;&#x5408;&#x9002;&#x65F6;&#x6267;&#x884C;&#x3002;</li>
+</ul>
+<p>&#x8FD9;&#x79CD;&#x667A;&#x80FD;&#x7684;&#x7EA6;&#x675F;&#x5904;&#x7406;&#x65B9;&#x5F0F;&#x4F7F;&#x5F97;&#x5F00;&#x53D1;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x7075;&#x6D3B;&#x5730;&#x63A7;&#x5236;&#x4EFB;&#x52A1;&#x7684;&#x6267;&#x884C;&#x65F6;&#x673A;&#xFF0C;&#x63D0;&#x9AD8;&#x4EFB;&#x52A1;&#x7684;&#x6267;&#x884C;&#x6548;&#x7387;&#x548C;&#x7528;&#x6237;&#x4F53;&#x9A8C;&#x3002;</p>
+<h2 id="&#x5177;&#x4F53;&#x4F7F;&#x7528;"><a href="#&#x5177;&#x4F53;&#x4F7F;&#x7528;" class="headerlink" title="&#x5177;&#x4F53;&#x4F7F;&#x7528;"></a>&#x5177;&#x4F53;&#x4F7F;&#x7528;</h2><h3 id="&#x6DFB;&#x52A0;&#x4F9D;&#x8D56;"><a href="#&#x6DFB;&#x52A0;&#x4F9D;&#x8D56;" class="headerlink" title="&#x6DFB;&#x52A0;&#x4F9D;&#x8D56;"></a>&#x6DFB;&#x52A0;&#x4F9D;&#x8D56;</h3><p>&#x9996;&#x5148;&#xFF0C;&#x5728;&#x9879;&#x76EE;&#x7684;<code>build.gradle</code>&#x6587;&#x4EF6;&#x4E2D;&#x6DFB;&#x52A0;WorkManager&#x7684;&#x4F9D;&#x8D56;&#xFF1A;</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">&quot;androidx.work:work-runtime:2.8.0&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="&#x521B;&#x5EFA;&#x4EFB;&#x52A1;"><a href="#&#x521B;&#x5EFA;&#x4EFB;&#x52A1;" class="headerlink" title="&#x521B;&#x5EFA;&#x4EFB;&#x52A1;"></a>&#x521B;&#x5EFA;&#x4EFB;&#x52A1;</h3><p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x7EE7;&#x627F;&#x81EA;<code>Worker</code>&#x7684;&#x4EFB;&#x52A1;&#x7C7B;&#xFF0C;&#x5B9E;&#x73B0;<code>doWork()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5B9A;&#x4E49;&#x5177;&#x4F53;&#x7684;&#x540E;&#x53F0;&#x4EFB;&#x52A1;&#x903B;&#x8F91;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyWorker</span></span>(context: Context, params: WorkerParameters) : Worker(context, params) {</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">doWork</span><span class="params">()</span></span>: Result {</span><br><span class="line">        <span class="comment">// &#x6267;&#x884C;&#x540E;&#x53F0;&#x4EFB;&#x52A1;&#x903B;&#x8F91;</span></span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Result.success()</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h3 id="&#x8BBE;&#x7F6E;&#x7EA6;&#x675F;&#x548C;&#x89E6;&#x53D1;&#x6761;&#x4EF6;"><a href="#&#x8BBE;&#x7F6E;&#x7EA6;&#x675F;&#x548C;&#x89E6;&#x53D1;&#x6761;&#x4EF6;" class="headerlink" title="&#x8BBE;&#x7F6E;&#x7EA6;&#x675F;&#x548C;&#x89E6;&#x53D1;&#x6761;&#x4EF6;"></a>&#x8BBE;&#x7F6E;&#x7EA6;&#x675F;&#x548C;&#x89E6;&#x53D1;&#x6761;&#x4EF6;</h3><p>&#x4F7F;&#x7528;<code>Constraints</code>&#x6765;&#x5B9A;&#x4E49;&#x4EFB;&#x52A1;&#x7684;&#x7EA6;&#x675F;&#x6761;&#x4EF6;&#xFF0C;&#x4F8B;&#x5982;&#x7F51;&#x7EDC;&#x8FDE;&#x63A5;&#x3001;&#x5145;&#x7535;&#x72B6;&#x6001;&#x7B49;&#x3002;&#x4F7F;&#x7528;<code>OneTimeWorkRequest</code>&#x6216;<code>PeriodicWorkRequest</code>&#x6765;&#x521B;&#x5EFA;&#x5DE5;&#x4F5C;&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x8BBE;&#x7F6E;&#x89E6;&#x53D1;&#x6761;&#x4EF6;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> constraints = Constraints.Builder()</span><br><span class="line">    .setRequiredNetworkType(NetworkType.CONNECTED)</span><br><span class="line">    .setRequiresCharging(<span class="literal">true</span>)</span><br><span class="line">    .build()</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> workRequest = OneTimeWorkRequest.Builder(MyWorker::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">    .setConstraints(constraints)</span><br><span class="line">    .build()</span><br></pre></td></tr></table></figure>
+<h3 id="&#x63D0;&#x4EA4;&#x4EFB;&#x52A1;"><a href="#&#x63D0;&#x4EA4;&#x4EFB;&#x52A1;" class="headerlink" title="&#x63D0;&#x4EA4;&#x4EFB;&#x52A1;"></a>&#x63D0;&#x4EA4;&#x4EFB;&#x52A1;</h3><p>&#x901A;&#x8FC7;<code>WorkManager</code>&#x7684;<code>enqueue</code>&#x65B9;&#x6CD5;&#x63D0;&#x4EA4;&#x4EFB;&#x52A1;&#x8BF7;&#x6C42;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WorkManager.getInstance(context).enqueue(workRequest)</span><br></pre></td></tr></table></figure>
+<h2 id="&#x9AD8;&#x7EA7;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;"><a href="#&#x9AD8;&#x7EA7;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;" class="headerlink" title="&#x9AD8;&#x7EA7;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;"></a>&#x9AD8;&#x7EA7;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;</h2><h3 id="&#x81EA;&#x5B9A;&#x4E49;&#x91CD;&#x8BD5;&#x7B56;&#x7565;"><a href="#&#x81EA;&#x5B9A;&#x4E49;&#x91CD;&#x8BD5;&#x7B56;&#x7565;" class="headerlink" title="&#x81EA;&#x5B9A;&#x4E49;&#x91CD;&#x8BD5;&#x7B56;&#x7565;"></a>&#x81EA;&#x5B9A;&#x4E49;&#x91CD;&#x8BD5;&#x7B56;&#x7565;</h3><p>WorkManager&#x5141;&#x8BB8;&#x5F00;&#x53D1;&#x8005;&#x81EA;&#x5B9A;&#x4E49;&#x4EFB;&#x52A1;&#x7684;&#x91CD;&#x8BD5;&#x7B56;&#x7565;&#x3002;&#x901A;&#x8FC7;&#x5728;<code>OneTimeWorkRequestBuilder</code>&#x4E2D;&#x4F7F;&#x7528;<code>setBackoffCriteria</code>&#x65B9;&#x6CD5;&#xFF0C;&#x53EF;&#x4EE5;&#x5B9A;&#x4E49;&#x6307;&#x6570;&#x9000;&#x907F;&#x7684;&#x91CD;&#x8BD5;&#x7B56;&#x7565;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> workRequest = OneTimeWorkRequestBuilder&lt;MyWorker&gt;()</span><br><span class="line">    .setBackoffCriteria(</span><br><span class="line">        BackoffPolicy.LINEAR,</span><br><span class="line">        OneTimeWorkRequest.MIN_BACKOFF_MILLIS,</span><br><span class="line">        TimeUnit.MILLISECONDS</span><br><span class="line">    )</span><br><span class="line">    .build()</span><br></pre></td></tr></table></figure>
+<h3 id="&#x94FE;&#x5F0F;&#x4EFB;&#x52A1;"><a href="#&#x94FE;&#x5F0F;&#x4EFB;&#x52A1;" class="headerlink" title="&#x94FE;&#x5F0F;&#x4EFB;&#x52A1;"></a>&#x94FE;&#x5F0F;&#x4EFB;&#x52A1;</h3><p>&#x4F7F;&#x7528;<code>beginWith</code>&#x3001;<code>then</code>&#x7B49;&#x65B9;&#x6CD5;&#xFF0C;&#x53EF;&#x4EE5;&#x6784;&#x5EFA;&#x4EFB;&#x52A1;&#x94FE;&#xFF0C;&#x786E;&#x4FDD;&#x5B83;&#x4EEC;&#x6309;&#x7167;&#x9884;&#x671F;&#x7684;&#x987A;&#x5E8F;&#x6267;&#x884C;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> workRequest1 = OneTimeWorkRequest.Builder(Task1::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>).<span class="title">build</span></span>()</span><br><span class="line"><span class="keyword">val</span> workRequest2 = OneTimeWorkRequest.Builder(Task2::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>).<span class="title">build</span></span>()</span><br><span class="line"></span><br><span class="line">WorkManager.getInstance(context)</span><br><span class="line">    .beginWith(workRequest1)</span><br><span class="line">    .then(workRequest2)</span><br><span class="line">    .enqueue()</span><br></pre></td></tr></table></figure>
+<h2 id="&#x6CE8;&#x610F;&#x4E8B;&#x9879;"><a href="#&#x6CE8;&#x610F;&#x4E8B;&#x9879;" class="headerlink" title="&#x6CE8;&#x610F;&#x4E8B;&#x9879;"></a>&#x6CE8;&#x610F;&#x4E8B;&#x9879;</h2><ul>
+<li>&#x6570;&#x636E;&#x4F20;&#x9012;: &#x5F53;&#x4F7F;&#x7528;WorkManager&#x6267;&#x884C;&#x4EFB;&#x52A1;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x4EFB;&#x52A1;&#x4E4B;&#x95F4;&#x7684;&#x6570;&#x636E;&#x4F20;&#x9012;&#x3002;WorkManager&#x63D0;&#x4F9B;&#x4E86;<code>Data</code>&#x7C7B;&#x6765;&#x4F20;&#x9012;&#x7B80;&#x5355;&#x7684;&#x952E;&#x503C;&#x5BF9;&#x6570;&#x636E;&#x3002;&#x786E;&#x4FDD;&#x4F20;&#x9012;&#x7684;&#x6570;&#x636E;&#x662F;&#x5E8F;&#x5217;&#x5316;&#x7684;&#xFF0C;&#x4EE5;&#x907F;&#x514D;&#x56E0;&#x4E3A;&#x8FDB;&#x7A0B;&#x95F4;&#x901A;&#x4FE1;&#x5BFC;&#x81F4;&#x7684;&#x95EE;&#x9898;&#x3002;</li>
+<li>&#x4EFB;&#x52A1;&#x552F;&#x4E00;&#x6027;: &#x4FDD;&#x8BC1;&#x6BCF;&#x4E2A;&#x4EFB;&#x52A1;&#x6709;&#x552F;&#x4E00;&#x7684;&#x6807;&#x8BC6;&#x7B26;&#x662F;&#x5F88;&#x91CD;&#x8981;&#x7684;&#x3002;&#x5728;&#x521B;&#x5EFA;<code>OneTimeWorkRequest</code>&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>setInputData</code>&#x65B9;&#x6CD5;&#x8BBE;&#x7F6E;&#x8F93;&#x5165;&#x6570;&#x636E;&#xFF0C;&#x786E;&#x4FDD;&#x4EFB;&#x52A1;&#x6267;&#x884C;&#x65F6;&#x6709;&#x8DB3;&#x591F;&#x7684;&#x4FE1;&#x606F;&#x3002;</li>
+</ul>
+<h2 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h2><p>&#x901A;&#x8FC7;&#x672C;&#x6587;&#x7684;&#x4ECB;&#x7ECD;&#xFF0C;&#x6211;&#x4EEC;&#x8BE6;&#x7EC6;&#x4E86;&#x89E3;&#x4E86;Android WorkManager&#x7684;&#x5185;&#x90E8;&#x5B9E;&#x73B0;&#x7EC6;&#x8282;&#x3001;&#x539F;&#x7406;&#x3001;&#x5177;&#x4F53;&#x4F7F;&#x7528;&#x3002;&#x5176;&#x7075;&#x6D3B;&#x7684;&#x4EFB;&#x52A1;&#x8C03;&#x5EA6;&#x67B6;&#x6784;&#x548C;&#x667A;&#x80FD;&#x7EA6;&#x675F;&#x5904;&#x7406;&#x4F7F;&#x5F97;&#x5F00;&#x53D1;&#x8005;&#x80FD;&#x591F;&#x8F7B;&#x677E;&#x7BA1;&#x7406;&#x540E;&#x53F0;&#x4EFB;&#x52A1;&#xFF0C;&#x63D0;&#x5347;&#x5E94;&#x7528;&#x7684;&#x6027;&#x80FD;&#x548C;&#x7528;&#x6237;&#x4F53;&#x9A8C;&#x3002;</p>
+<h2 id="&#x63A8;&#x8350;"><a href="#&#x63A8;&#x8350;" class="headerlink" title="&#x63A8;&#x8350;"></a>&#x63A8;&#x8350;</h2><p><a href="https://github.com/idisfkj/android-startup" target="_blank" rel="noopener">android_startup</a>: &#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x5728;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65F6;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x3001;&#x9AD8;&#x6548;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521D;&#x59CB;&#x5316;&#x7EC4;&#x4EF6;&#xFF0C;&#x4F18;&#x5316;&#x542F;&#x52A8;&#x901F;&#x5EA6;&#x3002;&#x4E0D;&#x4EC5;&#x652F;&#x6301;Jetpack App Startup&#x7684;&#x5168;&#x90E8;&#x529F;&#x80FD;&#xFF0C;&#x8FD8;&#x63D0;&#x4F9B;&#x989D;&#x5916;&#x7684;&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#x7B49;&#x5F85;&#x3001;&#x7EBF;&#x7A0B;&#x63A7;&#x5236;&#x4E0E;&#x591A;&#x8FDB;&#x7A0B;&#x652F;&#x6301;&#x7B49;&#x529F;&#x80FD;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="noopener">AwesomeGithub</a>: &#x57FA;&#x4E8E;Github&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7EAF;&#x7EC3;&#x4E60;&#x9879;&#x76EE;&#xFF0C;&#x652F;&#x6301;&#x7EC4;&#x4EF6;&#x5316;&#x5F00;&#x53D1;&#xFF0C;&#x652F;&#x6301;&#x8D26;&#x6237;&#x5BC6;&#x7801;&#x4E0E;&#x8BA4;&#x8BC1;&#x767B;&#x9646;&#x3002;&#x4F7F;&#x7528;Kotlin&#x8BED;&#x8A00;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#xFF0C;&#x9879;&#x76EE;&#x67B6;&#x6784;&#x662F;&#x57FA;&#x4E8E;JetPack\&amp;DataBinding&#x7684;MVVM&#xFF1B;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;Arouter&#x3001;Retrofit&#x3001;Coroutine&#x3001;Glide&#x3001;Dagger&#x4E0E;Hilt&#x7B49;&#x6D41;&#x884C;&#x5F00;&#x6E90;&#x6280;&#x672F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="noopener">flutter_github</a>: &#x57FA;&#x4E8E;Flutter&#x7684;&#x8DE8;&#x5E73;&#x53F0;&#x7248;&#x672C;Github&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x4E0E;AwesomeGithub&#x76F8;&#x5BF9;&#x5E94;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="noopener">android-api-analysis</a>: &#x7ED3;&#x5408;&#x8BE6;&#x7EC6;&#x7684;Demo&#x6765;&#x5168;&#x9762;&#x89E3;&#x6790;Android&#x76F8;&#x5173;&#x7684;&#x77E5;&#x8BC6;&#x70B9;, &#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x5FEB;&#x7684;&#x638C;&#x63E1;&#x4E0E;&#x7406;&#x89E3;&#x6240;&#x9610;&#x8FF0;&#x7684;&#x8981;&#x70B9;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/daily_algorithm" target="_blank" rel="noopener">daily_algorithm</a>: &#x6BCF;&#x65E5;&#x4E00;&#x7B97;&#x6CD5;&#xFF0C;&#x7531;&#x6D45;&#x5165;&#x6DF1;&#xFF0C;&#x6B22;&#x8FCE;&#x52A0;&#x5165;&#x4E00;&#x8D77;&#x5171;&#x52C9;&#x3002;</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">赞赏是一门艺术</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/rouse_wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/rouse_alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2023/12/12/Android-IntentService的开发技巧/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="fexo-comments comments-post">
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>
+  <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+  <script src="https://jjeejj.github.io/js/gitment.js"></script>
+  <script>
+    (function () {
+      var gitment = new Gitment({
+        owner: 'idisfkj',
+        repo: 'idisfkj.github.io',
+        id: 'Wed Dec 13 2023 09:41:18 GMT+0800',
+        oauth: {
+          client_id: 'dafb1df02ea9f875bb78',
+          client_secret: 'e9873d78aa5eaed5ce61d1d865a5af501dae377a'
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      })
+      gitment.render('gitment-comments')
+    })()
+  </script>
+
+  
+  
+</div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
