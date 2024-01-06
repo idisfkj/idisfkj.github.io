@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>你不知道的CoroutineContext：协程上下文大揭秘！ | Rouse</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="android,">
+  
+
+  <meta name="description" content="&amp;#x524D;&amp;#x8A00;&amp;#x534F;&amp;#x7A0B;&amp;#xFF08;Coroutine&amp;#xFF09;&amp;#x662F;&amp;#x4E00;&amp;#x79CD;&amp;#x5E76;&amp;#x53D1;&amp;#x7F16;&amp;#x7A0B;&amp;#x6280;&amp;#x672F;&amp;#xFF0C;&amp;#x5B83;&amp;#x5141;&amp;#x8BB8;&amp;#x6211;&amp;#x4EEC;&amp;#x5728;&amp;#x4E00;&amp;#x4E2A">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你不知道的CoroutineContext：协程上下文大揭秘！">
+<meta property="og:url" content="https://www.rousetime.com/2024/01/06/你不知道的CoroutineContext：协程上下文大揭秘！/index.html">
+<meta property="og:site_name" content="Rouse">
+<meta property="og:description" content="&amp;#x524D;&amp;#x8A00;&amp;#x534F;&amp;#x7A0B;&amp;#xFF08;Coroutine&amp;#xFF09;&amp;#x662F;&amp;#x4E00;&amp;#x79CD;&amp;#x5E76;&amp;#x53D1;&amp;#x7F16;&amp;#x7A0B;&amp;#x6280;&amp;#x672F;&amp;#xFF0C;&amp;#x5B83;&amp;#x5141;&amp;#x8BB8;&amp;#x6211;&amp;#x4EEC;&amp;#x5728;&amp;#x4E00;&amp;#x4E2A">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2024-01-06T09:47:07.777Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="你不知道的CoroutineContext：协程上下文大揭秘！">
+<meta name="twitter:description" content="&amp;#x524D;&amp;#x8A00;&amp;#x534F;&amp;#x7A0B;&amp;#xFF08;Coroutine&amp;#xFF09;&amp;#x662F;&amp;#x4E00;&amp;#x79CD;&amp;#x5E76;&amp;#x53D1;&amp;#x7F16;&amp;#x7A0B;&amp;#x6280;&amp;#x672F;&amp;#xFF0C;&amp;#x5B83;&amp;#x5141;&amp;#x8BB8;&amp;#x6211;&amp;#x4EEC;&amp;#x5728;&amp;#x4E00;&amp;#x4E2A">
+
+  
+
+  
+  <!-- <link href="/favicon.ico" rel="icon" type="image/x-icon"> -->
+    <link rel="icon" href="/favicon.ico">
+    <!-- <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?bd7ea96a22c9c7b90353962460fa0b8e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CoroutineContext的概念"><span class="toc-text">CoroutineContext的概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CoroutineContext的组成"><span class="toc-text">CoroutineContext的组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CoroutineContext的继承"><span class="toc-text">CoroutineContext的继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CoroutineContext的注意事项"><span class="toc-text">CoroutineContext的注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐"><span class="toc-text">推荐</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-你不知道的CoroutineContext：协程上下文大揭秘！" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">你不知道的CoroutineContext：协程上下文大揭秘！</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2024.01.06</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Rouse</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="&#x524D;&#x8A00;"><a href="#&#x524D;&#x8A00;" class="headerlink" title="&#x524D;&#x8A00;"></a>&#x524D;&#x8A00;</h2><p>&#x534F;&#x7A0B;&#xFF08;Coroutine&#xFF09;&#x662F;&#x4E00;&#x79CD;&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x6280;&#x672F;&#xFF0C;&#x5B83;&#x5141;&#x8BB8;&#x6211;&#x4EEC;&#x5728;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x4E2D;&#x6267;&#x884C;&#x591A;&#x4E2A;&#x4EFB;&#x52A1;&#xFF0C;&#x800C;&#x4E0D;&#x9700;&#x8981;&#x521B;&#x5EFA;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x3002;&#x534F;&#x7A0B;&#x4E0E;&#x7EBF;&#x7A0B;&#x7684;&#x533A;&#x522B;&#x5728;&#x4E8E;&#xFF0C;&#x7EBF;&#x7A0B;&#x662F;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x800C;&#x534F;&#x7A0B;&#x662F;&#x7F16;&#x7A0B;&#x8BED;&#x8A00;&#x7684;&#x6982;&#x5FF5;&#x3002;&#x534F;&#x7A0B;&#x53EF;&#x4EE5;&#x6682;&#x505C;&#x548C;&#x6062;&#x590D;&#x6267;&#x884C;&#xFF0C;&#x800C;&#x7EBF;&#x7A0B;&#x53EA;&#x80FD;&#x88AB;&#x7EC8;&#x6B62;&#x3002;</p>
+<p>&#x5728; Android &#x4E2D;&#xFF0C;&#x534F;&#x7A0B;&#x7531; Kotlin &#x8BED;&#x8A00;&#x652F;&#x6301;&#x3002;Kotlin &#x534F;&#x7A0B;&#x5E93;&#x63D0;&#x4F9B;&#x4E86;&#x4E30;&#x5BCC;&#x7684; API&#xFF0C;&#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x8F7B;&#x677E;&#x5730;&#x7F16;&#x5199;&#x5E76;&#x53D1;&#x4EE3;&#x7801;&#x3002;&#x5176;&#x4E2D;&#xFF0C;<code>CoroutineContext</code>&#x662F;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x91CD;&#x8981;&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x5B83;&#x5B9A;&#x4E49;&#x4E86;&#x534F;&#x7A0B;&#x7684;&#x6267;&#x884C;&#x73AF;&#x5883;&#x3002;</p>
+<p>&#x5728;&#x672C;&#x7BC7;&#x6587;&#x7AE0;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x4ECE;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x65B9;&#x9762;&#x6765;&#x4ECB;&#x7ECD;<code>CoroutineContext</code>&#x7684;&#x5DE5;&#x4F5C;&#x539F;&#x7406;&#xFF1A;</p>
+<ul>
+<li><code>CoroutineContext</code>&#x7684;&#x6982;&#x5FF5;</li>
+<li><code>CoroutineContext</code>&#x7684;&#x7EC4;&#x6210;</li>
+<li><code>CoroutineContext</code>&#x7684;&#x7EE7;&#x627F;</li>
+<li><code>CoroutineContext</code>&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;</li>
+</ul>
+<h2 id="CoroutineContext&#x7684;&#x6982;&#x5FF5;"><a href="#CoroutineContext&#x7684;&#x6982;&#x5FF5;" class="headerlink" title="CoroutineContext&#x7684;&#x6982;&#x5FF5;"></a>CoroutineContext&#x7684;&#x6982;&#x5FF5;</h2><p>CoroutineContext&#x662F;&#x4E00;&#x4E2A;&#x5BB9;&#x5668;&#xFF0C;&#x5B83;&#x5305;&#x542B;&#x4E86;&#x534F;&#x7A0B;&#x7684;&#x6240;&#x6709;&#x4E0A;&#x4E0B;&#x6587;&#x4FE1;&#x606F;&#x3002;&#x8FD9;&#x4E9B;&#x4E0A;&#x4E0B;&#x6587;&#x4FE1;&#x606F;&#x5305;&#x62EC;&#xFF1A;</p>
+<ul>
+<li><strong>&#x534F;&#x7A0B;&#x7684;&#x72B6;&#x6001;</strong>&#xFF1A;&#x534F;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#x8868;&#x793A;&#x534F;&#x7A0B;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x3002;&#x534F;&#x7A0B;&#x53EF;&#x4EE5;&#x5904;&#x4E8E; <strong>Active</strong>&#x3001;<strong>Completed</strong>&#x3001;<strong>Canceled</strong> &#x7B49;&#x72B6;&#x6001;&#x3002;</li>
+<li><strong>&#x534F;&#x7A0B;&#x7684;&#x8C03;&#x5EA6;&#x7B56;&#x7565;</strong>&#xFF1A;&#x534F;&#x7A0B;&#x7684;&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#x51B3;&#x5B9A;&#x4E86;&#x534F;&#x7A0B;&#x5728;&#x54EA;&#x91CC;&#x6267;&#x884C;&#x3002;&#x534F;&#x7A0B;&#x53EF;&#x4EE5;&#x6267;&#x884C;&#x5728;&#x4E3B;&#x7EBF;&#x7A0B;&#x3001;&#x540E;&#x53F0;&#x7EBF;&#x7A0B;&#x3001;&#x6216;&#x5176;&#x4ED6;&#x534F;&#x7A0B;&#x6C60;&#x4E2D;&#x3002;</li>
+<li><strong>&#x534F;&#x7A0B;&#x7684;&#x6807;&#x7B7E;</strong>&#xFF1A;&#x534F;&#x7A0B;&#x7684;&#x6807;&#x7B7E;&#x7528;&#x4E8E;&#x6807;&#x8BC6;&#x534F;&#x7A0B;&#x3002;</li>
+<li><strong>&#x534F;&#x7A0B;&#x7684;&#x62E6;&#x622A;&#x5668;</strong>&#xFF1A;&#x534F;&#x7A0B;&#x7684;&#x62E6;&#x622A;&#x5668;&#x7528;&#x4E8E;&#x62E6;&#x622A;&#x534F;&#x7A0B;&#x7684;&#x6267;&#x884C;&#x6D41;&#x7A0B;&#x3002;</li>
+<li><strong>&#x534F;&#x7A0B;&#x7684;&#x5F02;&#x5E38;&#x6355;&#x83B7;</strong>&#xFF1A;&#x7528;&#x4E8E;&#x5904;&#x7406;&#x534F;&#x7A0B;&#x5185;&#x90E8;&#x53D1;&#x751F;&#x7684;&#x672A;&#x6355;&#x83B7;&#x5F02;&#x5E38;&#x3002;</li>
+</ul>
+<p>CoroutineContext&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>coroutineContext</code>&#x83B7;&#x53D6;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> = runBlocking {</span><br><span class="line">    <span class="keyword">val</span> context = coroutineContext</span><br><span class="line"></span><br><span class="line">    println(context)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[CoroutineId(2), &quot;coroutine#2&quot;:BlockingCoroutine{Active}@769c9116, BlockingEventLoop@6aceb1a5]</span><br></pre></td></tr></table></figure>
+<h2 id="CoroutineContext&#x7684;&#x7EC4;&#x6210;"><a href="#CoroutineContext&#x7684;&#x7EC4;&#x6210;" class="headerlink" title="CoroutineContext&#x7684;&#x7EC4;&#x6210;"></a>CoroutineContext&#x7684;&#x7EC4;&#x6210;</h2><p>CoroutineContext&#x7531;&#x591A;&#x4E2A;&#x7EC4;&#x4EF6;&#x7EC4;&#x6210;&#xFF0C;&#x8FD9;&#x4E9B;&#x7EC4;&#x4EF6;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>context.get&lt;T&gt;()</code> &#x51FD;&#x6570;&#x6765;&#x83B7;&#x53D6;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public operator fun &lt;E : Element&gt; get(key: Key&lt;E&gt;): E?</span><br></pre></td></tr></table></figure>
+<p>&#x7531;&#x4E8E;&#x91CD;&#x65B0;&#x5B9A;&#x4E49;&#x4E86;<code>get</code>&#x64CD;&#x4F5C;&#x7B26;&#xFF0C;&#x6240;&#x4EE5;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4F7F;&#x7528;<code>context[key]</code>&#x6765;&#x83B7;&#x53D6;&#x5BF9;&#x5E94;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x7EC4;&#x4EF6;&#x5143;&#x7D20;&#x3002;</p>
+<ul>
+<li><strong>Dispatcher</strong>&#xFF1A;&#x534F;&#x7A0B;&#x7684;&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#x3002;</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> = runBlocking {</span><br><span class="line">    <span class="keyword">val</span> context = coroutineContext + Dispatchers.Main</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> dispatcher = context[CoroutineDispatcher]</span><br><span class="line"></span><br><span class="line">    println(dispatcher)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dispatchers.Main[missing]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>Job</strong>&#xFF1A;&#x534F;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#x3002;Job &#x8868;&#x793A;&#x534F;&#x7A0B;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x3002;</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> = runBlocking {</span><br><span class="line">    <span class="keyword">val</span> context = coroutineContext + SupervisorJob()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> job = context[Job]</span><br><span class="line"></span><br><span class="line">    println(job)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SupervisorJobImpl{Active}@50675690</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>&#x83B7;&#x53D6;&#x534F;&#x7A0B;&#x7684;&#x72B6;&#x6001;</strong>&#xFF1A;&#x534F;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#x8868;&#x793A;&#x534F;&#x7A0B;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x3002;&#x534F;&#x7A0B;&#x53EF;&#x4EE5;&#x5904;&#x4E8E; <strong>Active</strong>&#x3001;<strong>Completed</strong>&#x3001;<strong>Canceled</strong> &#x7B49;&#x72B6;&#x6001;&#x3002;</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> = runBlocking {</span><br><span class="line">    <span class="keyword">val</span> context = coroutineContext + SupervisorJob()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// &#x83B7;&#x53D6;&#x534F;&#x7A0B;&#x7684;&#x72B6;&#x6001;</span></span><br><span class="line">    <span class="keyword">val</span> job = context[Job]</span><br><span class="line"></span><br><span class="line">    <span class="comment">// &#x5224;&#x65AD;&#x534F;&#x7A0B;&#x662F;&#x5426;&#x5904;&#x4E8E; Active &#x72B6;&#x6001;</span></span><br><span class="line">    <span class="keyword">if</span> (job?.isActive == <span class="literal">true</span>) {</span><br><span class="line">        println(<span class="string">&quot;&#x534F;&#x7A0B;&#x5904;&#x4E8E; Active &#x72B6;&#x6001;&quot;</span>)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x534F;&#x7A0B;&#x5904;&#x4E8E; Active &#x72B6;&#x6001;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>CoroutineName</strong>&#xFF1A;&#x534F;&#x7A0B;&#x7684;&#x6807;&#x7B7E;&#x3002;CoroutineName &#x7528;&#x4E8E;&#x6807;&#x8BC6;&#x534F;&#x7A0B;&#x3002;</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> = runBlocking {</span><br><span class="line">    <span class="keyword">val</span> context = coroutineContext + CoroutineName(<span class="string">&quot;&#x5F20;&#x4E09;&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> coroutineName = context[CoroutineName]</span><br><span class="line"></span><br><span class="line">    println(coroutineName)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CoroutineName(&#x5F20;&#x4E09;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>&#x6DFB;&#x52A0;&#x62E6;&#x622A;&#x5668;</strong>&#xFF1A;&#x62E6;&#x622A;&#x5668;&#x53EF;&#x4EE5;&#x62E6;&#x622A;&#x534F;&#x7A0B;&#x7684;&#x6267;&#x884C;&#x6D41;&#x7A0B;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;</li>
+</ul>
+<ol>
+<li>&#x5728;&#x534F;&#x7A0B;&#x5F00;&#x59CB;&#x6267;&#x884C;&#x4E4B;&#x524D;&#x8FDB;&#x884C;&#x4E00;&#x4E9B;&#x521D;&#x59CB;&#x5316;&#x64CD;&#x4F5C;&#x3002;</li>
+<li>&#x5728;&#x534F;&#x7A0B;&#x6267;&#x884C;&#x671F;&#x95F4;&#x8FDB;&#x884C;&#x4E00;&#x4E9B;&#x76D1;&#x63A7;&#x64CD;&#x4F5C;&#x3002;</li>
+<li>&#x5728;&#x534F;&#x7A0B;&#x6267;&#x884C;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#x8FDB;&#x884C;&#x4E00;&#x4E9B;&#x6E05;&#x7406;&#x64CD;&#x4F5C;&#x3002;</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyContinuationInterceptor</span> : <span class="type">ContinuationInterceptor {</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">interceptContinuation</span><span class="params">(continuation: <span class="type">Continuation</span>&lt;<span class="type">Unit</span>&gt;)</span></span>: Continuation&lt;<span class="built_in">Unit</span>&gt; {</span><br><span class="line">        <span class="comment">// &#x5728;&#x534F;&#x7A0B;&#x5F00;&#x59CB;&#x6267;&#x884C;&#x4E4B;&#x524D;&#x8FDB;&#x884C;&#x4E00;&#x4E9B;&#x521D;&#x59CB;&#x5316;&#x64CD;&#x4F5C;</span></span><br><span class="line">        println(<span class="string">&quot;MyContinuationInterceptor: &#x534F;&#x7A0B;&#x5F00;&#x59CB;&#x6267;&#x884C;&#x4E4B;&#x524D;&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// &#x8FD4;&#x56DE;&#x539F;&#x59CB;&#x7684; continuation</span></span><br><span class="line">        <span class="keyword">return</span> continuation</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">key</span><span class="params">()</span></span>: CoroutineContext.Key&lt;ContinuationInterceptor&gt; = ContinuationInterceptor.Key</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">    <span class="comment">// &#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x534F;&#x7A0B;</span></span><br><span class="line">    launch(Dispatchers.IO + MyContinuationInterceptor()) {</span><br><span class="line">        <span class="comment">// &#x6267;&#x884C;&#x4E00;&#x4E9B;&#x8017;&#x65F6;&#x64CD;&#x4F5C;</span></span><br><span class="line">        delay(<span class="number">1000</span>)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x4E2A;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x534F;&#x7A0B;&#x5728;&#x5F00;&#x59CB;&#x6267;&#x884C;&#x4E4B;&#x524D;&#x4F1A;&#x6253;&#x5370;&#x4E00;&#x6761;&#x6D88;&#x606F;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MyContinuationInterceptor: &#x534F;&#x7A0B;&#x5F00;&#x59CB;&#x6267;&#x884C;&#x4E4B;&#x524D;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>CoroutineExceptionHandler</strong>&#xFF1A;&#x5904;&#x7406;&#x534F;&#x7A0B;&#x5185;&#x90E8;&#x53D1;&#x751F;&#x7684;&#x672A;&#x6355;&#x83B7;&#x5F02;&#x5E38;</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">import kotlinx.coroutines.*</span><br><span class="line"></span><br><span class="line">fun main() {</span><br><span class="line">    // &#x521B;&#x5EFA;CoroutineExceptionHandler</span><br><span class="line">    val exceptionHandler = CoroutineExceptionHandler { _, exception -&gt;</span><br><span class="line">        println(&quot;Caught an exception: $exception&quot;)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    // &#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x534F;&#x7A0B;&#xFF0C;&#x5E76;&#x6307;&#x5B9A;CoroutineExceptionHandler</span><br><span class="line">    runBlocking {</span><br><span class="line">    	val context = coroutineContext + exceptionHandler</span><br><span class="line">        val job = GlobalScope.launch(context) {</span><br><span class="line">            // &#x6A21;&#x62DF;&#x4E00;&#x4E2A;&#x53EF;&#x80FD;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#x7684;&#x64CD;&#x4F5C;</span><br><span class="line">            println(&quot;Coroutine is doing some work&quot;)</span><br><span class="line">            delay(1000)</span><br><span class="line">            throw CustomException(&quot;Something went wrong!&quot;)</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        // &#x7B49;&#x5F85;&#x534F;&#x7A0B;&#x6267;&#x884C;&#x7ED3;&#x675F;</span><br><span class="line">        job.join()</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">// &#x81EA;&#x5B9A;&#x4E49;&#x5F02;&#x5E38;&#x7C7B;</span><br><span class="line">class CustomException(message: String) : Exception(message)</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x4E2A;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x4E3A;&#x539F;&#x6709;&#x7684;<code>coroutineContext</code>&#x589E;&#x52A0;&#x4E86;&#x6355;&#x83B7;&#x5F02;&#x5E38;&#x7684;<code>exceptionHandler</code>&#xFF0C;&#x4EE5;&#x81F3;&#x4E8E;&#x534F;&#x7A0B;&#x5185;&#x5BB9;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#x65F6;&#xFF0C;&#x4F1A;&#x88AB;<code>CoroutineExceptionHandler</code>&#x6240;&#x6355;&#x83B7;&#x3002;</p>
+<p>&#x4F7F;&#x7528;<code>CoroutineExceptionHandler</code>&#x7684;&#x597D;&#x5904;&#x5728;&#x4E8E;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x96C6;&#x4E2D;&#x5904;&#x7406;&#x534F;&#x7A0B;&#x5185;&#x90E8;&#x7684;&#x6240;&#x6709;&#x5F02;&#x5E38;&#xFF0C;&#x800C;&#x4E0D;&#x5FC5;&#x5728;&#x6BCF;&#x4E2A;&#x534F;&#x7A0B;&#x4F53;&#x4E2D;&#x90FD;&#x4F7F;&#x7528;<code>try-catch</code>&#x5757;&#x6765;&#x6355;&#x83B7;&#x5F02;&#x5E38;&#x3002;</p>
+<ul>
+<li><strong>EmptyCoroutineContext</strong>&#xFF1A;&#x4E00;&#x4E2A;&#x7A7A;&#x7684; CoroutineContext&#x3002;</li>
+</ul>
+<h2 id="CoroutineContext&#x7684;&#x7EE7;&#x627F;"><a href="#CoroutineContext&#x7684;&#x7EE7;&#x627F;" class="headerlink" title="CoroutineContext&#x7684;&#x7EE7;&#x627F;"></a>CoroutineContext&#x7684;&#x7EE7;&#x627F;</h2><p><code>CoroutineContext</code>&#x652F;&#x6301;&#x7EE7;&#x627F;&#x3002;&#x5B50;<code>CoroutineContext</code>&#x53EF;&#x4EE5;&#x7EE7;&#x627F;&#x7236;<code>CoroutineContext</code>&#x7684;&#x6240;&#x6709;&#x7EC4;&#x4EF6;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> = runBlocking {</span><br><span class="line">    <span class="keyword">val</span> parentContext = coroutineContext + Dispatchers.Main + SupervisorJob() + CoroutineName(<span class="string">&quot;&#x5F20;&#x4E09;&quot;</span>)</span><br><span class="line">    <span class="keyword">val</span> childContext = parentContext + Dispatchers.IO</span><br><span class="line"></span><br><span class="line">    println(childContext)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[CoroutineId(2), SupervisorJobImpl{Active}@1b40d5f0, CoroutineName(&#x5F20;&#x4E09;), Dispatchers.IO]</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;<code>parentContext</code> &#x5305;&#x542B; <code>Dispatchers.Main</code>&#x3001;<code>Job()</code>&#x548C;<code>CoroutineName(&quot;&#x5F20;&#x4E09;&quot;)</code>&#xFF0C;<code>childContext</code> &#x7EE7;&#x627F;&#x4E86; <code>parentContext</code> &#x7684;&#x6240;&#x6709;&#x7EC4;&#x4EF6;&#xFF0C;&#x5E76;&#x6DFB;&#x52A0;&#x4E86; <code>Dispatchers.IO</code>&#xFF0C;&#x7531;&#x4E8E;&#x4E0E;<code>Dispatchers.Main</code>&#x540C;&#x4E3A;&#x8C03;&#x5EA6;&#x5668;&#xFF0C;&#x6240;&#x4EE5;&#x6700;&#x7EC8;&#x4FDD;&#x7559;&#x7684;&#x662F;&#x6700;&#x540E;&#x7684;<code>Dispatchers.IO</code>&#x3002;</p>
+<h2 id="CoroutineContext&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;"><a href="#CoroutineContext&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;" class="headerlink" title="CoroutineContext&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;"></a>CoroutineContext&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;</h2><p>&#x5728;&#x4F7F;&#x7528;<code>CoroutineContext</code>&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x4EE5;&#x4E0B;&#x51E0;&#x70B9;&#xFF1A;</p>
+<ul>
+<li><strong>&#x5408;&#x7406;&#x9009;&#x62E9;&#x8C03;&#x5EA6;&#x5668;&#xFF1A;</strong>&#x6839;&#x636E;&#x4EFB;&#x52A1;&#x7684;&#x6027;&#x8D28;&#x9009;&#x62E9;&#x5408;&#x9002;&#x7684;&#x8C03;&#x5EA6;&#x5668;&#xFF0C;&#x907F;&#x514D;&#x5728;IO&#x5BC6;&#x96C6;&#x578B;&#x4EFB;&#x52A1;&#x4E2D;&#x4F7F;&#x7528;CPU&#x5BC6;&#x96C6;&#x578B;&#x7684;&#x8C03;&#x5EA6;&#x5668;&#xFF0C;&#x4EE5;&#x53CA;&#x53CD;&#x4E4B;&#x3002;</li>
+<li><strong>&#x7EC6;&#x81F4;&#x7BA1;&#x7406;CoroutineContext&#xFF1A;</strong>&#x5408;&#x7406;&#x7BA1;&#x7406;CoroutineContext&#x7684;&#x5143;&#x7D20;&#xFF0C;&#x4E0D;&#x8981;&#x8FC7;&#x5EA6;&#x6DFB;&#x52A0;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x5143;&#x7D20;&#xFF0C;&#x4EE5;&#x514D;&#x5F15;&#x8D77;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x6027;&#x80FD;&#x5F00;&#x9500;&#x3002;</li>
+<li><strong>&#x5F02;&#x5E38;&#x5904;&#x7406;&#xFF1A;</strong>&#x53CA;&#x65F6;&#x5904;&#x7406;&#x534F;&#x7A0B;&#x4E2D;&#x7684;&#x5F02;&#x5E38;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5728;CoroutineContext&#x4E2D;&#x6DFB;&#x52A0;CoroutineExceptionHandler&#x5143;&#x7D20;&#x6765;&#x5B9E;&#x73B0;&#x3002;</li>
+</ul>
+<h2 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h2><p>&#x603B;&#x800C;&#x8A00;&#x4E4B;&#xFF0C;<code>CoroutineContext</code>&#x662F;&#x534F;&#x7A0B;&#x7684;&#x4E00;&#x4E2A;&#x91CD;&#x8981;&#x6982;&#x5FF5;&#x3002;&#x5145;&#x5206;&#x7406;&#x89E3;<code>CoroutineContext</code>&#x7684;&#x5DE5;&#x4F5C;&#x539F;&#x7406;&#x548C;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x6837;&#x624D;&#x80FD;&#x66F4;&#x597D;&#x5730;&#x5229;&#x7528;<code>CoroutineContext</code>&#x6765;&#x63A7;&#x5236;&#x534F;&#x7A0B;&#x7684;&#x6267;&#x884C;&#x3002;</p>
+<h2 id="&#x63A8;&#x8350;"><a href="#&#x63A8;&#x8350;" class="headerlink" title="&#x63A8;&#x8350;"></a>&#x63A8;&#x8350;</h2><p><a href="https://github.com/idisfkj/android-startup" target="_blank" rel="noopener">android_startup</a>: &#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x5728;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65F6;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x3001;&#x9AD8;&#x6548;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521D;&#x59CB;&#x5316;&#x7EC4;&#x4EF6;&#xFF0C;&#x4F18;&#x5316;&#x542F;&#x52A8;&#x901F;&#x5EA6;&#x3002;&#x4E0D;&#x4EC5;&#x652F;&#x6301;Jetpack App Startup&#x7684;&#x5168;&#x90E8;&#x529F;&#x80FD;&#xFF0C;&#x8FD8;&#x63D0;&#x4F9B;&#x989D;&#x5916;&#x7684;&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#x7B49;&#x5F85;&#x3001;&#x7EBF;&#x7A0B;&#x63A7;&#x5236;&#x4E0E;&#x591A;&#x8FDB;&#x7A0B;&#x652F;&#x6301;&#x7B49;&#x529F;&#x80FD;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="noopener">AwesomeGithub</a>: &#x57FA;&#x4E8E;Github&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7EAF;&#x7EC3;&#x4E60;&#x9879;&#x76EE;&#xFF0C;&#x652F;&#x6301;&#x7EC4;&#x4EF6;&#x5316;&#x5F00;&#x53D1;&#xFF0C;&#x652F;&#x6301;&#x8D26;&#x6237;&#x5BC6;&#x7801;&#x4E0E;&#x8BA4;&#x8BC1;&#x767B;&#x9646;&#x3002;&#x4F7F;&#x7528;Kotlin&#x8BED;&#x8A00;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#xFF0C;&#x9879;&#x76EE;&#x67B6;&#x6784;&#x662F;&#x57FA;&#x4E8E;JetPack\&amp;DataBinding&#x7684;MVVM&#xFF1B;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;Arouter&#x3001;Retrofit&#x3001;Coroutine&#x3001;Glide&#x3001;Dagger&#x4E0E;Hilt&#x7B49;&#x6D41;&#x884C;&#x5F00;&#x6E90;&#x6280;&#x672F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="noopener">flutter_github</a>: &#x57FA;&#x4E8E;Flutter&#x7684;&#x8DE8;&#x5E73;&#x53F0;&#x7248;&#x672C;Github&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x4E0E;AwesomeGithub&#x76F8;&#x5BF9;&#x5E94;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="noopener">android-api-analysis</a>: &#x7ED3;&#x5408;&#x8BE6;&#x7EC6;&#x7684;Demo&#x6765;&#x5168;&#x9762;&#x89E3;&#x6790;Android&#x76F8;&#x5173;&#x7684;&#x77E5;&#x8BC6;&#x70B9;, &#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x5FEB;&#x7684;&#x638C;&#x63E1;&#x4E0E;&#x7406;&#x89E3;&#x6240;&#x9610;&#x8FF0;&#x7684;&#x8981;&#x70B9;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/daily_algorithm" target="_blank" rel="noopener">daily_algorithm</a>: &#x6BCF;&#x65E5;&#x4E00;&#x7B97;&#x6CD5;&#xFF0C;&#x7531;&#x6D45;&#x5165;&#x6DF1;&#xFF0C;&#x6B22;&#x8FCE;&#x52A0;&#x5165;&#x4E00;&#x8D77;&#x5171;&#x52C9;&#x3002;</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">赞赏是一门艺术</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/rouse_wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/rouse_alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2023/12/31/SharedFlow-vs-StateFlow，一篇看懂选择和使用技巧/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="fexo-comments comments-post">
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>
+  <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+  <script src="https://jjeejj.github.io/js/gitment.js"></script>
+  <script>
+    (function () {
+      var gitment = new Gitment({
+        owner: 'idisfkj',
+        repo: 'idisfkj.github.io',
+        id: 'Sat Jan 06 2024 17:46:37 GMT+0800',
+        oauth: {
+          client_id: 'dafb1df02ea9f875bb78',
+          client_secret: 'e9873d78aa5eaed5ce61d1d865a5af501dae377a'
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      })
+      gitment.render('gitment-comments')
+    })()
+  </script>
+
+  
+  
+</div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
