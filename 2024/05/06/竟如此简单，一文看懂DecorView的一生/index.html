@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>竟如此简单，一文看懂DecorView的一生 | Rouse</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="android,">
+  
+
+  <meta name="description" content="DecorView&amp;#x662F;Android&amp;#x5E94;&amp;#x7528;&amp;#x7A0B;&amp;#x5E8F;&amp;#x4E2D;&amp;#x6240;&amp;#x6709;&amp;#x89C6;&amp;#x56FE;&amp;#x7684;&amp;#x6839;&amp;#x89C6;&amp;#x56FE;&amp;#x3002;&amp;#x5B83;&amp;#x662F;&amp;#x6846;&amp;#x67B6;&amp;#x7528;&amp;#x6765;&amp;#x7BA1;&amp;#x7406;">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="竟如此简单，一文看懂DecorView的一生">
+<meta property="og:url" content="https://www.rousetime.com/2024/05/06/竟如此简单，一文看懂DecorView的一生/index.html">
+<meta property="og:site_name" content="Rouse">
+<meta property="og:description" content="DecorView&amp;#x662F;Android&amp;#x5E94;&amp;#x7528;&amp;#x7A0B;&amp;#x5E8F;&amp;#x4E2D;&amp;#x6240;&amp;#x6709;&amp;#x89C6;&amp;#x56FE;&amp;#x7684;&amp;#x6839;&amp;#x89C6;&amp;#x56FE;&amp;#x3002;&amp;#x5B83;&amp;#x662F;&amp;#x6846;&amp;#x67B6;&amp;#x7528;&amp;#x6765;&amp;#x7BA1;&amp;#x7406;">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2024-05-06T15:21:12.516Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="竟如此简单，一文看懂DecorView的一生">
+<meta name="twitter:description" content="DecorView&amp;#x662F;Android&amp;#x5E94;&amp;#x7528;&amp;#x7A0B;&amp;#x5E8F;&amp;#x4E2D;&amp;#x6240;&amp;#x6709;&amp;#x89C6;&amp;#x56FE;&amp;#x7684;&amp;#x6839;&amp;#x89C6;&amp;#x56FE;&amp;#x3002;&amp;#x5B83;&amp;#x662F;&amp;#x6846;&amp;#x67B6;&amp;#x7528;&amp;#x6765;&amp;#x7BA1;&amp;#x7406;">
+
+  
+
+  
+  <!-- <link href="/favicon.ico" rel="icon" type="image/x-icon"> -->
+    <link rel="icon" href="/favicon.ico">
+    <!-- <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?bd7ea96a22c9c7b90353962460fa0b8e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#与Window的关系"><span class="toc-text">与Window的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与Activity的关系"><span class="toc-text">与Activity的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与ViewRootImpl的关系"><span class="toc-text">与ViewRootImpl的关系</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建流程"><span class="toc-text">创建流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建PhoneWindow"><span class="toc-text">创建PhoneWindow</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化DecorView"><span class="toc-text">初始化DecorView</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将DecorView添加到WindowManager中"><span class="toc-text">将DecorView添加到WindowManager中</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绘制"><span class="toc-text">绘制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐"><span class="toc-text">推荐</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-竟如此简单，一文看懂DecorView的一生" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">竟如此简单，一文看懂DecorView的一生</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2024.05.06</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Rouse</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p><code>DecorView</code>&#x662F;Android&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E2D;&#x6240;&#x6709;&#x89C6;&#x56FE;&#x7684;&#x6839;&#x89C6;&#x56FE;&#x3002;&#x5B83;&#x662F;&#x6846;&#x67B6;&#x7528;&#x6765;&#x7BA1;&#x7406;&#x548C;&#x663E;&#x793A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x754C;&#x9762;&#x7684;&#x6838;&#x5FC3;&#x7EC4;&#x4EF6;&#x4E4B;&#x4E00;&#x3002;&#x7406;&#x89E3;<code>DecorView</code>&#x7684;&#x521B;&#x5EFA;&#x6D41;&#x7A0B;&#x5BF9;&#x4E8E;&#x7406;&#x89E3;Android&#x89C6;&#x56FE;&#x7CFB;&#x7EDF;&#x7684;&#x8FD0;&#x4F5C;&#x65B9;&#x5F0F;&#x81F3;&#x5173;&#x91CD;&#x8981;&#x3002;</p>
+<h2 id="&#x7B80;&#x4ECB;"><a href="#&#x7B80;&#x4ECB;" class="headerlink" title="&#x7B80;&#x4ECB;"></a>&#x7B80;&#x4ECB;</h2><p>DecorView&#x7684;&#x4E3B;&#x8981;&#x89D2;&#x8272;&#x662F;&#x4F5C;&#x4E3A;&#x9876;&#x5C42;&#x5BB9;&#x5668;&#xFF0C;&#x627F;&#x8F7D;&#x7740;&#x5E94;&#x7528;&#x7684;&#x89C6;&#x56FE;&#x7ED3;&#x6784;&#x3002;&#x5F53;&#x5728;&#x5E94;&#x7528;&#x4E2D;&#x4F7F;&#x7528;setContentView&#x65B9;&#x6CD5;&#x52A0;&#x8F7D;&#x5E03;&#x5C40;&#x65F6;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x5C06;&#x8FD9;&#x4E2A;&#x5E03;&#x5C40;&#x4F5C;&#x4E3A;&#x5B50;&#x89C6;&#x56FE;&#x6DFB;&#x52A0;&#x5230;DecorView&#x4E2D;&#x3002;&#x56E0;&#x6B64;&#xFF0C;DecorView&#x5B9A;&#x4E49;&#x4E86;&#x5E94;&#x7528;&#x754C;&#x9762;&#x7684;&#x8FB9;&#x754C;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x89C6;&#x56FE;&#x90FD;&#x5728;&#x8FD9;&#x4E2A;&#x8FB9;&#x754C;&#x5185;&#x8FDB;&#x884C;&#x7ED8;&#x5236;&#x548C;&#x4E8B;&#x4EF6;&#x5206;&#x53D1;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x6765;&#x8BF4;&#x4E00;&#x4E0B;&#xFF0C;DecorView&#x4E0E;Window&#x3001;Activity&#x548C;ViewRootImpl&#x4E4B;&#x95F4;&#x7684;&#x5173;&#x7CFB;&#xFF0C;&#x8FD9;&#x80FD;&#x591F;&#x66F4;&#x597D;&#x5730;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x7406;&#x89E3;&#x5E94;&#x7528;&#x7684;&#x89C6;&#x56FE;&#x5C42;&#x6B21;&#x7ED3;&#x6784;&#x3002;</p>
+<h3 id="&#x4E0E;Window&#x7684;&#x5173;&#x7CFB;"><a href="#&#x4E0E;Window&#x7684;&#x5173;&#x7CFB;" class="headerlink" title="&#x4E0E;Window&#x7684;&#x5173;&#x7CFB;"></a>&#x4E0E;Window&#x7684;&#x5173;&#x7CFB;</h3><p>Window&#x662F;Android&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x62BD;&#x8C61;&#x6982;&#x5FF5;&#xFF0C;&#x4EE3;&#x8868;&#x7740;&#x5C4F;&#x5E55;&#x4E0A;&#x7684;&#x4E00;&#x5757;&#x533A;&#x57DF;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x663E;&#x793A;&#x89C6;&#x56FE;&#x3002;&#x6BCF;&#x4E2A;Activity&#x90FD;&#x4F1A;&#x88AB;&#x8D4B;&#x4E88;&#x4E00;&#x4E2A;Window&#xFF0C;&#x800C;&#x8FD9;&#x4E2A;Window&#x5219;&#x8D1F;&#x8D23;&#x627F;&#x8F7D;DecorView&#x3002;&#x7B80;&#x5355;&#x6765;&#x8BF4;&#xFF0C;Window&#x662F;&#x4E00;&#x4E2A;&#x663E;&#x793A;DecorView&#x7684;&#x5BB9;&#x5668;&#x3002;&#x5728;Android&#x4E2D;&#xFF0C;Window&#x548C;View&#x901A;&#x8FC7;WindowManager&#x670D;&#x52A1;&#x6765;&#x7BA1;&#x7406;&#xFF0C;WindowManager&#x8D1F;&#x8D23;&#x5C06;Window&#xFF08;&#x53CA;&#x5176;&#x5305;&#x542B;&#x7684;DecorView&#xFF09;&#x653E;&#x7F6E;&#x5230;&#x5C4F;&#x5E55;&#x4E0A;&#x7684;&#x6B63;&#x786E;&#x4F4D;&#x7F6E;&#x3002;</p>
+<h3 id="&#x4E0E;Activity&#x7684;&#x5173;&#x7CFB;"><a href="#&#x4E0E;Activity&#x7684;&#x5173;&#x7CFB;" class="headerlink" title="&#x4E0E;Activity&#x7684;&#x5173;&#x7CFB;"></a>&#x4E0E;Activity&#x7684;&#x5173;&#x7CFB;</h3><p>Activity&#x662F;Android&#x5E94;&#x7528;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x57FA;&#x672C;&#x7EC4;&#x4EF6;&#xFF0C;&#x8D1F;&#x8D23;&#x521B;&#x5EFA;&#x7528;&#x6237;&#x754C;&#x9762;&#x3002;&#x6BCF;&#x4E2A;Activity&#x90FD;&#x4F1A;&#x6709;&#x4E00;&#x4E2A;&#x4E0E;&#x4E4B;&#x5173;&#x8054;&#x7684;Window&#xFF0C;&#x800C;&#x8FD9;&#x4E2A;Window&#x5219;&#x627F;&#x8F7D;&#x7740;DecorView&#x3002;&#x5728;Activity&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E2D;&#xFF0C;&#x5F53;&#x8C03;&#x7528;<code>setContentView</code>&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x7CFB;&#x7EDF;&#x5C31;&#x4F1A;&#x5F00;&#x59CB;&#x6784;&#x5EFA;&#x89C6;&#x56FE;&#x5C42;&#x6B21;&#x7ED3;&#x6784;&#xFF0C;&#x5C06;&#x6307;&#x5B9A;&#x7684;&#x5E03;&#x5C40;&#x6587;&#x4EF6;&#x52A0;&#x8F7D;&#x5230;&#x5F53;&#x524D;Activity&#x7684;Window&#x6240;&#x5173;&#x8054;&#x7684;DecorView&#x4E2D;&#x3002;</p>
+<h3 id="&#x4E0E;ViewRootImpl&#x7684;&#x5173;&#x7CFB;"><a href="#&#x4E0E;ViewRootImpl&#x7684;&#x5173;&#x7CFB;" class="headerlink" title="&#x4E0E;ViewRootImpl&#x7684;&#x5173;&#x7CFB;"></a>&#x4E0E;ViewRootImpl&#x7684;&#x5173;&#x7CFB;</h3><p>ViewRootImpl&#x662F;Android UI&#x7CFB;&#x7EDF;&#x7684;&#x5185;&#x90E8;&#x673A;&#x5236;&#xFF0C;&#x4F5C;&#x4E3A;&#x6865;&#x6881;&#x8FDE;&#x63A5;Window&#x548C;DecorView&#x3002;&#x5B83;&#x8D1F;&#x8D23;&#x521D;&#x59CB;&#x5316;&#x89C6;&#x56FE;&#x5C42;&#x6B21;&#x7ED3;&#x6784;&#x7684;&#x6839;&#xFF0C;&#x5904;&#x7406;&#x5E03;&#x5C40;&#x3001;&#x7ED8;&#x5236;&#x3001;&#x4E8B;&#x4EF6;&#x5206;&#x53D1;&#x7B49;&#x3002;&#x5F53;&#x4E00;&#x4E2A;Activity&#x7684;&#x89C6;&#x56FE;&#x88AB;&#x8BBE;&#x7F6E;&#x6216;&#x8005;&#x7A97;&#x53E3;&#x53D1;&#x751F;&#x53D8;&#x5316;&#x65F6;&#xFF0C;ViewRootImpl&#x786E;&#x4FDD;DecorView&#x5F97;&#x5230;&#x66F4;&#x65B0;&#x548C;&#x91CD;&#x65B0;&#x7ED8;&#x5236;&#x3002;ViewRootImpl&#x662F;&#x4E0D;&#x5BF9;&#x5F00;&#x53D1;&#x8005;&#x516C;&#x5F00;&#x7684;&#xFF0C;&#x4F46;&#x5B83;&#x5728;&#x89C6;&#x56FE;&#x6E32;&#x67D3;&#x548C;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x8FC7;&#x7A0B;&#x4E2D;&#x8D77;&#x7740;&#x5173;&#x952E;&#x4F5C;&#x7528;&#x3002;</p>
+<h2 id="&#x521B;&#x5EFA;&#x6D41;&#x7A0B;"><a href="#&#x521B;&#x5EFA;&#x6D41;&#x7A0B;" class="headerlink" title="&#x521B;&#x5EFA;&#x6D41;&#x7A0B;"></a>&#x521B;&#x5EFA;&#x6D41;&#x7A0B;</h2><p>DecorView&#x7684;&#x521B;&#x5EFA;&#x901A;&#x5E38;&#x5728;Activity&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;onCreate&#x65B9;&#x6CD5;&#x4E2D;&#x5F00;&#x59CB;&#xFF0C;&#x5177;&#x4F53;&#x662F;&#x901A;&#x8FC7;&#x8C03;&#x7528;setContentView&#x65B9;&#x6CD5;&#x89E6;&#x53D1;&#x7684;&#x3002;</p>
+<p>&#x5F53;Activity&#x7684;<code>setContentView</code>&#x65B9;&#x6CD5;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#xFF0C;&#x80CC;&#x540E;&#x7684;LayoutInflater&#x5C31;&#x5F00;&#x59CB;&#x53D1;&#x6325;&#x4F5C;&#x7528;&#x3002;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x63A5;&#x53D7;&#x4E00;&#x4E2A;&#x5E03;&#x5C40;&#x8D44;&#x6E90;ID&#xFF0C;&#x7136;&#x540E;LayoutInflater&#x8D1F;&#x8D23;&#x627E;&#x5230;&#x5BF9;&#x5E94;&#x7684;&#x5E03;&#x5C40;&#x6587;&#x4EF6;&#xFF0C;&#x89E3;&#x6790;&#x5B83;&#xFF0C;&#x5E76;&#x6839;&#x636E;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x5B9A;&#x4E49;&#x6784;&#x5EFA;&#x51FA;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684;View&#x6811;&#x3002;&#x8FD9;&#x4E2A;View&#x6811;&#x968F;&#x540E;&#x88AB;&#x8BBE;&#x7F6E;&#x4E3A;Activity&#x7684;&#x5185;&#x5BB9;&#x89C6;&#x56FE;&#xFF0C;&#x5B9E;&#x8D28;&#x4E0A;&#x662F;&#x88AB;&#x6DFB;&#x52A0;&#x5230;Activity&#x6240;&#x5173;&#x8054;&#x7684;Window&#x7684;DecorView&#x4E2D;&#x3002;</p>
+<p>&#x7C7B;&#x4F3C;&#x4E8E;&#x6211;&#x4EEC;&#x76F4;&#x63A5;&#x4F7F;&#x7528;LayoutInflater&#x52A0;&#x8F7D;&#x83B7;&#x53D6;&#x5230;View&#x662F;&#x4E00;&#x6837;&#x7684;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> {</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">    <span class="comment">// &#x4F7F;&#x7528;LayoutInflater&#x52A0;&#x8F7D;&#x5E03;&#x5C40;</span></span><br><span class="line">    <span class="keyword">val</span> inflater = LayoutInflater.from(<span class="keyword">this</span>)</span><br><span class="line">    <span class="keyword">val</span> view = inflater.inflate(R.layout.activity_main, <span class="literal">null</span>)</span><br><span class="line">    setContentView(view)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x6240;&#x4EE5;&#xFF0C;DecorView&#x7684;&#x521B;&#x5EFA;&#x4E4B;&#x524D;&#xFF0C;&#x9700;&#x8981;&#x7ECF;&#x8FC7;Activity&#x7684;&#x542F;&#x52A8;&#x3002;</p>
+<h3 id="&#x521B;&#x5EFA;PhoneWindow"><a href="#&#x521B;&#x5EFA;PhoneWindow" class="headerlink" title="&#x521B;&#x5EFA;PhoneWindow"></a>&#x521B;&#x5EFA;PhoneWindow</h3><p>&#x5728; Activity &#x7684; attach() &#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A; PhoneWindow &#x5BF9;&#x8C61;&#x3002;PhoneWindow &#x662F; Window &#x7684;&#x4E00;&#x4E2A;&#x5B50;&#x7C7B;&#xFF0C;&#x5B83;&#x8D1F;&#x8D23;&#x7BA1;&#x7406;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7A97;&#x53E3;&#x7684;&#x5916;&#x89C2;&#x548C;&#x884C;&#x4E3A;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">final void attach(Context context, ActivityThread aThread,</span><br><span class="line">        Instrumentation instr, IBinder token, int ident,</span><br><span class="line">        Application application, Intent intent, ActivityInfo info,</span><br><span class="line">        CharSequence title, Activity parent, String id,</span><br><span class="line">        NonConfigurationInstances lastNonConfigurationInstances,</span><br><span class="line">        Configuration config, String referrer, IVoiceInteractor voiceInteractor,</span><br><span class="line">        Window window, ActivityConfigCallback activityConfigCallback, IBinder assistToken,</span><br><span class="line">        IBinder shareableActivityToken) {</span><br><span class="line">    attachBaseContext(context);</span><br><span class="line"></span><br><span class="line">    mFragments.attachHost(null /*parent*/);</span><br><span class="line">    mActivityInfo = info;</span><br><span class="line"></span><br><span class="line">    // &#x521B;&#x5EFA;Window</span><br><span class="line">    mWindow = new PhoneWindow(this, window, activityConfigCallback);</span><br><span class="line">    mWindow.setWindowControllerCallback(mWindowControllerCallback);</span><br><span class="line">    mWindow.setCallback(this);</span><br><span class="line">    mWindow.setOnWindowDismissedCallback(this);</span><br><span class="line">    mWindow.getLayoutInflater().setPrivateFactory(this);</span><br><span class="line">    ....</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;PhoneWindow&#x4E2D;&#xFF0C;&#x4F1A;&#x521D;&#x59CB;&#x5316;DecorView&#xFF0C;&#x4F46;&#x5B83;&#x7684;&#x89E6;&#x53D1;&#x903B;&#x8F91;&#x662F;&#x5728;&#x8C03;&#x7528;<code>setContentView</code>&#x7684;&#x65F6;&#x5019;</p>
+<h3 id="&#x521D;&#x59CB;&#x5316;DecorView"><a href="#&#x521D;&#x59CB;&#x5316;DecorView" class="headerlink" title="&#x521D;&#x59CB;&#x5316;DecorView"></a>&#x521D;&#x59CB;&#x5316;DecorView</h3><p>&#x5F53;Activity&#x542F;&#x52A8;&#x65F6;&#xFF0C;&#x5728;<code>onCreate</code>&#x65B9;&#x6CD5;&#x4E2D;&#x901A;&#x5E38;&#x4F1A;&#x8C03;&#x7528;<code>setContentView</code>&#x65B9;&#x6CD5;&#x6765;&#x8BBE;&#x7F6E;Activity&#x7684;&#x7528;&#x6237;&#x754C;&#x9762;&#x5E03;&#x5C40;&#x3002;</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> {</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">    setContentView(R.layout.activity_main)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x4E2D;&#xFF0C;<code>setContentView</code>&#x662F;<code>Activity</code>&#x7C7B;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x5B83;&#x63A5;&#x53D7;&#x4E00;&#x4E2A;&#x5E03;&#x5C40;&#x8D44;&#x6E90;ID&#xFF0C;&#x7528;&#x4E8E;&#x6307;&#x5B9A;Activity&#x7684;&#x5E03;&#x5C40;&#x3002;</p>
+<p>&#x5728;Activity&#x7684;<code>setContentView</code>&#x65B9;&#x6CD5;&#x5185;&#x90E8;&#xFF0C;&#x4F1A;&#x8FDB;&#x884C;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x5173;&#x952E;&#x6B65;&#x9AA4;&#xFF1A;</p>
+<ol>
+<li><p><strong>&#x83B7;&#x53D6;Window</strong>: &#x9996;&#x5148;&#xFF0C;<code>setContentView</code>&#x901A;&#x8FC7;<code>getWindow()</code>&#x65B9;&#x6CD5;&#x83B7;&#x53D6;&#x5F53;&#x524D;Activity&#x7684;Window&#x5BF9;&#x8C61;&#x3002;Window&#x5BF9;&#x8C61;&#x4EE3;&#x8868;&#x4E86;Android&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x7A97;&#x53E3;&#x3002;</p>
+</li>
+<li><p><strong>&#x5E03;&#x5C40;&#x89E3;&#x6790;</strong>: &#x4F7F;&#x7528;LayoutInflater&#x89E3;&#x6790;&#x6307;&#x5B9A;&#x7684;&#x5E03;&#x5C40;&#x8D44;&#x6E90;ID&#x3002;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x4F1A;&#x6839;&#x636E;&#x5E03;&#x5C40;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x5B9A;&#x4E49;&#xFF0C;&#x521B;&#x5EFA;&#x51FA;&#x5BF9;&#x5E94;&#x7684;View&#x5BF9;&#x8C61;&#xFF0C;&#x5E76;&#x6309;&#x7167;&#x5E03;&#x5C40;&#x6587;&#x4EF6;&#x7684;&#x5C42;&#x6B21;&#x7ED3;&#x6784;&#x7EC4;&#x88C5;&#x8FD9;&#x4E9B;&#x5BF9;&#x8C61;&#xFF0C;&#x5F62;&#x6210;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684;&#x89C6;&#x56FE;&#x6811;&#x3002;</p>
+</li>
+<li><p><strong>&#x8BBE;&#x7F6E;&#x5185;&#x5BB9;&#x89C6;&#x56FE;</strong>: &#x901A;&#x8FC7;Window&#x7684;<code>setContentView</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5C06;&#x89E3;&#x6790;&#x597D;&#x7684;&#x89C6;&#x56FE;&#x6811;&#x8BBE;&#x7F6E;&#x4E3A;Window&#x7684;&#x5185;&#x5BB9;&#x89C6;&#x56FE;&#x3002;&#x8FD9;&#x4E2A;&#x89C6;&#x56FE;&#x6811;&#x7684;&#x6839;&#x8282;&#x70B9;&#xFF0C;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x6240;&#x8BF4;&#x7684;DecorView&#x3002;</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setContentView</span><span class="params">(<span class="keyword">int</span> layoutResID)</span> </span>{</span><br><span class="line">    getWindow().setContentView(layoutResID);</span><br><span class="line">    initWindowDecorActionBar();</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>Window&#x7684;<code>setContentView</code>&#x65B9;&#x6CD5;&#x5185;&#x90E8;&#xFF0C;&#x8FDB;&#x4E00;&#x6B65;&#x8C03;&#x7528;&#x4E86;<code>PhoneWindow</code>&#x7684;<code>setContentView</code>&#x5B9E;&#x73B0;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x4F1A;&#x521B;&#x5EFA;&#x6216;&#x627E;&#x5230;DecorView&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x89E3;&#x6790;&#x7684;&#x89C6;&#x56FE;&#x6811;&#x6DFB;&#x52A0;&#x5230;DecorView&#x4E2D;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setContentView</span><span class="params">(<span class="keyword">int</span> layoutResID)</span> </span>{</span><br><span class="line">    <span class="comment">// &#x786E;&#x4FDD;DecorView&#x5DF2;&#x7ECF;&#x88AB;&#x521B;&#x5EFA;</span></span><br><span class="line">    <span class="keyword">if</span> (mContentParent == <span class="keyword">null</span>) {</span><br><span class="line">        installDecor();</span><br><span class="line">    } <span class="keyword">else</span> <span class="keyword">if</span> (!hasFeature(FEATURE_CONTENT_TRANSITIONS)) {</span><br><span class="line">        mContentParent.removeAllViews();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (hasFeature(FEATURE_CONTENT_TRANSITIONS)) {</span><br><span class="line">        <span class="keyword">final</span> Scene newScene = Scene.getSceneForLayout(mContentParent, layoutResID,</span><br><span class="line">                getContext());</span><br><span class="line">        transitionTo(newScene);</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        mLayoutInflater.inflate(layoutResID, mContentParent);</span><br><span class="line">    }</span><br><span class="line">    mContentParent.requestApplyInsets();</span><br><span class="line">    <span class="keyword">final</span> Callback cb = getCallback();</span><br><span class="line">    <span class="keyword">if</span> (cb != <span class="keyword">null</span> &amp;&amp; !isDestroyed()) {</span><br><span class="line">        cb.onContentChanged();</span><br><span class="line">    }</span><br><span class="line">    mContentParentExplicitlySet = <span class="keyword">true</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p><code>installDecor</code>&#x65B9;&#x6CD5;&#x8D1F;&#x8D23;&#x521D;&#x59CB;&#x5316;DecorView&#x3002;&#x5982;&#x679C;DecorView&#x8FD8;&#x6CA1;&#x6709;&#x88AB;&#x521B;&#x5EFA;&#xFF0C;<code>PhoneWindow</code>&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;DecorView&#x5B9E;&#x4F8B;&#xFF0C;&#x5E76;&#x5C06;&#x5176;&#x8BBE;&#x7F6E;&#x4E3A;&#x7A97;&#x53E3;&#x7684;&#x6839;&#x89C6;&#x56FE;&#x3002;&#x63A5;&#x7740;&#xFF0C;&#x89E3;&#x6790;&#x7684;&#x89C6;&#x56FE;&#x6811;&#xFF08;&#x5373;Activity&#x7684;&#x5E03;&#x5C40;&#xFF09;&#x88AB;&#x6DFB;&#x52A0;&#x5230;DecorView&#x4E2D;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">installDecor</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (mDecor == <span class="keyword">null</span>) {</span><br><span class="line">        mDecor = generateDecor(-<span class="number">1</span>);</span><br><span class="line">        mDecor.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);</span><br><span class="line">        mDecor.setIsRootNamespace(<span class="keyword">true</span>);</span><br><span class="line">        ...</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        ...</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (mContentParent == <span class="keyword">null</span>) {</span><br><span class="line">        mContentParent = generateLayout(mDecor);</span><br><span class="line">        <span class="comment">// &#x5176;&#x4ED6;&#x521D;&#x59CB;&#x5316;&#x4EE3;&#x7801;...</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x901A;&#x8FC7;&#x8FD9;&#x4E2A;&#x6D41;&#x7A0B;&#xFF0C;DecorView&#x88AB;&#x521B;&#x5EFA;&#x5E76;&#x4F5C;&#x4E3A;Window&#x7684;&#x5185;&#x5BB9;&#x89C6;&#x56FE;&#x3002;&#x5B83;&#x4E0D;&#x4EC5;&#x5305;&#x542B;&#x4E86;Activity&#x7684;&#x5E03;&#x5C40;&#xFF0C;&#x8FD8;&#x53EF;&#x80FD;&#x5305;&#x542B;&#x7A97;&#x53E3;&#x7EA7;&#x522B;&#x7684;UI&#x5143;&#x7D20;&#xFF0C;&#x5982;&#x72B6;&#x6001;&#x680F;&#x548C;&#x5BFC;&#x822A;&#x680F;&#x3002;</p>
+<h3 id="&#x5C06;DecorView&#x6DFB;&#x52A0;&#x5230;WindowManager&#x4E2D;"><a href="#&#x5C06;DecorView&#x6DFB;&#x52A0;&#x5230;WindowManager&#x4E2D;" class="headerlink" title="&#x5C06;DecorView&#x6DFB;&#x52A0;&#x5230;WindowManager&#x4E2D;"></a>&#x5C06;DecorView&#x6DFB;&#x52A0;&#x5230;WindowManager&#x4E2D;</h3><p>WindowManager &#x662F;&#x7CFB;&#x7EDF;&#x670D;&#x52A1;&#xFF0C;&#x5B83;&#x8D1F;&#x8D23;&#x7BA1;&#x7406;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7A97;&#x53E3;&#x7684;&#x663E;&#x793A;&#x3002;&#x5B83;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E9B;&#x7528;&#x4E8E;&#x7BA1;&#x7406;&#x7A97;&#x53E3;&#x663E;&#x793A;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x4F8B;&#x5982;&#x6DFB;&#x52A0;&#x3001;&#x5220;&#x9664;&#x3001;&#x66F4;&#x65B0;&#x7A97;&#x53E3;&#x7B49;&#x3002;</p>
+<p>&#x5728; Activity &#x7684; onResume() &#x65B9;&#x6CD5;&#x4E4B;&#x540E;&#xFF0C;&#x4F1A;&#x5C06; DecorView &#x6DFB;&#x52A0;&#x5230; WindowManager &#x4E2D;&#x3002;&#x8FD9;&#x5C06;&#x5BFC;&#x81F4; DecorView &#x663E;&#x793A;&#x5728;&#x5C4F;&#x5E55;&#x4E0A;&#x3002;</p>
+<p>&#x89E6;&#x53D1;&#x70B9;&#x662F;&#x5728;&#xFF0C;<code>ActivityThread</code>&#x4E2D;&#x7684;<code>handleResumeActivity()</code>&#x65B9;&#x6CD5;&#x4E2D;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void handleResumeActivity(ActivityClientRecord r, boolean finalStateRequest,</span><br><span class="line">        boolean isForward, boolean shouldSendCompatFakeFocus, String reason) {</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    // &#x6267;&#x884C;Activity onResume</span><br><span class="line">    if (!performResumeActivity(r, finalStateRequest, reason)) {</span><br><span class="line">        return;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    if (r.window == null &amp;&amp; !a.mFinished &amp;&amp; willBeVisible) {</span><br><span class="line">        // PhoneWindow</span><br><span class="line">        r.window = r.activity.getWindow();</span><br><span class="line">        View decor = r.window.getDecorView();</span><br><span class="line">        decor.setVisibility(View.INVISIBLE);</span><br><span class="line">        ViewManager wm = a.getWindowManager();</span><br><span class="line">        WindowManager.LayoutParams l = r.window.getAttributes();</span><br><span class="line">        a.mDecor = decor;</span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">        if (a.mVisibleFromClient) {</span><br><span class="line">            if (!a.mWindowAdded) {</span><br><span class="line">                a.mWindowAdded = true;</span><br><span class="line"></span><br><span class="line">                // &#x6DFB;&#x52A0;&#x5230;WindowManager&#x4E2D;&#xFF0C;&#x5E76;&#x4E0E;wms&#x5EFA;&#x7ACB;&#x53CC;&#x5411;&#x901A;&#x4FE1;</span><br><span class="line">                wm.addView(decor, l);</span><br><span class="line">            } else {</span><br><span class="line">                a.onWindowAttributesChanged(l);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    } else if (!willBeVisible) {</span><br><span class="line">        if (localLOGV) Slog.v(TAG, &quot;Launch &quot; + r + &quot; mStartedActivity set&quot;);</span><br><span class="line">        r.hideForNow = true;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x5C31;&#x662F;&#x4E3A;&#x4EC0;&#x4E48;&#x6211;&#x4EEC;&#x5728;<code>onCreate</code>&#x4E0E;<code>onResume</code>&#x7684;&#x65F6;&#x5019;&#x4E0D;&#x80FD;&#x76F4;&#x63A5;&#x62FF;&#x5230;View&#x7684;&#x5BBD;&#x9AD8;&#x7684;&#x539F;&#x56E0;&#x3002;&#x56E0;&#x4E3A;<code>DecorView</code>&#x6DFB;&#x52A0;&#x662F;&#x5728;<code>onResume</code>&#x4E4B;&#x540E;&#x3002;</p>
+<h2 id="&#x7ED8;&#x5236;"><a href="#&#x7ED8;&#x5236;" class="headerlink" title="&#x7ED8;&#x5236;"></a>&#x7ED8;&#x5236;</h2><p>&#x4E00;&#x65E6;DecorView&#x88AB;&#x521B;&#x5EFA;&#x5E76;&#x8BBE;&#x7F6E;&#x5185;&#x5BB9;&#xFF0C;<code>ViewRootImpl</code>&#x5C31;&#x8D1F;&#x8D23;&#x5C06;DecorView&#x9644;&#x52A0;&#x5230;&#x7A97;&#x53E3;&#x3002;<code>ViewRootImpl</code>&#x662F;&#x4E00;&#x4E2A;&#x7CFB;&#x7EDF;&#x5185;&#x90E8;&#x4F7F;&#x7528;&#x7684;&#x7C7B;&#xFF0C;&#x5B83;&#x8FDE;&#x63A5;&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;&#xFF08;WindowManager&#xFF09;&#x548C;DecorView&#xFF0C;&#x5904;&#x7406;&#x5E03;&#x5C40;&#x3001;&#x7ED8;&#x5236;&#x548C;&#x4E8B;&#x4EF6;&#x5206;&#x53D1;&#x3002;</p>
+<p>&#x5728;&#x4E0A;&#x9762;&#x5C06;DecorView&#x6DFB;&#x52A0;&#x5230;WindowManager&#x4E2D;&#x65F6;&#xFF0C;&#x5185;&#x90E8;&#x662F;&#x4EA4;&#x7531;<code>WindowManagerGlobal</code>&#x7684;<code>addView</code>&#x5904;&#x7406;&#xFF0C;&#x5728;&#x8BE5;&#x65B9;&#x6CD5;&#x4E2D;&#x4F1A;&#x521B;&#x5EFA;<code>ViewRootImpl</code>&#x5BF9;&#x8C61;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">public void addView(View view, ViewGroup.LayoutParams params,</span><br><span class="line">        Display display, Window parentWindow, int userId) {</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    ViewRootImpl root;</span><br><span class="line">    View panelParentView = null;</span><br><span class="line"></span><br><span class="line">    synchronized (mLock) {</span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">        // &#x521B;&#x5EFA;ViewRootImpl</span><br><span class="line">        if (windowlessSession == null) {</span><br><span class="line">            root = new ViewRootImpl(view.getContext(), display);</span><br><span class="line">        } else {</span><br><span class="line">            root = new ViewRootImpl(view.getContext(), display,</span><br><span class="line">                    windowlessSession, new WindowlessWindowLayout());</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        view.setLayoutParams(wparams);</span><br><span class="line"></span><br><span class="line">        mViews.add(view);</span><br><span class="line">        mRoots.add(root);</span><br><span class="line">        mParams.add(wparams);</span><br><span class="line"></span><br><span class="line">        try {</span><br><span class="line"></span><br><span class="line">            // &#x5C06;DecorView&#x4EA4;&#x7531;ViewRootImpl&#xFF0C;&#x8FDB;&#x884C;&#x540E;&#x7EED;&#x7684;&#x7ED8;&#x5236;&#x4E0E;&#x4E8B;&#x4EF6;&#x5206;&#x53D1;&#x7B49;&#x51FA;&#x6765;&#x3002;</span><br><span class="line">            root.setView(view, wparams, panelParentView, userId);</span><br><span class="line">        } catch (RuntimeException e) {</span><br><span class="line">            final int viewIndex = (index &gt;= 0) ? index : (mViews.size() - 1);</span><br><span class="line">            if (viewIndex &gt;= 0) {</span><br><span class="line">                removeViewLocked(viewIndex, true);</span><br><span class="line">            }</span><br><span class="line">            throw e;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x5C31;&#x80FD;&#x53D1;&#x73B0;&#xFF0C;DecorView&#x7684;&#x7ED8;&#x5236;&#x662F;&#x7531;<code>ViewRootImpl</code>&#x89E6;&#x53D1;&#x7684;&#xFF0C;&#x800C;&#x5185;&#x90E8;&#x5176;&#x5B9E;&#x662F;&#x8C03;&#x7528;&#x4E86;&#x5B83;&#x7684;<code>requestLayout()</code>&#x65B9;&#x6CD5;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public void setView(View view, WindowManager.LayoutParams attrs, View panelParentView,</span><br><span class="line">        int userId) {</span><br><span class="line">    ...</span><br><span class="line">    requestLayout()</span><br><span class="line">    ...</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">@Override</span><br><span class="line">public void requestLayout() {</span><br><span class="line">    if (!mHandlingLayoutInLayoutRequest) {</span><br><span class="line">        // &#x4E3B;&#x7EBF;&#x7A0B;&#x5224;&#x65AD;</span><br><span class="line">        checkThread();</span><br><span class="line">        mLayoutRequested = true;</span><br><span class="line">        // &#x7B49;&#x5F85;&#x5782;&#x76F4;&#x5237;&#x65B0;&#x4FE1;&#x53F7;&#x91CF;&#x7684;&#x5230;&#x6765;&#xFF0C;&#x89E6;&#x53D1;&#x5206;&#x53D1;&#x7ED8;&#x5236;&#x6D41;&#x7A0B;</span><br><span class="line">        scheduleTraversals();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5728;<code>requestLayout()</code>&#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x505A;&#x4E86;&#x7ECF;&#x5178;&#x7684;&#x4E24;&#x4EF6;&#x4E8B;&#x60C5;</p>
+<ol>
+<li>&#x9A8C;&#x8BC1;&#x662F;&#x5426;&#x662F;&#x5728;&#x4E3B;&#x7EBF;&#x7A0B;&#x89E6;&#x53D1;</li>
+<li>&#x7B49;&#x5F85;&#x5237;&#x65B0;&#xFF0C;&#x89E6;&#x53D1;&#x540E;&#x7EED;&#x7684;&#x7ED8;&#x5236;&#x6D41;&#x7A0B;</li>
+</ol>
+<h2 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h2><p>&#x6700;&#x540E;&#xFF0C;&#x603B;&#x7ED3;&#x4E00;&#x4E0B;&#xFF0C;&#x6574;&#x4E2A;&#x6D41;&#x7A0B;&#x4E3B;&#x8981;&#x53EF;&#x4EE5;&#x5F52;&#x7EB3;&#x4E3A;&#x56DB;&#x6B65;&#xFF1A;</p>
+<ol>
+<li>&#x5728;<code>Activity</code>&#x7684;<code>attach()</code>&#x65B9;&#x6CD5;&#x91CC;&#x9762;&#x5148;&#x521B;&#x5EFA;<code>PhoneWindow</code>&#x5E76;&#x83B7;&#x53D6;<code>WindowManager</code></li>
+<li>&#x5728;<code>Activity</code>&#x7684;<code>onCreate()</code>&#x65B9;&#x6CD5;&#x91CC;&#x8C03;&#x7528;<code>setContentView()</code>&#x4F1A;&#x901A;&#x8FC7;&#x8C03;&#x7528;&#x7528;<code>PhoneWindow</code>&#x7684;<code>installDecor()</code>&#x6765;&#x521B;&#x5EFA;<code>DecorView</code>&#x3002;</li>
+<li>&#x5728;<code>Activity</code>&#x7684;<code>onResume()</code>&#x65B9;&#x6CD5;&#x4E4B;&#x540E;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;<code>handleResumeActivity()</code>&#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x4F1A;&#x628A;<code>DecorView</code>&#x6DFB;&#x52A0;&#x5230;<code>WindowMangaer</code>&#x4E2D;&#xFF0C;&#x5E76;&#x4E0E;<code>wms</code>&#x5EFA;&#x7ACB;&#x53CC;&#x5411;&#x901A;&#x4FE1;&#x3002;&#x6700;&#x7EC8;&#x4EA4;&#x4E2A;<code>ViewRootImpl</code>&#x8FDB;&#x884C;&#x540E;&#x7EED;&#x7684;&#x7ED8;&#x5236;&#x6D41;&#x7A0B;&#x3002;</li>
+<li>&#x5728;<code>ViewRootImple</code>&#x4E2D;&#xFF0C;&#x9A8C;&#x8BC1;&#x89E6;&#x53D1;&#x7EBF;&#x7A0B;&#xFF0C;&#x5E76;&#x7B49;&#x5230;&#x5C4F;&#x5E55;&#x5237;&#x65B0;&#x4FE1;&#x53F7;&#x6765;&#x4E86;&#xFF0C;&#x4F1A;&#x8C03;&#x7528;&#x5230;<code>ViewRootImpl</code>&#x7684;<code>performTraversals()</code>&#x6765;&#x8FDB;&#x884C;&#x540E;&#x7EED;&#x7684;&#x7ED8;&#x5236;&#x3002;</li>
+</ol>
+<h2 id="&#x63A8;&#x8350;"><a href="#&#x63A8;&#x8350;" class="headerlink" title="&#x63A8;&#x8350;"></a>&#x63A8;&#x8350;</h2><p><a href="https://github.com/idisfkj/android-startup" target="_blank" rel="noopener">android_startup</a>: &#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x5728;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65F6;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x3001;&#x9AD8;&#x6548;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521D;&#x59CB;&#x5316;&#x7EC4;&#x4EF6;&#xFF0C;&#x4F18;&#x5316;&#x542F;&#x52A8;&#x901F;&#x5EA6;&#x3002;&#x4E0D;&#x4EC5;&#x652F;&#x6301;Jetpack App Startup&#x7684;&#x5168;&#x90E8;&#x529F;&#x80FD;&#xFF0C;&#x8FD8;&#x63D0;&#x4F9B;&#x989D;&#x5916;&#x7684;&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#x7B49;&#x5F85;&#x3001;&#x7EBF;&#x7A0B;&#x63A7;&#x5236;&#x4E0E;&#x591A;&#x8FDB;&#x7A0B;&#x652F;&#x6301;&#x7B49;&#x529F;&#x80FD;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/AwesomeGithub" target="_blank" rel="noopener">AwesomeGithub</a>: &#x57FA;&#x4E8E;Github&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7EAF;&#x7EC3;&#x4E60;&#x9879;&#x76EE;&#xFF0C;&#x652F;&#x6301;&#x7EC4;&#x4EF6;&#x5316;&#x5F00;&#x53D1;&#xFF0C;&#x652F;&#x6301;&#x8D26;&#x6237;&#x5BC6;&#x7801;&#x4E0E;&#x8BA4;&#x8BC1;&#x767B;&#x9646;&#x3002;&#x4F7F;&#x7528;Kotlin&#x8BED;&#x8A00;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#xFF0C;&#x9879;&#x76EE;&#x67B6;&#x6784;&#x662F;&#x57FA;&#x4E8E;JetPack\&amp;DataBinding&#x7684;MVVM&#xFF1B;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;Arouter&#x3001;Retrofit&#x3001;Coroutine&#x3001;Glide&#x3001;Dagger&#x4E0E;Hilt&#x7B49;&#x6D41;&#x884C;&#x5F00;&#x6E90;&#x6280;&#x672F;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/flutter_github" target="_blank" rel="noopener">flutter_github</a>: &#x57FA;&#x4E8E;Flutter&#x7684;&#x8DE8;&#x5E73;&#x53F0;&#x7248;&#x672C;Github&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x4E0E;AwesomeGithub&#x76F8;&#x5BF9;&#x5E94;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/android-api-analysis" target="_blank" rel="noopener">android-api-analysis</a>: &#x7ED3;&#x5408;&#x8BE6;&#x7EC6;&#x7684;Demo&#x6765;&#x5168;&#x9762;&#x89E3;&#x6790;Android&#x76F8;&#x5173;&#x7684;&#x77E5;&#x8BC6;&#x70B9;, &#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x80FD;&#x591F;&#x66F4;&#x5FEB;&#x7684;&#x638C;&#x63E1;&#x4E0E;&#x7406;&#x89E3;&#x6240;&#x9610;&#x8FF0;&#x7684;&#x8981;&#x70B9;&#x3002;</p>
+<p><a href="https://github.com/idisfkj/daily_algorithm" target="_blank" rel="noopener">daily_algorithm</a>: &#x6BCF;&#x65E5;&#x4E00;&#x7B97;&#x6CD5;&#xFF0C;&#x7531;&#x6D45;&#x5165;&#x6DF1;&#xFF0C;&#x6B22;&#x8FCE;&#x52A0;&#x5165;&#x4E00;&#x8D77;&#x5171;&#x52C9;&#x3002;</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">赞赏是一门艺术</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/rouse_wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/rouse_alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2024/03/25/Recyclerview竟能够如此丝滑，这14个优化策略不容错过/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="fexo-comments comments-post">
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>
+  <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+  <script src="https://jjeejj.github.io/js/gitment.js"></script>
+  <script>
+    (function () {
+      var gitment = new Gitment({
+        owner: 'idisfkj',
+        repo: 'idisfkj.github.io',
+        id: 'Mon May 06 2024 23:20:46 GMT+0800',
+        oauth: {
+          client_id: 'dafb1df02ea9f875bb78',
+          client_secret: 'e9873d78aa5eaed5ce61d1d865a5af501dae377a'
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      })
+      gitment.render('gitment-comments')
+    })()
+  </script>
+
+  
+  
+</div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
